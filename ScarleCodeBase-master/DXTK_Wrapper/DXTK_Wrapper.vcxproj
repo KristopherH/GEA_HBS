@@ -110,6 +110,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Collision_Manager.h" />
+    <ClInclude Include="CustomMath.h" />
     <ClInclude Include="Input_Manager.h" />
     <ClInclude Include="Object_Manager.h" />
   </ItemGroup>

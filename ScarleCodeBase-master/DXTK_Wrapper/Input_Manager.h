@@ -3,6 +3,9 @@
 class InputManager
 {
 public:
+	InputManager() = default;
+	~InputManager() = default;
+
 
 #pragma region Mouse Input
 	bool getMouseRightDown();
