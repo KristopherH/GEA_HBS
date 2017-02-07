@@ -15,8 +15,6 @@
 
 using namespace DirectX;
 
-class Game;
-
 class Application
 {
 public:
@@ -57,7 +55,6 @@ protected:
 	float m_ClearColour[4];
 
 	//pointer to current game
-	Game*					m_Game = nullptr;
 };
 
 #endif

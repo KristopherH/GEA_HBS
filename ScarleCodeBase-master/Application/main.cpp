@@ -27,7 +27,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 	Application App;
-	Game* myGame = nullptr;
+	//Game* myGame = nullptr;
 
 	if (FAILED(App.InitWindow(hInstance, nCmdShow)))
 		return 0;

@@ -50,7 +50,7 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
     // Create window
     m_hInst = _hInstance;
 #ifdef DEBUG
-	RECT rc = { 0, 0, 800, 600 };
+	RECT rc = { 0, 0, 1600, 1200 };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 	m_hWnd = CreateWindow(L"GEAWindowClass", L"GEA GROUP PROJECT", WS_OVERLAPPEDWINDOW,
 		600, 100, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, _hInstance,
@@ -80,7 +80,7 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
     ShowWindow( m_hWnd, _nCmdShow );
 
 	//Hide the mouse pointer
-	ShowCursor(false);
+	ShowCursor(true);
 	
     return S_OK;
 }
@@ -292,7 +292,7 @@ HRESULT Application::InitDevice()
 	m_pImmediateContext->RSSetState(m_pRasterState);
 
 	//actually create the game
-	m_Game = new Game(m_pd3dDevice,m_hWnd,m_hInst);
+	//m_Game = new Game(m_pd3dDevice,m_hWnd,m_hInst);
 
     return S_OK;
 }
@@ -310,7 +310,7 @@ void Application::Render()
 	m_pImmediateContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0, 0);
 
 	//Render the next frame from the game
-	if (m_Game) m_Game->Draw(m_pImmediateContext); 
+	//if (m_Game) m_Game->Draw(m_pImmediateContext); 
 
 	m_pSwapChain->Present(0, 0);
 }
@@ -321,12 +321,12 @@ void Application::Render()
 //--------------------------------------------------------------------------------------
 bool Application::Update()
 {
-	if (m_Game)
+	/*if (m_Game)
 	{
 		return m_Game->Tick();
-	}
+	}*/
 
-	return false;
+	return true;
 }
 
 
@@ -336,11 +336,11 @@ bool Application::Update()
 void Application::CleanupDevice()
 {
 	//Destroy the Game instance
-	if (m_Game)
+	/*if (m_Game)
 	{
 		delete m_Game;
 		m_Game = nullptr;
-	}
+	}*/
 
 	//Tidy up all DirectX stuff
     if( m_pImmediateContext ) m_pImmediateContext->ClearState();
