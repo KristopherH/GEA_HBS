@@ -1,10 +1,12 @@
 #pragma once
+#include <dinput.h>
 
 class InputManager
 {
 public:
-	InputManager() = default;
-	~InputManager() = default;
+	InputManager() = delete;
+	InputManager(HWND _window, HINSTANCE _h_instance);
+	~InputManager();
 
 
 #pragma region Mouse Input
@@ -32,7 +34,16 @@ public:
 #pragma endregion going to have to look more into this (pre-processor shit)
 
 #pragma region Couple of checkers (need to double check what these would be)
-
+	bool init();
+	bool readKeyboard();
 #pragma endregion
 
+private:
+
+	unsigned char keyboard_state[256];
+	unsigned char previous_keyboard_state[256];
+	IDirectInput8* user_direct_input = nullptr;
+	IDirectInputDevice8* user_keyboard = nullptr;
+	HWND window;
+	HINSTANCE h_instance;
 };
