@@ -8,9 +8,6 @@ public:
 	GameObject();
 	~GameObject();
 	
-	bool init();
-	bool update();
-
 	Vec2 getPosition();
 	Vec2 getSize();
 	float getOpacity();
