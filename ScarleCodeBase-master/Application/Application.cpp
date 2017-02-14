@@ -292,7 +292,7 @@ HRESULT Application::InitDevice()
 	m_pImmediateContext->RSSetState(m_pRasterState);
 
 	//actually create the game
-	//m_Game = new Game(m_pd3dDevice,m_hWnd,m_hInst);
+	m_Game = new Game(m_pd3dDevice,m_hWnd,m_hInst);
 
     return S_OK;
 }
@@ -310,7 +310,7 @@ void Application::Render()
 	m_pImmediateContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0, 0);
 
 	//Render the next frame from the game
-	//if (m_Game) m_Game->Draw(m_pImmediateContext); 
+	if (m_Game) m_Game->Draw(m_pImmediateContext); 
 
 	m_pSwapChain->Present(0, 0);
 }
@@ -321,10 +321,10 @@ void Application::Render()
 //--------------------------------------------------------------------------------------
 bool Application::Update()
 {
-	/*if (m_Game)
+	if (m_Game)
 	{
 		return m_Game->Tick();
-	}*/
+	}
 
 	return true;
 }
@@ -336,11 +336,11 @@ bool Application::Update()
 void Application::CleanupDevice()
 {
 	//Destroy the Game instance
-	/*if (m_Game)
+	if (m_Game)
 	{
 		delete m_Game;
 		m_Game = nullptr;
-	}*/
+	}
 
 	//Tidy up all DirectX stuff
     if( m_pImmediateContext ) m_pImmediateContext->ClearState();

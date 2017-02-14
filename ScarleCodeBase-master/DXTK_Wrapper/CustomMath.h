@@ -17,8 +17,8 @@ struct Vec2
 	//Creation and convertion
 	Vec2(float _x = 0.0f, float _y = 0.0f);
 	DirectX::SimpleMath::Vector2 operator=(Vec2);
-	Vec2 operator=(DirectX::SimpleMath::Vector3);
-	operator DirectX::SimpleMath::Vector3();
+	Vec2 operator=(DirectX::SimpleMath::Vector2);
+	operator DirectX::SimpleMath::Vector2();
 
 	// Operator Overloads
 	Vec2& operator+=(const Vec2& other) { this->x += other.x; this->y += other.y; }
@@ -35,7 +35,7 @@ struct Vec2
 	void Limit(float _length);
 	void Normalize();
 	float Length();
-	float LenghtSqrd();
+	float LengthSqrd();
 	static float Distance(const Vec2& V1, const Vec2& V2);
 	static float DistanceSqrd(const Vec2& V1, const Vec2& V2);
 };

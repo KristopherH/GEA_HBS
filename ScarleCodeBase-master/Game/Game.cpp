@@ -103,12 +103,20 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	m_DD->m_cam = m_cam;
 	m_DD->m_light = m_light;
 
+	RWSprite* sprite = new RWSprite();
+	sprite->init(5, _pd3dDevice);
+	m_GameObjects.push_back(sprite);
+	sprite->SetPos(Vector3(0.0f, 0.0f, -100.0f));
+	sprite->SetPitch(XM_PIDIV4);
+	sprite->SetScale(20.0f);
+
+	
 	//add random content to show the various what you've got here
 	Terrain* terrain = new Terrain("table.cmo", _pd3dDevice, m_fxFactory, Vector3(100.0f, 0.0f, 100.0f), 0.0f, 0.0f, 0.0f, 0.25f * Vector3::One);
 	m_GameObjects.push_back(terrain);
 
 	//add some stuff to show off
-
+	/*
 	FileVBGO* terrainBox = new FileVBGO("../Assets/terrainTex.txt", _pd3dDevice);
 	m_GameObjects.push_back(terrainBox);
 
@@ -120,7 +128,7 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 
 	//L-system like tree
 	m_GameObjects.push_back(new Tree(4, 4, .6f, 10.0f *Vector3::Up, XM_PI/6.0f, "JEMINA vase -up.cmo", _pd3dDevice, m_fxFactory));
-
+	*/
 	VBCube* cube = new VBCube();
 	cube->init(11, _pd3dDevice);
 	cube->SetPos(Vector3(100.0f, 0.0f, 0.0f));
@@ -168,6 +176,7 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	text->SetPos(Vector2(100, 10));
 	text->SetColour(Color((float*)&Colors::Yellow));
 	m_GameObject2Ds.push_back(text);
+	
 };
 
 
@@ -244,7 +253,7 @@ bool Game::Tick()
 	//lock the cursor to the centre of the window
 	RECT window;
 	GetWindowRect(m_hWnd, &window);
-	SetCursorPos((window.left + window.right) >> 1, (window.bottom + window.top) >> 1);
+	//SetCursorPos((window.left + window.right) >> 1, (window.bottom + window.top) >> 1);
 
 	//calculate frame time-step dt for passing down to game objects
 	DWORD currentTime = GetTickCount();
