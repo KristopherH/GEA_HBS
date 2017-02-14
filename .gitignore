@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+ScarleCodeBase-master/Game/Sprite.h
+*.cpp
