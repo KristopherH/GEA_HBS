@@ -21,14 +21,14 @@ struct Vec2
 	operator DirectX::SimpleMath::Vector3();
 
 	// Operator Overloads
-	Vec2& operator+=(const Vec2& otehr);
-	Vec2& operator-=(const Vec2& other);
-	Vec2& operator*=(const Vec2& other);
-	Vec2& operator*=(const float& other);
-	Vec2& operator/=(const float& other);
+	Vec2& operator+=(const Vec2& other) { this->x += other.x; this->y += other.y; }
+	Vec2& operator-=(const Vec2& other) { this->x -= other.x; this->y -= other.y; }
+	Vec2& operator*=(const Vec2& other) { this->x *= other.x; this->y *= other.y; }
+	Vec2& operator*=(const float& other) { this->x *= other; this->y *= other; }
+	Vec2& operator/=(const float& other) { this->x /= other; this->y /= other; }
 
 	// Static Operators
-	static Vec2 operator+(const Vec2& V1, const Vec2& V2);
+	static Vec2 operator+(const Vec2& V1, const Vec2& V2); //{ x = V1.x + V2.x; y = V1.y + V2.y; }
 	static Vec2 operator-(const Vec2& V1, const Vec2& V2);
 
 	// Useful Functions

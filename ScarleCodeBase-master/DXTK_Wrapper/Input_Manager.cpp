@@ -10,8 +10,16 @@ InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 
 InputManager::~InputManager()
 {
-	if (user_direct_input)	user_direct_input->Release();
-	if (user_keyboard)		user_keyboard->Release();
+	if (user_direct_input) 
+	{
+		//user_direct_input???
+		user_direct_input->Release();
+	}
+	if (user_keyboard)
+	{
+		user_keyboard->Unacquire();
+		user_keyboard->Release();
+	}
 	delete[]				keyboard_state;
 	delete[]				previous_keyboard_state;
 }
