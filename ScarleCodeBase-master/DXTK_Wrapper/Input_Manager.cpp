@@ -83,7 +83,8 @@ bool InputManager::getMouseMiddleHeld()
 
 bool InputManager::getKeyDown(unsigned int key)
 {
-	if (keyboard_state[key] && !previous_keyboard_state[key]) return true;
+	if (keyboard_state[key] && !previous_keyboard_state[key]) 
+		return true;
 
 	return false;
 }

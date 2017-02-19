@@ -1,7 +1,9 @@
 #include "CustomMath.h"
 
 Vec2::Vec2(float _x, float _y)
-{}
+	:x(_x), y(_y)
+{
+}
 
 DirectX::SimpleMath::Vector2 Vec2::operator=(Vec2)
 {
@@ -13,18 +15,13 @@ Vec2 Vec2::operator=(DirectX::SimpleMath::Vector2 _vec)
 	return Vec2(_vec.x, _vec.y);
 }
 
-Vec2::operator DirectX::SimpleMath::Vector2()
-{}
-
-Vec2 Vec2::operator+(const Vec2 & V1, const Vec2 & V2)
+Vec2 & Vec2::operator*=(const float & other)
 {
-	return Vec2(V1.x + V2.x, V1.y + V2.y);
+	x *= other;
+	y *= other;
+	return *this;
 }
 
-Vec2 Vec2::operator-(const Vec2 & V1, const Vec2 & V2)
-{
-	return Vec2(V1.x - V2.x, V1.y - V2.y);
-}
 
 void Vec2::Limit(float _length)
 {
@@ -74,4 +71,25 @@ bool Rect::Contains(Vec2 oth)
 Vec2 Rect::Center()
 {
 	return Vec2();
+}
+
+Vec4::Vec4(float _x, float _y, float _z, float _w)
+	:x(_x), y(_y), z(_z), w(_w)
+{
+
+}
+
+DirectX::SimpleMath::Color Vec4::operator=(Vec4 oth)
+{
+	return DirectX::SimpleMath::Color(oth.x, oth.y, oth.z, oth.w);
+}
+
+Vec4 Vec4::operator=(DirectX::SimpleMath::Vector4 oth)
+{
+	return Vec4(oth.x, oth.y, oth.z, oth.w);
+}
+
+Vec4::operator DirectX::SimpleMath::Vector4()
+{
+	return Vec4();
 }

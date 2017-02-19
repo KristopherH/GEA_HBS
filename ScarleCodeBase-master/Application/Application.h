@@ -15,6 +15,7 @@
 
 using namespace DirectX;
 class Game;
+class Engine;
 
 class Application
 {
@@ -56,7 +57,10 @@ protected:
 	float m_ClearColour[4];
 
 	//pointer to current game
-	Game* m_Game = nullptr;
+	//Game* m_Game = nullptr;
+
+	//pointer to our engine
+	Engine* engine = nullptr;
 };
 
 #endif

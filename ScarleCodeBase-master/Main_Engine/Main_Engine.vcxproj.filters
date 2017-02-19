@@ -18,8 +18,22 @@
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="GameObjectV2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BaseCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectV2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

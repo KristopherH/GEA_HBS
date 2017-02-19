@@ -18,7 +18,7 @@ struct Vec2
 	Vec2(float _x = 0.0f, float _y = 0.0f);
 	DirectX::SimpleMath::Vector2 operator=(Vec2);
 	Vec2 operator=(DirectX::SimpleMath::Vector2);
-	operator DirectX::SimpleMath::Vector2();
+	operator DirectX::SimpleMath::Vector2() const { return  DirectX::SimpleMath::Vector2(x, y); }
 
 	// Operator Overloads
 	Vec2& operator+=(const Vec2& otehr);
@@ -28,8 +28,8 @@ struct Vec2
 	Vec2& operator/=(const float& other);
 
 	// Static Operators
-	static Vec2 operator+(const Vec2& V1, const Vec2& V2);
-	static Vec2 operator-(const Vec2& V1, const Vec2& V2);
+	friend Vec2 operator+(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x + V2.x, V1.y + V2.y); }
+	friend Vec2 operator-(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x - V2.x, V1.y - V2.y); }
 
 	// Useful Functions
 	void Limit(float _length);
@@ -49,4 +49,17 @@ struct Rect
 
 	bool Contains(Vec2 oth);
 	Vec2 Center();
+};
+
+struct Vec4
+{
+	float x;
+	float y;
+	float z;
+	float w;
+
+	Vec4(float _x = 0.0f, float _y = 0.0f,float _z = 0.0f, float _w = 0.0f);
+	DirectX::SimpleMath::Color operator=(Vec4);
+	Vec4 operator=(DirectX::SimpleMath::Vector4);
+	operator DirectX::SimpleMath::Vector4();
 };

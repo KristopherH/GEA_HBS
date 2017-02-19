@@ -25,7 +25,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -68,12 +68,17 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\Bin\Desktop_2015\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>..\Bin\Desktop_2015\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\Inc</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);_DEBUG;DEBUG</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,10 +120,13 @@
     <ClInclude Include="DXTKRenderer.h" />
     <ClInclude Include="Input_Manager.h" />
     <ClInclude Include="Object_Manager.h" />
+    <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CustomMath.cpp" />
+    <ClCompile Include="DXTKRenderer.cpp" />
     <ClCompile Include="Input_Manager.cpp" />
+    <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

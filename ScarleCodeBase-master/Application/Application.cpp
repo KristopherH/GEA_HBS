@@ -17,6 +17,9 @@
 
 #include "Application.h"
 #include "../Game/Game.h"
+#include "../Main_Engine/Engine.h"
+#include "../DXTK_Wrapper/DXTKRenderer.h"
+#include "../DXTK_Wrapper/Input_Manager.h"
 
 #define DESTROY( x ) if( x ){ x->Release(); x = nullptr;}
 
@@ -292,7 +295,16 @@ HRESULT Application::InitDevice()
 	m_pImmediateContext->RSSetState(m_pRasterState);
 
 	//actually create the game
-	m_Game = new Game(m_pd3dDevice,m_hWnd,m_hInst);
+	//m_Game = new Game(m_pd3dDevice,m_hWnd,m_hInst);
+
+	//Create the renderer, it needs Device and Window
+	Renderer* renderer = new Renderer(m_pd3dDevice, m_hWnd);
+
+	//Create the input_manager, it needs Window and Instance
+	InputManager* inputManager = new InputManager(m_hWnd, m_hInst);
+
+	//actually create the engine
+	engine = new Engine(renderer, inputManager);
 
     return S_OK;
 }
@@ -310,7 +322,10 @@ void Application::Render()
 	m_pImmediateContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0, 0);
 
 	//Render the next frame from the game
-	if (m_Game) m_Game->Draw(m_pImmediateContext); 
+	//if (m_Game) m_Game->Draw(m_pImmediateContext); 
+
+	//Render the next frame from the engine
+	if (engine) engine->Draw();
 
 	m_pSwapChain->Present(0, 0);
 }
@@ -321,9 +336,14 @@ void Application::Render()
 //--------------------------------------------------------------------------------------
 bool Application::Update()
 {
-	if (m_Game)
+	/*if (m_Game)
 	{
 		return m_Game->Tick();
+	}*/
+
+	if (engine)
+	{
+		return engine->Update();
 	}
 
 	return true;
@@ -336,10 +356,16 @@ bool Application::Update()
 void Application::CleanupDevice()
 {
 	//Destroy the Game instance
-	if (m_Game)
+	/*if (m_Game)
 	{
 		delete m_Game;
 		m_Game = nullptr;
+	}*/
+
+	if (engine)
+	{
+		delete engine;
+		engine = nullptr;
 	}
 
 	//Tidy up all DirectX stuff

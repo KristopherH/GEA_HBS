@@ -30,12 +30,21 @@
     <ClInclude Include="DXTKRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Input_Manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CustomMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DXTKRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
