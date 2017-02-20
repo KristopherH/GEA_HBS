@@ -3,13 +3,17 @@
 #include "CustomMath.h"
 #include "Sprite.h"
 
+class InputManager;
+
 class GameObjectV2
 {
 public:
-	GameObjectV2(Sprite* sprite);
+	GameObjectV2() = delete;
+	GameObjectV2(Sprite* sprite, InputManager* _input_manager);
 	~GameObjectV2();
 
 	bool Update();
+	bool keyboardUpdate();
 	
 	Vec2 GetPosition() { return position; }
 	Vec2 GetSize() { return size; }
@@ -23,11 +27,14 @@ public:
 	void SetOrigin(Vec2* _origin) { origin.x = _origin->x; origin.y = _origin->y;; }
 	void SetRotation(float _rot) { rotation = _rot; }
 
+	void movePosition(Vec2* _translation);
+
 private:
 	Vec2 position;
 	Vec2 size;
 	Vec2 origin;
 	float rotation;
 
-	Sprite* sprite;
+	Sprite* sprite = nullptr;
+	InputManager* input_component = nullptr;
 };

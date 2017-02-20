@@ -22,6 +22,8 @@ public:
 	bool Update();
 	bool Draw(); // will pass an object at the renderer and ask to draw it
 
+	void clearGameObjectList();
+
 private:
 	std::vector<GameObjectV2*> go_list;
 
