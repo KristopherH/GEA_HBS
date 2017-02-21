@@ -27,7 +27,7 @@ bool GameObjectV2::keyboardUpdate()
 {
 	input_component->readKeyboard();
 
-	if (input_component->getKeyHeld(201))
+	if (input_component->getKeyHeld(0xC8))
 	{
 		movePosition(new Vec2(5, 0));
 	}

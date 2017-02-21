@@ -22,9 +22,9 @@ public:
 #pragma endregion
 
 #pragma region Keyboard Input
-	bool getKeyDown(unsigned int key);
-	bool getKeyUp(unsigned int key);
-	bool getKeyHeld(unsigned int key);
+	bool getKeyDown(char _key);
+	bool getKeyUp(char _key);
+	bool getKeyHeld(char _key);
 #pragma endregion
 
 #pragma region GamePad Input
@@ -39,6 +39,8 @@ public:
 #pragma endregion
 
 private:
+
+	int convertCharToDinput(char _input);
 
 	unsigned char keyboard_state[256];
 	unsigned char previous_keyboard_state[256];

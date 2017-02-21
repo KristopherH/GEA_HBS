@@ -14,7 +14,7 @@ InputManager::~InputManager()
 	if (user_keyboard)		user_keyboard->Release();
 }
 
-
+#pragma region Mouse
 
 bool InputManager::getMouseRightDown()
 {
@@ -77,10 +77,21 @@ bool InputManager::getMouseMiddleHeld()
 	return false;
 }
 
+#pragma endregion
 
 
-bool InputManager::getKeyDown(unsigned int key)
+#pragma region Keyboard
+
+bool InputManager::getKeyDown(char _key)
 {
+	unsigned int key = convertCharToDinput(_key);
+
+	if (key == 0)
+	{
+		OutputDebugString("Key Request Was Invalid!");
+		return false;
+	}
+
 	if (keyboard_state[key] && !previous_keyboard_state[key]) 
 		return true;
 
@@ -89,8 +100,16 @@ bool InputManager::getKeyDown(unsigned int key)
 
 
 
-bool InputManager::getKeyUp(unsigned int key)
+bool InputManager::getKeyUp(char _key)
 {
+	unsigned int key = convertCharToDinput(_key);
+
+	if (key == 0)
+	{
+		OutputDebugString("Key Request Was Invalid!");
+		return false;
+	}
+
 	if (keyboard_state[key] != previous_keyboard_state[key])
 		return true;
 
@@ -99,14 +118,25 @@ bool InputManager::getKeyUp(unsigned int key)
 
 
 
-bool InputManager::getKeyHeld(unsigned int key)
+bool InputManager::getKeyHeld(char _key)
 {
+	unsigned int key = convertCharToDinput(_key);
+
+	if (key == 0)
+	{
+		OutputDebugString("Key Request Was Invalid!");
+		return false;
+	}
+
 	if (keyboard_state[key]) return true;
 
 	return false;
 }
 
+#pragma endregion
 
+
+#pragma region GamePad
 
 bool InputManager::gamePadButtonDown(unsigned int button)
 {
@@ -127,8 +157,10 @@ bool InputManager::gamePadButtonHeld(unsigned int button)
 	return false;
 }
 
+#pragma endregion
 
 
+#pragma region Checks/Inits
 bool InputManager::init()
 {
 	HRESULT result = DirectInput8Create(h_instance, DIRECTINPUT_VERSION, IID_IDirectInput8,
@@ -192,3 +224,41 @@ bool InputManager::readKeyboard()
 }
 
 
+
+int InputManager::convertCharToDinput(char _input)
+{
+	switch (_input)
+	{
+	case 'W':
+	case 'w':
+		return 0x11;
+		break;
+
+	case 'A':
+	case 'a':
+		return 0x1E;
+		break;
+
+	case 'S':
+	case 's':
+		return 0x1f;
+		break;
+
+	case 'D':
+	case 'd':
+		return 0x20;
+		break;
+
+	case ' ':
+		return 0x39;
+		break;
+
+	default:
+		return 0;
+		break;
+	}
+
+	return 0;
+}
+
+#pragma endregion
