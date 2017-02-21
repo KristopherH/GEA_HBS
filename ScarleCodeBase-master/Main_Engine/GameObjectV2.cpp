@@ -1,8 +1,8 @@
 #include "GameObjectV2.h"
 #include "Input_Manager.h"
 
-GameObjectV2::GameObjectV2(Sprite* _sprite, InputManager* _input_component)
-	:sprite(_sprite), input_component(_input_component)
+GameObjectV2::GameObjectV2(Sprite* _sprite)
+	:sprite(_sprite)
 {
 }
 
@@ -14,26 +14,7 @@ GameObjectV2::~GameObjectV2()
 
 bool GameObjectV2::Update()
 {
-	if (input_component)
-	{
-		keyboardUpdate();
-		return true;
-	}
-
 	return false;
-}
-
-bool GameObjectV2::keyboardUpdate()
-{
-	input_component->readKeyboard();
-
-	if (input_component->getKeyHeld(0xC8))
-	{
-		movePosition(new Vec2(5, 0));
-	}
-
-	return true;
-
 }
 
 void GameObjectV2::movePosition(Vec2* _translation)

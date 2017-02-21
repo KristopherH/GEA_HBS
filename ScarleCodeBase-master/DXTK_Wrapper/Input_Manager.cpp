@@ -4,6 +4,8 @@ InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 {
 	window = _window;
 	h_instance = _h_instance;
+
+	init();
 }
 
 
@@ -84,6 +86,7 @@ bool InputManager::getMouseMiddleHeld()
 
 bool InputManager::getKeyDown(char _key)
 {
+	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
@@ -102,6 +105,7 @@ bool InputManager::getKeyDown(char _key)
 
 bool InputManager::getKeyUp(char _key)
 {
+	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
@@ -120,6 +124,7 @@ bool InputManager::getKeyUp(char _key)
 
 bool InputManager::getKeyHeld(char _key)
 {
+	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
@@ -249,7 +254,7 @@ int InputManager::convertCharToDinput(char _input)
 		return 0x20;
 		break;
 
-	case ' ':
+	case '_':
 		return 0x39;
 		break;
 
