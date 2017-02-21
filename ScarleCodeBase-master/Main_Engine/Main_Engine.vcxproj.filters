@@ -24,10 +24,10 @@
     <ClInclude Include="BaseCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="PlayerV2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
+    <ClInclude Include="GameDataV2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,10 +41,7 @@
     <ClCompile Include="BaseCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller.cpp">
+    <ClCompile Include="PlayerV2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -21,7 +21,7 @@ struct Vec2
 	operator DirectX::SimpleMath::Vector2() const { return  DirectX::SimpleMath::Vector2(x, y); }
 
 	// Operator Overloads
-	Vec2& operator+=(const Vec2& otehr);
+	Vec2& operator+=(const Vec2& other) { return Vec2(x += other.x, y += other.y); }
 	Vec2& operator-=(const Vec2& other);
 	Vec2& operator*=(const Vec2& other);
 	Vec2& operator*=(const float& other);
@@ -30,6 +30,7 @@ struct Vec2
 	// Static Operators
 	friend Vec2 operator+(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x + V2.x, V1.y + V2.y); }
 	friend Vec2 operator-(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x - V2.x, V1.y - V2.y); }
+	friend Vec2 operator*(const Vec2& V1, const float& V2) { return Vec2(V1.x * V2, V1.y * V2); }
 
 	// Useful Functions
 	void Limit(float _length);
