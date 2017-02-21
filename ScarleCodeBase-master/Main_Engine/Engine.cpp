@@ -12,7 +12,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 	:renderer(_renderer), inputManager(_inputManager)
 {
 	Sprite* sprite1 = new Sprite("grass", renderer);
-	GameObjectV2* go1 = new GameObjectV2(sprite1, inputManager);
+	GameObjectV2* go1 = new GameObjectV2(sprite1);
 
 	go1->SetPosition(new Vec2(10.0f, 10.0f));
 	go1->SetSize(new Vec2(0.5f, 0.5f));
