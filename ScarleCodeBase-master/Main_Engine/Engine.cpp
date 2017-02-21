@@ -11,24 +11,16 @@
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 	:renderer(_renderer), inputManager(_inputManager)
 {
-	Sprite* sprite1 = new Sprite("grass", renderer);
-	GameObjectV2* go1 = new GameObjectV2(sprite1, inputManager);
-
-	go1->SetPosition(new Vec2(10.0f, 10.0f));
-	go1->SetSize(new Vec2(0.5f, 0.5f));
-	go_list.push_back(go1);
-
-	//Not essential but stops the risk of it interfering with the object that's in the vector
-	go1 = nullptr;
-	sprite1 = nullptr;
+	////Not essential but stops the risk of it interfering with the object that's in the vector
+	//go1 = nullptr;
+	//sprite1 = nullptr;
+	createCollectible(300, 300);
 
 	if (!inputManager->init())
 	{
 		OutputDebugString("Input manager failed to initialize");
 	}
 }
-
-
 
 Engine::~Engine()
 {
@@ -40,8 +32,6 @@ Engine::~Engine()
 	delete inputManager;
 	inputManager = nullptr;
 }
-
-
 
 bool Engine::Update()
 {
@@ -60,7 +50,18 @@ bool Engine::Update()
 	return true;
 }
 
+void Engine::createCollectible(float x, float y)
+{
+	// create coin collectible
+	Sprite* collectible = new Sprite("coin", renderer);
+	GameObjectV2* ctbl = new GameObjectV2(collectible, inputManager);
+	ctbl->SetSize(new Vec2(0.15f, 0.15f));
 
+	// pass in custom position
+	ctbl->SetPosition(new Vec2(x, y));
+
+	go_list.push_back(ctbl);
+}
 
 bool Engine::Draw() 
 {
