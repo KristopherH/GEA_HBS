@@ -131,7 +131,6 @@
     <ClInclude Include="GameData.h" />
     <ClInclude Include="gameobject.h" />
     <ClInclude Include="GameObject2D.h" />
-    <ClInclude Include="GameOver.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="ImageGO2D.h" />
@@ -161,7 +160,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="gameobject.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
-    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="ImageGO2D.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="MarchCubes.cpp" />

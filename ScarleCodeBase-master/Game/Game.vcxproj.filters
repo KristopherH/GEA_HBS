@@ -135,6 +135,12 @@
     <ClInclude Include="RWSprite.h">
       <Filter>Objects\Example VBGOs\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerLives.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Objects\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -193,6 +199,12 @@
     </ClCompile>
     <ClCompile Include="RWSprite.cpp">
       <Filter>Objects\Example VBGOs\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerLives.cpp">
+      <Filter>Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Objects\Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

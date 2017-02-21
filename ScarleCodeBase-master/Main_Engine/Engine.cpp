@@ -6,13 +6,15 @@
 
 #include "GameObjectV2.h"
 #include "Sprite.h"
+#include "PlayerV2.h"
 
 
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
-	:renderer(_renderer), inputManager(_inputManager)
 {
-	Sprite* sprite1 = new Sprite("grass", renderer);
-	GameObjectV2* go1 = new GameObjectV2(sprite1, inputManager);
+	GameDataV2::inputManager = _inputManager;
+	GameDataV2::renderer = _renderer;
+	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
+	PlayerV2* go1 = new PlayerV2(sprite1);
 
 	go1->SetPosition(new Vec2(10.0f, 10.0f));
 	go1->SetSize(new Vec2(0.5f, 0.5f));
@@ -22,7 +24,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 	go1 = nullptr;
 	sprite1 = nullptr;
 
-	if (!inputManager->init())
+	if (!GameDataV2::inputManager->init())
 	{
 		OutputDebugString("Input manager failed to initialize");
 	}
@@ -34,11 +36,11 @@ Engine::~Engine()
 {
 	clearGameObjectList();
 
-	delete renderer;
-	renderer = nullptr; 
+	delete GameDataV2::renderer;
+	GameDataV2::renderer = nullptr;
 	
-	delete inputManager;
-	inputManager = nullptr;
+	delete GameDataV2::inputManager;
+	GameDataV2::inputManager = nullptr;
 }
 
 
@@ -64,7 +66,7 @@ bool Engine::Update()
 
 bool Engine::Draw() 
 {
-	renderer->BeginDraw();
+	GameDataV2::renderer->BeginDraw();
 
 
 	/*auto iter = go_list.begin();
@@ -76,10 +78,10 @@ bool Engine::Draw()
 	//Just saying, a lot nicer syntax 
 	for (const auto go : go_list)
 	{
-		renderer->Draw(go);
+		GameDataV2::renderer->Draw(go);
 	}
 
-	renderer->EndDraw();
+	GameDataV2::renderer->EndDraw();
 
 	return true;
 }

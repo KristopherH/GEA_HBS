@@ -7,11 +7,11 @@
 
 
 //Internal
+#include "../DXTK_Wrapper/DXTKRenderer.h"
+#include "GameDataV2.h"
 
 //Definitions
 class GameObjectV2;
-class Renderer; //Find a way of loading the right renderer based on what engine is loaded
-class InputManager;
 
 class Engine
 {
@@ -20,6 +20,8 @@ public:
 	~Engine();
 
 	bool Update();
+	void createCollectible(float x, float y);
+	//void createCollectible(Renderer * _renderer, InputManager * _inputManager);
 	bool Draw(); // will pass an object at the renderer and ask to draw it
 
 	void clearGameObjectList();
@@ -27,6 +29,4 @@ public:
 private:
 	std::vector<GameObjectV2*> go_list;
 
-	Renderer* renderer;
-	InputManager* inputManager;
 };

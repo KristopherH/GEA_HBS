@@ -9,11 +9,10 @@ class GameObjectV2
 {
 public:
 	GameObjectV2() = delete;
-	GameObjectV2(Sprite* sprite, InputManager* _input_manager);
+	GameObjectV2(Sprite* sprite);
 	~GameObjectV2();
 
-	bool Update();
-	bool keyboardUpdate();
+	virtual bool Update();
 	
 	Vec2 GetPosition() { return position; }
 	Vec2 GetSize() { return size; }
@@ -29,12 +28,11 @@ public:
 
 	void movePosition(Vec2* _translation);
 
-private:
+protected:
 	Vec2 position;
 	Vec2 size;
 	Vec2 origin;
 	float rotation;
 
 	Sprite* sprite = nullptr;
-	InputManager* input_component = nullptr;
 };

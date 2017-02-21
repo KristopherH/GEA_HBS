@@ -57,5 +57,8 @@
     <ImageContentTask Include="logo_small.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="coin.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
