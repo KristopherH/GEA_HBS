@@ -42,10 +42,10 @@ private:
 
 	int convertCharToDinput(char _input);
 
-	unsigned char keyboard_state[256];
-	unsigned char previous_keyboard_state[256];
-	IDirectInput8* user_direct_input = nullptr;
-	IDirectInputDevice8* user_keyboard = nullptr;
+	static unsigned char keyboard_state[256];
+	static unsigned char previous_keyboard_state[256];
+	static IDirectInput8* user_direct_input;
+	static IDirectInputDevice8* user_keyboard;
 	HWND window;
 	HINSTANCE h_instance;
 };

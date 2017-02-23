@@ -1,11 +1,14 @@
 #include "Input_Manager.h"
 
+unsigned char InputManager::keyboard_state[256];
+unsigned char InputManager::previous_keyboard_state[256];
+IDirectInput8* InputManager::user_direct_input = nullptr;
+IDirectInputDevice8* InputManager::user_keyboard = nullptr;
+
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 {
 	window = _window;
 	h_instance = _h_instance;
-
-	init();
 }
 
 
