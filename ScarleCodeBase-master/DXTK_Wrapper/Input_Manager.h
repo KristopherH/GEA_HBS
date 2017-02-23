@@ -4,7 +4,7 @@
 class InputManager
 {
 public:
-	InputManager() = delete;
+	InputManager(); //= delete;
 	InputManager(HWND _window, HINSTANCE _h_instance);
 	~InputManager();
 

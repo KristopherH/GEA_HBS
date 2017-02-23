@@ -29,4 +29,5 @@ public:
 private:
 	std::vector<GameObjectV2*> go_list;
 
+	BaseCamera* mainCamera = nullptr;
 };

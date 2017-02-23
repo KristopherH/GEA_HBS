@@ -20,7 +20,7 @@ public:
 protected:
 
 	int lives;
-	float speed;
+	float speed = 1.0f;
 	float jumpStrength;
 
 	//Input component

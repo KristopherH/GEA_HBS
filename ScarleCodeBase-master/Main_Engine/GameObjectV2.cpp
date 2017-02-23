@@ -1,6 +1,11 @@
 #include "GameObjectV2.h"
 #include "Input_Manager.h"
 
+GameObjectV2::GameObjectV2()
+{
+	sprite = nullptr;
+}
+
 GameObjectV2::GameObjectV2(Sprite* _sprite)
 	:sprite(_sprite)
 {

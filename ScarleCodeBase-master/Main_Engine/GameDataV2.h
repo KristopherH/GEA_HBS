@@ -5,6 +5,6 @@
 
 namespace GameDataV2
 {
-	static InputManager* inputManager = nullptr;
-	static Renderer* renderer = nullptr;
+	static InputManager* inputManager;
+	static Renderer* renderer;
 };

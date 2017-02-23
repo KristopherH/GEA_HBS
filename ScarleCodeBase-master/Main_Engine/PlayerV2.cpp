@@ -19,6 +19,7 @@ PlayerV2::~PlayerV2()
 bool PlayerV2::Update()
 {
 	ProcessInput();
+	OnMove(Vec2(0.1f, 0.0f));
 	return false;
 }
 
@@ -26,7 +27,7 @@ void PlayerV2::ProcessInput()
 {
 	for (auto key : KeyBinds)
 	{
-		if (GameDataV2::inputManager->getKeyDown(key.first))
+		if (/*GameDataV2::inputManager->getKeyDown(key.first)*/false)
 		{
 			key.second();
 		}

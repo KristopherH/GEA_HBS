@@ -1,5 +1,5 @@
 #include "Collision_Manager.h"
-#include "GameObjectV2.h"
+//#include "GameObjectV2.h"
 bool CollisionManager::boxCollision(GameObjectV2& a, GameObjectV2& b)
 {
 	/*if (a.GetPosition().x < b.GetPosition().x + b.GetSize().x &&

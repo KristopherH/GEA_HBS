@@ -1,14 +1,14 @@
 #pragma once
 
-#include "CustomMath.h"
-#include "Sprite.h"
+#include "..\DXTK_Wrapper\CustomMath.h"
+#include "..\DXTK_Wrapper\Sprite.h"
 
 class InputManager;
 
 class GameObjectV2
 {
 public:
-	GameObjectV2() = delete;
+	GameObjectV2();
 	GameObjectV2(Sprite* sprite);
 	~GameObjectV2();
 

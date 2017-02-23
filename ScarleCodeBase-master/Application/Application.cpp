@@ -17,9 +17,10 @@
 
 #include "Application.h"
 #include "../Game/Game.h"
-#include "../Main_Engine/Engine.h"
 #include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "../DXTK_Wrapper/Input_Manager.h"
+#include "../Main_Engine/Engine.h"
+
 
 #define DESTROY( x ) if( x ){ x->Release(); x = nullptr;}
 
