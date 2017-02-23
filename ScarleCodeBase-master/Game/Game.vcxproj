@@ -141,6 +141,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerLives.h" />
     <ClInclude Include="RWSprite.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TextGO2D.h" />
     <ClInclude Include="TPSCamera.h" />
@@ -168,6 +170,8 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerLives.cpp" />
     <ClCompile Include="RWSprite.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TextGO2D.cpp" />
     <ClCompile Include="TPSCamera.cpp" />
