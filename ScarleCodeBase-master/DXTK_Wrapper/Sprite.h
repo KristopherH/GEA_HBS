@@ -26,6 +26,7 @@ public:
 	Vec4 GetColour() { return colour; }
 	Vec2 GetOrigin() { return origin; }
 
+
 protected:
 
 	Vec4 colour;

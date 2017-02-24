@@ -1,7 +1,8 @@
 #include "PlayerV2.h"
+#include "Input_Manager.h"
 
-PlayerV2::PlayerV2(Sprite* _sprite)
-	:GameObjectV2(_sprite)
+PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
+	:GameObjectV2(_sprite, _name, _tag)
 {
 	SetSize(new Vec2(0.5f, 1.5f));
 	//Load keybinds from file into list
