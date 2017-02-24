@@ -27,3 +27,15 @@ Sprite::Sprite(std::string _fileName, Renderer* _renderer)
 Sprite::~Sprite()
 {
 }
+
+Vec2 Sprite::GetSize()
+{
+	//this nasty thing is required to find out the size of this image!
+	ID3D11Resource *pResource;
+	D3D11_TEXTURE2D_DESC Desc;
+	m_pTextureRV->GetResource(&pResource);
+	((ID3D11Texture2D *)pResource)->GetDesc(&Desc);
+
+	return Vec2((float)Desc.Width, (float)Desc.Height);
+	//return Vec2();
+}

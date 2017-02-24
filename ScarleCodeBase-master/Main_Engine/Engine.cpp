@@ -22,15 +22,16 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
 	PlayerV2* go1 = new PlayerV2(sprite1, "Player", "Player");
 
-	go1->SetPosition(new Vec2(10.0f, 10.0f));
-	go1->SetSize(new Vec2(0.5f, 0.5f));
+	go1->SetPosition(new Vec2(0.0f, -800.0f));
+	go1->SetSize(new Vec2(100.0f, 100.0f));
 	go1->setGravity(true);
 	go1->setGravityTag("Surface");
 
-	GameObjectV2* go2 = new GameObjectV2(sprite1, "Surface", "Surface");
+	Sprite* sprite2 = new Sprite("grass", GameDataV2::renderer);
+	GameObjectV2* go2 = new GameObjectV2(sprite2, "Surface", "Surface");
 
-	go2->SetPosition(new Vec2(10.0f, 800.0f));
-	go2->SetSize(new Vec2(2.0f, 0.1f));
+	go2->SetPosition(new Vec2(10.0f, 100.0f));
+	go2->SetSize(new Vec2(100.0f, 10.0f));
 
 	GameDataV2::go_list.push_back(go1);
 	GameDataV2::go_list.push_back(go2);

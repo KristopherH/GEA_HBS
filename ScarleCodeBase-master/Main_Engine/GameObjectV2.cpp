@@ -20,7 +20,7 @@ GameObjectV2::GameObjectV2(Sprite* _sprite)
 
 GameObjectV2::~GameObjectV2()
 {
-	if (sprite)
+	if (sprite != nullptr)
 	{
 		delete sprite;
 		sprite = nullptr;
@@ -30,6 +30,14 @@ GameObjectV2::~GameObjectV2()
 bool GameObjectV2::Update()
 {
 	return false;
+}
+
+void GameObjectV2::SetSize(Vec2 * _size)
+{
+	Vec2 textureSize = sprite->GetSize();
+	scale.x = _size->x / textureSize.x;
+	scale.y = _size->y / textureSize.y;
+	return;
 }
 
 bool GameObjectV2::setGravityTag(std::string _gravity_tag)

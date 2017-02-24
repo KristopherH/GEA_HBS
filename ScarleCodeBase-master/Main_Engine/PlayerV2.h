@@ -24,5 +24,6 @@ protected:
 	float jumpStrength;
 
 	//Input component
-	std::map<char, std::function<void()>> KeyBinds;
+	std::map<char, std::function<void()>> KeyBindsHold;
+	std::map<char, std::function<void()>> KeyBindsPress;
 };

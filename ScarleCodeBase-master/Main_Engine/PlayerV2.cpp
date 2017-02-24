@@ -4,13 +4,14 @@
 PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObjectV2(_sprite, _name, _tag)
 {
-	SetSize(new Vec2(0.5f, 1.5f));
+	SetScale(new Vec2(0.5f, 1.5f));
 	//Load keybinds from file into list
-	KeyBinds['_'] = std::bind(&PlayerV2::OnJump, this);
-	KeyBinds['a'] = std::bind(&PlayerV2::OnMove, this, Vec2(-1.0f, 0.0f));
-	KeyBinds['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(1.0f, 0.0f));
-	KeyBinds['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -1.0f));
-	KeyBinds['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, 1.0f));
+	KeyBindsPress['_'] = std::bind(&PlayerV2::OnJump, this);
+	KeyBindsHold['a'] = std::bind(&PlayerV2::OnMove, this, Vec2(-0.1f, 0.0f));
+	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.1f, 0.0f));
+	//KeyBinds['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -0.1f));
+	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, 0.1f));
+	jumpStrength = -10.0f;
 }
 
 PlayerV2::~PlayerV2()
@@ -21,16 +22,24 @@ PlayerV2::~PlayerV2()
 bool PlayerV2::Update()
 {
 	ProcessInput();
-	//OnMove(Vec2(-0.1f, 0.0f));
 	return false;
 }
 
 void PlayerV2::ProcessInput()
 {
 	GameDataV2::inputManager->readKeyboard();
-	for (auto key : KeyBinds)
+	for (auto key : KeyBindsHold)
 	{
 		if (GameDataV2::inputManager->getKeyHeld(key.first))
+		{
+			key.second();
+		}
+
+	}
+
+	for (auto key : KeyBindsPress)
+	{
+		if (GameDataV2::inputManager->getKeyDown(key.first))
 		{
 			key.second();
 		}
