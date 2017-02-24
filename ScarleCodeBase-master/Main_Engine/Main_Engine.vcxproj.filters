@@ -30,6 +30,9 @@
     <ClInclude Include="GameDataV2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game_Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -42,6 +45,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayerV2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDataV2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

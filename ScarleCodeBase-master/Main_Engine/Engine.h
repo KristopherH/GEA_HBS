@@ -16,7 +16,8 @@ class GameObjectV2;
 class Engine
 {
 public:
-	Engine(Renderer* _renderer, InputManager* _inputManager);
+	Engine(Renderer* _renderer, InputManager* _inputManager, 
+			CollisionManager* _collision_manager, GameController* _game_controller);
 	~Engine();
 
 	bool Update();
@@ -27,6 +28,5 @@ public:
 	void clearGameObjectList();
 
 private:
-	std::vector<GameObjectV2*> go_list;
 
 };

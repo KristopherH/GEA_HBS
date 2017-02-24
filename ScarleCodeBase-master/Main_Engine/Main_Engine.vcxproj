@@ -119,12 +119,15 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameDataV2.h" />
     <ClInclude Include="GameObjectV2.h" />
+    <ClInclude Include="Game_Controller.h" />
     <ClInclude Include="PlayerV2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameDataV2.cpp" />
     <ClCompile Include="GameObjectV2.cpp" />
+    <ClCompile Include="Game_Controller.cpp" />
     <ClCompile Include="PlayerV2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

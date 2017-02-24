@@ -20,6 +20,8 @@
 #include "../Main_Engine/Engine.h"
 #include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "../DXTK_Wrapper/Input_Manager.h"
+#include "../DXTK_Wrapper/Collision_Manager.h"
+#include "Game_Controller.h"
 
 #define DESTROY( x ) if( x ){ x->Release(); x = nullptr;}
 
@@ -303,8 +305,14 @@ HRESULT Application::InitDevice()
 	//Create the input_manager, it needs Window and Instance
 	InputManager* inputManager = new InputManager(m_hWnd, m_hInst);
 
+	//Create the collsiion_manager
+	CollisionManager* collision_manager = new CollisionManager();
+
+	//Create the GameController
+	GameController* game_controller = new GameController();
+
 	//actually create the engine
-	engine = new Engine(renderer, inputManager);
+	engine = new Engine(renderer, inputManager, collision_manager, game_controller);
 
     return S_OK;
 }

@@ -1,13 +1,15 @@
 #pragma once
+#include <string>
 
 class GameObjectV2;
+
 class CollisionManager
 {
 public:
 	CollisionManager() = default;
 	~CollisionManager() = default;
 
-	bool boxCollision(GameObjectV2& a, GameObjectV2& b);
-	bool circleCollision(GameObjectV2& a, GameObjectV2& b);
-	bool bitMapCollision(GameObjectV2& a, GameObjectV2& b);
+	bool boxCollision(std::string a_name, std::string b_name);
+	bool circleCollision(std::string a_name, std::string b_name);
+	bool bitMapCollision(std::string a_name, std::string b_name);
 };

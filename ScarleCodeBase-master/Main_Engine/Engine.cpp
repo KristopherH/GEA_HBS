@@ -9,16 +9,30 @@
 #include "PlayerV2.h"
 
 
-Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
+Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
+				CollisionManager* _collision_manager, GameController* _game_controller)
 {
 	GameDataV2::inputManager = _inputManager;
 	GameDataV2::renderer = _renderer;
+	GameDataV2::collsion_manager = _collision_manager;
+	GameDataV2::game_controller = _game_controller;
+
 	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
-	PlayerV2* go1 = new PlayerV2(sprite1);
+	PlayerV2* go1 = new PlayerV2(sprite1, "Player", "Player");
 
 	go1->SetPosition(new Vec2(10.0f, 10.0f));
 	go1->SetSize(new Vec2(0.5f, 0.5f));
-	go_list.push_back(go1);
+	go1->setGravity(true);
+	go1->setGravityTag("Surface");
+
+	GameObjectV2* go2 = new GameObjectV2(sprite1, "Surface", "Surface");
+
+	go2->SetPosition(new Vec2(10.0f, 800.0f));
+	go2->SetSize(new Vec2(2.0f, 0.1f));
+
+	GameDataV2::go_list.push_back(go1);
+	GameDataV2::go_list.push_back(go2);
+
 
 	//Not essential but stops the risk of it interfering with the object that's in the vector
 	go1 = nullptr;
@@ -41,21 +55,21 @@ Engine::~Engine()
 	
 	delete GameDataV2::inputManager;
 	GameDataV2::inputManager = nullptr;
+
+	delete GameDataV2::collsion_manager;
+	GameDataV2::collsion_manager = nullptr;
+
+	delete GameDataV2::game_controller;
+	GameDataV2::game_controller = nullptr;
 }
 
 
 
 bool Engine::Update()
 {
-	/*auto iter = go_list.begin();
-	for (; iter != go_list.end(); iter++)
+	for (auto go : GameDataV2::go_list)
 	{
-		(*iter)->Update();
-	}*/
-
-	//Just saying, a lot nicer syntax 
-	for (auto go : go_list)
-	{
+		go->gravityUpdate();
 		go->Update();
 	}
 
@@ -68,15 +82,7 @@ bool Engine::Draw()
 {
 	GameDataV2::renderer->BeginDraw();
 
-
-	/*auto iter = go_list.begin();
-	for (; iter != go_list.end(); iter++)
-	{
-		renderer->Draw(*iter);
-	}*/
-
-	//Just saying, a lot nicer syntax 
-	for (const auto go : go_list)
+	for (const auto go : GameDataV2::go_list)
 	{
 		GameDataV2::renderer->Draw(go);
 	}
@@ -89,9 +95,9 @@ bool Engine::Draw()
 void Engine::clearGameObjectList()
 {
 	//Clears the go_list
-	for (auto go : go_list)
+	for (auto go : GameDataV2::go_list)
 	{
 		delete go;
 	}
-	go_list.clear();
+	GameDataV2::go_list.clear();
 }
