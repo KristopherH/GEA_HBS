@@ -56,7 +56,7 @@ bool Renderer::Draw(GameObjectV2 * _go)
 			/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
 			_go->GetRotation(),
 			_go->GetSprite()->GetOrigin(),
-			_go->GetSize(),
+			_go->GetScale(),
 			SpriteEffects_None);
 		return true;
 	}
