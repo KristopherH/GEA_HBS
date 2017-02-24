@@ -2,8 +2,19 @@
 #include "GameDataV2.h"
 #include "Collision_Manager.h"
 
+
 GameObjectV2::GameObjectV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:sprite(_sprite), name(_name), tag(_tag)
+{
+}
+
+GameObjectV2::GameObjectV2()
+{
+	sprite = nullptr;
+}
+
+GameObjectV2::GameObjectV2(Sprite* _sprite)
+	:sprite(_sprite)
 {
 }
 

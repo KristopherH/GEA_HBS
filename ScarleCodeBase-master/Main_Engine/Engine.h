@@ -29,4 +29,5 @@ public:
 
 private:
 
+	BaseCamera* mainCamera = nullptr;
 };

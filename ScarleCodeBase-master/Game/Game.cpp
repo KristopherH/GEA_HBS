@@ -228,7 +228,7 @@ Game::~Game()
 
 };
 
-bool Game::Tick() 
+bool Game::Tick()
 {
 	//tick audio engine
 	if (!m_audioEngine->Update())
@@ -261,18 +261,33 @@ bool Game::Tick()
 	m_playTime = currentTime;
 
 	//start to a VERY simple FSM
-	switch (m_GD->m_GS)
-	{
-	case GS_ATTRACT:
-		break;
-	case GS_PAUSE:
-		break;
-	case GS_GAME_OVER:
-		break;
-	case GS_PLAY_MAIN_CAM:
-	case GS_PLAY_TPS_CAM:
-		PlayTick();
-		break;
+
+
+		switch (m_GD->m_GS)
+		{
+		case GS_ATTRACT:
+			break;
+		case GS_PAUSE:
+			break;
+		case GS_GAME_OVER:
+			break;
+		case GS_PLAY_MAIN_CAM:
+
+		case GS_PLAY_MAIN_MENU:
+
+			break;
+		case GS_PLAY_TPS_CAM:
+		
+			/* tried to add a delta time loop
+			while (GS_PLAY_TPS_CAM)
+			{
+				Time detla - m_Timer.GETDELTA();
+				Time frametime(0);
+			*/
+
+			PlayTick();
+			break;
+		
 	}
 	
 	return true;

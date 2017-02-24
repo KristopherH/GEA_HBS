@@ -31,6 +31,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game_Controller.h">
+
+    <ClInclude Include="GameOver.h">
+
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,10 +50,14 @@
     <ClCompile Include="PlayerV2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
     <ClCompile Include="Game_Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameDataV2.cpp">
+
+    <ClCompile Include="GameOver.cpp">
+
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

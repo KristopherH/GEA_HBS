@@ -1,5 +1,6 @@
 #include "PlayerLives.h"
-#include "GameOver.h"
+#include "GameState.h"
+#include "GameData.h"
 
  PlayerLives::PlayerLives()
 {
@@ -21,7 +22,7 @@ void PlayerLives::lifeLost()
 
 	{
 
-	 lives = -1;
+	 lives --;
 
 	 /*
 		checkpoint system 
@@ -36,7 +37,7 @@ void PlayerLives::lifeLost()
 
 	{
 
-		GameOver();
+	 GameState::GS_GAME_OVER;
 
 	}
 	

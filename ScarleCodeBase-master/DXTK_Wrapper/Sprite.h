@@ -1,9 +1,11 @@
 #pragma once
 #include <d3d11_1.h>
-#include "DDSTextureLoader.h"
-#include "DXTKRenderer.h"
-#include "CustomMath.h"
 #include <string>
+#include "DDSTextureLoader.h"
+#include "..\DXTK_Wrapper\CustomMath.h"
+
+class Renderer;
+
 //=================================================================
 //A Game Object 2D for displaying images
 //image needs to have been converted to a dds by the Assets project

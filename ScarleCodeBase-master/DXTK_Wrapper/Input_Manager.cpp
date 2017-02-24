@@ -199,7 +199,7 @@ bool InputManager::init()
 		OutputDebugString("FAILED TO CREATE SET COOPERAIVE LEVEL FOR USER_KEYBOARD IN INPUT_MANAGER.CPP\n");
 		return false;
 	}
-
+	readKeyboard();
 	return true;
 }
 
@@ -207,6 +207,7 @@ bool InputManager::init()
 
 bool InputManager::readKeyboard()
 {
+
 	memcpy(previous_keyboard_state, keyboard_state, sizeof(unsigned char) * 256);
 
 	ZeroMemory(&keyboard_state, sizeof(keyboard_state));

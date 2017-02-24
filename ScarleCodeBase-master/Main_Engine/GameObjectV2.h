@@ -9,8 +9,9 @@ class InputManager;
 class GameObjectV2
 {
 public:
-	GameObjectV2() = delete;
+	GameObjectV2();
 	GameObjectV2(Sprite* sprite, std::string _name, std::string _tag);
+  GameObjectV2::GameObjectV2(Sprite* _sprite);
 	~GameObjectV2();
 
 	virtual bool Update();
@@ -36,9 +37,6 @@ public:
 
 	void movePosition(Vec2* _translation);
 	void gravityUpdate();
-
-
-	int Apple() { return gravity_trigger_tags.size(); }
 
 protected:
 	Vec2 position;
