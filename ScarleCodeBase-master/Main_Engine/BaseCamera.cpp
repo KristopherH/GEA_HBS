@@ -10,7 +10,9 @@ BaseCamera::BaseCamera(float _width, float _height, float _nearPlane, float _far
 	m_target = _target;
 	m_up = _up;
 
-	Vec3 pos3d(position.x, position.y, -1.0f);
+	position = Vec2(10.0f, 10.0f);
+
+	Vec3 pos3d(position.x, position.y, 1.0f);
 
 	m_projMat = OurMatrix::CreateOrthographic(width, height, nearPlane, farPlane);
 	m_viewMat = OurMatrix::CreateLookAt(pos3d, m_target, m_up);
@@ -24,7 +26,7 @@ BaseCamera::~BaseCamera()
 
 bool BaseCamera::Update()
 {
-	position.x += 0.1f;
+	//position.x += 0.1f;
 	Vec3 pos3d(position.x, position.y);
 
 	m_projMat = OurMatrix::CreateOrthographic(width, height, nearPlane, farPlane);

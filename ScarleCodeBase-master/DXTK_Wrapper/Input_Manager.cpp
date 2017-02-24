@@ -89,7 +89,6 @@ bool InputManager::getMouseMiddleHeld()
 
 bool InputManager::getKeyDown(char _key)
 {
-	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
@@ -108,7 +107,6 @@ bool InputManager::getKeyDown(char _key)
 
 bool InputManager::getKeyUp(char _key)
 {
-	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
@@ -127,7 +125,6 @@ bool InputManager::getKeyUp(char _key)
 
 bool InputManager::getKeyHeld(char _key)
 {
-	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
