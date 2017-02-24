@@ -1,5 +1,5 @@
 #include "DXTKRenderer.h"
-#include "../Main_Engine/GameObjectV2.h"
+#include "GameObjectV2.h"
 
 Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	:pd3dDevice(_pd3dDevice), hWnd(_hWnd)
@@ -25,22 +25,41 @@ Renderer::~Renderer()
 {
 }
 
-bool Renderer::BeginDraw()
+bool Renderer::BeginDraw(OurMatrix* transformMatrix)
 {
-	spriteBatch->Begin();
+	if (transformMatrix == nullptr)
+	{
+		spriteBatch->Begin();
+	}
+	else
+	{
+		DirectX::SimpleMath::Matrix transMat = OurMatrix::toDXTK(*transformMatrix);
+		spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, nullptr, nullptr, nullptr, nullptr, nullptr, transMat);
+	}
 	return true;
+}
+
+bool Renderer::BeginDraw(BaseCamera * mainCamera)
+{
+	DirectX::SimpleMath::Matrix transMat = OurMatrix::toDXTK(mainCamera->GetTransMat());
+	spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, nullptr, nullptr, nullptr, nullptr, nullptr, transMat);
+	return false;
 }
 
 bool Renderer::Draw(GameObjectV2 * _go)
 {
-	spriteBatch->Draw(_go->GetSprite()->GetTexture() ,
-		_go->GetPosition() ,
-		nullptr, 
-		/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
-		_go->GetRotation(),
-		_go->GetSprite()->GetOrigin(),
-		_go->GetSize(), 
-		SpriteEffects_None);
+	if (_go->GetSprite() != nullptr)
+	{
+		spriteBatch->Draw(_go->GetSprite()->GetTexture(),
+			_go->GetPosition(),
+			nullptr,
+			/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+			_go->GetRotation(),
+			_go->GetSprite()->GetOrigin(),
+			_go->GetSize(),
+			SpriteEffects_None);
+		return true;
+	}
 	return false;
 }
 
@@ -48,5 +67,30 @@ bool Renderer::EndDraw()
 {
 	spriteBatch->End();
 	return true;
+}
+
+float Renderer::getAspectRatio()
+{
+	//find how big my window is to correctly calculate my aspect ratio
+	RECT rc;
+	GetClientRect(hWnd, &rc);
+	UINT width = rc.right - rc.left;
+	UINT height = rc.bottom - rc.top;
+	return (float)width / (float)height;
+
+}
+
+float Renderer::getWindowWidth()
+{
+	RECT rc;
+	GetClientRect(hWnd, &rc);
+	return rc.right - rc.left;
+}
+
+float Renderer::getWindowHeight()
+{
+	RECT rc;
+	GetClientRect(hWnd, &rc);
+	return rc.bottom - rc.top;
 }
 

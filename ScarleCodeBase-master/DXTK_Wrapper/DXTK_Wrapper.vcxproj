@@ -116,7 +116,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Collision_Manager.h" />
     <ClInclude Include="CustomMath.h" />
     <ClInclude Include="DXTKRenderer.h" />
