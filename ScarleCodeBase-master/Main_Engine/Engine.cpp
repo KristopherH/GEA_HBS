@@ -4,10 +4,15 @@
 #include "Input_Manager.h"
 //#endif
 
+//system headers
+#include <windows.h>
+#include <time.h>
+
 #include "GameObjectV2.h"
 #include "Sprite.h"
 #include "PlayerV2.h"
-
+#include "SceneManager.h"
+#include "GameDataV2.h"
 
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 {
@@ -94,4 +99,35 @@ void Engine::clearGameObjectList()
 		delete go;
 	}
 	go_list.clear();
+}
+
+
+void Engine::Scene()
+{
+	/*
+	DWORD currentTime = GetTickCount();
+	m_GD->m_dt = min((float)(currentTime - m_playTime) / 1000.0f, 0.1f);
+	m_playTime = currentTime;
+	*/
+
+	if (GameState::GS_PLAY)
+	{
+
+	}
+
+	if (GameState::GS_MAIN_MENU)
+	{
+
+	}
+
+	if (GameState::GS_PAUSE)
+	{
+
+	}
+
+	if (GameState::GS_GAME_OVER)
+	{
+
+	}
+
 }
