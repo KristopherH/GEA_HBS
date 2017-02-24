@@ -130,6 +130,7 @@ struct OurMatrix
 	static OurMatrix toOur(DirectX::SimpleMath::Matrix mat) { return OurMatrix(*mat.m); }
 
 	static OurMatrix CreatePerspectiveFieldOfView(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance, float _farPlaneDistance);
+	static OurMatrix CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane);
 	static OurMatrix CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up);
-	static OurMatrix CreateTrasform(Vec3 _pos);
+	static OurMatrix CreateTrasform(Vec3 _pos, float _rot, float _zoom = 1.0f, float _viewportWidth = 0.0f, float _viewportHeight = 0.0f);
 };

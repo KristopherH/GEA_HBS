@@ -308,6 +308,11 @@ OurMatrix OurMatrix::CreatePerspectiveFieldOfView(float _fieldOfView, float _asp
 	return toOur(DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(_fieldOfView, _aspectRatio, _nearPlaneDistance, _farPlaneDistance));
 }
 
+OurMatrix OurMatrix::CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane)
+{
+	return toOur(DirectX::SimpleMath::Matrix::CreateOrthographic(_width, _height, _nearPlane, _farPlane));
+}
+
 OurMatrix OurMatrix::CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up)
 {
 	DirectX::SimpleMath::Vector3 pos = Vec3::toDXTK(position);
@@ -316,9 +321,14 @@ OurMatrix OurMatrix::CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up)
 	return toOur(DirectX::SimpleMath::Matrix::CreateLookAt(pos, DirectX::SimpleMath::Vector3::Forward, DirectX::SimpleMath::Vector3::Up));
 }
 
-OurMatrix OurMatrix::CreateTrasform(Vec3 _pos)
+OurMatrix OurMatrix::CreateTrasform(Vec3 _pos, float _rot, float _zoom, float _viewportWidth, float _viewportHeight )
 {
-	return toOur(DirectX::SimpleMath::Matrix::CreateTranslation(_pos));
+	DirectX::SimpleMath::Matrix matrix = DirectX::SimpleMath::Matrix::CreateTranslation(_pos) *
+		DirectX::SimpleMath::Matrix::CreateRotationZ(_rot) *
+		DirectX::SimpleMath::Matrix::CreateScale(DirectX::SimpleMath::Vector3(_zoom, _zoom, 1)) *
+		DirectX::SimpleMath::Matrix::CreateTranslation(DirectX::SimpleMath::Vector3(_viewportWidth * 0.5f, _viewportHeight * 0.5f, 0));
+	
+	return toOur(matrix);
 }
 
 #pragma endregion

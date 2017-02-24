@@ -25,6 +25,8 @@ public:
 	HWND GetWindow() { return hWnd; }
 
 	float getAspectRatio();
+	float getWindowWidth();
+	float getWindowHeight();
 
 private:
 	ID3D11Device* pd3dDevice;

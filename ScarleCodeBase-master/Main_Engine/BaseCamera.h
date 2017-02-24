@@ -5,7 +5,7 @@
 class BaseCamera : public GameObjectV2
 {
 public:
-	BaseCamera(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance, float _farPlaneDistance, Vec3 _up = Vec3::Up, Vec3 _target = Vec3::Zero);
+	BaseCamera(float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up = Vec3::Up, Vec3 _target = Vec3::Zero);
 	~BaseCamera();
 
 	virtual bool Update();
@@ -26,12 +26,14 @@ protected:
 	OurMatrix m_worldMat;
 
 	//parameters for setting up a camera
-	float m_fieldOfView;
-	float m_aspectRatio;
-	float m_nearPlaneDistance;
-	float m_farPlaneDistance;
+	float width;
+	float height;
+	float nearPlane;
+	float farPlane;
 
 	Vec3 m_target;
 	Vec3 m_up;
 
+	float rotation = 0.0f;
+	float zoom = 1.0f;
 };

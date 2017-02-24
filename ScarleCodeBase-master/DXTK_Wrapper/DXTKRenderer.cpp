@@ -80,3 +80,17 @@ float Renderer::getAspectRatio()
 
 }
 
+float Renderer::getWindowWidth()
+{
+	RECT rc;
+	GetClientRect(hWnd, &rc);
+	return rc.right - rc.left;
+}
+
+float Renderer::getWindowHeight()
+{
+	RECT rc;
+	GetClientRect(hWnd, &rc);
+	return rc.bottom - rc.top;
+}
+

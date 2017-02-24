@@ -18,23 +18,19 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
 	PlayerV2* go1 = new PlayerV2(sprite1);
 
-	go1->SetPosition(new Vec2(10.0f, 10.0f));
-	go1->SetSize(new Vec2(0.5f, 0.5f));
+	go1->SetPosition(new Vec2(50.0f, -300.0f));
+	//go1->SetSize(new Vec2(0.5f, 0.5f));
 	go_list.push_back(go1);
 
 	Sprite* sprite2 = new Sprite("grass", GameDataV2::renderer);
 	GameObjectV2* go2 = new GameObjectV2(sprite2);
 
-	go2->SetPosition(new Vec2(10.0f, 10.0f));
+	go2->SetPosition(new Vec2(0.0f, 0.0f));
 	go2->SetSize(new Vec2(0.5f, 0.5f));
 	go_list.push_back(go2);
-	
-
-	//find how big my window is to correctly calculate my aspect ratio
-	float AR = GameDataV2::renderer->getAspectRatio();
 
 	//create a base camera
-	BaseCamera* cam = new BaseCamera(0.25f * 3.14, AR, 1.0f, 10000.0f);
+	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
 	cam->SetPosition(new Vec2(0.0f, 100.0f));
 	go_list.push_back(cam);
 	mainCamera = cam;
