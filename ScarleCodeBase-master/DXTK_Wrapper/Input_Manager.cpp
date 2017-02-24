@@ -115,7 +115,7 @@ bool InputManager::getKeyUp(char _key)
 		return false;
 	}
 
-	if (keyboard_state[key] != previous_keyboard_state[key])
+	if (!keyboard_state[key] && previous_keyboard_state[key])
 		return true;
 
 	return false;
