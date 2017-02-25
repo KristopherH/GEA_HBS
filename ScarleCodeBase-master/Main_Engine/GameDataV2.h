@@ -7,7 +7,7 @@
 namespace GameDataV2
 {
 	//float m_dt;
-	GameState m_GS; // game state
+	//GameState m_gS; // game state
 
 	
 	static InputManager* inputManager = nullptr;

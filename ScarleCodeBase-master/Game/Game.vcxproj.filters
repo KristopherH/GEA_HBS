@@ -141,7 +141,7 @@
     <ClInclude Include="GameOver.h">
       <Filter>Objects\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
+    <ClInclude Include="..\Main_Engine\SceneManager.h">
       <Filter>Objects\Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -209,7 +209,7 @@
     <ClCompile Include="GameOver.cpp">
       <Filter>Objects\Source</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
+    <ClCompile Include="..\Main_Engine\SceneManager.cpp">
       <Filter>Objects\Source</Filter>
     </ClCompile>
   </ItemGroup>
