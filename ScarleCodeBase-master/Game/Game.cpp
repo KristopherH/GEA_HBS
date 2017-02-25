@@ -172,10 +172,10 @@ Game::Game(ID3D11Device* _pd3dDevice, HWND _hWnd, HINSTANCE _hInstance)
 	logo->SetPos(200.0f * Vector2::One);
 	m_GameObject2Ds.push_back(logo);
 
-	TextGO2D* text = new TextGO2D("Test Text");
+	/*TextGO2D* text = new TextGO2D("Test Text");
 	text->SetPos(Vector2(100, 10));
 	text->SetColour(Color((float*)&Colors::Yellow));
-	m_GameObject2Ds.push_back(text);
+	m_GameObject2Ds.push_back(text);*/
 	
 };
 
