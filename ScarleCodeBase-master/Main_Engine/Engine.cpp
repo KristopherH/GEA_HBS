@@ -27,6 +27,8 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::collsion_manager = _collision_manager;
 	GameDataV2::game_controller = _game_controller;
 
+	_GS = GameState::GS_MAIN_MENU;
+
 	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
 	PlayerV2* go1 = new PlayerV2(sprite1, "Player", "Player");
 
@@ -85,6 +87,7 @@ Engine::~Engine()
 
 bool Engine::Update()
 {
+
 	for (auto go : GameDataV2::go_list)
 	{
 		go->gravityUpdate();
@@ -105,6 +108,41 @@ bool Engine::Update()
 	case GameState::GS_MAIN_MENU:
 	{
 
+		Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
+		PlayerV2* go1 = new PlayerV2(sprite1, "Player", "Player");
+
+		go1->SetPosition(new Vec2(10.0f, 10.0f));
+		go1->SetSize(new Vec2(0.5f, 0.5f));
+		go1->setGravity(false);
+		go1->setGravityTag("Surface");
+
+		GameObjectV2* go2 = new GameObjectV2(sprite1, "Surface", "Surface");
+
+		go2->SetPosition(new Vec2(10.0f, 800.0f));
+		go2->SetSize(new Vec2(2.0f, 0.1f));
+
+		GameDataV2::go_list.push_back(go1);
+		GameDataV2::go_list.push_back(go2);
+
+		createCollectible(0.0f, 0.0f);
+
+		//create a base camera
+		BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+		cam->SetPosition(new Vec2(0.0f, 0.0f));
+
+		GameDataV2::go_list.push_back(cam);
+		mainCamera = cam;
+
+		////Not essential but stops the risk of it interfering with the object that's in the vector
+		go1 = nullptr;
+		go2 = nullptr;
+		sprite1 = nullptr;
+
+		//double init of input manager
+		if (!GameDataV2::inputManager->init())
+		{
+			OutputDebugString("Input manager failed to initialize");
+		}
 
 
 		if (GameDataV2::inputManager->getKeyHeld('_'))
