@@ -91,7 +91,7 @@ bool Engine::Update()
 		go->Update();
 	}
 
-	/*
+	
 	switch (_GS)
 	{
 
@@ -104,23 +104,6 @@ bool Engine::Update()
 
 	case GameState::GS_MAIN_MENU:
 	{
-
-
-		Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
-		PlayerV2* go1 = new PlayerV2(sprite1);
-
-		go1->SetPosition(new Vec2(10.0f, 10.0f));
-		go1->SetSize(new Vec2(0.5f, 0.5f));
-		go_list.push_back(go1);
-
-		//Not essential but stops the risk of it interfering with the object that's in the vector
-		go1 = nullptr;
-		sprite1 = nullptr;
-
-		if (!GameDataV2::inputManager->init())
-		{
-			OutputDebugString("Input manager failed to initialize");
-		}
 
 
 
@@ -142,20 +125,11 @@ bool Engine::Update()
 	case GameState::GS_GAME_OVER:
 	{
 		
-		GameDataV2::inputManager = _inputManager;
-		GameDataV2::renderer = _renderer;
-		Sprite* gameOver = new Sprite("white", GameDataV2::renderer);
-
-		PlayerV2* go1 = new PlayerV2(gameOver);
-
-		go1->SetPosition(new Vec2(10.0f, 10.0f));
-		go1->SetSize(new Vec2(0.5f, 0.5f));
-		go_list.push_back(go1);
 
 		
 		break;
 	}
-	}*/
+	}
 	return true;
 }
 
