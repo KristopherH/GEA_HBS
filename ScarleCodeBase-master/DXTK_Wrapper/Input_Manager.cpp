@@ -89,7 +89,6 @@ bool InputManager::getMouseMiddleHeld()
 
 bool InputManager::getKeyDown(char _key)
 {
-	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
@@ -108,7 +107,6 @@ bool InputManager::getKeyDown(char _key)
 
 bool InputManager::getKeyUp(char _key)
 {
-	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
@@ -117,7 +115,7 @@ bool InputManager::getKeyUp(char _key)
 		return false;
 	}
 
-	if (keyboard_state[key] != previous_keyboard_state[key])
+	if (!keyboard_state[key] && previous_keyboard_state[key])
 		return true;
 
 	return false;
@@ -127,7 +125,6 @@ bool InputManager::getKeyUp(char _key)
 
 bool InputManager::getKeyHeld(char _key)
 {
-	readKeyboard();
 	unsigned int key = convertCharToDinput(_key);
 
 	if (key == 0)
@@ -199,7 +196,7 @@ bool InputManager::init()
 		OutputDebugString("FAILED TO CREATE SET COOPERAIVE LEVEL FOR USER_KEYBOARD IN INPUT_MANAGER.CPP\n");
 		return false;
 	}
-
+	readKeyboard();
 	return true;
 }
 
@@ -207,6 +204,7 @@ bool InputManager::init()
 
 bool InputManager::readKeyboard()
 {
+
 	memcpy(previous_keyboard_state, keyboard_state, sizeof(unsigned char) * 256);
 
 	ZeroMemory(&keyboard_state, sizeof(keyboard_state));

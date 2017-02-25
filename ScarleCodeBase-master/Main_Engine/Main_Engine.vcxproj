@@ -71,14 +71,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Bin\Desktop_2015\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\Bin\Desktop_2015\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>..\DXTK_Wrapper;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\DXTK_Wrapper;%(AdditionalIncludeDirectories); ..\Inc;../DXTK_Wrapper</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Inc;..\DXTK_Wrapper</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -119,6 +119,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameDataV2.h" />
     <ClInclude Include="GameObjectV2.h" />
+    <ClInclude Include="Game_Controller.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="PlayerV2.h" />
     <ClInclude Include="SceneManager.h" />
@@ -126,7 +127,9 @@
   <ItemGroup>
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameDataV2.cpp" />
     <ClCompile Include="GameObjectV2.cpp" />
+    <ClCompile Include="Game_Controller.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="PlayerV2.cpp" />
     <ClCompile Include="SceneManager.cpp" />

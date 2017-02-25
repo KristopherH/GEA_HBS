@@ -7,7 +7,7 @@
 class PlayerV2 : public GameObjectV2
 {
 public:
-	PlayerV2(Sprite* _sprite);
+	PlayerV2(Sprite* _sprite, std::string _name, std::string _tag);
 	~PlayerV2();
 
 	bool Update() override;
@@ -20,9 +20,10 @@ public:
 protected:
 
 	int lives;
-	float speed;
+	float speed = 1.0f;
 	float jumpStrength;
 
 	//Input component
-	std::map<char, std::function<void()>> KeyBinds;
+	std::map<char, std::function<void()>> KeyBindsHold;
+	std::map<char, std::function<void()>> KeyBindsPress;
 };

@@ -19,7 +19,8 @@ class GameObjectV2;
 class Engine
 {
 public:
-	Engine(Renderer* _renderer, InputManager* _inputManager);
+	Engine(Renderer* _renderer, InputManager* _inputManager, 
+			CollisionManager* _collision_manager, GameController* _game_controller);
 	~Engine();
 
 	bool Update();
@@ -32,8 +33,11 @@ public:
 	float m_dt;
 
 private:
-	std::vector<GameObjectV2*> go_list;
 
+<<<<<<< HEAD
 protected:
 	//GameDataV2* m_GD;
+=======
+	BaseCamera* mainCamera = nullptr;
+>>>>>>> refs/remotes/origin/master
 };
