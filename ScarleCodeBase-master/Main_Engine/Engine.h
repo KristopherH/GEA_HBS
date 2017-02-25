@@ -33,10 +33,10 @@ public:
 
 private:
 
-<<<<<<< HEAD
+ 
 protected:
 	//GameDataV2* m_GD;
-=======
+ 
 	BaseCamera* mainCamera = nullptr;
->>>>>>> refs/remotes/origin/master
+ 
 };

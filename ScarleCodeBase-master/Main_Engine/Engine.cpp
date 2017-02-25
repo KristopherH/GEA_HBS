@@ -11,18 +11,11 @@
 #include "GameObjectV2.h"
 #include "..\DXTK_Wrapper\Sprite.h"
 #include "PlayerV2.h"
-<<<<<<< HEAD
 #include "SceneManager.h"
 #include "GameDataV2.h"
-=======
 #include "BaseCamera.h"
-#include "GameDataV2.h"
 
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/master
 
-=======
->>>>>>> refs/remotes/origin/master
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 				CollisionManager* _collision_manager, GameController* _game_controller)
 {
@@ -30,9 +23,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	GameDataV2::inputManager = _inputManager;
 	GameDataV2::renderer = _renderer;
-<<<<<<< HEAD
 
-=======
 	GameDataV2::collsion_manager = _collision_manager;
 	GameDataV2::game_controller = _game_controller;
 
@@ -71,7 +62,6 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	{
 		OutputDebugString("Input manager failed to initialize");
 	}
->>>>>>> refs/remotes/origin/master
 }
 
 Engine::~Engine()
@@ -101,7 +91,7 @@ bool Engine::Update()
 		go->Update();
 	}
 
-
+	/*
 	switch (_GS)
 	{
 
@@ -151,7 +141,7 @@ bool Engine::Update()
 
 	case GameState::GS_GAME_OVER:
 	{
-		/*
+		
 		GameDataV2::inputManager = _inputManager;
 		GameDataV2::renderer = _renderer;
 		Sprite* gameOver = new Sprite("white", GameDataV2::renderer);
@@ -162,10 +152,10 @@ bool Engine::Update()
 		go1->SetSize(new Vec2(0.5f, 0.5f));
 		go_list.push_back(go1);
 
-		*/
+		
 		break;
 	}
-	}
+	}*/
 	return true;
 }
 
