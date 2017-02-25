@@ -17,7 +17,8 @@ public:
 	virtual bool Update();
 	
 	Vec2 GetPosition() { return position; }
-	Vec2 GetSize() { return size; }
+	Vec2 GetSize() { return Vec2( sprite->GetSize().x * scale.x, sprite->GetSize().y * scale.y); }
+	Vec2 GetScale() { return scale; }
 	Sprite* GetSprite() { return sprite; }
 	Vec2 GetOrigin() { return origin; }
 	float GetRotation() { return rotation; }
@@ -25,7 +26,8 @@ public:
 	std::string getTag() { return tag; }
 
 	void SetPosition(Vec2* _position) { position.x = _position->x; position.y = _position->y;}
-	void SetSize(Vec2* _size) { size.x = _size->x; size.y = _size->y; }
+	void SetSize(Vec2* _size);
+	void SetScale(Vec2* _scale) { scale.x = _scale->x; scale.y = _scale->y; }
 	void SetSprite(Sprite* _sprite) { sprite = _sprite; }
 	void SetOrigin(Vec2* _origin) { origin.x = _origin->x; origin.y = _origin->y;; }
 	void SetRotation(float _rot) { rotation = _rot; }
@@ -40,14 +42,14 @@ public:
 
 protected:
 	Vec2 position;
-	Vec2 size;
+	Vec2 scale;
 	Vec2 origin;
 	float rotation;
 	bool grounded = false;
 	bool gravity_on = false;
 
 	float falling_speed = 0.0f;
-	float gravity_acceleration = 0.01f;
+	float gravity_acceleration = 0.0005f;
 
 	std::string tag = "GameObject";
 	std::string name = "GameObject";

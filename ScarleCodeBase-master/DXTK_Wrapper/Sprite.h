@@ -25,7 +25,7 @@ public:
 	ID3D11ShaderResourceView* GetTexture() { return m_pTextureRV; } 
 	Vec4 GetColour() { return colour; }
 	Vec2 GetOrigin() { return origin; }
-
+	Vec2 GetSize();
 
 protected:
 
