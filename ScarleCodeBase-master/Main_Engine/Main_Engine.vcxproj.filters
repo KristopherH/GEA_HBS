@@ -22,6 +22,9 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Platforms.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerV2.h">
@@ -43,6 +46,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="BaseCamera.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Platforms.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
