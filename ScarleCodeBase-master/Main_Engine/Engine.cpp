@@ -16,6 +16,7 @@
 #include "BaseCamera.h"
 
 
+
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 				CollisionManager* _collision_manager, GameController* _game_controller)
 {
@@ -32,29 +33,27 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
 	PlayerV2* go1 = new PlayerV2(sprite1, "Player", "Player");
 
-	go1->SetPosition(new Vec2(10.0f, 10.0f));
-	go1->SetSize(new Vec2(0.5f, 0.5f));
-	go1->setGravity(false);
+	go1->SetPosition(new Vec2(0.0f, -800.0f));
+	go1->SetSize(new Vec2(100.0f, 100.0f));
+	go1->setGravity(true);
 	go1->setGravityTag("Surface");
 
-	GameObjectV2* go2 = new GameObjectV2(sprite1, "Surface", "Surface");
+	Sprite* sprite2 = new Sprite("grass", GameDataV2::renderer);
+	GameObjectV2* go2 = new GameObjectV2(sprite2, "Surface", "Surface");
 
-	go2->SetPosition(new Vec2(10.0f, 800.0f));
-	go2->SetSize(new Vec2(2.0f, 0.1f));
+	go2->SetPosition(new Vec2(10.0f, 100.0f));
+	go2->SetSize(new Vec2(100.0f, 10.0f));
 
 	GameDataV2::go_list.push_back(go1);
 	GameDataV2::go_list.push_back(go2);
 
-	createCollectible(0.0f, 0.0f);
-
 	//create a base camera
 	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
 	cam->SetPosition(new Vec2(0.0f, 0.0f));
-	
 	GameDataV2::go_list.push_back(cam);
 	mainCamera = cam;
 
-	////Not essential but stops the risk of it interfering with the object that's in the vector
+	//Not essential but stops the risk of it interfering with the object that's in the vector
 	go1 = nullptr;
 	go2 = nullptr;
 	sprite1 = nullptr;
@@ -65,6 +64,8 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 		OutputDebugString("Input manager failed to initialize");
 	}
 }
+
+
 
 Engine::~Engine()
 {
@@ -84,6 +85,8 @@ Engine::~Engine()
 	delete GameDataV2::game_controller;
 	GameDataV2::game_controller = nullptr;
 }
+
+
 
 bool Engine::Update()
 {
@@ -171,24 +174,11 @@ bool Engine::Update()
 	return true;
 }
 
-void Engine::createCollectible(float x, float y)
-{
-	Sprite* gameColectible = new Sprite("coin", GameDataV2::renderer);
 
-	GameObjectV2* ctbl = new GameObjectV2(gameColectible, "Collectible", "Collectible");
-
-	ctbl->SetPosition(new Vec2(x, y));
-	ctbl->SetSize(new Vec2(0.15f, 0.15f));
-
-	GameDataV2::go_list.push_back(ctbl);
-
-	//Not essential but stops the risk of it interfering with the object that's in the vector
-	ctbl = nullptr;
-	gameColectible = nullptr;
-}
 
 bool Engine::Draw() 
 {
+
 	GameDataV2::renderer->BeginDraw(mainCamera);
 
 	for (const auto go : GameDataV2::go_list)

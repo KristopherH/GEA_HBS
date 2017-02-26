@@ -119,20 +119,16 @@
     <ClInclude Include="Collision_Manager.h" />
     <ClInclude Include="CustomMath.h" />
     <ClInclude Include="DXTKRenderer.h" />
-    <ClInclude Include="Font.h" />
     <ClInclude Include="Input_Manager.h" />
     <ClInclude Include="Object_Manager.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Text.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collision_Manager.cpp" />
     <ClCompile Include="CustomMath.cpp" />
     <ClCompile Include="DXTKRenderer.cpp" />
-    <ClCompile Include="Font.cpp" />
     <ClCompile Include="Input_Manager.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
