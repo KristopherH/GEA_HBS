@@ -75,5 +75,8 @@
     <ImageContentTask Include="player_sprite.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Ladder.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

@@ -14,6 +14,12 @@ Sprite::Sprite(std::string _fileName, Renderer* _renderer)
 		+ _fileName + ".dds";
 	HRESULT hr = CreateDDSTextureFromFile(_renderer->GetDevice(), Helper::charToWChar(fullfilename.c_str()), nullptr, &m_pTextureRV);
 
+	if (hr != S_OK)
+	{
+		OutputDebugString("Sprite File Not Found");
+	}
+
+	//Why don't you just call getSize in here?
 	//this nasty thing is required to find out the size of this image!
 	ID3D11Resource *pResource;
 	D3D11_TEXTURE2D_DESC Desc;

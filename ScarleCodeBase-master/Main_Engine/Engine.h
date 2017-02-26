@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <list>
+#include <map>
 //External
 
 
@@ -31,14 +32,13 @@ public:
 	bool Draw(); // will pass an object at the renderer and ask to draw it
 	void Scene();
 	void clearGameObjectList();
-
+	void moveCamera(Vec2* _translation);
 	float m_dt;
 
 private:
   
 	Sprite* spd_plat;
 	GameObjectV2* platform2;
-	BaseCamera* mainCamera = nullptr;
 	std::unique_ptr<Platforms> createPlatform;
 
 protected:
