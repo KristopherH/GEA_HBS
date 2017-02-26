@@ -11,7 +11,7 @@ Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	//m_DD2D->m_Font.reset(new SpriteFont(_pd3dDevice, L"..\\Assets\\italic.spritefont"));
 
 	////set up DirectXTK Effects system
-	//m_fxFactory = new EffectFactory(_pd3dDevice);
+    //m_fxFactory = new EffectFactory(_pd3dDevice);
 
 	//find how big my window is to correctly calculate my aspect ratio
 	RECT rc;

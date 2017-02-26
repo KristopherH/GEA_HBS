@@ -123,6 +123,7 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Platforms.h" />
     <ClInclude Include="PlayerV2.h" />
+    <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseCamera.cpp" />
@@ -133,6 +134,7 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Platforms.cpp" />
     <ClCompile Include="PlayerV2.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
