@@ -3,7 +3,7 @@
 #include "CustomMath.h"
 #include "Sprite.h"
 #include <vector>
-
+#include "Enum_container.h"
 class InputManager;
 
 class GameObjectV2
@@ -11,7 +11,7 @@ class GameObjectV2
 public:
 	GameObjectV2();
 	GameObjectV2(Sprite* sprite, std::string _name, std::string _tag);
-  GameObjectV2::GameObjectV2(Sprite* _sprite);
+	GameObjectV2(Sprite* _sprite);
 	~GameObjectV2();
 
 	virtual bool Update();
@@ -39,6 +39,7 @@ public:
 
 	void movePosition(Vec2* _translation);
 	void gravityUpdate();
+	Direction getMovementDirection();
 
 protected:
 	Vec2 position;
@@ -47,6 +48,8 @@ protected:
 	float rotation;
 	bool grounded = false;
 	bool gravity_on = false;
+
+	Direction move_direction = Direction::NONE;
 
 	float falling_speed = 0.0f;
 	float gravity_acceleration = 0.01f;

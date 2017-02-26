@@ -104,3 +104,8 @@ void GameObjectV2::gravityUpdate()
 
 	i = 0;
 }
+
+Direction GameObjectV2::getMovementDirection()
+{
+	return move_direction;
+}
