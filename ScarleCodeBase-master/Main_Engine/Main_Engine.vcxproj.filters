@@ -48,16 +48,42 @@
     <ClInclude Include="BaseCamera.h">
       <Filter>Headers</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files</Filter>
+=======
     <ClInclude Include="Platforms.h">
       <Filter>Headers</Filter>
+>>>>>>> refs/remotes/origin/master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectV2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerV2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+=======
     <Filter Include="Source">
       <UniqueIdentifier>{755b1806-aeff-4428-ba39-1de1015f1917}</UniqueIdentifier>
     </Filter>
     <Filter Include="Headers">
       <UniqueIdentifier>{6b112ddd-a6d3-4abd-8b73-3c7ca73bc8e8}</UniqueIdentifier>
     </Filter>
+>>>>>>> refs/remotes/origin/master
   </ItemGroup>
 </Project>

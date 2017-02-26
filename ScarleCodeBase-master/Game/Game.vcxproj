@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Main_Engine\SceneManager.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="CMOGO.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -141,8 +142,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerLives.h" />
     <ClInclude Include="RWSprite.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TextGO2D.h" />
     <ClInclude Include="TPSCamera.h" />
@@ -157,6 +156,7 @@
     <ClInclude Include="vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Main_Engine\SceneManager.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="CMOGO.cpp" />
     <ClCompile Include="fileVBGO.cpp" />
@@ -170,8 +170,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerLives.cpp" />
     <ClCompile Include="RWSprite.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TextGO2D.cpp" />
     <ClCompile Include="TPSCamera.cpp" />
