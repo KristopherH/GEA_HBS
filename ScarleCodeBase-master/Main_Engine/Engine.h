@@ -15,16 +15,18 @@ using std::unique_ptr;
 
 //Definitions
 class GameObjectV2;
+class Platforms;
 
 class Engine
 {
 public:
 	Engine(Renderer* _renderer, InputManager* _inputManager, 
 			CollisionManager* _collision_manager, GameController* _game_controller);
+
 	~Engine();
 
 	bool Update();
-	void createCollectible(float x, float y);
+	//void createCollectible(float x, float y);
 	//void createCollectible(Renderer * _renderer, InputManager * _inputManager);
 	bool Draw(); // will pass an object at the renderer and ask to draw it
 	void Scene();
@@ -33,8 +35,12 @@ public:
 	float m_dt;
 
 private:
+  
+	Sprite* spd_plat;
+	GameObjectV2* platform2;
+	BaseCamera* mainCamera = nullptr;
+	std::unique_ptr<Platforms> createPlatform;
 
- 
 protected:
 	//GameDataV2* m_GD;
  
