@@ -33,10 +33,10 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
 
-	Sprite* ladder_spr = new Sprite("grass", GameDataV2::renderer);
+	Sprite* ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
 	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Climable"); 
 	ladder->SetSize(new Vec2(100.0f, 600.0f));
-	ladder->SetPosition(new Vec2(50.0f, -100.0f));
+	ladder->SetPosition(new Vec2(50.0f, -280.0f));
 
 	_GS = GameState::GS_MAIN_MENU;
 
