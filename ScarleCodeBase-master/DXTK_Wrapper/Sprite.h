@@ -20,6 +20,7 @@ class Sprite
 {
 public:
 	Sprite(std::string _fileName, Renderer* _renderer);
+	Sprite();
 	virtual ~Sprite();
 
 	ID3D11ShaderResourceView* GetTexture() { return m_pTextureRV; } 

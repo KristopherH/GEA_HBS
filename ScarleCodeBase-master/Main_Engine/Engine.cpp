@@ -9,6 +9,7 @@
 #include "PlayerV2.h"
 #include "BaseCamera.h"
 #include "GameDataV2.h"
+#include "Platforms.h"
 
 
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
@@ -18,23 +19,33 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::renderer = _renderer;
 	GameDataV2::collsion_manager = _collision_manager;
 	GameDataV2::game_controller = _game_controller;
+	createPlatform = std::make_unique<Platforms>();
 
-	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
-	PlayerV2* go1 = new PlayerV2(sprite1, "Player", "Player");
+	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
+	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
 
-	go1->SetPosition(new Vec2(0.0f, -800.0f));
-	go1->SetSize(new Vec2(100.0f, 100.0f));
-	go1->setGravity(true);
-	go1->setGravityTag("Surface");
+	player->SetPosition(new Vec2(0.0f, -800.0f));
+	player->SetSize(new Vec2(100.0f, 150.0f));
+	player->setGravity(true);
+	//go1->setGravityTag("Surface");
+	player->setGravityTag("Slow Platform");
+	player->setGravityTag("Sticky Platform");
+	player->setGravityTag("Speed Platform");
+	player->setGravityTag("Conveyor Platform");
 
-	Sprite* sprite2 = new Sprite("grass", GameDataV2::renderer);
-	GameObjectV2* go2 = new GameObjectV2(sprite2, "Surface", "Surface");
+	createPlatform.get()->slowPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f);
 
-	go2->SetPosition(new Vec2(10.0f, 100.0f));
-	go2->SetSize(new Vec2(100.0f, 10.0f));
+	createPlatform.get()->speedPlatform(_renderer, 200.0f, 0.0f, 300.0f, 100.0f);
 
-	GameDataV2::go_list.push_back(go1);
-	GameDataV2::go_list.push_back(go2);
+	createPlatform.get()->stickyPlatform(_renderer, -400.0f, 0.0f, 300.0f, 100.0f);
+
+	createPlatform.get()->conveyorPlatform(_renderer, -100.0f, 300.0f, 300.0f, 100.0f);
+
+	GameDataV2::go_list.push_back(player);
+	GameDataV2::go_list.push_back(createPlatform.get()->GetSlwPlat());
+	GameDataV2::go_list.push_back(createPlatform.get()->GetSpdPlat());
+	GameDataV2::go_list.push_back(createPlatform.get()->GetStkPlat());
+	GameDataV2::go_list.push_back(createPlatform.get()->GetCnvyrPlat());
 
 	//create a base camera
 	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
@@ -43,8 +54,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	mainCamera = cam;
 
 	//Not essential but stops the risk of it interfering with the object that's in the vector
-	go1 = nullptr;
-	go2 = nullptr;
+	player = nullptr;
 	sprite1 = nullptr;
 
 	//double init of input manager
@@ -54,8 +64,6 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	}
 }
 
-
-
 Engine::~Engine()
 {
 	clearGameObjectList();
@@ -64,7 +72,7 @@ Engine::~Engine()
 
 	delete GameDataV2::renderer;
 	GameDataV2::renderer = nullptr;
-	
+
 	delete GameDataV2::inputManager;
 	GameDataV2::inputManager = nullptr;
 
@@ -74,8 +82,6 @@ Engine::~Engine()
 	delete GameDataV2::game_controller;
 	GameDataV2::game_controller = nullptr;
 }
-
-
 
 bool Engine::Update()
 {

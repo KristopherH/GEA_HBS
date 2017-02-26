@@ -24,6 +24,10 @@ Sprite::Sprite(std::string _fileName, Renderer* _renderer)
 	origin *= 0.5f;
 }
 
+Sprite::Sprite()
+{
+}
+
 Sprite::~Sprite()
 {
 }
