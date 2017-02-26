@@ -10,6 +10,8 @@
 #include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "GameDataV2.h"
 
+#include <map> // remove after ttest
+
 using std::list;
 using std::unique_ptr;
 
@@ -29,15 +31,15 @@ public:
 	bool Draw(); // will pass an object at the renderer and ask to draw it
 	void Scene();
 	void clearGameObjectList();
-
+	void playGame();
 	float m_dt;
-
+	void initPlayGame();
 private:
 
  
 protected:
 	//GameDataV2* m_GD;
- 
+	std::map<char, std::function<void()>> KeyBindsPress;
 	BaseCamera* mainCamera = nullptr;
  
 };
