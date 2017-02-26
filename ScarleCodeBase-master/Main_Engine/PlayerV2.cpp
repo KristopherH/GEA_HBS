@@ -11,7 +11,7 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.1f, 0.0f));
 	//KeyBinds['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -0.1f));
 	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, 0.1f));
-	jumpStrength = -10.0f;
+	jumpStrength = -1.0f;
 }
 
 PlayerV2::~PlayerV2()

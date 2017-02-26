@@ -38,7 +38,6 @@ private:
   
 	Sprite* spd_plat;
 	GameObjectV2* platform2;
-	BaseCamera* mainCamera = nullptr;
 	std::unique_ptr<Platforms> createPlatform;
 
 protected:
