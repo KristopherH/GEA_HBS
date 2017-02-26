@@ -49,7 +49,7 @@ protected:
 	bool gravity_on = false;
 
 	float falling_speed = 0.0f;
-	float gravity_acceleration = 0.0005f;
+	float gravity_acceleration = 0.01f;
 
 	std::string tag = "GameObject";
 	std::string name = "GameObject";

@@ -237,26 +237,42 @@ int InputManager::convertCharToDinput(char _input)
 	{
 	case 'W':
 	case 'w':
-		return 0x11;
+		return DIK_W;
 		break;
 
 	case 'A':
 	case 'a':
-		return 0x1E;
+		return DIK_A;
 		break;
 
 	case 'S':
 	case 's':
-		return 0x1f;
+		return DIK_S;
 		break;
 
 	case 'D':
 	case 'd':
-		return 0x20;
+		return DIK_D;
 		break;
 
 	case '_':
-		return 0x39;
+		return DIK_SPACE;
+		break;
+
+	case '8':
+		return DIK_UP;
+		break;
+
+	case '4':
+		return DIK_LEFT;
+		break;
+
+	case '2':
+		return DIK_DOWN;
+		break;
+
+	case '6':
+		return DIK_RIGHT;
 		break;
 
 	default:

@@ -11,12 +11,13 @@ int GameController::getGameObjectLocation(std::string name)
 		{
 			return i;
 		}
+
 		i++;
-		if (i > GameDataV2::go_list.size())
+
+		if (i >= GameDataV2::go_list.size())
 		{
 			return -1;
 		}
-
 	}
 
 	return -1;
