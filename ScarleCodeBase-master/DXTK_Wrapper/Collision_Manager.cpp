@@ -16,6 +16,8 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 
 	GameObjectV2* a = GameDataV2::go_list.at(a_location);
 	GameObjectV2* b = GameDataV2::go_list.at(b_location);
+
+	if (a->getTag() == "Camera" || b->getTag() == "Camera") return false;
 	
 	if (a->GetPosition().x < b->GetPosition().x + b->GetSize().x &&
 		a->GetPosition().x + a->GetSize().x > b->GetPosition().x &&

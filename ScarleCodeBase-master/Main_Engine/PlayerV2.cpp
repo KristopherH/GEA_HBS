@@ -64,10 +64,10 @@ void PlayerV2::OnJump()
 					climable_name = go->getName();
 				}
 			}
-			else
-			{
-			}
 		}
+	}
+	else
+	{
 	}
 }
 

@@ -68,6 +68,8 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	//create a base camera
 	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
 	cam->SetPosition(new Vec2(0.0f, 0.0f));
+	cam->setName("Camera");
+	cam->setTag("Camera");
 	GameDataV2::go_list.push_back(cam);
 	mainCamera = cam;
 
