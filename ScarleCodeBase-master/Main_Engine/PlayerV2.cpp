@@ -12,7 +12,7 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.5f, 0.0f));
 	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -0.5f));
 	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, 0.5f));
-	jumpStrength = -1.0f;
+	jumpStrength = -20.0f;
 }
 
 PlayerV2::~PlayerV2()
@@ -52,7 +52,23 @@ void PlayerV2::ProcessInput()
 
 void PlayerV2::OnJump()
 {
-	position += Vec2(0.0f, jumpStrength);
+	if (gravity_on)
+	{
+		for (auto go : GameDataV2::go_list)
+		{
+			if (go->getTag() != "Sticky Platform")
+			{
+				if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+				{
+					position += Vec2(0.0f, jumpStrength);
+					climable_name = go->getName();
+				}
+			}
+			else
+			{
+			}
+		}
+	}
 }
 
 void PlayerV2::OnMove(Vec2 _direction)
