@@ -56,9 +56,9 @@ void PlayerV2::OnJump()
 	{
 		for (auto go : GameDataV2::go_list)
 		{
-			if (go->getTag() != "Sticky Platform")
+			if (go->getTag() == "Sticky Platform")
 			{
-				if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+				if (!GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 				{
 					position += Vec2(0.0f, jumpStrength);
 					climable_name = go->getName();
