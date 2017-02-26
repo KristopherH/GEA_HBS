@@ -76,4 +76,9 @@
       <Filter>Textures</Filter>
     </ImageContentTask>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Ladder.png">
+      <Filter>Textures</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

@@ -16,11 +16,12 @@
 
 #include "Platforms.h"
 #include "BaseCamera.h"
+#include <functional>
 
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 				CollisionManager* _collision_manager, GameController* _game_controller)
 {
-	//GameState::GS_MAIN_MENU;
+	//GameState::GS_MAIN_MENU
 
 	GameDataV2::inputManager = _inputManager;
 	GameDataV2::renderer = _renderer;
@@ -31,17 +32,23 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
-  
+
+	Sprite* ladder_spr = new Sprite("grass", GameDataV2::renderer);
+	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Climable"); 
+	ladder->SetSize(new Vec2(100.0f, 600.0f));
+	ladder->SetPosition(new Vec2(50.0f, -100.0f));
+
 	_GS = GameState::GS_MAIN_MENU;
 
 	player->SetPosition(new Vec2(0.0f, -800.0f));
 	player->SetSize(new Vec2(100.0f, 150.0f));
 	player->setGravity(true);
-	//go1->setGravityTag("Surface");
+
 	player->setGravityTag("Slow Platform");
 	player->setGravityTag("Sticky Platform");
 	player->setGravityTag("Speed Platform");
 	player->setGravityTag("Conveyor Platform");
+
 
 	createPlatform.get()->slowPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f);
 
@@ -51,11 +58,12 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	createPlatform.get()->conveyorPlatform(_renderer, -100.0f, 300.0f, 300.0f, 100.0f);
 
-	GameDataV2::go_list.push_back(player);
+	GameDataV2::go_list.push_back(ladder);
 	GameDataV2::go_list.push_back(createPlatform.get()->GetSlwPlat());
 	GameDataV2::go_list.push_back(createPlatform.get()->GetSpdPlat());
 	GameDataV2::go_list.push_back(createPlatform.get()->GetStkPlat());
 	GameDataV2::go_list.push_back(createPlatform.get()->GetCnvyrPlat());
+	GameDataV2::go_list.push_back(player);
 
 	//create a base camera
 	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
@@ -66,6 +74,8 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	//Not essential but stops the risk of it interfering with the object that's in the vector
 	player = nullptr;
 	sprite1 = nullptr;
+	ladder = nullptr;
+	ladder_spr = nullptr;
 
 	//double init of input manager
 	if (!GameDataV2::inputManager->init())
@@ -99,7 +109,6 @@ bool Engine::Update()
 	{
 
 	case GameState::GS_PLAY:
-
 	{
 		break;
 	}
@@ -112,24 +121,40 @@ bool Engine::Update()
 			go->Update();
 		}
 
-		//double init of input manager
-		if (!GameDataV2::inputManager->init())
+		if (GameDataV2::inputManager->getKeyHeld('8'))
 		{
-			OutputDebugString("Input manager failed to initialize");
+			moveCamera(new Vec2(0.0f, 1.0f));
+		}
+		if (GameDataV2::inputManager->getKeyHeld('4'))
+		{
+			moveCamera(new Vec2(1.0f, 0.0f));
+		}
+		if (GameDataV2::inputManager->getKeyHeld('2'))
+		{
+			moveCamera(new Vec2(0.0f, -1.0f));
+		}
+		if (GameDataV2::inputManager->getKeyHeld('6'))
+		{
+			moveCamera(new Vec2(-1.0f, 0.0f));
 		}
 
+		//double init of input manager
+		/*if (!GameDataV2::inputManager->init())
+		{
+			OutputDebugString("Input manager failed to initialize");
+		}*/
 
-		if (GameDataV2::inputManager->getKeyHeld('_'))
+
+		/*if (GameDataV2::inputManager->getKeyHeld('_'))
 		{
 
 			_GS = GameState::GS_GAME_OVER;
 
-		}
+		}*/
 
 	}
 
 	case GameState::GS_PAUSE:
-
 	{
 		break;
 	}
@@ -146,7 +171,6 @@ bool Engine::Update()
 
 bool Engine::Draw() 
 {
-
 	GameDataV2::renderer->BeginDraw(mainCamera);
 
 	for (const auto go : GameDataV2::go_list)
@@ -167,6 +191,11 @@ void Engine::clearGameObjectList()
 		delete go;
 	}
 	GameDataV2::go_list.clear();
+}
+
+void Engine::moveCamera(Vec2* _translation)
+{
+	mainCamera->movePosition(_translation);
 }
 
 
