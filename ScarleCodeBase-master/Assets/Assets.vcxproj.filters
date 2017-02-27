@@ -60,5 +60,25 @@
     <ImageContentTask Include="coin.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="SlowPlatform.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="SpeedPlatform.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="StickyPlatform.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="ConveyorPlatform.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="player_sprite.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Ladder.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

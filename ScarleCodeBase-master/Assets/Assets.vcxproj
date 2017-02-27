@@ -173,6 +173,18 @@
   <ItemGroup>
     <ImageContentTask Include="coin.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="ConveyorPlatform.png" />
+    <ImageContentTask Include="SlowPlatform.png" />
+    <ImageContentTask Include="SpeedPlatform.png" />
+    <ImageContentTask Include="StickyPlatform.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="player_sprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Ladder.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
