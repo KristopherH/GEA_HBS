@@ -33,12 +33,13 @@ public:
 	//void createCollectible(Renderer * _renderer, InputManager * _inputManager);
 	bool Draw(); // will pass an object at the renderer and ask to draw it
 	void Scene();
+
 	void clearGameObjectList();
-<<<<<<< HEAD
+ 
 	void playGame();
-=======
+ 
 	void moveCamera(Vec2* _translation);
->>>>>>> refs/remotes/origin/master
+ 
 	float m_dt;
 	void initPlayGame();
 private:
