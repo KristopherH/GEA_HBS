@@ -117,7 +117,6 @@
   <ItemGroup>
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="Enum_container.h" />
     <ClInclude Include="GameDataV2.h" />
     <ClInclude Include="GameObjectV2.h" />
     <ClInclude Include="Game_Controller.h" />
