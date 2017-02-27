@@ -30,6 +30,11 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::game_controller = _game_controller;
 	createPlatform = std::make_unique<Platforms>();
 
+<<<<<<< HEAD
+	
+	_GS = GameState::GS_MAIN_MENU;
+
+=======
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
 
@@ -105,6 +110,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 		case GameState::GS_MAIN_MENU:
 		{
+>>>>>>> origin/Phil
 			//create a base camera
 			BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
 			cam->SetPosition(new Vec2(0.0f, 0.0f));
@@ -125,33 +131,22 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 			}
 
 			go2 = nullptr;
-			//break;
-
-		}
-
-		case GameState::GS_PAUSE:
-
-		{
-			break;
-		}
-
-		case GameState::GS_GAME_OVER:
-		{
-
-
-
-			break;
-		}
-
-
-		}
 }
 
+<<<<<<< HEAD
+ 
+
+
+
+ 
+ 
+=======
 
 
 
 
 
+>>>>>>> origin/Phil
 Engine::~Engine()
 {
 	clearGameObjectList();
@@ -172,15 +167,17 @@ Engine::~Engine()
 }
 
 bool Engine::Update()
+<<<<<<< HEAD
+ 
+=======
 
+>>>>>>> origin/Phil
 {
 
 	for (auto go : GameDataV2::go_list)
 	{
 		go->gravityUpdate();
 		go->Update();
-
-
 
 	}
 	Scene();
@@ -189,26 +186,43 @@ bool Engine::Update()
 
 
 
-bool Engine::Draw() 
+bool Engine::Draw()
 {
 
 	GameDataV2::renderer->BeginDraw(mainCamera);
 
 	for (const auto go : GameDataV2::go_list)
+<<<<<<< HEAD
+
+=======
 
 {	
 	switch (_GS)
 	{
 
 	case GameState::GS_PLAY:
+>>>>>>> origin/Phil
 	{
-		GameDataV2::renderer->Draw(go);
-	}
+		switch (_GS)
+		{
 
+<<<<<<< HEAD
+		case GameState::GS_PLAY:
+=======
 
 	GameDataV2::renderer->EndDraw();
+>>>>>>> origin/Phil
 
-	return true;
+		{
+			GameDataV2::renderer->Draw(go);
+		}
+
+
+		GameDataV2::renderer->EndDraw();
+
+		return true;
+		}
+	}
 }
 
 void Engine::clearGameObjectList()
@@ -225,19 +239,21 @@ void Engine::clearGameObjectList()
 void Engine::Scene()
 {
 	GameDataV2::inputManager->readKeyboard();
-		switch (_GS)
-		{
+	switch (_GS)
+	{
 
 
-		case GameState::GS_PLAY:
+	case GameState::GS_PLAY:
 
-		{
+	{
 
-			playGame();
+		playGame();
 
-			break;
-		}
+		break;
+	}
 
+<<<<<<< HEAD
+=======
 		case GameState::GS_MAIN_MENU:
 		{
 			
@@ -249,6 +265,7 @@ void Engine::Scene()
 			break;
 		}
 
+>>>>>>> origin/Phil
 	case GameState::GS_MAIN_MENU:
 	{
 		for (auto go : GameDataV2::go_list)
@@ -275,43 +292,113 @@ void Engine::Scene()
 		}
 
 		//double init of input manager
-		/*if (!GameDataV2::inputManager->init())
+		if (!GameDataV2::inputManager->init())
 		{
 			OutputDebugString("Input manager failed to initialize");
+<<<<<<< HEAD
+=======
 		}*/
 
+>>>>>>> origin/Phil
 
-		case GameState::GS_PAUSE:
+			if (GameDataV2::inputManager->getKeyDown('_'))
+			{
+				_GS = GameState::GS_PLAY;
+				initPlayGame();
 
+<<<<<<< HEAD
+			}
+=======
 
 		/*if (GameDataV2::inputManager->getKeyHeld('_'))
 
 		{
+>>>>>>> origin/Phil
 			break;
 		}
+		/*
+		   case GameState::GS_MAIN_MENU:
+		   {
+			   for (auto go : GameDataV2::go_list)
+			   {
+				   go->gravityUpdate();
+				   go->Update();
+			   }
 
-		case GameState::GS_GAME_OVER:
-		{
+			   if (GameDataV2::inputManager->getKeyHeld('8'))
+			   {
+				   moveCamera(new Vec2(0.0f, 1.0f));
+			   }
+			   if (GameDataV2::inputManager->getKeyHeld('4'))
+			   {
+				   moveCamera(new Vec2(1.0f, 0.0f));
+			   }
+			   if (GameDataV2::inputManager->getKeyHeld('2'))
+			   {
+				   moveCamera(new Vec2(0.0f, -1.0f));
+			   }
+			   if (GameDataV2::inputManager->getKeyHeld('6'))
+			   {
+				   moveCamera(new Vec2(-1.0f, 0.0f));
+			   }
 
+<<<<<<< HEAD
+			   //double init of input manager
+			   /*if (!GameDataV2::inputManager->init())
+			   {
+				   OutputDebugString("Input manager failed to initialize");
+			   }*/
+=======
 
 			break;
 		}
 
 		}*/
 
-
-		}
-	
+>>>>>>> origin/Phil
 
 
+<<<<<<< HEAD
+			   /*case GameState::GS_PAUSE:
+
+
+
+			   if (GameDataV2::inputManager->getKeyHeld('_'))
+
+			   {
+				   break;
+			   }
+
+			   case GameState::GS_GAME_OVER:
+			   {
+
+
+				   break;
+			   }
+
+			   }
+
+
+			   }*/
+
+
+	}
+	}
+=======
+
+>>>>>>> origin/Phil
 }
 	
 
-
+/*
 void Engine::createCollectible(float x , float y)
 {
 
+<<<<<<< HEAD
+ 
+=======
 
+>>>>>>> origin/Phil
 	case GameState::GS_PAUSE:
 	{
 		break;
@@ -323,11 +410,18 @@ void Engine::createCollectible(float x , float y)
 	}
 	}
 	return true;
+<<<<<<< HEAD
+ 
+=======
 
+>>>>>>> origin/Phil
 }
-
+*/
 void Engine::playGame()
 {
+<<<<<<< HEAD
+	GameDataV2::renderer->BeginDraw(mainCamera);
+=======
 
 
 =======
@@ -335,18 +429,72 @@ void Engine::playGame()
 
 
 
+>>>>>>> origin/Phil
 }
 
 void Engine::initPlayGame()
 {
-	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
+
+	createPlatform = std::make_unique<Platforms>();
+
+	createPlatform.get()->slowPlatform(GameDataV2::renderer, -100.0f, -300.0f, 300.0f, 100.0f);
+
+	createPlatform.get()->speedPlatform(GameDataV2::renderer, 200.0f, 0.0f, 300.0f, 100.0f);
+
+	createPlatform.get()->stickyPlatform(GameDataV2::renderer, -400.0f, 0.0f, 300.0f, 100.0f);
+
+	createPlatform.get()->conveyorPlatform(GameDataV2::renderer, -100.0f, 300.0f, 300.0f, 100.0f);
+
+	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
+	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
+
+	Sprite* ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
+	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Climable");
+	ladder->SetSize(new Vec2(100.0f, 600.0f));
+	ladder->SetPosition(new Vec2(50.0f, -280.0f));
+	player->SetPosition(new Vec2(0.0f, -800.0f));
+	player->SetSize(new Vec2(100.0f, 150.0f));
+	player->setGravity(true);
+
+	player->setGravityTag("Slow Platform");
+	player->setGravityTag("Sticky Platform");
+	player->setGravityTag("Speed Platform");
+	player->setGravityTag("Conveyor Platform");
+
+	GameDataV2::go_list.push_back(ladder);
+	GameDataV2::go_list.push_back(createPlatform.get()->GetSlwPlat());
+	GameDataV2::go_list.push_back(createPlatform.get()->GetSpdPlat());
+	GameDataV2::go_list.push_back(createPlatform.get()->GetStkPlat());
+	GameDataV2::go_list.push_back(createPlatform.get()->GetCnvyrPlat());
+	GameDataV2::go_list.push_back(player);
+
+	player = nullptr;
+	sprite1 = nullptr;
+	ladder = nullptr;
+	ladder_spr = nullptr;
+
+//}
+
+//void Engine::initPlayGame()
+//{
+	//Sprite* sprite3 = new Sprite("grass", GameDataV2::renderer);
 	PlayerV2* go1 = new PlayerV2(sprite1, "Player", "Player");
 
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> origin/Phil
 	go1->SetPosition(new Vec2(0.0f, -200.0f));
 	go1->SetSize(new Vec2(100.0f, 100.0f));
 	go1->setGravity(true);
 	go1->setGravityTag("Surface");
+<<<<<<< HEAD
+	
+		
+	
+	
+=======
 =======
 void Engine::moveCamera(Vec2* _translation)
 {
@@ -355,6 +503,7 @@ void Engine::moveCamera(Vec2* _translation)
 
 
 
+>>>>>>> origin/Phil
 	Sprite* sprite2 = new Sprite("grass", GameDataV2::renderer);
 	GameObjectV2* go2 = new GameObjectV2(sprite2, "Surface", "Surface");
 
@@ -382,3 +531,7 @@ void Engine::moveCamera(Vec2* _translation)
 	}
 
 }
+void Engine::moveCamera(Vec2* _translation)
+	{
+		mainCamera->movePosition(_translation);
+	}
