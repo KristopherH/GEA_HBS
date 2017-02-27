@@ -20,7 +20,7 @@ GameObjectV2::GameObjectV2(Sprite* _sprite)
 
 GameObjectV2::~GameObjectV2()
 {
-	if (sprite != nullptr)
+	if (sprite)
 	{
 		delete sprite;
 		sprite = nullptr;
@@ -52,6 +52,16 @@ bool GameObjectV2::setGravityTag(std::string _gravity_tag)
 
 	this->gravity_trigger_tags.push_back(_gravity_tag);
 	return true;
+}
+
+void GameObjectV2::setSolid(bool _solid)
+{
+	solid = _solid;
+}
+
+bool GameObjectV2::getSolid()
+{
+	return solid;
 }
 
 void GameObjectV2::movePosition(Vec2* _translation)
@@ -103,4 +113,9 @@ void GameObjectV2::gravityUpdate()
 	}
 
 	i = 0;
+}
+
+Direction GameObjectV2::getMovementDirection()
+{
+	return move_direction;
 }
