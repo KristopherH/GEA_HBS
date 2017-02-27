@@ -1,6 +1,7 @@
 #include "PlayerV2.h"
 #include "Input_Manager.h"
 #include "Collision_Manager.h"
+#include "Game_Controller.h"
 
 PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObjectV2(_sprite, _name, _tag)
@@ -8,10 +9,10 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	SetScale(new Vec2(0.5f, 1.5f));
 	//Load keybinds from file into list
 	KeyBindsPress['_'] = std::bind(&PlayerV2::OnJump, this);
-	KeyBindsHold['a'] = std::bind(&PlayerV2::OnMove, this, Vec2(-0.5f, 0.0f));
-	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.5f, 0.0f));
-	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -0.5f));
-	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, 0.5f));
+	KeyBindsHold['a'] = std::bind(&PlayerV2::OnMove, this, Vec2(-speed, 0.0f));
+	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
+	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
+	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));
 	jumpStrength = -1.0f;
 }
 
@@ -24,29 +25,44 @@ bool PlayerV2::Update()
 {
 	ProcessInput();
 	climb();
+	oneWayPlatformMove();
 
 	return false;
 }
 
 void PlayerV2::ProcessInput()
 {
+	bool movement = false;
 	GameDataV2::inputManager->readKeyboard();
+	
 	for (auto key : KeyBindsHold)
 	{
 		if (GameDataV2::inputManager->getKeyHeld(key.first))
 		{
-			key.second();
+			if (!(grounded && (key.first == 's' || key.first == 'S')))
+			{
+				movement = true;
+				key.second();
+			}
 		}
-
 	}
 
 	for (auto key : KeyBindsPress)
 	{
 		if (GameDataV2::inputManager->getKeyDown(key.first))
 		{
-			key.second();
+			if (!(grounded && (key.first == 's' || key.first == 'S')))
+			{
+				movement = true;
+				key.second();
+			}
 		}
+	}
 
+	if (!movement)
+	{
+		move_direction = Direction::NONE;
+		key_down = false;
 	}
 }
 
@@ -57,7 +73,31 @@ void PlayerV2::OnJump()
 
 void PlayerV2::OnMove(Vec2 _direction)
 {
-	position += _direction * speed;
+	position += _direction;
+
+	if (!key_down)
+	{
+		if (_direction.x > 0)
+		{
+			move_direction = Direction::RIGHT;
+			key_down = true;
+		}
+		else if (_direction.x < 0)
+		{
+			move_direction = Direction::LEFT;
+			key_down = true;
+		}
+		else if (_direction.y < 0)
+		{
+			move_direction = Direction::TOP;
+			key_down = true;
+		}
+		else if (_direction.y > 0)
+		{
+			move_direction = Direction::BOTTOM;
+			key_down = true;
+		}
+	}
 }
 
 void PlayerV2::climb()
@@ -82,5 +122,35 @@ void PlayerV2::climb()
 	{
 		climbing = false;
 		gravity_on = true;
+		climable_name = "NULL";
+	}
+}
+
+float PlayerV2::getSpeed()
+{
+	return speed;
+}
+
+void PlayerV2::oneWayPlatformMove()
+{
+	for (auto go : GameDataV2::go_list)
+	{
+
+		
+		if (GameDataV2::collsion_manager->getCollisionDirection() != Direction::TOP &&
+			GameDataV2::collsion_manager->oneWayPlatform(go->getName()))
+		{
+			one_way_plat_move = true;
+		}
+	}
+
+	if (one_way_plat_move && grounded)
+	{
+		OnMove(Vec2(0.0f, -speed));
+	}
+
+	if (!grounded && one_way_plat_move)
+	{
+		one_way_plat_move = false;
 	}
 }
