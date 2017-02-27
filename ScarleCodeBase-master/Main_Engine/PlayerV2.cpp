@@ -28,18 +28,6 @@ bool PlayerV2::Update()
 	climb();
 	oneWayPlatformMove();
 
-	for (auto go : GameDataV2::go_list)
-	{
-		if (go->getTag() == "Conveyor Platform")
-		{
-			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
-			{
-				conveyor(false);
-			}
-		}
-	}
-
-
 	return false;
 }
 
@@ -103,22 +91,15 @@ void PlayerV2::OnMove(Vec2 _direction)
 {
 	for (auto go : GameDataV2::go_list)
 	{
-		if (go->getTag() == "Player")
+		if (go->getTag() == "Slow Platform")
 		{
-		}
-		else if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
-		{
-			if (go->getTag() == "Slow Platform")
+			if (!GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 			{
-				position += _direction * 0.25;
-			}
-			else if (go->getTag() == "Speed Platform")
-			{
-				position += _direction * 10;
+				position += _direction * speed;
 			}
 			else
 			{
-				position += _direction;
+				position += _direction * speed * 0.25;
 			}
 
 	if (!key_down)
@@ -144,8 +125,8 @@ void PlayerV2::OnMove(Vec2 _direction)
 			key_down = true;
 		}
 	}
+	
 }
-
 
 void PlayerV2::climb()
 {
@@ -200,18 +181,4 @@ void PlayerV2::oneWayPlatformMove()
 	{
 		one_way_plat_move = false;
 	}
-}
-
-//Pass true for left, false for right
-void PlayerV2::conveyor(bool _left)
-{
-	if (_left)
-	{
-		OnMove(Vec2(-speed, 0.0f));
-	}
-	else if (!_left)
-	{
-		OnMove(Vec2(speed, 0.0f));
-	}
-
 }
