@@ -114,7 +114,7 @@ void PlayerV2::OnMove(Vec2 _direction)
 			}
 			else if (go->getTag() == "Speed Platform")
 			{
-				position += _direction * 10;
+				position += _direction * 1.5;
 			}
 			else
 			{
@@ -207,11 +207,11 @@ void PlayerV2::conveyor(bool _left)
 {
 	if (_left)
 	{
-		OnMove(Vec2(-speed, 0.0f));
+		OnMove(Vec2(-speed* 0.25, 0.0f));
 	}
 	else if (!_left)
 	{
-		OnMove(Vec2(speed, 0.0f));
+		OnMove(Vec2(speed * 0.25, 0.0f));
 	}
 
 }
