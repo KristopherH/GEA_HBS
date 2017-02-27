@@ -16,10 +16,6 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 
 	GameObjectV2* a = GameDataV2::go_list.at(a_location);
 	GameObjectV2* b = GameDataV2::go_list.at(b_location);
-
-
-	if (a->getTag() == "Camera" || b->getTag() == "Camera") return false;
-	
 	PlayerV2* player = nullptr;
 	GameObjectV2* other = nullptr;
 
