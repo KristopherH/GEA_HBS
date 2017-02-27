@@ -33,16 +33,18 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
 
-	Sprite* ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
-	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Climable"); 
-	ladder->SetSize(new Vec2(100.0f, 600.0f));
-	ladder->SetPosition(new Vec2(50.0f, -280.0f));
+
+	Sprite* ladder_spr = new Sprite("grass", GameDataV2::renderer);
+	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Clmable"); 
+	//ladder->SetSize(new Vec2(100.0f, 600.0f));
+	//ladder->SetPosition(new Vec2(50.0f, -100.0f));
+	//ladder->setSolid(false);
 
 
 	
 	_GS = GameState::GS_MAIN_MENU;
 
-<<<<<<< HEAD
+
 
 		switch (_GS)
 		{
@@ -51,7 +53,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 		case GameState::GS_PLAY:
 
 		{
-=======
+
 	player->SetPosition(new Vec2(0.0f, -800.0f));
 	player->SetSize(new Vec2(100.0f, 150.0f));
 	player->setGravity(true);
@@ -64,7 +66,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	createPlatform.get()->slowPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f);
 
-	createPlatform.get()->speedPlatform(_renderer, 200.0f, 0.0f, 300.0f, 100.0f);
+	createPlatform.get()->speedPlatform(_renderer, 200.0f, -150.0f, 300.0f, 100.0f);
 
 	createPlatform.get()->stickyPlatform(_renderer, -400.0f, 0.0f, 300.0f, 100.0f);
 
@@ -76,20 +78,30 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::go_list.push_back(createPlatform.get()->GetStkPlat());
 	GameDataV2::go_list.push_back(createPlatform.get()->GetCnvyrPlat());
 	GameDataV2::go_list.push_back(player);
->>>>>>> refs/remotes/origin/master
+
+
+ 
+	//create a base camera
+	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+	cam->SetPosition(new Vec2(0.0f, 0.0f));
+	cam->setName("Camera");
+	cam->setTag("Camera");
+	GameDataV2::go_list.push_back(cam);
+	mainCamera = cam;
 
 			initPlayGame();
+ Phil
 
-<<<<<<< HEAD
+
 			break;
 		}
-=======
+
 	//Not essential but stops the risk of it interfering with the object that's in the vector
 	player = nullptr;
 	sprite1 = nullptr;
 	ladder = nullptr;
 	ladder_spr = nullptr;
->>>>>>> refs/remotes/origin/master
+
 
 		case GameState::GS_MAIN_MENU:
 		{
@@ -135,12 +147,11 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 		}
 }
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> refs/remotes/origin/master
+
+
 Engine::~Engine()
 {
 	clearGameObjectList();
@@ -161,7 +172,7 @@ Engine::~Engine()
 }
 
 bool Engine::Update()
-<<<<<<< HEAD
+
 {
 
 	for (auto go : GameDataV2::go_list)
@@ -184,18 +195,17 @@ bool Engine::Draw()
 	GameDataV2::renderer->BeginDraw(mainCamera);
 
 	for (const auto go : GameDataV2::go_list)
-=======
+
 {	
 	switch (_GS)
 	{
 
 	case GameState::GS_PLAY:
->>>>>>> refs/remotes/origin/master
 	{
 		GameDataV2::renderer->Draw(go);
 	}
 
-<<<<<<< HEAD
+
 	GameDataV2::renderer->EndDraw();
 
 	return true;
@@ -238,7 +248,7 @@ void Engine::Scene()
 			}
 			break;
 		}
-=======
+
 	case GameState::GS_MAIN_MENU:
 	{
 		for (auto go : GameDataV2::go_list)
@@ -269,14 +279,13 @@ void Engine::Scene()
 		{
 			OutputDebugString("Input manager failed to initialize");
 		}*/
->>>>>>> refs/remotes/origin/master
+
 
 		case GameState::GS_PAUSE:
 
-<<<<<<< HEAD
-=======
+
 		/*if (GameDataV2::inputManager->getKeyHeld('_'))
->>>>>>> refs/remotes/origin/master
+
 		{
 			break;
 		}
@@ -284,17 +293,17 @@ void Engine::Scene()
 		case GameState::GS_GAME_OVER:
 		{
 
-<<<<<<< HEAD
+
 			break;
 		}
-=======
+
 		}*/
->>>>>>> refs/remotes/origin/master
+
 
 		}
 	
 
-<<<<<<< HEAD
+
 }
 	
 
@@ -302,7 +311,7 @@ void Engine::Scene()
 void Engine::createCollectible(float x , float y)
 {
 
-=======
+
 	case GameState::GS_PAUSE:
 	{
 		break;
@@ -314,16 +323,16 @@ void Engine::createCollectible(float x , float y)
 	}
 	}
 	return true;
->>>>>>> refs/remotes/origin/master
+
 }
 
 void Engine::playGame()
 {
-<<<<<<< HEAD
+
 
 =======
 	GameDataV2::renderer->BeginDraw(mainCamera);
->>>>>>> refs/remotes/origin/master
+
 
 
 }
@@ -333,7 +342,7 @@ void Engine::initPlayGame()
 	Sprite* sprite1 = new Sprite("grass", GameDataV2::renderer);
 	PlayerV2* go1 = new PlayerV2(sprite1, "Player", "Player");
 
-<<<<<<< HEAD
+
 	go1->SetPosition(new Vec2(0.0f, -200.0f));
 	go1->SetSize(new Vec2(100.0f, 100.0f));
 	go1->setGravity(true);
@@ -344,7 +353,7 @@ void Engine::moveCamera(Vec2* _translation)
 	mainCamera->movePosition(_translation);
 }
 
->>>>>>> refs/remotes/origin/master
+
 
 	Sprite* sprite2 = new Sprite("grass", GameDataV2::renderer);
 	GameObjectV2* go2 = new GameObjectV2(sprite2, "Surface", "Surface");
