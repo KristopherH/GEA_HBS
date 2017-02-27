@@ -16,12 +16,16 @@ public:
 
 	void OnJump();
 	void OnMove(Vec2);
+	void climb();
 
 protected:
 
 	int lives;
 	float speed = 1.0f;
 	float jumpStrength;
+	std::string climable_name = "NULL";
+	bool climbing = false;
+
 
 	//Input component
 	std::map<char, std::function<void()>> KeyBindsHold;
