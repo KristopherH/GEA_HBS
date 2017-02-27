@@ -28,6 +28,10 @@ protected:
 	float jumpStrength;
 	std::string climable_name = "NULL";
 	bool climbing = false;
+	bool key_down = false;
+	bool one_way_plat_move = false;
+
+	void oneWayPlatformMove();
 
 
 	//Input component

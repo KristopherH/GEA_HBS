@@ -36,6 +36,9 @@ public:
 	void setTag(std::string _tag) { tag = _tag; }
 	void setGravity(bool _gravity_on) { gravity_on = _gravity_on; }
 	bool setGravityTag(std::string _gravity_tag);
+	void setSolid(bool _solid);
+	
+	bool getSolid();
 
 	void movePosition(Vec2* _translation);
 	void gravityUpdate();
@@ -48,6 +51,7 @@ protected:
 	float rotation;
 	bool grounded = false;
 	bool gravity_on = false;
+	bool solid = true;
 
 	Direction move_direction = Direction::NONE;
 

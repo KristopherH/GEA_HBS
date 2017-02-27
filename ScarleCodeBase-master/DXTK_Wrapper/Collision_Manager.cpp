@@ -17,6 +17,7 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	GameObjectV2* a = GameDataV2::go_list.at(a_location);
 	GameObjectV2* b = GameDataV2::go_list.at(b_location);
 	PlayerV2* player = nullptr;
+	GameObjectV2* other = nullptr;
 
 	bool player_present = false;
 
@@ -24,12 +25,14 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	{
 		player = static_cast<PlayerV2*>(a);
 		player_present = true;
+		other = b;
 	}
 
 	if (b->getTag() == "Player")
 	{
 		player = static_cast<PlayerV2*>(b);
 		player_present = true;
+		other = a;
 	}
 
 	if (a->GetPosition().x < b->GetPosition().x + b->GetSize().x &&
@@ -37,52 +40,23 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 		a->GetPosition().y < b->GetPosition().y + b->GetSize().y &&
 		a->GetPosition().y + a->GetSize().y > b->GetPosition().y)
 	{
-		/*KeyBindsHold['a'] = std::bind(&PlayerV2::OnMove, this, Vec2(-speed, 0.0f));
-		KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
-		KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
-		KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));*/
 		col_direction = findCollisionDirection(*a, *b);
 
-		if (player)
+		if (player && other->getSolid())
 		{
-			if (col_direction == Direction::TOP)
-			{
-				if (player->getMovementDirection() == Direction::BOTTOM)
-				{
-					//player->movePosition(new Vec2(0.0f, player->getSpeed()));
-				}
-			}
-
 			if (col_direction == Direction::LEFT)
 			{
 				if (player->getMovementDirection() == Direction::RIGHT)
 				{
-					if (player)
-					{
-						player->movePosition(new Vec2(-player->getSpeed(), 0.0f));
-					}
-				}
-			}
-
-			if (col_direction == Direction::BOTTOM)
-			{
-				if (player->getMovementDirection() == Direction::TOP)
-				{
-					if (player)
-					{
-						player->movePosition(new Vec2(0.0f, -player->getSpeed()));
-					}
+					player->movePosition(new Vec2(-player->getSpeed(), 0.0f));
 				}
 			}
 
 			if (col_direction == Direction::RIGHT)
 			{
-				if (player->getMovementDirection() == Direction::BOTTOM)
+				if (player->getMovementDirection() == Direction::LEFT)
 				{
-					if (player)
-					{
-						player->movePosition(new Vec2(player->getSpeed(), 0.0f));
-					}
+					player->movePosition(new Vec2(player->getSpeed(), 0.0f));
 				}
 			}
 		}
@@ -90,7 +64,7 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 		a = nullptr;
 		b = nullptr;
 		player = nullptr;
-		//Collision
+
 		return true;
 	}
 
@@ -110,6 +84,29 @@ bool CollisionManager::circleCollision(std::string a, std::string b)
 Direction CollisionManager::getCollisionDirection()
 {
 	return col_direction;
+}
+
+bool CollisionManager::oneWayPlatform(std::string a_name)
+{
+	int a_location = GameDataV2::game_controller->getGameObjectLocation(a_name);
+	int player_location = GameDataV2::game_controller->getGameObjectLocation("Player");
+
+	if (a_location == -1 || player_location == -1)
+	{
+		OutputDebugString("One or both of the game objects searched for do not exist");
+		return false;
+	}
+
+	GameObjectV2* a = GameDataV2::go_list.at(a_location);
+	GameObjectV2* player = GameDataV2::go_list.at(player_location);
+
+	if(player->GetPosition().y > a->GetPosition().y + a->GetSize().y ||
+		player->GetPosition().y + player->GetSize().y < a->GetPosition().y)
+	{
+		return true;
+	}
+	
+	return false;
 }
 
 Direction CollisionManager::findCollisionDirection(GameObjectV2& a, GameObjectV2& b)

@@ -1,6 +1,7 @@
 #include "PlayerV2.h"
 #include "Input_Manager.h"
 #include "Collision_Manager.h"
+#include "Game_Controller.h"
 
 PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObjectV2(_sprite, _name, _tag)
@@ -24,6 +25,7 @@ bool PlayerV2::Update()
 {
 	ProcessInput();
 	climb();
+	oneWayPlatformMove();
 
 	return false;
 }
@@ -32,35 +34,35 @@ void PlayerV2::ProcessInput()
 {
 	bool movement = false;
 	GameDataV2::inputManager->readKeyboard();
+	
 	for (auto key : KeyBindsHold)
 	{
 		if (GameDataV2::inputManager->getKeyHeld(key.first))
 		{
-			movement = true;
-
-			if (grounded && (key.first == 's' || key.first == 'S'))
+			if (!(grounded && (key.first == 's' || key.first == 'S')))
 			{
-				return;
+				movement = true;
+				key.second();
 			}
-
-			key.second();
 		}
-
 	}
 
 	for (auto key : KeyBindsPress)
 	{
 		if (GameDataV2::inputManager->getKeyDown(key.first))
 		{
-			movement = true;
-			key.second();
+			if (!(grounded && (key.first == 's' || key.first == 'S')))
+			{
+				movement = true;
+				key.second();
+			}
 		}
-
 	}
 
 	if (!movement)
 	{
 		move_direction = Direction::NONE;
+		key_down = false;
 	}
 }
 
@@ -73,21 +75,28 @@ void PlayerV2::OnMove(Vec2 _direction)
 {
 	position += _direction;
 
-	if (_direction.x > 0)
+	if (!key_down)
 	{
-		move_direction = Direction::RIGHT;
-	}
-	else if (_direction.x < 0)
-	{
-		move_direction = Direction::LEFT;
-	}
-	else if (_direction.y > 0)
-	{
-		move_direction = Direction::TOP;
-	}
-	else if (_direction.y < 0)
-	{
-		move_direction = Direction::BOTTOM;
+		if (_direction.x > 0)
+		{
+			move_direction = Direction::RIGHT;
+			key_down = true;
+		}
+		else if (_direction.x < 0)
+		{
+			move_direction = Direction::LEFT;
+			key_down = true;
+		}
+		else if (_direction.y < 0)
+		{
+			move_direction = Direction::TOP;
+			key_down = true;
+		}
+		else if (_direction.y > 0)
+		{
+			move_direction = Direction::BOTTOM;
+			key_down = true;
+		}
 	}
 }
 
@@ -120,4 +129,28 @@ void PlayerV2::climb()
 float PlayerV2::getSpeed()
 {
 	return speed;
+}
+
+void PlayerV2::oneWayPlatformMove()
+{
+	for (auto go : GameDataV2::go_list)
+	{
+
+		
+		if (GameDataV2::collsion_manager->getCollisionDirection() != Direction::TOP &&
+			GameDataV2::collsion_manager->oneWayPlatform(go->getName()))
+		{
+			one_way_plat_move = true;
+		}
+	}
+
+	if (one_way_plat_move && grounded)
+	{
+		OnMove(Vec2(0.0f, -speed));
+	}
+
+	if (!grounded && one_way_plat_move)
+	{
+		one_way_plat_move = false;
+	}
 }
