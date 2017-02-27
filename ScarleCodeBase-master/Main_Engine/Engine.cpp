@@ -50,20 +50,11 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	player->setGravityTag("Speed Platform");
 	player->setGravityTag("Conveyor Platform");
 
-
-	createPlatform.get()->slowPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f);
-
-	createPlatform.get()->speedPlatform(_renderer, 200.0f, 0.0f, 300.0f, 100.0f);
-
-	createPlatform.get()->stickyPlatform(_renderer, -400.0f, 0.0f, 300.0f, 100.0f);
-
-	createPlatform.get()->conveyorPlatform(_renderer, -100.0f, 300.0f, 300.0f, 100.0f);
-
 	GameDataV2::go_list.push_back(ladder);
-	GameDataV2::go_list.push_back(createPlatform.get()->GetSlwPlat());
-	GameDataV2::go_list.push_back(createPlatform.get()->GetSpdPlat());
-	GameDataV2::go_list.push_back(createPlatform.get()->GetStkPlat());
-	GameDataV2::go_list.push_back(createPlatform.get()->GetCnvyrPlat());
+	GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f));
+	GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 200.0f, 0.0f, 300.0f, 100.0f));
+	GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -400.0f, 0.0f, 300.0f, 100.0f));
+	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, -100.0f, 300.0f, 300.0f, 100.0f));
 	GameDataV2::go_list.push_back(player);
 
 	//create a base camera

@@ -5,38 +5,80 @@ Platforms::Platforms()
 
 }
 
-void Platforms::stickyPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
+GameObjectV2 * Platforms::standardPlatform(Renderer * _renderer, float x, float y, float sizeX, float sizeY)
 {
-	stk_plat = new Sprite("StickyPlatform", _renderer);
-	platform1 = new GameObjectV2(stk_plat, "Sticky Platform", "Sticky Platform");
+	spr = nullptr;
+	platform = nullptr;
+	spr = new Sprite("StickyPlatform", _renderer);
+	platform = new GameObjectV2(spr, "Standard Platform", "Standard Platform");
 
-	platform1->SetPosition(new Vec2(x, y));
-	platform1->SetSize(new Vec2(sizeX, sizeY));
+	platform->SetPosition(new Vec2(x, y));
+	platform->SetSize(new Vec2(sizeX, sizeY));
+
+	return platform;
 }
 
-void Platforms::speedPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
+GameObjectV2* Platforms::stickyPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
 {
-	spd_plat = new Sprite("SpeedPlatform", _renderer);
-	platform2 = new GameObjectV2(spd_plat, "Speed Platform", "Speed Platform");
+	spr = nullptr;
+	platform = nullptr;
+	spr = new Sprite("StickyPlatform", _renderer);
+	platform = new GameObjectV2(spr, "Sticky Platform", "Sticky Platform");
 
-	platform2->SetPosition(new Vec2(x, y));
-	platform2->SetSize(new Vec2(sizeX, sizeY));
+	platform->SetPosition(new Vec2(x, y));
+	platform->SetSize(new Vec2(sizeX, sizeY));
+
+	return platform;
 }
 
-void Platforms::slowPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
+GameObjectV2* Platforms::speedPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
 {
-	slw_plat = new Sprite("SlowPlatform", _renderer);
-	platform3 = new GameObjectV2(slw_plat, "Slow Platform", "Slow Platform");
+	spr = nullptr;
+	platform = nullptr;
+	spr = new Sprite("SpeedPlatform", _renderer);
+	platform = new GameObjectV2(spr, "Speed Platform", "Speed Platform");
 
-	platform3->SetPosition(new Vec2(x, y));
-	platform3->SetSize(new Vec2(sizeX, sizeY));
+	platform->SetPosition(new Vec2(x, y));
+	platform->SetSize(new Vec2(sizeX, sizeY));
+
+	return platform;
 }
 
-void Platforms::conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
+GameObjectV2* Platforms::slowPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
 {
-	cnvyr_plat = new Sprite("ConveyorPlatform", _renderer);
-	platform4 = new GameObjectV2(cnvyr_plat, "Conveyor Platform", "Conveyor Platform");
+	spr = nullptr;
+	platform = nullptr;
+	spr = new Sprite("SlowPlatform", _renderer);
+	platform = new GameObjectV2(spr, "Slow Platform", "Slow Platform");
 
-	platform4->SetPosition(new Vec2(x, y));
-	platform4->SetSize(new Vec2(sizeX, sizeY));
+	platform->SetPosition(new Vec2(x, y));
+	platform->SetSize(new Vec2(sizeX, sizeY));
+
+	return platform;
+}
+
+GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
+{
+	spr = nullptr;
+	platform = nullptr;
+	spr = new Sprite("ConveyorPlatform", _renderer);
+	platform = new GameObjectV2(spr, "Conveyor Platform", "Conveyor Platform");
+
+	platform->SetPosition(new Vec2(x, y));
+	platform->SetSize(new Vec2(sizeX, sizeY));
+
+	return platform;
+}
+
+GameObjectV2 * Platforms::jumpPlatform(Renderer * _renderer, float x, float y, float sizeX, float sizeY)
+{
+	spr = nullptr;
+	platform = nullptr;
+	spr = new Sprite("StickyPlatform", _renderer);
+	platform = new GameObjectV2(spr, "Jump Platform", "Jump Platform");
+
+	platform->SetPosition(new Vec2(x, y));
+	platform->SetSize(new Vec2(sizeX, sizeY));
+
+	return platform;
 }
