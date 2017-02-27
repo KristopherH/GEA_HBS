@@ -4,7 +4,13 @@
 
 int GameController::getGameObjectLocation(std::string name)
 {
-	int i = 0;
+	int i = 0; 
+	
+	if (name == "Camera")
+	{
+		return -1;
+	}
+
 	for (auto& current_game_object : GameDataV2::go_list)
 	{
 		if (current_game_object->getName() == name)

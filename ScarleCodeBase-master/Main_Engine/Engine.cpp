@@ -37,6 +37,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Climable"); 
 	ladder->SetSize(new Vec2(100.0f, 600.0f));
 	ladder->SetPosition(new Vec2(0.0f, -280.0f));
+	ladder->setSolid(false);
 
 	_GS = GameState::GS_MAIN_MENU;
 
@@ -111,12 +112,9 @@ bool Engine::Update()
 	{
 
 	case GameState::GS_PLAY:
-	{
 		break;
-	}
 
 	case GameState::GS_MAIN_MENU:
-	{
 		for (auto go : GameDataV2::go_list)
 		{
 			go->gravityUpdate();
@@ -140,31 +138,14 @@ bool Engine::Update()
 			moveCamera(new Vec2(-1.0f, 0.0f));
 		}
 
-		//double init of input manager
-		/*if (!GameDataV2::inputManager->init())
-		{
-			OutputDebugString("Input manager failed to initialize");
-		}*/
-
-
-		/*if (GameDataV2::inputManager->getKeyHeld('_'))
-		{
-
-			_GS = GameState::GS_GAME_OVER;
-
-		}*/
-
-	}
-
 	case GameState::GS_PAUSE:
-	{
 		break;
-	}
 
 	case GameState::GS_GAME_OVER:
-	{	
 		break;
-	}
+
+	default:
+		break;
 	}
 	return true;
 }

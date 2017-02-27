@@ -20,11 +20,21 @@ GameObjectV2::GameObjectV2(Sprite* _sprite)
 
 GameObjectV2::~GameObjectV2()
 {
-	if (sprite != nullptr)
+	if (sprite)
 	{
 		delete sprite;
 		sprite = nullptr;
 	}
+}
+
+void GameObjectV2::setSolid(bool _solid)
+{
+	solid = _solid;
+}
+
+bool GameObjectV2::getSolid()
+{
+	return solid;
 }
 
 bool GameObjectV2::Update()
@@ -103,4 +113,9 @@ void GameObjectV2::gravityUpdate()
 	}
 
 	i = 0;
+}
+
+Direction GameObjectV2::getMovementDirection()
+{
+	return move_direction;
 }

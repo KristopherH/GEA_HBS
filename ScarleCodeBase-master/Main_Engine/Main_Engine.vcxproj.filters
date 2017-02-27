@@ -1,89 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="BaseCamera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Game_Controller.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDataV2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectV2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameOver.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerV2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Platforms.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
+    <ClCompile Include="BaseCamera.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameDataV2.cpp" />
+    <ClCompile Include="GameObjectV2.cpp" />
+    <ClCompile Include="Game_Controller.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="Platforms.cpp" />
+    <ClCompile Include="PlayerV2.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PlayerV2.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game_Controller.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDataV2.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectV2.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameOver.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseCamera.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="SceneManager.h">
-      <Filter>Header Files</Filter>
-=======
-    <ClInclude Include="Platforms.h">
-      <Filter>Headers</Filter>
->>>>>>> refs/remotes/origin/master
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-<<<<<<< HEAD
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectV2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerV2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameOver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-=======
-    <Filter Include="Source">
-      <UniqueIdentifier>{755b1806-aeff-4428-ba39-1de1015f1917}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{6b112ddd-a6d3-4abd-8b73-3c7ca73bc8e8}</UniqueIdentifier>
-    </Filter>
->>>>>>> refs/remotes/origin/master
+    <ClInclude Include="BaseCamera.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="GameDataV2.h" />
+    <ClInclude Include="GameObjectV2.h" />
+    <ClInclude Include="Game_Controller.h" />
+    <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Platforms.h" />
+    <ClInclude Include="PlayerV2.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Enum_container.h" />
   </ItemGroup>
 </Project>

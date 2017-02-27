@@ -2,6 +2,7 @@
 
 #include "CustomMath.h"
 #include "Sprite.h"
+#include "Enum_container.h"
 #include <vector>
 
 class InputManager;
@@ -11,10 +12,16 @@ class GameObjectV2
 public:
 	GameObjectV2();
 	GameObjectV2(Sprite* sprite, std::string _name, std::string _tag);
-  GameObjectV2::GameObjectV2(Sprite* _sprite);
+	GameObjectV2(Sprite* _sprite);
 	~GameObjectV2();
 
+	void setSolid(bool _solid);
+
+	bool getSolid();
+
 	virtual bool Update();
+
+	Direction getMovementDirection();
 	
 	Vec2 GetPosition() { return position; }
 	Vec2 GetSize() { return Vec2( sprite->GetSize().x * scale.x, sprite->GetSize().y * scale.y); }
@@ -47,6 +54,9 @@ protected:
 	float rotation;
 	bool grounded = false;
 	bool gravity_on = false;
+	bool solid = true;
+
+	Direction move_direction = Direction::NONE;
 
 	float falling_speed = 0.0f;
 	float gravity_acceleration = 0.01f;
