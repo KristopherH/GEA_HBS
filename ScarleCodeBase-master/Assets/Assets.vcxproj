@@ -183,7 +183,7 @@
     <ImageContentTask Include="player_sprite.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Ladder.png" />
+    <ImageContentTask Include="Ladder.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

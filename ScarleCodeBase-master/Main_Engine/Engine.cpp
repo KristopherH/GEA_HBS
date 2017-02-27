@@ -33,6 +33,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
 
+
 	Sprite* ladder_spr = new Sprite("grass", GameDataV2::renderer);
 	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Clmable"); 
 	//ladder->SetSize(new Vec2(100.0f, 600.0f));
