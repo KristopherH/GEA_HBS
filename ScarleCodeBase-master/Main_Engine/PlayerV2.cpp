@@ -1,7 +1,6 @@
 #include "PlayerV2.h"
 #include "Input_Manager.h"
 #include "Collision_Manager.h"
-#include "Game_Controller.h"
 
 PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObjectV2(_sprite, _name, _tag)
@@ -9,11 +8,11 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	SetScale(new Vec2(0.5f, 1.5f));
 	//Load keybinds from file into list
 	KeyBindsPress['_'] = std::bind(&PlayerV2::OnJump, this);
-	KeyBindsHold['a'] = std::bind(&PlayerV2::OnMove, this, Vec2(-speed, 0.0f));
-	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
-	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
-	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));
-	jumpStrength = -1.0f;
+	KeyBindsHold['a'] = std::bind(&PlayerV2::OnMove, this, Vec2(-0.5f, 0.0f));
+	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.5f, 0.0f));
+	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -0.5f));
+	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, 0.5f));
+	jumpStrength = -20.0f;
 }
 
 PlayerV2::~PlayerV2()
@@ -25,80 +24,89 @@ bool PlayerV2::Update()
 {
 	ProcessInput();
 	climb();
-	oneWayPlatformMove();
+
+	for (auto go : GameDataV2::go_list)
+	{
+		if (go->getTag() == "Conveyor Platform")
+		{
+			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+			{
+				conveyor(false);
+			}
+		}
+	}
+
 
 	return false;
 }
 
 void PlayerV2::ProcessInput()
 {
-	bool movement = false;
 	GameDataV2::inputManager->readKeyboard();
-	
 	for (auto key : KeyBindsHold)
 	{
 		if (GameDataV2::inputManager->getKeyHeld(key.first))
 		{
-			if (!(grounded && (key.first == 's' || key.first == 'S')))
-			{
-				movement = true;
-				key.second();
-			}
+			key.second();
 		}
+
 	}
 
 	for (auto key : KeyBindsPress)
 	{
 		if (GameDataV2::inputManager->getKeyDown(key.first))
 		{
-			if (!(grounded && (key.first == 's' || key.first == 'S')))
-			{
-				movement = true;
-				key.second();
-			}
+			key.second();
 		}
-	}
 
-	if (!movement)
-	{
-		move_direction = Direction::NONE;
-		key_down = false;
 	}
 }
 
 void PlayerV2::OnJump()
 {
-	position += Vec2(0.0f, jumpStrength);
+	if (gravity_on)
+	{
+		for (auto go : GameDataV2::go_list)
+		{
+			if (go->getTag() == "Sticky Platform")
+			{
+				if (!GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+				{
+					position += Vec2(0.0f, jumpStrength);
+				}
+			}
+		}
+	}
+	else
+	{
+	}
 }
 
 void PlayerV2::OnMove(Vec2 _direction)
 {
-	position += _direction;
-
-	if (!key_down)
+	for (auto go : GameDataV2::go_list)
 	{
-		if (_direction.x > 0)
+		if (go->getTag() == "Player")
 		{
-			move_direction = Direction::RIGHT;
-			key_down = true;
 		}
-		else if (_direction.x < 0)
+		else if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 		{
-			move_direction = Direction::LEFT;
-			key_down = true;
-		}
-		else if (_direction.y < 0)
-		{
-			move_direction = Direction::TOP;
-			key_down = true;
-		}
-		else if (_direction.y > 0)
-		{
-			move_direction = Direction::BOTTOM;
-			key_down = true;
+			if (go->getTag() == "Slow Platform")
+			{
+				position += _direction * 0.25;
+			}
+			else if (go->getTag() == "Speed Platform")
+			{
+				position += _direction * 10;
+			}
+			else
+			{
+				position += _direction;
+			}
 		}
 	}
 }
+
 
 void PlayerV2::climb()
 {
@@ -122,35 +130,19 @@ void PlayerV2::climb()
 	{
 		climbing = false;
 		gravity_on = true;
-		climable_name = "NULL";
 	}
 }
 
-float PlayerV2::getSpeed()
+//Pass true for left, false for right
+void PlayerV2::conveyor(bool _left)
 {
-	return speed;
-}
-
-void PlayerV2::oneWayPlatformMove()
-{
-	for (auto go : GameDataV2::go_list)
+	if (_left)
 	{
-
-		
-		if (GameDataV2::collsion_manager->getCollisionDirection() != Direction::TOP &&
-			GameDataV2::collsion_manager->oneWayPlatform(go->getName()))
-		{
-			one_way_plat_move = true;
-		}
+		OnMove(Vec2(-speed, 0.0f));
+	}
+	else if (!_left)
+	{
+		OnMove(Vec2(speed, 0.0f));
 	}
 
-	if (one_way_plat_move && grounded)
-	{
-		OnMove(Vec2(0.0f, -speed));
-	}
-
-	if (!grounded && one_way_plat_move)
-	{
-		one_way_plat_move = false;
-	}
 }
