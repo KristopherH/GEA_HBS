@@ -33,6 +33,8 @@ protected:
 
 	void oneWayPlatformMove();
 
+	void conveyor(bool _left);
+
 
 	//Input component
 	std::map<char, std::function<void()>> KeyBindsHold;
