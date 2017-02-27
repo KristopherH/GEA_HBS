@@ -7,7 +7,6 @@
 class PlayerV2 : public GameObjectV2
 {
 public:
-	PlayerV2() = default;
 	PlayerV2(Sprite* _sprite, std::string _name, std::string _tag);
 	~PlayerV2();
 
@@ -19,8 +18,6 @@ public:
 	void OnMove(Vec2);
 	void climb();
 
-	float getSpeed();
-
 protected:
 
 	int lives;
@@ -28,10 +25,8 @@ protected:
 	float jumpStrength;
 	std::string climable_name = "NULL";
 	bool climbing = false;
-	bool key_down = false;
-	bool one_way_plat_move = false;
 
-	void oneWayPlatformMove();
+	void conveyor(bool _left);
 
 
 	//Input component

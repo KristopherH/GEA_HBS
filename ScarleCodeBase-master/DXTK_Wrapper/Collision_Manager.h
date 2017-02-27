@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "Enum_container.h"
 
 class GameObjectV2;
 
@@ -13,10 +12,4 @@ public:
 	bool boxCollision(std::string a_name, std::string b_name);
 	bool circleCollision(std::string a_name, std::string b_name);
 	bool bitMapCollision(std::string a_name, std::string b_name);
-	Direction getCollisionDirection();
-	bool oneWayPlatform(std::string a_name);
-
-private:
-	Direction findCollisionDirection(GameObjectV2& a, GameObjectV2& b);
-	Direction col_direction = Direction::NONE;
 };
