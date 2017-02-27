@@ -33,10 +33,12 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
 
-	Sprite* ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
-	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Climable"); 
-	ladder->SetSize(new Vec2(100.0f, 600.0f));
-	ladder->SetPosition(new Vec2(50.0f, -280.0f));
+
+	Sprite* ladder_spr = new Sprite("grass", GameDataV2::renderer);
+	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Clmable"); 
+	//ladder->SetSize(new Vec2(100.0f, 600.0f));
+	//ladder->SetPosition(new Vec2(50.0f, -100.0f));
+	//ladder->setSolid(false);
 
 	_GS = GameState::GS_MAIN_MENU;
 
@@ -52,7 +54,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	createPlatform.get()->slowPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f);
 
-	createPlatform.get()->speedPlatform(_renderer, 200.0f, 0.0f, 300.0f, 100.0f);
+	createPlatform.get()->speedPlatform(_renderer, 200.0f, -150.0f, 300.0f, 100.0f);
 
 	createPlatform.get()->stickyPlatform(_renderer, -400.0f, 0.0f, 300.0f, 100.0f);
 
@@ -68,6 +70,8 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	//create a base camera
 	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
 	cam->SetPosition(new Vec2(0.0f, 0.0f));
+	cam->setName("Camera");
+	cam->setTag("Camera");
 	GameDataV2::go_list.push_back(cam);
 	mainCamera = cam;
 
