@@ -183,8 +183,6 @@ void PlayerV2::oneWayPlatformMove()
 {
 	for (auto go : GameDataV2::go_list)
 	{
-
-
 		if (GameDataV2::collsion_manager->getCollisionDirection() != Direction::TOP &&
 			GameDataV2::collsion_manager->oneWayPlatform(go->getName()))
 		{
@@ -192,7 +190,7 @@ void PlayerV2::oneWayPlatformMove()
 		}
 	}
 
-	if (one_way_plat_move && grounded)
+	if (one_way_plat_move && grounded && !climbing)
 	{
 		OnMove(Vec2(0.0f, -speed));
 	}
