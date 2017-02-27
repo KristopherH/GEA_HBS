@@ -61,7 +61,6 @@ void PlayerV2::OnJump()
 				if (!GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 				{
 					position += Vec2(0.0f, jumpStrength);
-					climable_name = go->getName();
 				}
 			}
 		}
@@ -73,7 +72,21 @@ void PlayerV2::OnJump()
 
 void PlayerV2::OnMove(Vec2 _direction)
 {
-	position += _direction * speed;
+	for (auto go : GameDataV2::go_list)
+	{
+		if (go->getTag() == "Slow Platform")
+		{
+			if (!GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+			{
+				position += _direction * speed;
+			}
+			else
+			{
+				position += _direction * speed * 0.25;
+			}
+		}
+	}
+	
 }
 
 void PlayerV2::climb()
