@@ -26,6 +26,8 @@ protected:
 	std::string climable_name = "NULL";
 	bool climbing = false;
 
+	void conveyor(bool _left);
+
 
 	//Input component
 	std::map<char, std::function<void()>> KeyBindsHold;
