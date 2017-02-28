@@ -2,12 +2,6 @@
 
 #include <string>
 
-
-
-
-
-
-
 class InvadersGame
 {
 

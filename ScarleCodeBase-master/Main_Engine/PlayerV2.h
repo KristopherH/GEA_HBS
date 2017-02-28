@@ -27,11 +27,10 @@ protected:
 	int lives;
 	float speed = 1.0f;
 	float jumpStrength;
-	std::string climable_name = "NULL";
+	std::string Climbable_name = "NULL";
 	bool climbing = false;
 	bool key_down = false;
 	bool one_way_plat_move = false;
-	bool direction;
 
 	void oneWayPlatformMove(); 
 

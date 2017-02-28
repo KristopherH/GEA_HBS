@@ -32,6 +32,8 @@ public:
 	bool Draw(); // will pass an object at the renderer and ask to draw it
 	void Scene();
 	void clearGameObjectList();
+	GameObjectV2* createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name);
+	GameObjectV2* createCollectible(float x, float y, float sizeX, float sizeY);
 	void moveCamera(Vec2* _translation);
 	float m_dt;
 
@@ -40,10 +42,13 @@ private:
 	Sprite* spd_plat;
 	GameObjectV2* platform2;
 	std::unique_ptr<Platforms> createPlatform;
+	Sprite* ladder_spr;
+	GameObjectV2* ladder;
+	Sprite* collectible_spr;
+	GameObjectV2* collectible;
 
 protected:
 	//GameDataV2* m_GD;
  
 	BaseCamera* mainCamera = nullptr;
- 
 };

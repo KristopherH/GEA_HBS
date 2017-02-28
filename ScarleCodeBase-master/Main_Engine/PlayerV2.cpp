@@ -13,7 +13,7 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
 	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
 	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));
-	jumpStrength = -1000.0f;
+	jumpStrength = -25.0f;
 }
 
 PlayerV2::~PlayerV2()
@@ -33,7 +33,8 @@ bool PlayerV2::Update()
 		{
 			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 			{
-				conveyor(direction);
+				if (go->getName() == "Conveyor Left") conveyor(true);
+				else if (go->getName() == "Conveyor Right") conveyor(false);
 			}
 		}
 		else if (go->getTag() == "Jump Platform")
@@ -117,7 +118,7 @@ void PlayerV2::OnMove(Vec2 _direction)
 			}
 			else if (go->getTag() == "Speed Platform")
 			{
-				position += _direction * 1.75;
+				position += _direction * 3.0;
 			}
 			else
 			{
@@ -158,23 +159,23 @@ void PlayerV2::climb()
 	{
 		for (auto go : GameDataV2::go_list)
 		{
-			if (go->getTag() == "Climable")
+			if (go->getTag() == "Climbable")
 			{
 				if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 				{
 					climbing = true;
 					gravity_on = false;
-					climable_name = go->getName();
+					Climbable_name = go->getName();
 				}
 			}
 		}
 	}
 
-	if (!GameDataV2::collsion_manager->boxCollision(this->name, climable_name))
+	if (!GameDataV2::collsion_manager->boxCollision(this->name, Climbable_name))
 	{
 		climbing = false;
 		gravity_on = true;
-		climable_name = "NULL";
+		Climbable_name = "NULL";
 	}
 }
 
@@ -207,13 +208,13 @@ void PlayerV2::oneWayPlatformMove()
 //Pass true for left, false for right
 void PlayerV2::conveyor(bool _left)
 {
-	direction = _left;
+	_left;
 
-	if (direction)
+	if (_left)
 	{
 		OnMove(Vec2(-speed * 0.25, 0.0f));
 	}
-	else if (!direction)
+	else if (!_left)
 	{
 		OnMove(Vec2(speed * 0.25, 0.0f));
 	}

@@ -33,16 +33,11 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
 
-	Sprite* ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
-	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Climable"); 
-	ladder->SetSize(new Vec2(100.0f, 300.0f));
-	ladder->SetPosition(new Vec2(600.0f, 250.0f));
-	ladder->setSolid(false);
 
 	_GS = GameState::GS_MAIN_MENU;
 
-	player->SetPosition(new Vec2(-800.0f, 200.0f));
-	player->SetSize(new Vec2(100.0f, 150.0f));
+	player->SetPosition(new Vec2(-475.0f, -300.0f));
+	player->SetSize(new Vec2(100.0f, 120.0f));
 	player->setGravity(true);
 
 	player->setGravityTag("Slow Platform");
@@ -52,14 +47,28 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	player->setGravityTag("Jump Platform");
 	player->setGravityTag("Standard Platform");
 	
-	GameDataV2::go_list.push_back(ladder);
-	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -800.0f, 500.0f, 1600.0f, 100.0f));
-	GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, 400.0f, -300.0f, 300.0f, 100.0f));
-	//GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f));
-	GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 200.0f, 0.0f, 300.0f, 100.0f));
-	GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -400.0f, 0.0f, 300.0f, 100.0f));
-	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, 500.0f, 200.0f, 300.0f, 100.0f, true));
+
 	GameDataV2::go_list.push_back(player);
+
+	//first level of platforms
+	GameDataV2::go_list.push_back(createLadder(-475.0f, -300.0f, 100.0f, 550.0f, false, "ladder1"));
+	GameDataV2::go_list.push_back(createLadder(600.0f, 175.0f, 100.0f, 350.0f, false, "ladder2"));
+	
+	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -800.0f, 500.0f, 1600.0f, 100.0f, "standard1"));
+	GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, -200.0f, 200.0f, 700.0f, 100.0f, "speed"));
+	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", 500.0f, 100.0f, 300.0f, 100.0f, true));
+	
+	//first level of platforms
+	GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, -500.0f, 200.0f, 300.0f, 100.0f, "slow"));
+	GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -575.0f, -350.0f, 300.0f, 100.0f, "sticky"));
+	GameDataV2::go_list.push_back(createCollectible(-455.0f, -570.0f, 50.0f, 50.0f));
+	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Right", -300.0f, -250.0f, 200.0f, 100.0f, false));
+	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", -100.0f, -150.0f, 200.0f, 100.0f, false));
+	GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 100.0f, -150.0f, 300.0f, 100.0f, "speed2"));
+	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -100.0f, -150.0f, 200.0f, 100.0f, "standard3"));
+	GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, 400.0f, -150.0f, 200.0f, 100.0f, "jump"));
+	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, 650.0f, -150.0f, 100.0f, 100.0f, "standard2"));
+	GameDataV2::go_list.push_back(createCollectible(665.0f, -250.0f, 50.0f, 50.0f));
 
 	//create a base camera
 	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
@@ -72,8 +81,6 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	//Not essential but stops the risk of it interfering with the object that's in the vector
 	player = nullptr;
 	sprite1 = nullptr;
-	ladder = nullptr;
-	ladder_spr = nullptr;
 
 	//double init of input manager
 	if (!GameDataV2::inputManager->init())
@@ -169,6 +176,36 @@ void Engine::clearGameObjectList()
 		delete go;
 	}
 	GameDataV2::go_list.clear();
+}
+
+GameObjectV2* Engine::createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name)
+{
+	ladder_spr = nullptr;
+	ladder = nullptr;
+
+	ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
+	ladder = new GameObjectV2(ladder_spr, name, "Climbable");
+
+	ladder->SetPosition(new Vec2(x, y));
+	ladder->SetSize(new Vec2(sizeX, sizeY));
+	ladder->setSolid(solid);
+
+	
+	return ladder;
+}
+
+GameObjectV2 * Engine::createCollectible(float x, float y, float sizeX, float sizeY)
+{
+	collectible_spr = nullptr;
+	collectible = nullptr;
+
+	collectible_spr = new Sprite("coin", GameDataV2::renderer);
+	collectible = new GameObjectV2(collectible_spr, "Collectible", "Collectible");
+
+	collectible->SetPosition(new Vec2(x, y));
+	collectible->SetSize(new Vec2(sizeX, sizeY));
+
+	return collectible;
 }
 
 void Engine::moveCamera(Vec2* _translation)
