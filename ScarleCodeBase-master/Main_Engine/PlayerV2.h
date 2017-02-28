@@ -18,6 +18,7 @@ public:
 	void OnJump();
 	void OnMove(Vec2);
 	void climb();
+	void conveyor(bool _left);
 
 	float getSpeed();
 
@@ -26,13 +27,13 @@ protected:
 	int lives;
 	float speed = 1.0f;
 	float jumpStrength;
-	std::string climable_name = "NULL";
+	std::string Climbable_name = "NULL";
 	bool climbing = false;
 	bool key_down = false;
 	bool one_way_plat_move = false;
 
 	void oneWayPlatformMove(); 
-	void conveyor(bool _left);
+
 
 
 	//Input component

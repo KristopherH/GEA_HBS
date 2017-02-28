@@ -78,5 +78,11 @@
     <ImageContentTask Include="Ladder.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="JumpPlatform.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="StandardPlatform.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

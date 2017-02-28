@@ -11,26 +11,17 @@ class Platforms : public Sprite
 public:
 	Platforms();
 
-	void stickyPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY);
-	void speedPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY);
-	void slowPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY);
-	void conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY);
-
-	GameObjectV2* GetStkPlat() { return platform1; }
-	GameObjectV2* GetSpdPlat() { return platform2; }
-	GameObjectV2* GetSlwPlat() { return platform3; }
-	GameObjectV2* GetCnvyrPlat() { return platform4; }
+	GameObjectV2* standardPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
+	GameObjectV2* stickyPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
+	GameObjectV2* speedPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
+	GameObjectV2* slowPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
+	GameObjectV2* conveyorPlatform(Renderer* _renderer, string name, float x, float y, float sizeX, float sizeY, bool leftOrRight);
+	GameObjectV2* jumpPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
 
 	~Platforms() = default;
 
 private:
-	Sprite* stk_plat;
-	Sprite* spd_plat;
-	Sprite* slw_plat;
-	Sprite* cnvyr_plat;
-
-	GameObjectV2* platform1;
-	GameObjectV2* platform2;
-	GameObjectV2* platform3;
-	GameObjectV2* platform4;
+	Sprite* spr = nullptr;
+	GameObjectV2* platform = nullptr;
+	std::unique_ptr<PlayerV2> player;
 };
