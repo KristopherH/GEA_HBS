@@ -9,6 +9,7 @@ GameObjectV2 * Platforms::standardPlatform(Renderer * _renderer, float x, float 
 {
 	spr = nullptr;
 	platform = nullptr;
+
 	spr = new Sprite("StandardPlatform", _renderer);
 	platform = new GameObjectV2(spr, name, "Standard Platform");
 
@@ -22,6 +23,7 @@ GameObjectV2* Platforms::stickyPlatform(Renderer* _renderer, float x, float y, f
 {
 	spr = nullptr;
 	platform = nullptr;
+
 	spr = new Sprite("StickyPlatform", _renderer);
 	platform = new GameObjectV2(spr, name, "Sticky Platform");
 
@@ -35,6 +37,7 @@ GameObjectV2* Platforms::speedPlatform(Renderer* _renderer, float x, float y, fl
 {
 	spr = nullptr;
 	platform = nullptr;
+
 	spr = new Sprite("SpeedPlatform", _renderer);
 	platform = new GameObjectV2(spr, name, "Speed Platform");
 
@@ -48,6 +51,7 @@ GameObjectV2* Platforms::slowPlatform(Renderer* _renderer, float x, float y, flo
 {
 	spr = nullptr;
 	platform = nullptr;
+
 	spr = new Sprite("SlowPlatform", _renderer);
 	platform = new GameObjectV2(spr, name, "Slow Platform");
 
@@ -61,6 +65,7 @@ GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, string name, floa
 {
 	spr = nullptr;
 	platform = nullptr;
+
 	spr = new Sprite("ConveyorPlatform", _renderer);
 	platform = new GameObjectV2(spr, name, "Conveyor Platform");
 
@@ -75,6 +80,7 @@ GameObjectV2 * Platforms::jumpPlatform(Renderer * _renderer, float x, float y, f
 {
 	spr = nullptr;
 	platform = nullptr;
+
 	spr = new Sprite("JumpPlatform", _renderer);
 	platform = new GameObjectV2(spr, name, "Jump Platform");
 

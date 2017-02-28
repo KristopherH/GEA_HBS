@@ -36,7 +36,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	_GS = GameState::GS_MAIN_MENU;
 
-	player->SetPosition(new Vec2(-475.0f, -300.0f));
+	player->SetPosition(new Vec2(-475.0f, 350.0f));
 	player->SetSize(new Vec2(100.0f, 120.0f));
 	player->setGravity(true);
 
@@ -51,7 +51,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::go_list.push_back(player);
 
 	//first level of platforms
-	GameDataV2::go_list.push_back(createLadder(-475.0f, -300.0f, 100.0f, 550.0f, false, "ladder1"));
+	GameDataV2::go_list.push_back(createLadder(-475.0f, -340.0f, 100.0f, 550.0f, false, "ladder1"));
 	GameDataV2::go_list.push_back(createLadder(600.0f, 175.0f, 100.0f, 350.0f, false, "ladder2"));
 	
 	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -800.0f, 500.0f, 1600.0f, 100.0f, "standard1"));
@@ -63,7 +63,6 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -575.0f, -350.0f, 300.0f, 100.0f, "sticky"));
 	GameDataV2::go_list.push_back(createCollectible(-455.0f, -570.0f, 50.0f, 50.0f));
 	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Right", -300.0f, -250.0f, 200.0f, 100.0f, false));
-	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", -100.0f, -150.0f, 200.0f, 100.0f, false));
 	GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 100.0f, -150.0f, 300.0f, 100.0f, "speed2"));
 	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -100.0f, -150.0f, 200.0f, 100.0f, "standard3"));
 	GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, 400.0f, -150.0f, 200.0f, 100.0f, "jump"));
