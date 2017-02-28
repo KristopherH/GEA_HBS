@@ -38,7 +38,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	_GS = GameState::GS_MAIN_MENU;
 
-	player->SetPosition(new Vec2(-475.0f, -300.0f));
+	player->SetPosition(new Vec2(-475.0f, 350.0f));
 	player->SetSize(new Vec2(100.0f, 120.0f));
 	player->setGravity(true);
 
@@ -55,6 +55,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	
 
 	//first level of platforms
+
 	//GameDataV2::go_list.push_back(createLadder(-475.0f, -300.0f, 100.0f, 550.0f, false, "ladder1"));
 	//GameDataV2::go_list.push_back(createLadder(600.0f, 175.0f, 100.0f, 350.0f, false, "ladder2"));
 	

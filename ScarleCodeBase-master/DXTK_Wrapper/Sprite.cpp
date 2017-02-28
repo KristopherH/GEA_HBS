@@ -21,6 +21,7 @@ Sprite::Sprite(std::string _fileName, Renderer* _renderer)
 
 	//Why don't you just call getSize in here?
 	//this nasty thing is required to find out the size of this image!
+
 	ID3D11Resource *pResource;
 	D3D11_TEXTURE2D_DESC Desc;
 	m_pTextureRV->GetResource(&pResource);
