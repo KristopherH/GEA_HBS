@@ -1,26 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="BaseCamera.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="GameDataV2.cpp" />
-    <ClCompile Include="GameObjectV2.cpp" />
-    <ClCompile Include="Game_Controller.cpp" />
-    <ClCompile Include="GameOver.cpp" />
-    <ClCompile Include="Platforms.cpp" />
-    <ClCompile Include="PlayerV2.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Controller.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDataV2.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectV2.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Platforms.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerV2.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseCamera.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="GameDataV2.h" />
-    <ClInclude Include="GameObjectV2.h" />
-    <ClInclude Include="Game_Controller.h" />
-    <ClInclude Include="GameOver.h" />
-    <ClInclude Include="Platforms.h" />
-    <ClInclude Include="PlayerV2.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Enum_container.h" />
+    <ClInclude Include="BaseCamera.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum_container.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_Controller.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDataV2.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectV2.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Platforms.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerV2.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLoader.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{744b34e8-4ece-44da-9afa-6bdc1586cf6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{1dfd9d90-f86c-47d9-ba33-b2bf60d72d57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
