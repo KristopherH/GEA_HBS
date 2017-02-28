@@ -267,25 +267,25 @@ SpriteFont::~SpriteFont()
 }
 
 
-void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wchar_t const* text, XMFLOAT2 const& position, FXMVECTOR color, float rotation, XMFLOAT2 const& origin, float scale, SpriteEffects effects, float layerDepth) const
+void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wchar_t const* text, XMFLOAT2 const& position, Vec4 color, float rotation, XMFLOAT2 const& origin, float scale, float layerDepth) const
 {
-    DrawString(spriteBatch, text, XMLoadFloat2(&position), color, rotation, XMLoadFloat2(&origin), XMVectorReplicate(scale), effects, layerDepth);
+    DrawString(spriteBatch, text, XMLoadFloat2(&position), color, rotation, XMLoadFloat2(&origin), XMVectorReplicate(scale), layerDepth);
 }
 
 
-void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wchar_t const* text, XMFLOAT2 const& position, FXMVECTOR color, float rotation, XMFLOAT2 const& origin, XMFLOAT2 const& scale, SpriteEffects effects, float layerDepth) const
+void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wchar_t const* text, XMFLOAT2 const& position, Vec4 color, float rotation, XMFLOAT2 const& origin, XMFLOAT2 const& scale, float layerDepth) const
 {
-    DrawString(spriteBatch, text, XMLoadFloat2(&position), color, rotation, XMLoadFloat2(&origin), XMLoadFloat2(&scale), effects, layerDepth);
+    DrawString(spriteBatch, text, XMLoadFloat2(&position), color, rotation, XMLoadFloat2(&origin), XMLoadFloat2(&scale), layerDepth);
 }
 
 
-void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wchar_t const* text, FXMVECTOR position, FXMVECTOR color, float rotation, FXMVECTOR origin, float scale, SpriteEffects effects, float layerDepth) const
+void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wchar_t const* text, FXMVECTOR position, Vec4 color, float rotation, FXMVECTOR origin, float scale, float layerDepth) const
 {
-    DrawString(spriteBatch, text, position, color, rotation, origin, XMVectorReplicate(scale), effects, layerDepth);
+    DrawString(spriteBatch, text, position, color, rotation, origin, XMVectorReplicate(scale), layerDepth);
 }
 
 
-void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wchar_t const* text, FXMVECTOR position, FXMVECTOR color, float rotation, FXMVECTOR origin, GXMVECTOR scale, SpriteEffects effects, float layerDepth) const
+void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wchar_t const* text, FXMVECTOR position, Vec4 color, float rotation, FXMVECTOR origin, GXMVECTOR scale, float layerDepth) const
 {
     static_assert(SpriteEffects_FlipHorizontally == 1 &&
                   SpriteEffects_FlipVertically == 2, "If you change these enum values, the following tables must be updated to match");
@@ -309,33 +309,6 @@ void XM_CALLCONV SpriteFont::DrawString(_In_ SpriteBatch* spriteBatch, _In_z_ wc
     };
 
     XMVECTOR baseOffset = origin;
-
-    // If the text is mirrored, offset the start position accordingly.
-    if (effects)
-    {
-        baseOffset -= MeasureString(text) * axisIsMirroredTable[effects & 3];
-    }
-
-    // Draw each character in turn.
-    pImpl->ForEachGlyph(text, [&](Glyph const* glyph, float x, float y, float advance)
-    {
-        UNREFERENCED_PARAMETER(advance);
-
-        XMVECTOR offset = XMVectorMultiplyAdd(XMVectorSet(x, y + glyph->YOffset, 0, 0), axisDirectionTable[effects & 3], baseOffset);
-        
-        if (effects)
-        {
-            // For mirrored characters, specify bottom and/or right instead of top left.
-            XMVECTOR glyphRect = XMConvertVectorIntToFloat(XMLoadInt4(reinterpret_cast<uint32_t const*>(&glyph->Subrect)), 0);
-
-            // xy = glyph width/height.
-            glyphRect = XMVectorSwizzle<2, 3, 0, 1>(glyphRect) - glyphRect;
-
-            offset = XMVectorMultiplyAdd(glyphRect, axisIsMirroredTable[effects & 3], offset);
-        }
-
-        spriteBatch->Draw(pImpl->texture.Get(), position, &glyph->Subrect, color, rotation, offset, scale, effects, layerDepth);
-    });
 }
 
 

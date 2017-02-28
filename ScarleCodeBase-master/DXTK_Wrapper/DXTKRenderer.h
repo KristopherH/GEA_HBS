@@ -5,10 +5,16 @@
 #include <memory>
 #include "CustomMath.h"
 #include "BaseCamera.h"
+
 class GameObjectV2;
 
 using namespace std;
 using namespace DirectX;
+
+enum spriteeffects
+{
+
+};
 
 class Renderer
 {
@@ -27,6 +33,8 @@ public:
 	float getAspectRatio();
 	float getWindowWidth();
 	float getWindowHeight();
+
+	void DrawString (wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const;
 
 private:
 	ID3D11Device* pd3dDevice;
