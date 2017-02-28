@@ -18,6 +18,7 @@ public:
 	void OnJump();
 	void OnMove(Vec2);
 	void climb();
+	void conveyor(bool _left);
 
 	float getSpeed();
 
@@ -30,9 +31,10 @@ protected:
 	bool climbing = false;
 	bool key_down = false;
 	bool one_way_plat_move = false;
+	bool direction;
 
 	void oneWayPlatformMove(); 
-	void conveyor(bool _left);
+
 
 
 	//Input component

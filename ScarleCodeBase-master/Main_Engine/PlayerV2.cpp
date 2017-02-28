@@ -13,7 +13,7 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
 	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
 	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));
-	jumpStrength = -20.0f;
+	jumpStrength = -1000.0f;
 }
 
 PlayerV2::~PlayerV2()
@@ -33,7 +33,14 @@ bool PlayerV2::Update()
 		{
 			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 			{
-				conveyor(false);
+				conveyor(direction);
+			}
+		}
+		else if (go->getTag() == "Jump Platform")
+		{
+			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+			{
+				OnJump();
 			}
 		}
 	}
@@ -93,9 +100,6 @@ void PlayerV2::OnJump()
 			}
 		}
 	}
-	else
-	{
-	}
 }
 
 void PlayerV2::OnMove(Vec2 _direction)
@@ -113,7 +117,7 @@ void PlayerV2::OnMove(Vec2 _direction)
 			}
 			else if (go->getTag() == "Speed Platform")
 			{
-				position += _direction * 1.5;
+				position += _direction * 1.75;
 			}
 			else
 			{
@@ -203,11 +207,13 @@ void PlayerV2::oneWayPlatformMove()
 //Pass true for left, false for right
 void PlayerV2::conveyor(bool _left)
 {
-	if (_left)
+	direction = _left;
+
+	if (direction)
 	{
 		OnMove(Vec2(-speed * 0.25, 0.0f));
 	}
-	else if (!_left)
+	else if (!direction)
 	{
 		OnMove(Vec2(speed * 0.25, 0.0f));
 	}

@@ -2,14 +2,14 @@
 
 Platforms::Platforms()
 {
-
+	player = std::make_unique<PlayerV2>();
 }
 
 GameObjectV2 * Platforms::standardPlatform(Renderer * _renderer, float x, float y, float sizeX, float sizeY)
 {
 	spr = nullptr;
 	platform = nullptr;
-	spr = new Sprite("StickyPlatform", _renderer);
+	spr = new Sprite("StandardPlatform", _renderer);
 	platform = new GameObjectV2(spr, "Standard Platform", "Standard Platform");
 
 	platform->SetPosition(new Vec2(x, y));
@@ -57,7 +57,7 @@ GameObjectV2* Platforms::slowPlatform(Renderer* _renderer, float x, float y, flo
 	return platform;
 }
 
-GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY)
+GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, bool leftOrRight)
 {
 	spr = nullptr;
 	platform = nullptr;
@@ -67,6 +67,7 @@ GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, float x, float y,
 	platform->SetPosition(new Vec2(x, y));
 	platform->SetSize(new Vec2(sizeX, sizeY));
 
+	player->conveyor(leftOrRight);
 	return platform;
 }
 
@@ -74,7 +75,7 @@ GameObjectV2 * Platforms::jumpPlatform(Renderer * _renderer, float x, float y, f
 {
 	spr = nullptr;
 	platform = nullptr;
-	spr = new Sprite("StickyPlatform", _renderer);
+	spr = new Sprite("JumpPlatform", _renderer);
 	platform = new GameObjectV2(spr, "Jump Platform", "Jump Platform");
 
 	platform->SetPosition(new Vec2(x, y));

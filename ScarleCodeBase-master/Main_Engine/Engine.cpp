@@ -35,13 +35,13 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	Sprite* ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
 	GameObjectV2* ladder = new GameObjectV2(ladder_spr, "Ladder", "Climable"); 
-	ladder->SetSize(new Vec2(100.0f, 600.0f));
-	ladder->SetPosition(new Vec2(0.0f, -280.0f));
+	ladder->SetSize(new Vec2(100.0f, 300.0f));
+	ladder->SetPosition(new Vec2(600.0f, 250.0f));
 	ladder->setSolid(false);
 
 	_GS = GameState::GS_MAIN_MENU;
 
-	player->SetPosition(new Vec2(0.0f, -800.0f));
+	player->SetPosition(new Vec2(-800.0f, 200.0f));
 	player->SetSize(new Vec2(100.0f, 150.0f));
 	player->setGravity(true);
 
@@ -49,12 +49,16 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	player->setGravityTag("Sticky Platform");
 	player->setGravityTag("Speed Platform");
 	player->setGravityTag("Conveyor Platform");
-
+	player->setGravityTag("Jump Platform");
+	player->setGravityTag("Standard Platform");
+	
 	GameDataV2::go_list.push_back(ladder);
-	GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f));
+	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -800.0f, 500.0f, 1600.0f, 100.0f));
+	GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, 400.0f, -300.0f, 300.0f, 100.0f));
+	//GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, -100.0f, -300.0f, 300.0f, 100.0f));
 	GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 200.0f, 0.0f, 300.0f, 100.0f));
 	GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -400.0f, 0.0f, 300.0f, 100.0f));
-	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, -100.0f, 300.0f, 300.0f, 100.0f));
+	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, 500.0f, 200.0f, 300.0f, 100.0f, true));
 	GameDataV2::go_list.push_back(player);
 
 	//create a base camera
