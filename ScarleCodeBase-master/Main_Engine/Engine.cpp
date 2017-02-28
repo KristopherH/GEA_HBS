@@ -18,6 +18,8 @@
 #include "BaseCamera.h"
 #include <functional>
 
+#include "LevelLoader.h"
+
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 				CollisionManager* _collision_manager, GameController* _game_controller)
 {
@@ -50,24 +52,39 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	GameDataV2::go_list.push_back(player);
 
-	//first level of platforms
-	GameDataV2::go_list.push_back(createLadder(-475.0f, -340.0f, 100.0f, 550.0f, false, "ladder1"));
-	GameDataV2::go_list.push_back(createLadder(600.0f, 175.0f, 100.0f, 350.0f, false, "ladder2"));
 	
-	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -800.0f, 500.0f, 1600.0f, 100.0f, "standard1"));
-	GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, -200.0f, 200.0f, 700.0f, 100.0f, "speed"));
-	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", 500.0f, 100.0f, 300.0f, 100.0f, true));
+
+	//first level of platforms
+
+	//GameDataV2::go_list.push_back(createLadder(-475.0f, -300.0f, 100.0f, 550.0f, false, "ladder1"));
+	//GameDataV2::go_list.push_back(createLadder(600.0f, 175.0f, 100.0f, 350.0f, false, "ladder2"));
+	
+	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -800.0f, 500.0f, 1600.0f, 100.0f, "standard1"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, -200.0f, 200.0f, 700.0f, 100.0f, "speed"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", 500.0f, 100.0f, 300.0f, 100.0f, true));
 	
 	//first level of platforms
-	GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, -500.0f, 200.0f, 300.0f, 100.0f, "slow"));
-	GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -575.0f, -350.0f, 300.0f, 100.0f, "sticky"));
-	GameDataV2::go_list.push_back(createCollectible(-455.0f, -570.0f, 50.0f, 50.0f));
-	GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Right", -300.0f, -250.0f, 200.0f, 100.0f, false));
-	GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 100.0f, -150.0f, 300.0f, 100.0f, "speed2"));
-	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -100.0f, -150.0f, 200.0f, 100.0f, "standard3"));
-	GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, 400.0f, -150.0f, 200.0f, 100.0f, "jump"));
-	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, 650.0f, -150.0f, 100.0f, 100.0f, "standard2"));
-	GameDataV2::go_list.push_back(createCollectible(665.0f, -250.0f, 50.0f, 50.0f));
+	//GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, -500.0f, 200.0f, 300.0f, 100.0f, "slow"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -100.0f, -350.0f, 300.0f, 100.0f, "sticky"));
+	//GameDataV2::go_list.push_back(createCollectible(-455.0f, -570.0f, 50.0f, 50.0f));
+	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Right", -300.0f, -250.0f, 200.0f, 100.0f, false));
+	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", -100.0f, -150.0f, 200.0f, 100.0f, false));
+	//GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 100.0f, -150.0f, 300.0f, 100.0f, "speed2"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -100.0f, -150.0f, 200.0f, 100.0f, "standard3"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, 400.0f, -150.0f, 200.0f, 100.0f, "jump"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, 650.0f, -150.0f, 100.0f, 100.0f, "standard2"));
+	//GameDataV2::go_list.push_back(createCollectible(665.0f, -250.0f, 50.0f, 50.0f));
+
+	
+
+	Level* level1 = LevelLoader::loadLevel("Level.txt");
+	//player->SetPosition(&level1->playerStartingPosition);
+	for (auto go : level1->go_list)
+	{
+		GameDataV2::go_list.push_back(go);
+		go = nullptr;
+	}
+	//delete level1;
 
 	//create a base camera
 	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);

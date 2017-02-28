@@ -122,6 +122,7 @@
     <ClInclude Include="GameObjectV2.h" />
     <ClInclude Include="Game_Controller.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Platforms.h" />
     <ClInclude Include="PlayerV2.h" />
     <ClInclude Include="SceneManager.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="GameObjectV2.cpp" />
     <ClCompile Include="Game_Controller.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="Platforms.cpp" />
     <ClCompile Include="PlayerV2.cpp" />
     <ClCompile Include="SceneManager.cpp" />
