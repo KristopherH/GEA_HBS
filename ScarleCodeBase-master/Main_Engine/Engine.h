@@ -30,7 +30,7 @@ public:
 	//void createCollectible(float x, float y);
 	//void createCollectible(Renderer * _renderer, InputManager * _inputManager);
 	bool Draw(); // will pass an object at the renderer and ask to draw it
-	void Scene();
+	void playGame();
 	void clearGameObjectList();
 	GameObjectV2* createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name);
 	GameObjectV2* createCollectible(float x, float y, float sizeX, float sizeY);
