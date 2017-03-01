@@ -16,5 +16,5 @@ void TextGO2D::Tick(GameData* _GD)
 void TextGO2D::Draw(DrawData2D* _DD)
 {
 	//right click and "Go to Defintion/Declaration" to see other version of this in DXTK
-	_DD->m_Font->DrawString(_DD->m_Sprites.get(), Helper::charToWChar(m_text.c_str()), m_pos, m_colour,m_rotation,m_origin,m_scale);
+	//_DD->m_Font->DrawString(_DD->m_Sprites.get(), Helper::charToWChar(m_text.c_str()), m_pos, m_colour,m_rotation,m_origin,m_scale);
 }

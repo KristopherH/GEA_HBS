@@ -1,6 +1,7 @@
 #include "DXTKRenderer.h"
 #include "GameObjectV2.h"
 
+
 Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	:pd3dDevice(_pd3dDevice), hWnd(_hWnd)
 {
@@ -8,6 +9,7 @@ Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	ID3D11DeviceContext* pd3dImmediateContext;
 	_pd3dDevice->GetImmediateContext(&pd3dImmediateContext);
 	spriteBatch.reset(new SpriteBatch(pd3dImmediateContext));
+	spriteFont.reset(new SpriteFont(_pd3dDevice, L"../Assets/italic.spritefont"));
 	//m_DD2D->m_Font.reset(new SpriteFont(_pd3dDevice, L"..\\Assets\\italic.spritefont"));
 
 	////set up DirectXTK Effects system
@@ -60,6 +62,7 @@ bool Renderer::Draw(GameObjectV2 * _go)
 			SpriteEffects_None);
 		return true;
 	}
+	
 	return false;
 }
 
@@ -67,6 +70,11 @@ bool Renderer::EndDraw()
 {
 	spriteBatch->End();
 	return true;
+}
+
+void Renderer::renderText(string text, Vec2 position)
+{
+	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position);
 }
 
 float Renderer::getAspectRatio()
@@ -94,3 +102,7 @@ float Renderer::getWindowHeight()
 	return rc.bottom - rc.top;
 }
 
+//void Renderer::DrawString(wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const
+//{
+//	m_Font->DrawString(spriteBatch.get(), text, position, color, rotation, origin, scale, layerDepth);
+//}

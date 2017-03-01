@@ -2,6 +2,7 @@
 //#ifdef __d3d11_1_h__
 #include "..\DXTK_Wrapper\DXTKRenderer.h"
 #include "..\DXTK_Wrapper\Input_Manager.h"
+#include "../Game/Helper.h"
 //#endif
 
 //system headers
@@ -13,6 +14,7 @@
 #include "PlayerV2.h"
 #include "SceneManager.h"
 #include "GameDataV2.h"
+#include "..\DXTK_Wrapper\Text.h"
 
 #include "Platforms.h"
 #include "BaseCamera.h"
@@ -31,17 +33,21 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::collsion_manager = _collision_manager;
 	GameDataV2::game_controller = _game_controller;
 	createPlatform = std::make_unique<Platforms>();
+	//createText = std::make_unique<Text>();
 
 	GameDataV2::inputManager->init();
 
+	//createText.get()->createString("Hi", GameDataV2::renderer);
+	
+	//GameDataV2::go_list.push_back(_renderer->DrawString(Helper::charToWChar("Hi"),Vec2(0.0f,0.0f), Vec4(0.0f,0.0f,0.0f,0.0f), 0.0f, Vec2(0.0f, 0.0f),0.0f, 2.0f));
+
 	//create a base camera
-	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+	cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
 	cam->SetPosition(new Vec2(0.0f, 0.0f));
 	cam->setName("Camera");
 	cam->setTag("Camera");
 	GameDataV2::go_list.push_back(cam);
 	mainCamera = cam;
-
 }
 
 Engine::~Engine()
@@ -151,6 +157,8 @@ bool Engine::Draw()
 		GameDataV2::renderer->Draw(go);
 	}
 
+	GameDataV2::renderer->renderText("Lives: 3", cam->GetPosition()*-1.0);
+
 	GameDataV2::renderer->EndDraw();
 
 	return true;
@@ -222,8 +230,6 @@ void Engine::playGame()
 
 
 	GameDataV2::go_list.push_back(player);
-
-
 
 	//first level of platforms
 
