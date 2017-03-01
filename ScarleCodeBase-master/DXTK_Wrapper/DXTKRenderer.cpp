@@ -60,7 +60,6 @@ bool Renderer::Draw(GameObjectV2 * _go)
 			_go->GetSprite()->GetOrigin(),
 			_go->GetScale(),
 			SpriteEffects_None);
-		spriteFont->DrawString(spriteBatch.get(), L"I am IronMan", SimpleMath::Vector2(300, 300));
 		return true;
 	}
 	
@@ -71,6 +70,11 @@ bool Renderer::EndDraw()
 {
 	spriteBatch->End();
 	return true;
+}
+
+void Renderer::renderText(string text, Vec2 position)
+{
+	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position);
 }
 
 float Renderer::getAspectRatio()

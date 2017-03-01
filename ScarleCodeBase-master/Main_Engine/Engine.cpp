@@ -34,7 +34,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	//createText = std::make_unique<Text>();
 
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
-	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
+	player = new PlayerV2(sprite1, "Player", "Player");
 
 
 	_GS = GameState::GS_MAIN_MENU;
@@ -72,12 +72,12 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, 650.0f, -150.0f, 100.0f, 100.0f, "standard2"));
 	GameDataV2::go_list.push_back(createCollectible(665.0f, -250.0f, 50.0f, 50.0f));
 
-	
 	//createText.get()->createString("Hi", GameDataV2::renderer);
-
+	
+	//GameDataV2::go_list.push_back(_renderer->DrawString(Helper::charToWChar("Hi"),Vec2(0.0f,0.0f), Vec4(0.0f,0.0f,0.0f,0.0f), 0.0f, Vec2(0.0f, 0.0f),0.0f, 2.0f));
 
 	//create a base camera
-	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+	cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
 	cam->SetPosition(new Vec2(0.0f, 0.0f));
 	cam->setName("Camera");
 	cam->setTag("Camera");
@@ -85,7 +85,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	mainCamera = cam;
 
 	//Not essential but stops the risk of it interfering with the object that's in the vector
-	player = nullptr;
+	//player = nullptr;
 	sprite1 = nullptr;
 
 	//double init of input manager
@@ -168,6 +168,8 @@ bool Engine::Draw()
 	{
 		GameDataV2::renderer->Draw(go);
 	}
+
+	GameDataV2::renderer->renderText("Lives: 3", cam->GetPosition()*-1.0);
 
 	GameDataV2::renderer->EndDraw();
 

@@ -28,6 +28,7 @@ public:
 	bool BeginDraw(BaseCamera* mainCamera);
 	bool Draw(GameObjectV2* _go);
 	bool EndDraw();
+	void renderText(string text, Vec2 position);
 
 	ID3D11Device* GetDevice() { return pd3dDevice; }
 	HWND GetWindow() { return hWnd; }
@@ -41,6 +42,7 @@ public:
 private:
 	ID3D11Device* pd3dDevice;
 	HWND hWnd;
+	string newText;
 
 	//spritebatch stuff
 	unique_ptr<SpriteBatch> spriteBatch;

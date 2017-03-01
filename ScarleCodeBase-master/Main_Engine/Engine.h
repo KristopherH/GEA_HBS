@@ -18,6 +18,7 @@ using std::unique_ptr;
 class GameObjectV2;
 class Platforms;
 class Text;
+class PlayerV2;
 
 class Engine
 {
@@ -48,9 +49,11 @@ private:
 	GameObjectV2* ladder;
 	Sprite* collectible_spr;
 	GameObjectV2* collectible;
+	PlayerV2* player;
 
 protected:
 	//GameDataV2* m_GD;
  
 	BaseCamera* mainCamera = nullptr;
+	BaseCamera* cam;
 };
