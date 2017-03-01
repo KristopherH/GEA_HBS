@@ -35,59 +35,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	createPlatform = std::make_unique<Platforms>();
 	//createText = std::make_unique<Text>();
 
-	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
-	player = new PlayerV2(sprite1, "Player", "Player");
-
-
-	_GS = GameState::GS_MAIN_MENU;
-
-	player->SetPosition(new Vec2(-475.0f, 350.0f));
-	player->SetSize(new Vec2(100.0f, 120.0f));
-	player->setGravity(true);
-
-	player->setGravityTag("Slow Platform");
-	player->setGravityTag("Sticky Platform");
-	player->setGravityTag("Speed Platform");
-	player->setGravityTag("Conveyor Platform");
-	player->setGravityTag("Jump Platform");
-	player->setGravityTag("Standard Platform");
-	
-
-	GameDataV2::go_list.push_back(player);
-
-	
-
-	//first level of platforms
-
-	//GameDataV2::go_list.push_back(createLadder(-475.0f, -300.0f, 100.0f, 550.0f, false, "ladder1"));
-	//GameDataV2::go_list.push_back(createLadder(600.0f, 175.0f, 100.0f, 350.0f, false, "ladder2"));
-	
-	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -800.0f, 500.0f, 1600.0f, 100.0f, "standard1"));
-	//GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, -200.0f, 200.0f, 700.0f, 100.0f, "speed"));
-	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", 500.0f, 100.0f, 300.0f, 100.0f, true));
-	
-	//first level of platforms
-	//GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, -500.0f, 200.0f, 300.0f, 100.0f, "slow"));
-	//GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -100.0f, -350.0f, 300.0f, 100.0f, "sticky"));
-	//GameDataV2::go_list.push_back(createCollectible(-455.0f, -570.0f, 50.0f, 50.0f));
-	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Right", -300.0f, -250.0f, 200.0f, 100.0f, false));
-	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", -100.0f, -150.0f, 200.0f, 100.0f, false));
-	//GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 100.0f, -150.0f, 300.0f, 100.0f, "speed2"));
-	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -100.0f, -150.0f, 200.0f, 100.0f, "standard3"));
-	//GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, 400.0f, -150.0f, 200.0f, 100.0f, "jump"));
-	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, 650.0f, -150.0f, 100.0f, 100.0f, "standard2"));
-	//GameDataV2::go_list.push_back(createCollectible(665.0f, -250.0f, 50.0f, 50.0f));
-
-	
-
-	Level* level1 = LevelLoader::loadLevel("Level.txt");
-	//player->SetPosition(&level1->playerStartingPosition);
-	for (auto go : level1->go_list)
-	{
-		GameDataV2::go_list.push_back(go);
-		go = nullptr;
-	}
-	//delete level1;
+	GameDataV2::inputManager->init();
 
 	//createText.get()->createString("Hi", GameDataV2::renderer);
 	
@@ -100,16 +48,6 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	cam->setTag("Camera");
 	GameDataV2::go_list.push_back(cam);
 	mainCamera = cam;
-
-	//Not essential but stops the risk of it interfering with the object that's in the vector
-	//player = nullptr;
-	sprite1 = nullptr;
-
-	//double init of input manager
-	if (!GameDataV2::inputManager->init())
-	{
-		OutputDebugString("Input manager failed to initialize");
-	}
 }
 
 Engine::~Engine()
@@ -137,9 +75,7 @@ bool Engine::Update()
 	{
 
 	case GameState::GS_PLAY:
-		break;
-
-	case GameState::GS_MAIN_MENU:
+		
 		for (auto go : GameDataV2::go_list)
 		{
 			go->gravityUpdate();
@@ -161,6 +97,41 @@ bool Engine::Update()
 		if (GameDataV2::inputManager->getKeyHeld('6'))
 		{
 			moveCamera(new Vec2(-1.0f, 0.0f));
+		}
+
+		break;
+
+
+	case GameState::GS_MAIN_MENU:
+
+		for (auto go : GameDataV2::go_list)
+		{
+			go->gravityUpdate();
+			go->Update();
+		}
+
+		if (GameDataV2::inputManager->getKeyHeld('8'))
+		{
+			moveCamera(new Vec2(0.0f, 1.0f));
+		}
+		if (GameDataV2::inputManager->getKeyHeld('4'))
+		{
+			moveCamera(new Vec2(1.0f, 0.0f));
+		}
+		if (GameDataV2::inputManager->getKeyHeld('2'))
+		{
+			moveCamera(new Vec2(0.0f, -1.0f));
+		}
+		if (GameDataV2::inputManager->getKeyHeld('6'))
+		{
+			moveCamera(new Vec2(-1.0f, 0.0f));
+		}
+		GameDataV2::inputManager->readKeyboard();
+
+		if (GameDataV2::inputManager->getKeyHeld('_'))
+		{
+			_GS = GameState::GS_PLAY;
+			playGame();
 		}
 
 	case GameState::GS_PAUSE:
@@ -239,32 +210,76 @@ void Engine::moveCamera(Vec2* _translation)
 }
 
 
-void Engine::Scene()
+void Engine::playGame()
 {
-	/*
-	DWORD currentTime = GetTickCount();
-	m_GD->m_dt = min((float)(currentTime - m_playTime) / 1000.0f, 0.1f);
-	m_playTime = currentTime;
-	
 
-	if (GameState::GS_PLAY)
+	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
+	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
+
+
+	player->SetPosition(new Vec2(-475.0f, 350.0f));
+	player->SetSize(new Vec2(100.0f, 120.0f));
+	player->setGravity(true);
+
+	player->setGravityTag("Slow Platform");
+	player->setGravityTag("Sticky Platform");
+	player->setGravityTag("Speed Platform");
+	player->setGravityTag("Conveyor Platform");
+	player->setGravityTag("Jump Platform");
+	player->setGravityTag("Standard Platform");
+
+
+	GameDataV2::go_list.push_back(player);
+
+	//first level of platforms
+
+	//GameDataV2::go_list.push_back(createLadder(-475.0f, -300.0f, 100.0f, 550.0f, false, "ladder1"));
+	//GameDataV2::go_list.push_back(createLadder(600.0f, 175.0f, 100.0f, 350.0f, false, "ladder2"));
+
+	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -800.0f, 500.0f, 1600.0f, 100.0f, "standard1"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, -200.0f, 200.0f, 700.0f, 100.0f, "speed"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", 500.0f, 100.0f, 300.0f, 100.0f, true));
+
+	//first level of platforms
+	//GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, -500.0f, 200.0f, 300.0f, 100.0f, "slow"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -100.0f, -350.0f, 300.0f, 100.0f, "sticky"));
+	//GameDataV2::go_list.push_back(createCollectible(-455.0f, -570.0f, 50.0f, 50.0f));
+	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Right", -300.0f, -250.0f, 200.0f, 100.0f, false));
+	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", -100.0f, -150.0f, 200.0f, 100.0f, false));
+	//GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 100.0f, -150.0f, 300.0f, 100.0f, "speed2"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -100.0f, -150.0f, 200.0f, 100.0f, "standard3"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, 400.0f, -150.0f, 200.0f, 100.0f, "jump"));
+	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, 650.0f, -150.0f, 100.0f, 100.0f, "standard2"));
+	//GameDataV2::go_list.push_back(createCollectible(665.0f, -250.0f, 50.0f, 50.0f));
+
+
+
+	Level* level1 = LevelLoader::loadLevel("Level.txt");
+	//player->SetPosition(&level1->playerStartingPosition);
+	for (auto go : level1->go_list)
 	{
+		GameDataV2::go_list.push_back(go);
+		go = nullptr;
+	}
+	//delete level1;
 
+	//create a base camera
+	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+	cam->SetPosition(new Vec2(0.0f, 0.0f));
+	cam->setName("Camera");
+	cam->setTag("Camera");
+	GameDataV2::go_list.push_back(cam);
+	mainCamera = cam;
+
+	//Not essential but stops the risk of it interfering with the object that's in the vector
+	player = nullptr;
+	sprite1 = nullptr;
+
+	//double init of input manager
+	if (!GameDataV2::inputManager->init())
+	{
+		OutputDebugString("Input manager failed to initialize");
 	}
 
-	if (GameState::GS_MAIN_MENU)
-	{
 
-	}
-
-	if (GameState::GS_PAUSE)
-	{
-
-	}
-
-	if (GameState::GS_GAME_OVER)
-	{
-
-	}
-*/
 }
