@@ -2,6 +2,7 @@
 //#ifdef __d3d11_1_h__
 #include "..\DXTK_Wrapper\DXTKRenderer.h"
 #include "..\DXTK_Wrapper\Input_Manager.h"
+#include "../Game/Helper.h"
 //#endif
 
 //system headers
@@ -13,6 +14,7 @@
 #include "PlayerV2.h"
 #include "SceneManager.h"
 #include "GameDataV2.h"
+#include "..\DXTK_Wrapper\Text.h"
 
 #include "Platforms.h"
 #include "BaseCamera.h"
@@ -29,6 +31,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::collsion_manager = _collision_manager;
 	GameDataV2::game_controller = _game_controller;
 	createPlatform = std::make_unique<Platforms>();
+	//createText = std::make_unique<Text>();
 
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
@@ -68,6 +71,10 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, 400.0f, -150.0f, 200.0f, 100.0f, "jump"));
 	GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, 650.0f, -150.0f, 100.0f, 100.0f, "standard2"));
 	GameDataV2::go_list.push_back(createCollectible(665.0f, -250.0f, 50.0f, 50.0f));
+
+	
+	//createText.get()->createString("Hi", GameDataV2::renderer);
+
 
 	//create a base camera
 	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);

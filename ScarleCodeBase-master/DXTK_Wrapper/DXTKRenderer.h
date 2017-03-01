@@ -4,7 +4,9 @@
 #include "SpriteFont.h"
 #include <memory>
 #include "CustomMath.h"
+#include "SimpleMath.h"
 #include "BaseCamera.h"
+#include "../Game/Helper.h"
 
 class GameObjectV2;
 
@@ -34,13 +36,13 @@ public:
 	float getWindowWidth();
 	float getWindowHeight();
 
-	void DrawString (wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const;
+	//void DrawString (wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const;
 
 private:
 	ID3D11Device* pd3dDevice;
 	HWND hWnd;
 
 	//spritebatch stuff
-	unique_ptr<SpriteBatch>	spriteBatch;
-	unique_ptr<SpriteFont> m_Font;
+	unique_ptr<SpriteBatch> spriteBatch;
+	unique_ptr<SpriteFont> spriteFont;
 };

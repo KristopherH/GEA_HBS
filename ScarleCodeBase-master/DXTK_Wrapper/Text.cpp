@@ -1,11 +1,15 @@
 #include "Text.h"
-#include "../Game/DrawData2D.h"
 
-string Text::createString(string text)
+void Text::createString(string text, Renderer* _renderer)
 {
-	newText = text;
+	spriteBatch.reset(new SpriteBatch(m_pImmediateContext));
+	//newText = text;
 
+	//_renderer->DrawString(Helper::charToWChar(newText.c_str()), Vec2(0.0f, 0.0f), Vec4(0.0f, 0.0f, 0.0f, 0.0f), 0.0f, Vec2(0.0f, 0.0f), Vec2(1.0f), 1.0f);
 
+	//return newText;
 
-	return newText;
+	//m_pImmediateContext->ClearRenderTargetView(DirectX::Colors::SlateGray);
+
+	//_renderer->getSpriteBatch();
 }
