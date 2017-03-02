@@ -156,7 +156,7 @@ bool Engine::Draw()
 
 	if (_GS == GameState::GS_MAIN_MENU)
 	{
-		GameDataV2::renderer->renderText("Alpha Build: V1\n\n\n\n\n\n   Press Space", (cam->GetPosition() + Vec2(150.0f, 200.0f)) * -1.0);
+		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Space", (cam->GetPosition() + Vec2(150.0f, 200.0f)) * -1.0);
 	}
 
 	if (_GS == GameState::GS_PLAY)
