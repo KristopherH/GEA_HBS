@@ -14,7 +14,7 @@ ObjectsNumber: (6)
         Position: (-200 200)
         Size:  (700 100)
         Roatation: (0)
-        PlatformType: (Speed)
+        PlatformType: (ConveyorLeft)
         (END)
     3:
         Type: (Platform)

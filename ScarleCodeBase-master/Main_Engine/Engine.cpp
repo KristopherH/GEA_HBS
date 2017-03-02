@@ -230,7 +230,8 @@ void Engine::playGame()
 	player->setGravityTag("Slow Platform");
 	player->setGravityTag("Sticky Platform");
 	player->setGravityTag("Speed Platform");
-	player->setGravityTag("Conveyor Platform");
+	player->setGravityTag("Conveyor Left");
+	player->setGravityTag("Conveyor Right");
 	player->setGravityTag("Jump Platform");
 	player->setGravityTag("Standard Platform");
 

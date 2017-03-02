@@ -30,12 +30,12 @@ bool PlayerV2::Update()
 
 	for (auto go : GameDataV2::go_list)
 	{
-		if (go->getTag() == "Conveyor Platform")
+		if (go->getTag() == "Conveyor Left" || go->getTag() == "Conveyor Right")
 		{
 			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 			{
-				if (go->getName() == "Conveyor Left") conveyor(true);
-				else if (go->getName() == "Conveyor Right") conveyor(false);
+				if (go->getTag() == "Conveyor Left") conveyor(true);
+				else if (go->getTag() == "Conveyor Right") conveyor(false);
 			}
 		}
 		else if (go->getTag() == "Jump Platform")
@@ -108,8 +108,9 @@ void PlayerV2::OnMove(Vec2 _direction)
 {
 	for (auto go : GameDataV2::go_list)
 	{
-		if (go->getTag() == "Player")
+		if (this == go)
 		{
+
 		}
 		else if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 		{
@@ -121,7 +122,7 @@ void PlayerV2::OnMove(Vec2 _direction)
 			{
 				position += _direction * 3.0;
 			}
-			/*else if (go->getTag() == "Conveyor Left" &&
+			else if (go->getTag() == "Conveyor Left" &&
 				GameDataV2::collsion_manager->getCollisionDirection() == Direction::TOP)
 			{
 				conveyor(true);
@@ -130,7 +131,7 @@ void PlayerV2::OnMove(Vec2 _direction)
 				GameDataV2::collsion_manager->getCollisionDirection() == Direction::TOP)
 			{
 				conveyor(false);
-			}*/
+			}
 			else
 			{
 				position += _direction;

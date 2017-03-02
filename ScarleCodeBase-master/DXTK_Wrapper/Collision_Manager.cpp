@@ -79,7 +79,6 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 			}
 		}
 
-
 		return true;
 	}
 
