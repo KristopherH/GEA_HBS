@@ -33,7 +33,6 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	GameDataV2::collsion_manager = _collision_manager;
 	GameDataV2::game_controller = _game_controller;
 	createPlatform = std::make_unique<Platforms>();
-	//createText = std::make_unique<Text>();
 
 	GameDataV2::inputManager->init();
 
@@ -155,8 +154,17 @@ bool Engine::Draw()
 		GameDataV2::renderer->Draw(go);
 	}
 
-	GameDataV2::renderer->renderText("Lives: 3", cam->GetPosition()*-1.0);
+	if (_GS == GameState::GS_MAIN_MENU)
+	{
+		GameDataV2::renderer->renderText("Alpha Build: V1\n\n\n\n\n\n   Press Space", (cam->GetPosition() + Vec2(150.0f, 200.0f)) * -1.0);
+	}
 
+	if (_GS == GameState::GS_PLAY)
+	{
+		playerLives = std::to_string(player->getLives());
+		GameDataV2::renderer->renderText("Lives: " + playerLives, (cam->GetPosition() + Vec2(-600.0f, 550.0f)) * -1.0);
+	}
+	
 	GameDataV2::renderer->EndDraw();
 
 	return true;
@@ -210,10 +218,8 @@ void Engine::moveCamera(Vec2* _translation)
 
 void Engine::playGame()
 {
-
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
-	PlayerV2* player = new PlayerV2(sprite1, "Player", "Player");
-
+	player = new PlayerV2(sprite1, "Player", "Player");
 
 	player->SetPosition(new Vec2(-475.0f, 350.0f));
 	player->SetSize(new Vec2(100.0f, 120.0f));
@@ -238,7 +244,7 @@ void Engine::playGame()
 	//delete level1;
 
 	//create a base camera
-	BaseCamera* cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+	cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
 	cam->SetPosition(new Vec2(0.0f, 0.0f));
 	cam->setName("Camera");
 	cam->setTag("Camera");
@@ -246,7 +252,7 @@ void Engine::playGame()
 	mainCamera = cam;
 
 	//Not essential but stops the risk of it interfering with the object that's in the vector
-	player = nullptr;
+	//player = nullptr;
 	sprite1 = nullptr;
 
 	//double init of input manager
