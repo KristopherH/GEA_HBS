@@ -3,6 +3,7 @@
 #include "PlayerV2.h"
 #include "BaseCamera.h"
 #include "GameDataV2.h"
+#include <string>
 
 bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 {
@@ -137,7 +138,7 @@ Direction CollisionManager::findCollisionDirection(GameObjectV2* a, GameObjectV2
 	float bottom_collision = 0.0f;
 	float right_collision = 0.0f;
 
-	if (a->getTag() == "Player" && b->getTag() == "Camera")
+	if (a->getName() == "Player" && b->getName() == "Camera")
 	{
 		camera = static_cast<BaseCamera*>(b);
 

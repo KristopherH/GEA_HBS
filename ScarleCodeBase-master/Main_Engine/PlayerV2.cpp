@@ -108,7 +108,7 @@ void PlayerV2::OnMove(Vec2 _direction)
 {
 	for (auto go : GameDataV2::go_list)
 	{
-		if (this == go)
+		if (go->getName() == name)
 		{
 
 		}
@@ -121,16 +121,6 @@ void PlayerV2::OnMove(Vec2 _direction)
 			else if (go->getTag() == "Speed Platform")
 			{
 				position += _direction * 3.0;
-			}
-			else if (go->getTag() == "Conveyor Left" &&
-				GameDataV2::collsion_manager->getCollisionDirection() == Direction::TOP)
-			{
-				conveyor(true);
-			}
-			else if (go->getTag() == "Conveyor Right" &&
-				GameDataV2::collsion_manager->getCollisionDirection() == Direction::TOP)
-			{
-				conveyor(false);
 			}
 			else
 			{
