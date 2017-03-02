@@ -23,6 +23,7 @@ PlayerV2::~PlayerV2()
 
 bool PlayerV2::Update()
 {
+	GameObjectV2::Update();
 	ProcessInput();
 	climb();
 	oneWayPlatformMove();

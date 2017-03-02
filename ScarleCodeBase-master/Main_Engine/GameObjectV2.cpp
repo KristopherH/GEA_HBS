@@ -39,6 +39,12 @@ bool GameObjectV2::getSolid()
 
 bool GameObjectV2::Update()
 {
+	if (this->GetSprite())
+	{
+		box = Rect(Vec2(this->GetPosition().x, this->GetPosition().y),
+			Vec2(this->GetPosition().x + this->GetSize().x,
+				this->GetPosition().y + this->GetSize().y));
+	}
 	return false;
 }
 
@@ -77,6 +83,7 @@ void GameObjectV2::gravityUpdate()
 	for (const auto& current_object : GameDataV2::go_list)
 	{
 		i++;
+		//This could be changed to solid now that's implemented (Post Alpha Task)
 		for (const auto& current_gravity_tag : this->gravity_trigger_tags)
 		{
 			if (!gravity_on)
@@ -115,7 +122,52 @@ void GameObjectV2::gravityUpdate()
 	i = 0;
 }
 
+Rect GameObjectV2::getBox()
+{
+	return box;
+}
+
 Direction GameObjectV2::getMovementDirection()
 {
 	return move_direction;
+}
+
+Vec2 GameObjectV2::GetPosition()
+{
+	return position;
+}
+
+Vec2 GameObjectV2::GetSize()
+{
+	return Vec2(sprite->GetSize().x * scale.x, sprite->GetSize().y * scale.y);
+}
+
+Vec2 GameObjectV2::GetScale()
+{
+	return scale;
+}
+
+Sprite * GameObjectV2::GetSprite()
+{
+	return sprite;
+}
+
+Vec2 GameObjectV2::GetOrigin()
+{
+	return origin;
+}
+
+float GameObjectV2::GetRotation()
+{
+	return rotation;
+}
+
+std::string GameObjectV2::getName()
+{
+	return name;
+}
+
+std::string GameObjectV2::getTag()
+{
+	return tag;
 }

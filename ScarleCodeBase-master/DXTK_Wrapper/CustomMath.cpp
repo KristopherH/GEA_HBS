@@ -232,8 +232,11 @@ Vec4::operator DirectX::SimpleMath::Vector4()
 //-----------------------
 #pragma region Rect
 
-Rect::Rect(Vec2, Vec2) 
-{}
+Rect::Rect(Vec2 V1, Vec2 V2) 
+{
+	min = V1;
+	max = V2;
+}
 
 bool Rect::Contains(Vec2 oth)
 {

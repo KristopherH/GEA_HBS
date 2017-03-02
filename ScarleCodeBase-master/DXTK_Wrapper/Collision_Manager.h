@@ -17,6 +17,6 @@ public:
 	bool oneWayPlatform(std::string a_name);
 
 private:
-	Direction findCollisionDirection(GameObjectV2& a, GameObjectV2& b);
+	Direction findCollisionDirection(GameObjectV2* a, GameObjectV2* b);
 	Direction col_direction = Direction::NONE;
 };

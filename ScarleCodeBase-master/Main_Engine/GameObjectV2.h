@@ -21,16 +21,16 @@ public:
 
 	virtual bool Update();
 
-	Direction getMovementDirection();
+	virtual Direction getMovementDirection();
 	
-	Vec2 GetPosition() { return position; }
-	Vec2 GetSize() { return Vec2( sprite->GetSize().x * scale.x, sprite->GetSize().y * scale.y); }
-	Vec2 GetScale() { return scale; }
-	Sprite* GetSprite() { return sprite; }
-	Vec2 GetOrigin() { return origin; }
-	float GetRotation() { return rotation; }
-	std::string getName() { return name; }
-	std::string getTag() { return tag; }
+	Vec2 GetPosition();
+	Vec2 GetSize();
+	Vec2 GetScale();
+	Sprite* GetSprite();
+	Vec2 GetOrigin();
+	float GetRotation();
+	std::string getName();
+	std::string getTag();
 
 	void SetPosition(Vec2* _position) { position.x = _position->x; position.y = _position->y;}
 	void SetSize(Vec2* _size);
@@ -43,9 +43,13 @@ public:
 	void setTag(std::string _tag) { tag = _tag; }
 	void setGravity(bool _gravity_on) { gravity_on = _gravity_on; }
 	bool setGravityTag(std::string _gravity_tag);
+	
+	virtual void setMovementDirection(Direction _movement_direction) { move_direction = _movement_direction; }
 
 	void movePosition(Vec2* _translation);
 	void gravityUpdate();
+
+	Rect getBox();
 
 protected:
 	Vec2 position;
@@ -55,6 +59,7 @@ protected:
 	bool grounded = false;
 	bool gravity_on = false;
 	bool solid = true;
+	Rect box = Rect(Vec2(0, 0), Vec2(0,0));
 
 	Direction move_direction = Direction::NONE;
 

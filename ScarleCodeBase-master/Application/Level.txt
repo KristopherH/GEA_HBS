@@ -1,3 +1,4 @@
+
 PlayerPos: (100 10)
 ObjectsNumber: (7)
     1:

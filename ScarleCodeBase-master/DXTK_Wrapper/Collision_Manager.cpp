@@ -1,6 +1,7 @@
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 #include "PlayerV2.h"
+#include "BaseCamera.h"
 #include "GameDataV2.h"
 
 bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
@@ -16,31 +17,46 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 
 	GameObjectV2* a = GameDataV2::go_list.at(a_location);
 	GameObjectV2* b = GameDataV2::go_list.at(b_location);
-	PlayerV2* player = nullptr;
-	GameObjectV2* other = nullptr;
 
-	bool player_present = false;
+	PlayerV2* player = nullptr;
+	BaseCamera* camera = nullptr;
+	GameObjectV2* other = nullptr;
 
 	if (a->getTag() == "Player")
 	{
 		player = static_cast<PlayerV2*>(a);
-		player_present = true;
+		if (b->getTag() == "Camera")
+		{
+			camera = static_cast<BaseCamera*>(b);
+			camera->setMovementDirection(findCollisionDirection(player, camera));
+			return false;
+		}
+
 		other = b;
 	}
 
 	if (b->getTag() == "Player")
 	{
 		player = static_cast<PlayerV2*>(b);
-		player_present = true;
+		if (a->getTag() == "Camera")
+		{
+			camera = static_cast<BaseCamera*>(b);
+			camera->setMovementDirection(findCollisionDirection(player, camera));
+			return false;
+		}
+
 		other = a;
 	}
+
+	if (!a->GetSprite() || !b->GetSprite())
+		return false;
 
 	if (a->GetPosition().x < b->GetPosition().x + b->GetSize().x &&
 		a->GetPosition().x + a->GetSize().x > b->GetPosition().x &&
 		a->GetPosition().y < b->GetPosition().y + b->GetSize().y &&
 		a->GetPosition().y + a->GetSize().y > b->GetPosition().y)
 	{
-		col_direction = findCollisionDirection(*a, *b);
+		col_direction = findCollisionDirection(a, b);
 
 		if (player && other->getSolid())
 		{
@@ -61,16 +77,10 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 			}
 		}
 
-		a = nullptr;
-		b = nullptr;
-		player = nullptr;
 
 		return true;
 	}
 
-	a = nullptr;
-	b = nullptr;
-	player = nullptr;
 
 	//No collision
 	return false;
@@ -88,6 +98,9 @@ Direction CollisionManager::getCollisionDirection()
 
 bool CollisionManager::oneWayPlatform(std::string a_name)
 {
+	if (a_name == "Camera")
+		return false;
+
 	int a_location = GameDataV2::game_controller->getGameObjectLocation(a_name);
 	int player_location = GameDataV2::game_controller->getGameObjectLocation("Player");
 
@@ -109,17 +122,46 @@ bool CollisionManager::oneWayPlatform(std::string a_name)
 	return false;
 }
 
-Direction CollisionManager::findCollisionDirection(GameObjectV2& a, GameObjectV2& b)
+Direction CollisionManager::findCollisionDirection(GameObjectV2* a, GameObjectV2* b)
 {
-	float object_a_bot = a.GetPosition().y + a.GetSize().y;
-	float object_a_right = a.GetPosition().x + a.GetSize().x;
-	float object_b_bot = b.GetPosition().y + b.GetSize().y;
-	float object_b_right = b.GetPosition().x + b.GetSize().x;
+	BaseCamera* camera = nullptr;
 
-	float top_collision = object_a_bot - b.GetPosition().y;
-	float left_collision = object_a_right - b.GetPosition().x;
-	float bottom_collision = object_b_bot - a.GetPosition().y;
-	float right_collision = object_b_right - a.GetPosition().x;
+	float object_a_bot = 0.0f;
+	float object_a_right = 0.0f;
+	float object_b_bot = 0.0f;
+	float object_b_right = 0.0f;
+
+	float top_collision = 0.0f;
+	float left_collision = 0.0f;
+	float bottom_collision = 0.0f;
+	float right_collision = 0.0f;
+
+	if (a->getTag() == "Player" && b->getTag() == "Camera")
+	{
+		camera = static_cast<BaseCamera*>(b);
+
+		object_a_bot = a->GetPosition().y + a->GetSize().y;
+		object_a_right = a->GetPosition().x + a->GetSize().x;
+		object_b_bot = camera->getPlayerBoxPosY() + camera->getPlayerBoxHeight();
+		object_b_right = camera->getPlayerBoxPosX() + camera->getPlayerBoxWidth();
+
+		top_collision = object_a_bot - camera->getPlayerBoxPosY();
+		left_collision = object_a_right - camera->getPlayerBoxPosX();
+		bottom_collision = object_b_bot - a->GetPosition().y;
+		right_collision = object_b_right - a->GetPosition().x;
+	}
+	else
+	{
+		object_a_bot = a->GetPosition().y + a->GetSize().y;
+		object_a_right = a->GetPosition().x + a->GetSize().x;
+		object_b_bot = b->GetPosition().y + b->GetSize().y;
+		object_b_right = b->GetPosition().x + b->GetSize().x;
+
+		top_collision = object_a_bot - b->GetPosition().y;
+		left_collision = object_a_right - b->GetPosition().x;
+		bottom_collision = object_b_bot - a->GetPosition().y;
+		right_collision = object_b_right - a->GetPosition().x;
+	}
 
 	if (top_collision < bottom_collision && top_collision < left_collision && top_collision < right_collision)
 	{

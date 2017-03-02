@@ -24,28 +24,25 @@
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 				CollisionManager* _collision_manager, GameController* _game_controller)
 {
-	//GameState::GS_MAIN_MENU
+	GameState::GS_MAIN_MENU
 
 	GameDataV2::inputManager = _inputManager;
+  if (!GameDataV2::inputManager->init())
+	{
+		OutputDebugString("Input manager failed to initialize");
+	}
 	GameDataV2::renderer = _renderer;
 
 	GameDataV2::collsion_manager = _collision_manager;
 	GameDataV2::game_controller = _game_controller;
 	createPlatform = std::make_unique<Platforms>();
 
-	GameDataV2::inputManager->init();
-
-	//createText.get()->createString("Hi", GameDataV2::renderer);
-	
-	//GameDataV2::go_list.push_back(_renderer->DrawString(Helper::charToWChar("Hi"),Vec2(0.0f,0.0f), Vec4(0.0f,0.0f,0.0f,0.0f), 0.0f, Vec2(0.0f, 0.0f),0.0f, 2.0f));
-
 	//create a base camera
-	cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
-	cam->SetPosition(new Vec2(0.0f, 0.0f));
-	cam->setName("Camera");
-	cam->setTag("Camera");
-	GameDataV2::go_list.push_back(cam);
-	mainCamera = cam;
+	mainCamera = new BaseCamera(player, GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+	mainCamera->SetPosition(new Vec2(player->GetPosition().x + player->GetSize().x, player->GetPosition().y - player->GetSize().y));
+	mainCamera->setName("Camera");
+	mainCamera->setTag("Camera");
+	GameDataV2::go_list.push_back(mainCamera);
 }
 
 Engine::~Engine()
@@ -240,23 +237,6 @@ void Engine::playGame()
 		GameDataV2::go_list.push_back(go);
 		go = nullptr;
 	}
-	//delete level1;
-
-	//create a base camera
-	cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
-	cam->SetPosition(new Vec2(0.0f, 0.0f));
-	cam->setName("Camera");
-	cam->setTag("Camera");
-	GameDataV2::go_list.push_back(cam);
-	mainCamera = cam;
-
-	//Not essential but stops the risk of it interfering with the object that's in the vector
-	//player = nullptr;
-	sprite1 = nullptr;
-
-	//double init of input manager
-	if (!GameDataV2::inputManager->init())
-	{
-		OutputDebugString("Input manager failed to initialize");
-	}
+  
+  delete level1;	
 }

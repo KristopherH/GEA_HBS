@@ -1,7 +1,9 @@
 #include "BaseCamera.h"
+#include "PlayerV2.h"
 
-BaseCamera::BaseCamera(float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up, Vec3 _target)
+BaseCamera::BaseCamera(PlayerV2* _player, float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up, Vec3 _target)
 {
+	player = _player;
 	width = _width;
 	height = _height;
 	nearPlane = _nearPlane;
@@ -10,9 +12,10 @@ BaseCamera::BaseCamera(float _width, float _height, float _nearPlane, float _far
 	m_target = _target;
 	m_up = _up;
 
-	position = Vec2(10.0f, 10.0f);
+	setPlayerBoxPosX(player->GetPosition().x + player_box_width);
+	setPlayerBoxPosY(player->GetPosition().y + player_box_height);
 
-	Vec3 pos3d(position.x, position.y, 1.0f);
+	Vec3 pos3d(player->GetPosition().x, player->GetPosition().y, 1.0f);
 
 	m_projMat = OurMatrix::CreateOrthographic(width, height, nearPlane, farPlane);
 	m_viewMat = OurMatrix::CreateLookAt(pos3d, m_target, m_up);
@@ -26,7 +29,34 @@ BaseCamera::~BaseCamera()
 
 bool BaseCamera::Update()
 {
-	//position.x += 0.1f;
+	if (player)
+	{
+		SetPosition(new Vec2(-player->GetPosition().x, -player->GetPosition().y));
+		
+		//setPlayerBoxPosX(player->GetPosition().x + player_box_width);
+		//setPlayerBoxPosY(player->GetPosition().y + player_box_height);
+	}
+
+	/*Come back to this post alpha*/
+	switch (movement_direction)
+	{
+	case Direction::TOP:
+		//movePosition(new Vec2(0.0f, player->getSpeed()));
+		break;
+		
+	case Direction::BOTTOM:
+		//movePosition(new Vec2(0.0f, -player->getSpeed()));
+		break;
+
+	case Direction::LEFT:
+		//movePosition(new Vec2(player->getSpeed(), 0.0f));
+		break;
+
+	case Direction::RIGHT:
+		//movePosition(new Vec2(-player->getSpeed(), 0.0f));
+		break;
+	}
+
 	Vec3 pos3d(position.x, position.y);
 
 	m_projMat = OurMatrix::CreateOrthographic(width, height, nearPlane, farPlane);
