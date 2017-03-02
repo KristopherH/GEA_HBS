@@ -89,7 +89,10 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 		}
 		else if (type == "Collectible")
 		{
-
+			if (getStringFromFile(fileStream) == "END")
+			{
+				go = new Collectible(pos, size, rotation, name);
+			}
 		}
 		else if (type == "Ladder")
 		{

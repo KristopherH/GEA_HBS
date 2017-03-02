@@ -4,9 +4,9 @@
 class Collectible : public GameObjectV2
 {
 public:
-	Collectible();
+	Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name);
+	Collectible(Sprite* _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::string _name);
 	~Collectible();
 
-private:
-
+	bool Update() override;
 };
