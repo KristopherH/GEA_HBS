@@ -23,5 +23,4 @@ public:
 private:
 	Sprite* spr = nullptr;
 	GameObjectV2* platform = nullptr;
-	std::unique_ptr<PlayerV2> player;
 };

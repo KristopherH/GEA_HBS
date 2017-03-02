@@ -97,7 +97,7 @@ void PlayerV2::OnJump()
 			{
 				if (go->getTag() != "Sticky Platform")
 				{
-					position += Vec2(0.0f, jumpStrength);
+					position += Vec2(0.0f, jumpStrength * 2);
 				}
 			}
 		}
@@ -201,7 +201,7 @@ void PlayerV2::oneWayPlatformMove()
 	for (auto go : GameDataV2::go_list)
 	{
 		if (GameDataV2::collsion_manager->getCollisionDirection() != Direction::TOP &&
-			GameDataV2::collsion_manager->oneWayPlatform(go->getName()))
+			GameDataV2::collsion_manager->oneWayPlatform(go->getName()) && !one_way_plat_move)
 		{
 			one_way_plat_move = true;
 		}

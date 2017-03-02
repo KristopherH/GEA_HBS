@@ -2,7 +2,6 @@
 
 Platforms::Platforms()
 {
-	player = std::make_unique<PlayerV2>();
 }
 
 GameObjectV2 * Platforms::standardPlatform(Renderer * _renderer, float x, float y, float sizeX, float sizeY, string name)

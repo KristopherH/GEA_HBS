@@ -78,13 +78,13 @@ void GameObjectV2::movePosition(Vec2* _translation)
 
 void GameObjectV2::gravityUpdate()
 {
+	//Very messy Needs tidying up after alpha submission
 	bool new_grounded = false;
 	for (const auto& current_object : GameDataV2::go_list)
 	{
 		//This could be changed to solid now that's implemented (Post Alpha Task)
 		for (const auto& current_gravity_tag : this->gravity_trigger_tags)
 		{
-			current_object->name;
 			if (!gravity_on || this == current_object)
 			{
 				break;
@@ -100,10 +100,14 @@ void GameObjectV2::gravityUpdate()
 				}
 			}
 
-			if (grounded || !gravity_on)
+			if (new_grounded || !gravity_on)
 			{
 				break;
 			}
+		}
+		if (new_grounded)
+		{
+			break;
 		}
 	}
 
