@@ -74,8 +74,11 @@ bool Engine::Update()
 		
 		for (auto go : GameDataV2::go_list)
 		{
-			go->gravityUpdate();
-			go->Update();
+			if (go->isAlive())
+			{
+				go->gravityUpdate();
+				go->Update();
+			}
 		}
 
 		if (GameDataV2::inputManager->getKeyHeld('8'))
@@ -148,7 +151,8 @@ bool Engine::Draw()
 
 	for (const auto go : GameDataV2::go_list)
 	{
-		GameDataV2::renderer->Draw(go);
+		if (go->isAlive())
+			GameDataV2::renderer->Draw(go);
 	}
 
 	if (_GS == GameState::GS_MAIN_MENU)

@@ -21,7 +21,10 @@ public:
 
 	virtual bool Update();
 
+	bool isAlive() { return alive; }
+  
 	virtual Direction getMovementDirection();
+
 	
 	Vec2 GetPosition();
 	Vec2 GetSize();
@@ -52,6 +55,8 @@ public:
 	Rect getBox();
 
 protected:
+	bool alive = true;
+
 	Vec2 position;
 	Vec2 scale;
 	Vec2 origin;

@@ -18,6 +18,11 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	GameObjectV2* a = GameDataV2::go_list.at(a_location);
 	GameObjectV2* b = GameDataV2::go_list.at(b_location);
 
+	if (!a->isAlive() || !b->isAlive())
+	{
+		return false;
+	}
+
 	PlayerV2* player = nullptr;
 	BaseCamera* camera = nullptr;
 	GameObjectV2* other = nullptr;
