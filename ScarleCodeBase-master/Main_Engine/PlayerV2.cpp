@@ -220,3 +220,8 @@ void PlayerV2::conveyor(bool _left)
 	}
 
 }
+
+void PlayerV2::setLives()
+{
+	lives - 1;
+}

@@ -19,12 +19,14 @@ public:
 	void OnMove(Vec2);
 	void climb();
 	void conveyor(bool _left);
+	int getLives() { return lives; };
+	void setLives();
 
 	float getSpeed();
 
 protected:
 
-	int lives;
+	int lives = 3;
 	float speed = 1.0f;
 	float jumpStrength;
 	std::string Climbable_name = "NULL";
@@ -33,8 +35,6 @@ protected:
 	bool one_way_plat_move = false;
 
 	void oneWayPlatformMove(); 
-
-
 
 	//Input component
 	std::map<char, std::function<void()>> KeyBindsHold;
