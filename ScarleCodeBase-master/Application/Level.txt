@@ -1,5 +1,5 @@
 PlayerPos: (100 10)
-ObjectsNumber: (7)
+ObjectsNumber: (6)
     1:
         Type: (Platform)
         Name: (Platform1)
@@ -23,14 +23,6 @@ ObjectsNumber: (7)
         Size:  (300 100)
         Roatation: (0)
         PlatformType: (Sticky)
-        (END)
-    4:
-        Type: (Platform)
-        Name: (Platform4)
-        Position: (500 100)
-        Size:  (300 100)
-        Roatation: (0)
-        PlatformType: (ConveyorRight)
         (END)
     5:
         Type: (Enemy)
