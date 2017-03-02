@@ -34,8 +34,8 @@ ObjectsNumber: (6)
     6:
         Type: (Ladder)
         Name: (Ladder1)
-        Position: (-300 200)
-        Size:  (100 350)
+        Position: (-300 210)
+        Size:  (100 250)
         Roatation: (0)
         (END)
     7:
