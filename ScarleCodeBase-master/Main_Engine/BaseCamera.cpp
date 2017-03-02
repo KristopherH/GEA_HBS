@@ -1,21 +1,17 @@
 #include "BaseCamera.h"
 #include "PlayerV2.h"
 
-BaseCamera::BaseCamera(PlayerV2* _player, float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up, Vec3 _target)
+BaseCamera::BaseCamera(float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up, Vec3 _target)
 {
-	player = _player;
 	width = _width;
 	height = _height;
 	nearPlane = _nearPlane;
 	farPlane = _farPlane;
-
+	position = Vec2(10.0f, 10.0f);
 	m_target = _target;
 	m_up = _up;
 
-	setPlayerBoxPosX(player->GetPosition().x + player_box_width);
-	setPlayerBoxPosY(player->GetPosition().y + player_box_height);
-
-	Vec3 pos3d(player->GetPosition().x, player->GetPosition().y, 1.0f);
+	Vec3 pos3d(position.x, position.y, 1.0f);
 
 	m_projMat = OurMatrix::CreateOrthographic(width, height, nearPlane, farPlane);
 	m_viewMat = OurMatrix::CreateLookAt(pos3d, m_target, m_up);

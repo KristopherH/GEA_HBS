@@ -20,14 +20,15 @@
 #include <functional>
 
 #include "LevelLoader.h"
+#include "Game_Controller.h"
 
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 				CollisionManager* _collision_manager, GameController* _game_controller)
 {
-	GameState::GS_MAIN_MENU
+	GameState::GS_MAIN_MENU;
 
 	GameDataV2::inputManager = _inputManager;
-  if (!GameDataV2::inputManager->init())
+	if (!GameDataV2::inputManager->init())
 	{
 		OutputDebugString("Input manager failed to initialize");
 	}
@@ -38,8 +39,8 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	createPlatform = std::make_unique<Platforms>();
 
 	//create a base camera
-	mainCamera = new BaseCamera(player, GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
-	mainCamera->SetPosition(new Vec2(player->GetPosition().x + player->GetSize().x, player->GetPosition().y - player->GetSize().y));
+	mainCamera = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+	//mainCamera->SetPosition(new Vec2(player->GetPosition().x + player->GetSize().x, player->GetPosition().y - player->GetSize().y));
 	mainCamera->setName("Camera");
 	mainCamera->setTag("Camera");
 	GameDataV2::go_list.push_back(mainCamera);
@@ -152,13 +153,13 @@ bool Engine::Draw()
 
 	if (_GS == GameState::GS_MAIN_MENU)
 	{
-		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Space", (cam->GetPosition() + Vec2(150.0f, 200.0f)) * -1.0);
+		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Space", (mainCamera->GetPosition() + Vec2(150.0f, 200.0f)) * -1.0);
 	}
 
 	if (_GS == GameState::GS_PLAY)
 	{
 		playerLives = std::to_string(player->getLives());
-		GameDataV2::renderer->renderText("Lives: " + playerLives, (cam->GetPosition() + Vec2(-600.0f, 550.0f)) * -1.0);
+		GameDataV2::renderer->renderText("Lives: " + playerLives, (mainCamera->GetPosition() + Vec2(-600.0f, 550.0f)) * -1.0);
 	}
 	
 	GameDataV2::renderer->EndDraw();
@@ -237,6 +238,14 @@ void Engine::playGame()
 		GameDataV2::go_list.push_back(go);
 		go = nullptr;
 	}
-  
-  delete level1;	
+
+	int cam_location = GameDataV2::game_controller->getGameObjectLocation("Camera");
+	if (cam_location >= 0)
+	{
+		BaseCamera* temp_cam = static_cast<BaseCamera*>(GameDataV2::go_list[cam_location]);
+		temp_cam->setPlayerTracker(player);
+		temp_cam = nullptr;
+	}
+
+	delete level1;	
 }

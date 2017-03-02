@@ -8,7 +8,7 @@ class PlayerV2;
 class BaseCamera : public GameObjectV2
 {
 public:
-	BaseCamera(PlayerV2* player, float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up = Vec3::Up, Vec3 _target = Vec3::Zero);
+	BaseCamera(float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up = Vec3::Up, Vec3 _target = Vec3::Zero);
 	~BaseCamera();
 
 	virtual bool Update();
@@ -32,6 +32,7 @@ public:
 	void setPlayerBoxHeight(float _player_box_height) { player_box_height = _player_box_height; }
 	void setPlayerBoxPosX(float _player_box_x) { player_box_x = _player_box_x; }
 	void setPlayerBoxPosY(float _player_box_y) { player_box_y = _player_box_y; }
+	void setPlayerTracker(PlayerV2* _player) { player = _player; }
 
 protected:
 	//Principle transforms/matrices for this camera
