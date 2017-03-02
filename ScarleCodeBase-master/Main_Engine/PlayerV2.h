@@ -26,7 +26,7 @@ public:
 
 protected:
 
-	int lives = 3;
+	int lives;
 	float speed = 1.0f;
 	float jumpStrength;
 	std::string Climbable_name = "NULL";

@@ -57,4 +57,5 @@ protected:
 	BaseCamera* mainCamera = nullptr;
 	BaseCamera* cam;
 	string playerLives;
+	int lives;
 };

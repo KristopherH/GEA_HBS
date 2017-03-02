@@ -34,6 +34,8 @@ bool Enemy::Update()
 {
 	if (GameDataV2::collsion_manager->boxCollision(name, "Player"))
 	{
+ 		player = new PlayerV2();
+ 		player->setLives();
 		alive = false;
 		//GameDataV2::go_list.erase(GameDataV2::go_list.begin() + GameDataV2::game_controller->getGameObjectLocation(name));
 			

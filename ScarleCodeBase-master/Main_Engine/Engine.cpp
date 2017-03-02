@@ -81,7 +81,7 @@ bool Engine::Update()
 				go->Update();
 			}
 		}
-
+		lives = player->getLives();
 		if (GameDataV2::inputManager->getKeyHeld('8'))
 		{
 			moveCamera(new Vec2(0.0f, 1.0f));
@@ -163,8 +163,7 @@ bool Engine::Draw()
 
 	if (_GS == GameState::GS_PLAY)
 	{
-		playerLives = std::to_string(player->getLives());
-		GameDataV2::renderer->renderText("Lives: " + playerLives, (mainCamera->GetPosition() + Vec2(-600.0f, 450.0f)) * -1.0);
+		GameDataV2::renderer->renderText("Lives: " + std::to_string(lives), (mainCamera->GetPosition() + Vec2(-600.0f, 450.0f)) * -1.0);
 	}
 	
 	GameDataV2::renderer->EndDraw();

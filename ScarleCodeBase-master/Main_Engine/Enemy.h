@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObjectV2.h"
+#include "PlayerV2.h"
 
 class Enemy : public GameObjectV2
 {
@@ -11,5 +12,5 @@ public:
 	bool Update() override;
 
 private:
-
+	PlayerV2* player;
 };

@@ -14,6 +14,7 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
 	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));
 	jumpStrength = -25.0f;
+	lives = 3;
 }
 
 PlayerV2::~PlayerV2()
@@ -226,5 +227,5 @@ void PlayerV2::conveyor(bool _left)
 
 void PlayerV2::setLives()
 {
-	lives - 1;
+	lives -= 1;
 }
