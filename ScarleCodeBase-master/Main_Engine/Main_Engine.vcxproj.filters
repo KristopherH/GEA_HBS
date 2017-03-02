@@ -16,9 +16,6 @@
     <ClCompile Include="GameObjectV2.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameOver.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Platforms.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -29,6 +26,12 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="LevelLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Collectible.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,9 +54,6 @@
     <ClInclude Include="GameObjectV2.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="GameOver.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Platforms.h">
       <Filter>Header</Filter>
     </ClInclude>
@@ -64,6 +64,12 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="LevelLoader.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Collectible.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

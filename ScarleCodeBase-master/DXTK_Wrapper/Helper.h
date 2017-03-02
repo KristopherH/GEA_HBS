@@ -1,5 +1,4 @@
-#ifndef _HELPER_H_
-#define _HELPER_H_
+#pragma once
 #include <string>
 
 //=================================================================
@@ -22,4 +21,3 @@ struct Helper
 		return wa;
 	}
 };
-#endif

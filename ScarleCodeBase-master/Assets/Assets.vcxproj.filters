@@ -84,5 +84,8 @@
     <ImageContentTask Include="StandardPlatform.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="enemy_sprite.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

@@ -61,7 +61,7 @@ GameObjectV2* Platforms::slowPlatform(Renderer* _renderer, float x, float y, flo
 	return platform;
 }
 
-GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, string name, float x, float y, float sizeX, float sizeY, bool leftOrRight)
+GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name, bool leftOrRight)
 {
 	spr = nullptr;
 	platform = nullptr;

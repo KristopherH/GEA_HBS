@@ -6,7 +6,6 @@
 #include "CustomMath.h"
 #include "SimpleMath.h"
 #include "BaseCamera.h"
-#include "../Game/Helper.h"
 
 class GameObjectV2;
 

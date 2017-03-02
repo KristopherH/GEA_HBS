@@ -1,6 +1,6 @@
 #include "Sprite.h"
-#include "../Game/Helper.h"
 #include "../DXTK_Wrapper/DXTKRenderer.h"
+#include "Helper.h"
 
 Sprite::Sprite(std::string _fileName, Renderer* _renderer) 
 	:m_pTextureRV(nullptr)

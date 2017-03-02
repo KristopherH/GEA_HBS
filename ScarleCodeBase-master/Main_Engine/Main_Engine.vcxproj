@@ -116,12 +116,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseCamera.h" />
+    <ClInclude Include="Collectible.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Enum_container.h" />
     <ClInclude Include="GameDataV2.h" />
     <ClInclude Include="GameObjectV2.h" />
     <ClInclude Include="Game_Controller.h" />
-    <ClInclude Include="GameOver.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Platforms.h" />
     <ClInclude Include="PlayerV2.h" />
@@ -129,11 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseCamera.cpp" />
+    <ClCompile Include="Collectible.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameDataV2.cpp" />
     <ClCompile Include="GameObjectV2.cpp" />
     <ClCompile Include="Game_Controller.cpp" />
-    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="Platforms.cpp" />
     <ClCompile Include="PlayerV2.cpp" />

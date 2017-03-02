@@ -6,7 +6,7 @@
 
 struct Level
 {
-	Vec2 playerStartingPosition;
+	Vec2* playerStartingPosition;
 	std::vector<GameObjectV2*> go_list;
 };
 

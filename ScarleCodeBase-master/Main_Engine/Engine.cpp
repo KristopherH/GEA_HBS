@@ -2,7 +2,6 @@
 //#ifdef __d3d11_1_h__
 #include "..\DXTK_Wrapper\DXTKRenderer.h"
 #include "..\DXTK_Wrapper\Input_Manager.h"
-#include "../Game/Helper.h"
 //#endif
 
 //system headers
@@ -235,7 +234,7 @@ void Engine::playGame()
 	GameDataV2::go_list.push_back(player);
 
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
-	//player->SetPosition(&level1->playerStartingPosition);
+	player->SetPosition(level1->playerStartingPosition);
 	for (auto go : level1->go_list)
 	{
 		GameDataV2::go_list.push_back(go);

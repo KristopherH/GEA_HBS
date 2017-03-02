@@ -1,25 +1,69 @@
-PlayerPos: (10 10)
-ObjectsNumber: (3)
+PlayerPos: (100 10)
+ObjectsNumber: (7)
     1:
         Type: (Platform)
         Name: (Platform1)
         Position: (-800  450)
         Size:  (1600 100)
-        Roatation: (10)
+        Roatation: (0)
+        PlatformType: (Slow)
         (END)
     2:
         Type: (Platform)
         Name: (Platform2)
-        Position: (10  300)
-        Size:  (400 100)
-        Roatation: (10)
+        Position: (-200 200)
+        Size:  (700 100)
+        Roatation: (0)
+        PlatformType: (Speed)
         (END)
     3:
         Type: (Platform)
         Name: (Platform3)
-        Position: (0  0)
-        Size:  (400 100)
-        Roatation: (10)
+        Position: (500 100)
+        Size:  (300 100)
+        Roatation: (0)
+        PlatformType: (ConveyorLeft)
+        (END)
+    4:
+        Type: (Platform)
+        Name: (Platform4)
+        Position: (500 100)
+        Size:  (300 100)
+        Roatation: (0)
+        PlatformType: (ConveyorRight)
+        (END)
+    5:
+        Type: (Enemy)
+        Name: (Enemy1)
+        Position: (100  0)
+        Size:  (100 100)
+        Roatation: (0)
+        (END)
+    6:
+        Type: (Ladder)
+        Name: (Ladder1)
+        Position: (-300 200)
+        Size:  (100 350)
+        Roatation: (0)
+        (END)
+    7:
+        Type: (Ladder)
+        Name: (Ladder2)
+        Position: (600 120)
+        Size:  (100 350)
+        Roatation: (0)
         (END)
     (END)
 (END)
+
+ -	//first level of platforms
+ -	//GameDataV2::go_list.push_back(createPlatform.get()->slowPlatform(_renderer, -500.0f, 200.0f, 300.0f, 100.0f, "slow"));
+ -	//GameDataV2::go_list.push_back(createPlatform.get()->stickyPlatform(_renderer, -100.0f, -350.0f, 300.0f, 100.0f, "sticky"));
+ -	//GameDataV2::go_list.push_back(createCollectible(-455.0f, -570.0f, 50.0f, 50.0f));
+ -	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Right", -300.0f, -250.0f, 200.0f, 100.0f, false));
+ -	//GameDataV2::go_list.push_back(createPlatform.get()->conveyorPlatform(_renderer, "Conveyor Left", -100.0f, -150.0f, 200.0f, 100.0f, false));
+ -	//GameDataV2::go_list.push_back(createPlatform.get()->speedPlatform(_renderer, 100.0f, -150.0f, 300.0f, 100.0f, "speed2"));
+ -	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, -100.0f, -150.0f, 200.0f, 100.0f, "standard3"));
+ -	//GameDataV2::go_list.push_back(createPlatform.get()->jumpPlatform(_renderer, 400.0f, -150.0f, 200.0f, 100.0f, "jump"));
+ -	//GameDataV2::go_list.push_back(createPlatform.get()->standardPlatform(_renderer, 650.0f, -150.0f, 100.0f, 100.0f, "standard2"));
+ -	//GameDataV2::go_list.push_back(createCollectible(665.0f, -250.0f, 50.0f, 50.0f));

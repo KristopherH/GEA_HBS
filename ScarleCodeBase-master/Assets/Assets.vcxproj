@@ -189,6 +189,9 @@
     <ImageContentTask Include="JumpPlatform.png" />
     <ImageContentTask Include="StandardPlatform.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="enemy_sprite.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

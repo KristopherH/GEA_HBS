@@ -3,6 +3,8 @@
 #include <regex>
 #include <sstream>
 #include "Platforms.h"
+#include "Enemy.h"
+#include "Collectible.h"
 
 Level* LevelLoader::loadLevel(std::string LevelPath)
 {
@@ -17,7 +19,7 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 		return nullptr;
 	}
 
-	tmpLevel->playerStartingPosition = *getVectorFromFile(fileStream);
+	tmpLevel->playerStartingPosition = getVectorFromFile(fileStream);
 	int ObjNumber = getIntFromFile(fileStream);
 
 
@@ -27,19 +29,48 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 		std::string index;
 		getline(fileStream, index);
 		std::string type = getStringFromFile(fileStream);
+		std::string name = getStringFromFile(fileStream);
+		Vec2* pos = getVectorFromFile(fileStream);
+		Vec2* size = getVectorFromFile(fileStream);
+		float rotation = getFloatFromFile(fileStream);
+
 		if (type == "Platform")
 		{
-			std::string name = getStringFromFile(fileStream);
-			Vec2* pos = getVectorFromFile(fileStream);
-			Vec2* size = getVectorFromFile(fileStream);
-			float rotation = getFloatFromFile(fileStream);
+			std::string platformType = getStringFromFile(fileStream);
 			if (getStringFromFile(fileStream) == "END")
 			{
-				go = platformsManager.slowPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+				if (platformType == "Slow")
+				{
+					go = platformsManager.slowPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+				}
+				else if (platformType == "ConveyorLeft")
+				{
+					go = platformsManager.conveyorPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name, true);
+				}
+				else if (platformType == "ConveyorRight")
+				{
+					go = platformsManager.conveyorPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name, false);
+				}
+				else if (platformType == "Jump")
+				{
+					go = platformsManager.jumpPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+				}
+				else if (platformType == "Speed")
+				{
+					go = platformsManager.speedPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+				}
+				else if (platformType == "Standard")
+				{
+					go = platformsManager.standardPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+				}
+				else if (platformType == "Sticky")
+				{
+					go = platformsManager.stickyPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+				}
 			}
 			else
 			{
-				//ERROR MESSAGE READING FILE
+				//ERROR MESSAGE OUTPUT
 				return nullptr;
 			}
 			pos = nullptr;
@@ -47,11 +78,30 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 		}
 		else if (type == "Enemy")
 		{
-
+			if (getStringFromFile(fileStream) == "END")
+			{
+				go = new Enemy(pos, size, rotation, name);
+			}
+			else
+			{
+				//ERROR READING FILE
+			}
 		}
 		else if (type == "Collectible")
 		{
 
+		}
+		else if (type == "Ladder")
+		{
+			
+			if (getStringFromFile(fileStream) == "END")
+			{
+				go = new GameObjectV2(new Sprite("Ladder", GameDataV2::renderer), name, "Climbable");
+
+				go->SetPosition(pos);
+				go->SetSize(size);
+				go->setSolid(false);
+			}
 		}
 		else
 		{

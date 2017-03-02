@@ -1,5 +1,6 @@
 #include "DXTKRenderer.h"
 #include "GameObjectV2.h"
+#include "Helper.h"
 
 
 Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
