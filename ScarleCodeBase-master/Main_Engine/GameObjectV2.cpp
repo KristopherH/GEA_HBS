@@ -78,15 +78,14 @@ void GameObjectV2::movePosition(Vec2* _translation)
 
 void GameObjectV2::gravityUpdate()
 {
-	int i = 0;
-
+	bool new_grounded = false;
 	for (const auto& current_object : GameDataV2::go_list)
 	{
-		i++;
 		//This could be changed to solid now that's implemented (Post Alpha Task)
 		for (const auto& current_gravity_tag : this->gravity_trigger_tags)
 		{
-			if (!gravity_on)
+			current_object->name;
+			if (!gravity_on || this == current_object)
 			{
 				break;
 			}
@@ -95,13 +94,9 @@ void GameObjectV2::gravityUpdate()
 				if (GameDataV2::collsion_manager->boxCollision(
 					this->name, current_object->getName()))
 				{
-					grounded = true;
+					new_grounded = true;
 					falling_speed = 0;
 					break;
-				}
-				else
-				{
-					grounded = false;
 				}
 			}
 
@@ -110,18 +105,18 @@ void GameObjectV2::gravityUpdate()
 				break;
 			}
 		}
-
 	}
+
+	grounded = new_grounded;
 
 	if (!grounded && gravity_on)
 	{
 		movePosition(new Vec2(0, falling_speed));
 		falling_speed += gravity_acceleration;
 	}
-
-	i = 0;
 }
 
+#pragma region getters and setters
 Rect GameObjectV2::getBox()
 {
 	return box;
@@ -171,3 +166,4 @@ std::string GameObjectV2::getTag()
 {
 	return tag;
 }
+#pragma endregion

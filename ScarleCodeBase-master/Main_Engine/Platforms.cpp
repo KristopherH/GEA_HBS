@@ -61,18 +61,21 @@ GameObjectV2* Platforms::slowPlatform(Renderer* _renderer, float x, float y, flo
 	return platform;
 }
 
-GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name, bool leftOrRight)
+GameObjectV2* Platforms::conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name, bool _left)
 {
 	spr = nullptr;
 	platform = nullptr;
 
 	spr = new Sprite("ConveyorPlatform", _renderer);
-	platform = new GameObjectV2(spr, name, "Conveyor Platform");
+	
+	std::string tag = "Conveyor Left";
+	if (!_left)	tag = "Conveyor Right";
+
+	platform = new GameObjectV2(spr, name, tag);
 
 	platform->SetPosition(new Vec2(x, y));
 	platform->SetSize(new Vec2(sizeX, sizeY));
 
-	player->conveyor(leftOrRight);
 	return platform;
 }
 

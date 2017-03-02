@@ -18,7 +18,7 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	GameObjectV2* a = GameDataV2::go_list.at(a_location);
 	GameObjectV2* b = GameDataV2::go_list.at(b_location);
 
-	if (!a->isAlive() || !b->isAlive())
+	if (!a->isAlive() || !b->isAlive() || !a->GetSprite() || !b->GetSprite())
 	{
 		return false;
 	}
@@ -30,12 +30,12 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	if (a->getTag() == "Player")
 	{
 		player = static_cast<PlayerV2*>(a);
-		if (b->getTag() == "Camera")
+		/*if (b->getTag() == "Camera")
 		{
 			camera = static_cast<BaseCamera*>(b);
 			camera->setMovementDirection(findCollisionDirection(player, camera));
 			return false;
-		}
+		}*/
 
 		other = b;
 	}
@@ -43,18 +43,15 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	if (b->getTag() == "Player")
 	{
 		player = static_cast<PlayerV2*>(b);
-		if (a->getTag() == "Camera")
+		/*if (a->getTag() == "Camera")
 		{
 			camera = static_cast<BaseCamera*>(b);
 			camera->setMovementDirection(findCollisionDirection(player, camera));
 			return false;
-		}
+		}*/
 
 		other = a;
 	}
-
-	if (!a->GetSprite() || !b->GetSprite())
-		return false;
 
 	if (a->GetPosition().x < b->GetPosition().x + b->GetSize().x &&
 		a->GetPosition().x + a->GetSize().x > b->GetPosition().x &&

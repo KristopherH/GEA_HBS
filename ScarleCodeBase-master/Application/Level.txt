@@ -22,7 +22,7 @@ ObjectsNumber: (7)
         Position: (500 100)
         Size:  (300 100)
         Roatation: (0)
-        PlatformType: (ConveyorLeft)
+        PlatformType: (Sticky)
         (END)
     4:
         Type: (Platform)

@@ -43,6 +43,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	//mainCamera->SetPosition(new Vec2(player->GetPosition().x + player->GetSize().x, player->GetPosition().y - player->GetSize().y));
 	mainCamera->setName("Camera");
 	mainCamera->setTag("Camera");
+	mainCamera->setSolid(false);
 	GameDataV2::go_list.push_back(mainCamera);
 }
 
@@ -242,6 +243,7 @@ void Engine::playGame()
 		GameDataV2::go_list.push_back(go);
 		go = nullptr;
 	}
+	delete level1;
 
 	int cam_location = GameDataV2::game_controller->getGameObjectLocation("Camera");
 	if (cam_location >= 0)
@@ -250,6 +252,5 @@ void Engine::playGame()
 		temp_cam->setPlayerTracker(player);
 		temp_cam = nullptr;
 	}
-
-	delete level1;	
+	
 }

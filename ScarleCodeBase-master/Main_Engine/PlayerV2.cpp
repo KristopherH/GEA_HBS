@@ -89,11 +89,11 @@ void PlayerV2::ProcessInput()
 
 void PlayerV2::OnJump()
 {
-	if (gravity_on)
+	if (gravity_on && grounded)
 	{
 		for (auto go : GameDataV2::go_list)
 		{
-			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+			if (this != go && GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 			{
 				if (go->getTag() != "Sticky Platform")
 				{
@@ -121,6 +121,16 @@ void PlayerV2::OnMove(Vec2 _direction)
 			{
 				position += _direction * 3.0;
 			}
+			/*else if (go->getTag() == "Conveyor Left" &&
+				GameDataV2::collsion_manager->getCollisionDirection() == Direction::TOP)
+			{
+				conveyor(true);
+			}
+			else if (go->getTag() == "Conveyor Right" &&
+				GameDataV2::collsion_manager->getCollisionDirection() == Direction::TOP)
+			{
+				conveyor(false);
+			}*/
 			else
 			{
 				position += _direction;
@@ -166,6 +176,7 @@ void PlayerV2::climb()
 				{
 					climbing = true;
 					gravity_on = false;
+					grounded = false;
 					Climbable_name = go->getName();
 				}
 			}
@@ -198,7 +209,7 @@ void PlayerV2::oneWayPlatformMove()
 
 	if (one_way_plat_move && grounded && !climbing)
 	{
-		OnMove(Vec2(0.0f, -speed));
+		OnMove(Vec2(0.0f, -speed * 5));
 	}
 
 	if (!grounded && one_way_plat_move)
