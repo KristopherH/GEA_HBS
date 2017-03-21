@@ -36,7 +36,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	GameDataV2::collsion_manager = _collision_manager;
 	GameDataV2::game_controller = _game_controller;
-	createPlatform = std::make_unique<Platforms>();
+	createPlatform = std::make_unique<Platforms>(_renderer);
 
 	//create a base camera
 	mainCamera = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);

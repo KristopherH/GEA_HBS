@@ -5,22 +5,26 @@
 #include "PlayerV2.h"
 #include "GameDataV2.h"
 #include "GameObjectV2.h"
+#include <map>
+#include <string>
 
 class Platforms : public Sprite
 {
 public:
-	Platforms();
-
-	GameObjectV2* standardPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
-	GameObjectV2* stickyPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
-	GameObjectV2* speedPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
-	GameObjectV2* slowPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
-	GameObjectV2* conveyorPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name, bool leftOrRight);
-	GameObjectV2* jumpPlatform(Renderer* _renderer, float x, float y, float sizeX, float sizeY, string name);
-
+	Platforms() = delete;
+	Platforms(Renderer* _renderer);
 	~Platforms() = default;
 
+	GameObjectV2* standardPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObjectV2* stickyPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObjectV2* speedPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObjectV2* slowPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObjectV2* conveyorPlatform(float x, float y, float sizeX, float sizeY, string name, bool leftOrRight);
+	GameObjectV2* jumpPlatform(float x, float y, float sizeX, float sizeY, string name);
+
+
 private:
+	std::map<std::string, Sprite*> platform_sprites;
 	Sprite* spr = nullptr;
 	GameObjectV2* platform = nullptr;
 };

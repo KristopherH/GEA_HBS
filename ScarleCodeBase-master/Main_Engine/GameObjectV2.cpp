@@ -20,7 +20,7 @@ GameObjectV2::GameObjectV2(Sprite* _sprite)
 
 GameObjectV2::~GameObjectV2()
 {
-	if (sprite)
+	if (sprite == nullptr)
 	{
 		delete sprite;
 		sprite = nullptr;

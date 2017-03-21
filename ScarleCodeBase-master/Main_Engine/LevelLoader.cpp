@@ -9,7 +9,7 @@
 Level* LevelLoader::loadLevel(std::string LevelPath)
 {
 	Level* tmpLevel = new Level();
-	Platforms platformsManager;
+	Platforms platformsManager(GameDataV2::renderer);
 
 	std::fstream fileStream;
 	fileStream.open(LevelPath);
@@ -41,31 +41,31 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 			{
 				if (platformType == "Slow")
 				{
-					go = platformsManager.slowPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+					go = platformsManager.slowPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
 				else if (platformType == "ConveyorLeft")
 				{
-					go = platformsManager.conveyorPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name, true);
+					go = platformsManager.conveyorPlatform(pos->x, pos->y, size->x, size->y, name, true);
 				}
 				else if (platformType == "ConveyorRight")
 				{
-					go = platformsManager.conveyorPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name, false);
+					go = platformsManager.conveyorPlatform(pos->x, pos->y, size->x, size->y, name, false);
 				}
 				else if (platformType == "Jump")
 				{
-					go = platformsManager.jumpPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+					go = platformsManager.jumpPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
 				else if (platformType == "Speed")
 				{
-					go = platformsManager.speedPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+					go = platformsManager.speedPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
 				else if (platformType == "Standard")
 				{
-					go = platformsManager.standardPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+					go = platformsManager.standardPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
 				else if (platformType == "Sticky")
 				{
-					go = platformsManager.stickyPlatform(GameDataV2::renderer, pos->x, pos->y, size->x, size->y, name);
+					go = platformsManager.stickyPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
 			}
 			else
