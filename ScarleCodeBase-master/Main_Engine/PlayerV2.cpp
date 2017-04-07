@@ -2,17 +2,24 @@
 #include "Input_Manager.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
+#include <iostream>
 
 PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObjectV2(_sprite, _name, _tag)
 {
 	SetScale(new Vec2(0.5f, 1.5f));
 	//Load keybinds from file into list
-	KeyBindsPress['_'] = std::bind(&PlayerV2::OnJump, this);
-	KeyBindsHold['a'] = std::bind(&PlayerV2::OnMove, this, Vec2(-speed, 0.0f));
-	KeyBindsHold['d'] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
-	KeyBindsHold['w'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
-	KeyBindsHold['s'] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));
+
+	#ifndef ARCADE
+	std::cout << "Arcade not defined" << std::endl;
+	#endif
+
+	KeyBindsPress[Inputs::JUMP] = std::bind(&PlayerV2::OnJump, this);
+	KeyBindsHold[Inputs::LEFT] = std::bind(&PlayerV2::OnMove, this, Vec2(-speed, 0.0f));
+	KeyBindsHold[Inputs::RIGHT] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
+	KeyBindsHold[Inputs::UP] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
+	KeyBindsHold[Inputs::DOWN] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));
+
 	jumpStrength = -25.0f;
 	lives = 3;
 }
@@ -61,7 +68,7 @@ void PlayerV2::ProcessInput()
 	{
 		if (GameDataV2::inputManager->getKeyHeld(key.first))
 		{
-			if (!(grounded && (key.first == 's' || key.first == 'S')))
+			if (!(grounded && (key.first == Inputs::DOWN)))
 			{
 				movement = true;
 				key.second();
@@ -73,7 +80,7 @@ void PlayerV2::ProcessInput()
 	{
 		if (GameDataV2::inputManager->getKeyDown(key.first))
 		{
-			if (!(grounded && (key.first == 's' || key.first == 'S')))
+			if (!(grounded && (key.first == Inputs::DOWN)))
 			{
 				movement = true;
 				key.second();

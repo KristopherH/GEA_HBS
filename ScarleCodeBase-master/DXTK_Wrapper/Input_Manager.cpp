@@ -5,6 +5,22 @@ unsigned char InputManager::previous_keyboard_state[256];
 IDirectInput8* InputManager::user_direct_input = nullptr;
 IDirectInputDevice8* InputManager::user_keyboard = nullptr;
 
+#ifdef ARCADE
+Input Inputs::UP = DIK_R;
+Input Inputs::DOWN = DIK_F;
+Input Inputs::LEFT = DIK_D;
+Input Inputs::RIGHT = DIK_G;
+Input Inputs::JUMP = DIK_LSHIFT;
+Input Inputs::USE = DIK_1;
+#else
+Input Inputs::UP = DIK_W;
+Input Inputs::DOWN = DIK_S;
+Input Inputs::LEFT = DIK_A;
+Input Inputs::RIGHT = DIK_D;
+Input Inputs::JUMP = DIK_SPACE;
+Input Inputs::USE = DIK_RETURN;
+#endif
+
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 {
 	window = _window;
@@ -87,17 +103,15 @@ bool InputManager::getMouseMiddleHeld()
 
 #pragma region Keyboard
 
-bool InputManager::getKeyDown(char _key)
+bool InputManager::getKeyDown(Input _key)
 {
-	unsigned int key = convertCharToDinput(_key);
-
-	if (key == 0)
+	if (_key == 0)
 	{
 		OutputDebugString("Key Request Was Invalid!");
 		return false;
 	}
 
-	if (keyboard_state[key] && !previous_keyboard_state[key]) 
+	if (keyboard_state[_key] && !previous_keyboard_state[_key]) 
 		return true;
 
 	return false;
@@ -105,17 +119,15 @@ bool InputManager::getKeyDown(char _key)
 
 
 
-bool InputManager::getKeyUp(char _key)
+bool InputManager::getKeyUp(Input _key)
 {
-	unsigned int key = convertCharToDinput(_key);
-
-	if (key == 0)
+	if (_key == 0)
 	{
 		OutputDebugString("Key Request Was Invalid!");
 		return false;
 	}
 
-	if (!keyboard_state[key] && previous_keyboard_state[key])
+	if (!keyboard_state[_key] && previous_keyboard_state[_key])
 		return true;
 
 	return false;
@@ -123,17 +135,15 @@ bool InputManager::getKeyUp(char _key)
 
 
 
-bool InputManager::getKeyHeld(char _key)
+bool InputManager::getKeyHeld(Input _key)
 {
-	unsigned int key = convertCharToDinput(_key);
-
-	if (key == 0)
+	if (_key == 0)
 	{
 		OutputDebugString("Key Request Was Invalid!");
 		return false;
 	}
 
-	if (keyboard_state[key]) return true;
+	if (keyboard_state[_key]) return true;
 
 	return false;
 }
@@ -231,56 +241,56 @@ bool InputManager::readKeyboard()
 
 
 
-int InputManager::convertCharToDinput(char _input)
-{
-	switch (_input)
-	{
-	case 'W':
-	case 'w':
-		return DIK_W;
-		break;
-
-	case 'A':
-	case 'a':
-		return DIK_A;
-		break;
-
-	case 'S':
-	case 's':
-		return DIK_S;
-		break;
-
-	case 'D':
-	case 'd':
-		return DIK_D;
-		break;
-
-	case '_':
-		return DIK_SPACE;
-		break;
-
-	case '8':
-		return DIK_UP;
-		break;
-
-	case '4':
-		return DIK_LEFT;
-		break;
-
-	case '2':
-		return DIK_DOWN;
-		break;
-
-	case '6':
-		return DIK_RIGHT;
-		break;
-
-	default:
-		return 0;
-		break;
-	}
-
-	return 0;
-}
+//int InputManager::convertCharToDinput(char _input)
+//{
+//	switch (_input)
+//	{
+//	case 'W':
+//	case 'w':
+//		return DIK_W;
+//		break;
+//
+//	case 'A':
+//	case 'a':
+//		return DIK_A;
+//		break;
+//
+//	case 'S':
+//	case 's':
+//		return DIK_S;
+//		break;
+//
+//	case 'D':
+//	case 'd':
+//		return DIK_D;
+//		break;
+//
+//	case '_':
+//		return DIK_SPACE;
+//		break;
+//
+//	case '8':
+//		return DIK_UP;
+//		break;
+//
+//	case '4':
+//		return DIK_LEFT;
+//		break;
+//
+//	case '2':
+//		return DIK_DOWN;
+//		break;
+//
+//	case '6':
+//		return DIK_RIGHT;
+//		break;
+//
+//	default:
+//		return 0;
+//		break;
+//	}
+//
+//	return 0;
+//}
 
 #pragma endregion

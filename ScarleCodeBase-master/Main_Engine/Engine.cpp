@@ -82,57 +82,18 @@ bool Engine::Update()
 			}
 		}
 		lives = player->getLives();
-		if (GameDataV2::inputManager->getKeyHeld('8'))
-		{
-			moveCamera(new Vec2(0.0f, 1.0f));
-		}
-		if (GameDataV2::inputManager->getKeyHeld('4'))
-		{
-			moveCamera(new Vec2(1.0f, 0.0f));
-		}
-		if (GameDataV2::inputManager->getKeyHeld('2'))
-		{
-			moveCamera(new Vec2(0.0f, -1.0f));
-		}
-		if (GameDataV2::inputManager->getKeyHeld('6'))
-		{
-			moveCamera(new Vec2(-1.0f, 0.0f));
-		}
-
 		break;
-
 
 	case GameState::GS_MAIN_MENU:
 
-		for (auto go : GameDataV2::go_list)
-		{
-			go->gravityUpdate();
-			go->Update();
-		}
-
-		if (GameDataV2::inputManager->getKeyHeld('8'))
-		{
-			moveCamera(new Vec2(0.0f, 1.0f));
-		}
-		if (GameDataV2::inputManager->getKeyHeld('4'))
-		{
-			moveCamera(new Vec2(1.0f, 0.0f));
-		}
-		if (GameDataV2::inputManager->getKeyHeld('2'))
-		{
-			moveCamera(new Vec2(0.0f, -1.0f));
-		}
-		if (GameDataV2::inputManager->getKeyHeld('6'))
-		{
-			moveCamera(new Vec2(-1.0f, 0.0f));
-		}
 		GameDataV2::inputManager->readKeyboard();
 
-		if (GameDataV2::inputManager->getKeyHeld('_'))
+		if (GameDataV2::inputManager->getKeyHeld(Inputs::USE))
 		{
 			_GS = GameState::GS_PLAY;
 			playGame();
 		}
+		break;
 
 	case GameState::GS_PAUSE:
 		break;

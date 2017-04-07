@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObjectV2.h"
 #include "GameDataV2.h"
+#include "Input_Manager.h"
 #include <map>
 #include <functional>
 
@@ -35,8 +36,8 @@ protected:
 	bool one_way_plat_move = false;
 
 	void oneWayPlatformMove(); 
-
+	Inputs input;
 	//Input component
-	std::map<char, std::function<void()>> KeyBindsHold;
-	std::map<char, std::function<void()>> KeyBindsPress;
+	std::map<int, std::function<void()>> KeyBindsHold;
+	std::map<int, std::function<void()>> KeyBindsPress;
 };

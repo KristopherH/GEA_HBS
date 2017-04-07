@@ -14,6 +14,7 @@ class Renderer;
 class CollisionManager;
 class GameController;
 class GameObjectV2;
+struct Inputs;
  
 
 struct GameDataV2
@@ -28,5 +29,6 @@ struct GameDataV2
 	static CollisionManager* collsion_manager;
 	static GameController* game_controller;
 	static std::vector<GameObjectV2*> go_list;
+	static Inputs input;
  
 };

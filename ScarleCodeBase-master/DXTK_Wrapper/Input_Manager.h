@@ -1,10 +1,22 @@
 #pragma once
 #include <dinput.h>
 
+using Input = int;
+
+static struct Inputs
+{
+	static Input UP;
+	static Input DOWN;
+	static Input LEFT;
+	static Input RIGHT;
+	static Input JUMP;
+	static Input USE;
+};
+
 class InputManager
 {
 public:
-	InputManager(); //= delete;
+	InputManager() = delete;
 	InputManager(HWND _window, HINSTANCE _h_instance);
 	~InputManager();
 
@@ -22,9 +34,9 @@ public:
 #pragma endregion
 
 #pragma region Keyboard Input
-	bool getKeyDown(char _key);
-	bool getKeyUp(char _key);
-	bool getKeyHeld(char _key);
+	bool getKeyDown(Input _key);
+	bool getKeyUp(Input _key);
+	bool getKeyHeld(Input _key);
 #pragma endregion
 
 #pragma region GamePad Input
@@ -40,7 +52,7 @@ public:
 
 private:
 
-	int convertCharToDinput(char _input);
+	//int convertCharToDinput(char _input);
 
 	static unsigned char keyboard_state[256];
 	static unsigned char previous_keyboard_state[256];
