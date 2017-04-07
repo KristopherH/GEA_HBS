@@ -54,10 +54,10 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 
     // Create window
     m_hInst = _hInstance;
-#ifdef DEBUG
-	unsigned int window_width = GetSystemMetrics(SM_CXMAXIMIZED);
-	unsigned int window_height = GetSystemMetrics(SM_CYMAXIMIZED);
 
+	unsigned int window_width = GetSystemMetrics(SM_CXSCREEN);
+	unsigned int window_height = GetSystemMetrics(SM_CYSCREEN);
+#ifdef DEBUG
 	unsigned int windowed_width = window_width * 0.85;
 	unsigned int windowed_heigth = window_height * 0.85;
 
@@ -70,15 +70,13 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		windowed_pos_x, windowed_pos_y, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, _hInstance,
 		nullptr);
 #else
-	int SCREEN_WIDTH = GetSystemMetrics(SM_CXSCREEN);
-	int SCREEN_HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 	//Go to Fullscreen in Release
 	m_hWnd = CreateWindowEx(NULL,
 		L"GEAWindowClass",
 		L"GEA GROUP PROJECT",
 		WS_EX_TOPMOST | WS_POPUP,    // fullscreen values
 		0, 0,    // the starting x and y positions should be 0
-		SCREEN_WIDTH, SCREEN_HEIGHT,
+		window_width, window_height,
 		NULL,
 		NULL,
 		_hInstance,
