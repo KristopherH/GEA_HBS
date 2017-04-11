@@ -19,7 +19,7 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	GameObjectV2* a = GameDataV2::go_list.at(a_location);
 	GameObjectV2* b = GameDataV2::go_list.at(b_location);
 
-	if (!a->isAlive() || !b->isAlive() || !a->GetSprite() || !b->GetSprite())
+	if (!a->getAlive() || !b->getAlive() || !a->getSprite() || !b->getSprite())
 	{
 		return false;
 	}
@@ -54,14 +54,14 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 		other = a;
 	}
 
-	if (a->GetPosition().x < b->GetPosition().x + b->GetSize().x &&
-		a->GetPosition().x + a->GetSize().x > b->GetPosition().x &&
-		a->GetPosition().y < b->GetPosition().y + b->GetSize().y &&
-		a->GetPosition().y + a->GetSize().y > b->GetPosition().y)
+	if (a->getPosition().x < b->getPosition().x + b->getSize().x &&
+		a->getPosition().x + a->getSize().x > b->getPosition().x &&
+		a->getPosition().y < b->getPosition().y + b->getSize().y &&
+		a->getPosition().y + a->getSize().y > b->getPosition().y)
 	{
 		col_direction = findCollisionDirection(a, b);
 
-		if (player && other->getSolid())
+		/*if (player && other->getSolid())
 		{
 			if (col_direction == Direction::LEFT)
 			{
@@ -78,7 +78,7 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 					player->movePosition(new Vec2(player->getSpeed(), 0.0f));
 				}
 			}
-		}
+		}*/
 
 		return true;
 	}
@@ -115,8 +115,8 @@ bool CollisionManager::oneWayPlatform(std::string a_name)
 	GameObjectV2* a = GameDataV2::go_list.at(a_location);
 	GameObjectV2* player = GameDataV2::go_list.at(player_location);
 
-	if (player->GetPosition().y > a->GetPosition().y + a->GetSize().y ||
-		player->GetPosition().y + player->GetSize().y < a->GetPosition().y)
+	if (player->getPosition().y > a->getPosition().y + a->getSize().y ||
+		player->getPosition().y + player->getSize().y < a->getPosition().y)
 	{
 		return true;
 	}
@@ -142,27 +142,27 @@ Direction CollisionManager::findCollisionDirection(GameObjectV2* a, GameObjectV2
 	{
 		camera = static_cast<BaseCamera*>(b);
 
-		object_a_bot = a->GetPosition().y + a->GetSize().y;
-		object_a_right = a->GetPosition().x + a->GetSize().x;
+		object_a_bot = a->getPosition().y + a->getSize().y;
+		object_a_right = a->getPosition().x + a->getSize().x;
 		object_b_bot = camera->getPlayerBoxPosY() + camera->getPlayerBoxHeight();
 		object_b_right = camera->getPlayerBoxPosX() + camera->getPlayerBoxWidth();
 
 		top_collision = object_a_bot - camera->getPlayerBoxPosY();
 		left_collision = object_a_right - camera->getPlayerBoxPosX();
-		bottom_collision = object_b_bot - a->GetPosition().y;
-		right_collision = object_b_right - a->GetPosition().x;
+		bottom_collision = object_b_bot - a->getPosition().y;
+		right_collision = object_b_right - a->getPosition().x;
 	}
 	else
 	{
-		object_a_bot = a->GetPosition().y + a->GetSize().y;
-		object_a_right = a->GetPosition().x + a->GetSize().x;
-		object_b_bot = b->GetPosition().y + b->GetSize().y;
-		object_b_right = b->GetPosition().x + b->GetSize().x;
+		object_a_bot = a->getPosition().y + a->getSize().y;
+		object_a_right = a->getPosition().x + a->getSize().x;
+		object_b_bot = b->getPosition().y + b->getSize().y;
+		object_b_right = b->getPosition().x + b->getSize().x;
 
-		top_collision = object_a_bot - b->GetPosition().y;
-		left_collision = object_a_right - b->GetPosition().x;
-		bottom_collision = object_b_bot - a->GetPosition().y;
-		right_collision = object_b_right - a->GetPosition().x;
+		top_collision = object_a_bot - b->getPosition().y;
+		left_collision = object_a_right - b->getPosition().x;
+		bottom_collision = object_b_bot - a->getPosition().y;
+		right_collision = object_b_right - a->getPosition().x;
 	}
 
 	if (top_collision < bottom_collision && top_collision < left_collision && top_collision < right_collision)

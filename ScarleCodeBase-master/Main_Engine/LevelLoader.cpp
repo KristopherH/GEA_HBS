@@ -101,8 +101,8 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 			{
 				go = new GameObjectV2(new Sprite("Ladder", GameDataV2::renderer), name, "Climbable");
 
-				go->SetPosition(pos);
-				go->SetSize(size);
+				go->setPosition(pos);
+				go->setSize(size);
 				go->setSolid(false);
 			}
 		}

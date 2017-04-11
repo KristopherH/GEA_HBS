@@ -23,7 +23,7 @@ public:
 	Sprite();
 	virtual ~Sprite();
 
-	ID3D11ShaderResourceView* GetTexture() { return m_pTextureRV; } 
+	ID3D11ShaderResourceView* GetTexture() { return m_pTextureRV; } //his needs to be removed
 	Vec4 GetColour() { return colour; }
 	Vec2 GetOrigin() { return origin; }
 	Vec2 GetSize();

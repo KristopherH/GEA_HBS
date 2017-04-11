@@ -51,15 +51,15 @@ bool Renderer::BeginDraw(BaseCamera * mainCamera)
 
 bool Renderer::Draw(GameObjectV2 * _go)
 {
-	if (_go->GetSprite() != nullptr)
+	if (_go->getSprite() != nullptr)
 	{
-		spriteBatch->Draw(_go->GetSprite()->GetTexture(),
-			_go->GetPosition(),
+		spriteBatch->Draw(_go->getSprite()->GetTexture(),
+			_go->getPosition(),
 			nullptr,
 			/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
-			_go->GetRotation(),
-			_go->GetSprite()->GetOrigin(),
-			_go->GetScale(),
+			_go->getRotation(),
+			_go->getSprite()->GetOrigin(),
+			_go->getScale(),
 			SpriteEffects_None);
 		return true;
 	}

@@ -75,7 +75,7 @@ bool Engine::Update()
 		
 		for (auto go : GameDataV2::go_list)
 		{
-			if (go->isAlive())
+			if (go->getAlive())
 			{
 				go->gravityUpdate();
 				go->Update();
@@ -113,18 +113,18 @@ bool Engine::Draw()
 
 	for (const auto go : GameDataV2::go_list)
 	{
-		if (go->isAlive())
+		if (go->getAlive())
 			GameDataV2::renderer->Draw(go);
 	}
 
 	if (_GS == GameState::GS_MAIN_MENU)
 	{
-		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Space", (mainCamera->GetPosition() + Vec2(150.0f, 200.0f)) * -1.0);
+		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Space", (mainCamera->getPosition() + Vec2(150.0f, 200.0f)) * -1.0);
 	}
 
 	if (_GS == GameState::GS_PLAY)
 	{
-		GameDataV2::renderer->renderText("Lives: " + std::to_string(lives), (mainCamera->GetPosition() + Vec2(-600.0f, 450.0f)) * -1.0);
+		GameDataV2::renderer->renderText("Lives: " + std::to_string(lives), (mainCamera->getPosition() + Vec2(-600.0f, 450.0f)) * -1.0);
 	}
 	
 	GameDataV2::renderer->EndDraw();
@@ -150,8 +150,8 @@ GameObjectV2* Engine::createLadder(float x, float y, float sizeX, float sizeY, b
 	ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
 	ladder = new GameObjectV2(ladder_spr, name, "Climbable");
 
-	ladder->SetPosition(new Vec2(x, y));
-	ladder->SetSize(new Vec2(sizeX, sizeY));
+	ladder->setPosition(new Vec2(x, y));
+	ladder->setSize(new Vec2(sizeX, sizeY));
 	ladder->setSolid(solid);
 
 	
@@ -166,8 +166,8 @@ GameObjectV2 * Engine::createCollectible(float x, float y, float sizeX, float si
 	collectible_spr = new Sprite("coin", GameDataV2::renderer);
 	collectible = new GameObjectV2(collectible_spr, "Collectible", "Collectible");
 
-	collectible->SetPosition(new Vec2(x, y));
-	collectible->SetSize(new Vec2(sizeX, sizeY));
+	collectible->setPosition(new Vec2(x, y));
+	collectible->setSize(new Vec2(sizeX, sizeY));
 
 	return collectible;
 }
@@ -183,8 +183,8 @@ void Engine::playGame()
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	player = new PlayerV2(sprite1, "Player", "Player");
 
-	player->SetPosition(new Vec2(-475.0f, 350.0f));
-	player->SetSize(new Vec2(100.0f, 120.0f));
+	player->setPosition(new Vec2(-475.0f, 350.0f));
+	player->setSize(new Vec2(100.0f, 120.0f));
 	player->setGravity(true);
 
 	player->setGravityTag("Slow Platform");
@@ -198,7 +198,7 @@ void Engine::playGame()
 	GameDataV2::go_list.push_back(player);
 
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
-	player->SetPosition(level1->playerStartingPosition);
+	player->setPosition(level1->playerStartingPosition);
 	for (auto go : level1->go_list)
 	{
 		GameDataV2::go_list.push_back(go);

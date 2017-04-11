@@ -27,7 +27,7 @@ bool BaseCamera::Update()
 {
 	if (player)
 	{
-		SetPosition(new Vec2(-player->GetPosition().x, -player->GetPosition().y));
+		setPosition(new Vec2(-player->getPosition().x, -player->getPosition().y));
 		
 		//setPlayerBoxPosX(player->GetPosition().x + player_box_width);
 		//setPlayerBoxPosY(player->GetPosition().y + player_box_height);

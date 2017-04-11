@@ -8,10 +8,10 @@
 
 Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {
-	SetSprite(new Sprite("coin", GameDataV2::renderer));
-	SetPosition(_pos);
-	SetSize(_size);
-	SetRotation(_rotation);
+	setSprite(new Sprite("coin", GameDataV2::renderer));
+	setPosition(_pos);
+	setSize(_size);
+	setRotation(_rotation);
 	setName(_name);
 	setSolid(false);
 }
@@ -19,9 +19,9 @@ Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _
 Collectible::Collectible(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 	:GameObjectV2(_sprite)
 {
-	SetPosition(_pos);
-	SetSize(_size);
-	SetRotation(_rotation);
+	setPosition(_pos);
+	setSize(_size);
+	setRotation(_rotation);
 	setName(_name);
 }
 

@@ -28,7 +28,7 @@ public:
 protected:
 
 	int lives;
-	float speed = 1.0f;
+	float speed;
 	float jumpStrength;
 	std::string Climbable_name = "NULL";
 	bool climbing = false;

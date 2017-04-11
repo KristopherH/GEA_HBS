@@ -7,7 +7,10 @@
 PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObjectV2(_sprite, _name, _tag)
 {
-	SetScale(new Vec2(0.5f, 1.5f));
+	setScale(new Vec2(0.5f, 1.5f));
+	jumpStrength = -1.0f;
+	speed = 0.01f;
+	lives = 3;
 	//Load keybinds from file into list
 
 	#ifndef ARCADE
@@ -19,9 +22,7 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold[Inputs::RIGHT] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
 	KeyBindsHold[Inputs::UP] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
 	KeyBindsHold[Inputs::DOWN] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, speed));
-
-	jumpStrength = -25.0f;
-	lives = 3;
+	
 }
 
 PlayerV2::~PlayerV2()
@@ -55,7 +56,6 @@ bool PlayerV2::Update()
 		}
 	}
 
-
 	return false;
 }
 
@@ -68,7 +68,7 @@ void PlayerV2::ProcessInput()
 	{
 		if (GameDataV2::inputManager->getKeyHeld(key.first))
 		{
-			if (!(grounded && (key.first == Inputs::DOWN)))
+			if (key.first != Inputs::DOWN)
 			{
 				movement = true;
 				key.second();
@@ -80,7 +80,7 @@ void PlayerV2::ProcessInput()
 	{
 		if (GameDataV2::inputManager->getKeyDown(key.first))
 		{
-			if (!(grounded && (key.first == Inputs::DOWN)))
+			if (key.first != Inputs::DOWN)
 			{
 				movement = true;
 				key.second();
@@ -97,7 +97,7 @@ void PlayerV2::ProcessInput()
 
 void PlayerV2::OnJump()
 {
-	if (gravity_on && grounded)
+	if (gravity_on)
 	{
 		for (auto go : GameDataV2::go_list)
 		{
@@ -105,7 +105,9 @@ void PlayerV2::OnJump()
 			{
 				if (go->getTag() != "Sticky Platform")
 				{
-					position += Vec2(0.0f, jumpStrength * 2);
+					//position += Vec2(0.0f, jumpStrength);
+					acceleration += Vec2(0.0f, jumpStrength);
+					break;
 				}
 			}
 		}
@@ -114,7 +116,7 @@ void PlayerV2::OnJump()
 
 void PlayerV2::OnMove(Vec2 _direction)
 {
-	for (auto go : GameDataV2::go_list)
+ 	for (auto go : GameDataV2::go_list)
 	{
 		if (go->getName() == name)
 		{
@@ -124,40 +126,47 @@ void PlayerV2::OnMove(Vec2 _direction)
 		{
 			if (go->getTag() == "Slow Platform")
 			{
-				position += _direction * 0.25;
+				acceleration += _direction * 0.25;
+				break;
 			}
 			else if (go->getTag() == "Speed Platform")
 			{
-				position += _direction * 3.0;
+				acceleration += _direction * 3.0;
+				break;
 			}
 			else
 			{
-				position += _direction;
+				acceleration += _direction;
+				break;
 			}
 		}
-		
-		if (!key_down)
+		else
 		{
-			if (_direction.x > 0)
-			{
-				move_direction = Direction::RIGHT;
-				key_down = true;
-			}
-			else if (_direction.x < 0)
-			{
-				move_direction = Direction::LEFT;
-				key_down = true;
-			}
-			else if (_direction.y < 0)
-			{
-				move_direction = Direction::TOP;
-				key_down = true;
-			}
-			else if (_direction.y > 0)
-			{
-				move_direction = Direction::BOTTOM;
-				key_down = true;
-			}
+			acceleration += _direction;
+			break;
+		}
+	}
+	if (!key_down)
+	{
+		if (_direction.x > 0)
+		{
+			move_direction = Direction::RIGHT;
+			key_down = true;
+		}
+		else if (_direction.x < 0)
+		{
+			move_direction = Direction::LEFT;
+			key_down = true;
+		}
+		else if (_direction.y < 0)
+		{
+			move_direction = Direction::TOP;
+			key_down = true;
+		}
+		else if (_direction.y > 0)
+		{
+			move_direction = Direction::BOTTOM;
+			key_down = true;
 		}
 	}
 }
@@ -208,7 +217,7 @@ void PlayerV2::oneWayPlatformMove()
 
 	if (one_way_plat_move && grounded && !climbing)
 	{
-		OnMove(Vec2(0.0f, -speed * 5));
+		position += Vec2(0.0f, -speed * 2000);
 	}
 
 	if (!grounded && one_way_plat_move)
@@ -216,11 +225,10 @@ void PlayerV2::oneWayPlatformMove()
 		one_way_plat_move = false;
 	}
 }
+
 //Pass true for left, false for right
 void PlayerV2::conveyor(bool _left)
 {
-	_left;
-
 	if (_left)
 	{
 		OnMove(Vec2(-speed * 0.25, 0.0f));

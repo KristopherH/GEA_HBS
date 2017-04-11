@@ -10,66 +10,68 @@ class InputManager;
 class GameObjectV2
 {
 public:
+	//Init
 	GameObjectV2();
 	GameObjectV2(Sprite* sprite, std::string _name, std::string _tag);
 	GameObjectV2(Sprite* _sprite);
 	~GameObjectV2();
 
-	void setSolid(bool _solid);
-
-	bool getSolid();
-
+	//Updates
 	virtual bool Update();
+	void gravityUpdate();
+	void movePosition(Vec2* _translation);
 
-	bool isAlive() { return alive; }
-  
+	//Getters
 	virtual Direction getMovementDirection();
-
-	
-	Vec2 GetPosition();
-	Vec2 GetSize();
-	Vec2 GetScale();
-	Sprite* GetSprite();
-	Vec2 GetOrigin();
-	float GetRotation();
+	bool getSolid();
+	bool getAlive() { return alive; }
+	Vec2 getPosition();
+	Vec2 getSize();
+	Vec2 getScale();
+	Vec2 getOrigin();
+	Sprite* getSprite();
+	float getRotation();
 	std::string getName();
 	std::string getTag();
+	Rect getBox();
 
-	void SetPosition(Vec2* _position) { position.x = _position->x; position.y = _position->y;}
-	void SetSize(Vec2* _size);
-	void SetScale(Vec2* _scale) { scale.x = _scale->x; scale.y = _scale->y; }
-	void SetSprite(Sprite* _sprite) { sprite = _sprite; }
-	void SetOrigin(Vec2* _origin) { origin.x = _origin->x; origin.y = _origin->y;; }
-	void SetRotation(float _rot) { rotation = _rot; }
-
+	//Setters
+	virtual void setMovementDirection(Direction _movement_direction) { move_direction = _movement_direction; }
+	void setSolid(bool _solid);
+	
+	void setPosition(Vec2* _position) { position.x = _position->x; position.y = _position->y; }
+	void setSize(Vec2* _size);
+	void setScale(Vec2* _scale) { scale.x = _scale->x; scale.y = _scale->y; }
+	void setOrigin(Vec2* _origin) { origin.x = _origin->x; origin.y = _origin->y; }
+	void setSprite(Sprite* _sprite) { sprite = _sprite; }
+	void setRotation(float _rot) { rotation = _rot; }
 	void setName(std::string _name) { name = _name; }
 	void setTag(std::string _tag) { tag = _tag; }
+
 	void setGravity(bool _gravity_on) { gravity_on = _gravity_on; }
 	bool setGravityTag(std::string _gravity_tag);
-	
-	virtual void setMovementDirection(Direction _movement_direction) { move_direction = _movement_direction; }
 
-	void movePosition(Vec2* _translation);
-	void gravityUpdate();
-
-	Rect getBox();
 
 protected:
 	bool alive = true;
 
 	Vec2 position;
-	Vec2 scale;
-	Vec2 origin;
-	float rotation;
+	Vec2 acceleration;
+	Vec2 velocity;
+	Vec2 drag;
+	float max_speed = 1.0f;
 	bool grounded = false;
 	bool gravity_on = false;
 	bool solid = true;
+	const float gravity_constant = 0.01f;
+
+	Vec2 scale;
+	Vec2 origin;
+	float rotation;
+
 	Rect box = Rect(Vec2(0, 0), Vec2(0,0));
 
 	Direction move_direction = Direction::NONE;
-
-	float falling_speed = 0.0f;
-	float gravity_acceleration = 0.01f;
 
 	std::string tag = "GameObject";
 	std::string name = "GameObject";

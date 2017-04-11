@@ -22,7 +22,7 @@ struct Vec2
 
 	// Operator Overloads
 	Vec2& operator+=(const Vec2& other) { return Vec2(x += other.x, y += other.y); }
-	Vec2& operator-=(const Vec2& other);
+	Vec2& operator-=(const Vec2& other) { return Vec2(x -= other.x, y -= other.y); }
 	Vec2& operator*=(const Vec2& other);
 	Vec2& operator*=(const float& other);
 	Vec2& operator/=(const float& other);

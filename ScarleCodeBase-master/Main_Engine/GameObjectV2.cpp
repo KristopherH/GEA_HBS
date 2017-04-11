@@ -39,16 +39,24 @@ bool GameObjectV2::getSolid()
 
 bool GameObjectV2::Update()
 {
-	if (this->GetSprite())
+	if (this->getSprite())
 	{
-		box = Rect(Vec2(this->GetPosition().x, this->GetPosition().y),
-			Vec2(this->GetPosition().x + this->GetSize().x,
-				this->GetPosition().y + this->GetSize().y));
+		box = Rect(Vec2(this->getPosition().x, this->getPosition().y),
+			Vec2(this->getPosition().x + this->getSize().x,
+				this->getPosition().y + this->getSize().y));
 	}
+
+	velocity += acceleration;
+	// apply Drag;
+	acceleration.y *= 0.99f;
+	acceleration.x *= 0.95f;
+	velocity *= 0.9f;
+	position += velocity;
+
 	return false;
 }
 
-void GameObjectV2::SetSize(Vec2 * _size)
+void GameObjectV2::setSize(Vec2 * _size)
 {
 	Vec2 textureSize = sprite->GetSize();
 	scale.x = _size->x / textureSize.x;
@@ -78,6 +86,10 @@ void GameObjectV2::movePosition(Vec2* _translation)
 
 void GameObjectV2::gravityUpdate()
 {
+	/*if (!gravity_on)
+	{
+		return;
+	}*/
 	//Very messy Needs tidying up after alpha submission
 	bool new_grounded = false;
 	for (const auto& current_object : GameDataV2::go_list)
@@ -85,24 +97,25 @@ void GameObjectV2::gravityUpdate()
 		//This could be changed to solid now that's implemented (Post Alpha Task)
 		for (const auto& current_gravity_tag : this->gravity_trigger_tags)
 		{
-			if (!gravity_on || this == current_object)
+			if (this != current_object)
 			{
-				break;
-			}
-			else if (current_object->tag == current_gravity_tag)
-			{
-				if (GameDataV2::collsion_manager->boxCollision(
-					this->name, current_object->getName()))
+				if (current_object->tag == current_gravity_tag)
 				{
-					new_grounded = true;
-					falling_speed = 0;
-					break;
+					if (GameDataV2::collsion_manager->boxCollision(
+						this->name, current_object->getName()))
+					{
+						if (!grounded)
+						{
+							velocity.y = 0.0f;
+							acceleration.y = 0.0f;
+						}
+						//if (GameDataV2::collsion_manager->getCollisionDirection() == Direction::TOP)
+						{
+							new_grounded = true;
+						}
+						break;
+					}
 				}
-			}
-
-			if (new_grounded || !gravity_on)
-			{
-				break;
 			}
 		}
 		if (new_grounded)
@@ -115,8 +128,7 @@ void GameObjectV2::gravityUpdate()
 
 	if (!grounded && gravity_on)
 	{
-		movePosition(new Vec2(0, falling_speed));
-		falling_speed += gravity_acceleration;
+		acceleration.y += gravity_constant;
 	}
 }
 
@@ -131,32 +143,32 @@ Direction GameObjectV2::getMovementDirection()
 	return move_direction;
 }
 
-Vec2 GameObjectV2::GetPosition()
+Vec2 GameObjectV2::getPosition()
 {
 	return position;
 }
 
-Vec2 GameObjectV2::GetSize()
+Vec2 GameObjectV2::getSize()
 {
 	return Vec2(sprite->GetSize().x * scale.x, sprite->GetSize().y * scale.y);
 }
 
-Vec2 GameObjectV2::GetScale()
+Vec2 GameObjectV2::getScale()
 {
 	return scale;
 }
 
-Sprite * GameObjectV2::GetSprite()
+Sprite * GameObjectV2::getSprite()
 {
 	return sprite;
 }
 
-Vec2 GameObjectV2::GetOrigin()
+Vec2 GameObjectV2::getOrigin()
 {
 	return origin;
 }
 
-float GameObjectV2::GetRotation()
+float GameObjectV2::getRotation()
 {
 	return rotation;
 }
