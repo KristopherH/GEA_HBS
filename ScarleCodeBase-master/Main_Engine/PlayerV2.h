@@ -30,12 +30,18 @@ protected:
 	int lives;
 	float speed;
 	float jumpStrength;
+	float jumpTime;
+	float jumpTimeCounter;
+	bool stoppedJumping;
+	bool can_jump;
+	bool jumping;
+	bool jump_platform;
 	std::string Climbable_name = "NULL";
 	bool climbing = false;
 	bool key_down = false;
-	bool one_way_plat_move = false;
+	//bool one_way_plat_move = false;
 
-	void oneWayPlatformMove(); 
+	//void oneWayPlatformMove(); 
 	Inputs input;
 	//Input component
 	std::map<int, std::function<void()>> KeyBindsHold;

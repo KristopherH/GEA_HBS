@@ -12,7 +12,7 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 
 	if (a_location == -1 || b_location == -1)
 	{
-		OutputDebugString("One or both of the game objects searched for do not exist");
+		OutputDebugString("One or both of the game objects searched for do not exist\n");
 		return false;
 	}
 
@@ -87,6 +87,23 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	//No collision
 	return false;
 }
+
+bool CollisionManager::boxCollision(Rect a, Rect b)
+{
+
+	if (a.min.x < b.max.x &&
+		a.max.x > b.min.x &&
+		a.min.y < b.max.y &&
+		a.max.y > b.min.y)
+	{
+		return true;
+		findCollisionDirection(&a, &b);
+	}
+
+	//No collision
+	return false;
+}
+
 
 bool CollisionManager::circleCollision(std::string a, std::string b)
 {
@@ -164,6 +181,50 @@ Direction CollisionManager::findCollisionDirection(GameObjectV2* a, GameObjectV2
 		bottom_collision = object_b_bot - a->getPosition().y;
 		right_collision = object_b_right - a->getPosition().x;
 	}
+
+	if (top_collision < bottom_collision && top_collision < left_collision && top_collision < right_collision)
+	{
+		return Direction::TOP;
+	}
+	if (left_collision < top_collision && left_collision < bottom_collision && left_collision < right_collision)
+	{
+		return Direction::LEFT;
+	}
+	if (bottom_collision < top_collision && bottom_collision < left_collision && bottom_collision < right_collision)
+	{
+		return Direction::BOTTOM;
+	}
+	if (right_collision < top_collision && right_collision < left_collision && right_collision < bottom_collision)
+	{
+		return Direction::RIGHT;
+	}
+
+	return Direction::NONE;
+}
+
+Direction CollisionManager::findCollisionDirection(Rect* a, Rect* b)
+{
+	BaseCamera* camera = nullptr;
+
+	float object_a_bot = 0.0f;
+	float object_a_right = 0.0f;
+	float object_b_bot = 0.0f;
+	float object_b_right = 0.0f;
+
+	float top_collision = 0.0f;
+	float left_collision = 0.0f;
+	float bottom_collision = 0.0f;
+	float right_collision = 0.0f;
+
+	object_a_bot = a->max.y;
+	object_a_right = a->max.x;
+	object_b_bot = b->max.y;
+	object_b_right = b->max.x;
+
+	top_collision = object_a_bot - b->min.y;
+	left_collision = object_a_right - b->min.x;
+	bottom_collision = object_b_bot - a->min.y;
+	right_collision = object_b_right - a->min.x;
 
 	if (top_collision < bottom_collision && top_collision < left_collision && top_collision < right_collision)
 	{

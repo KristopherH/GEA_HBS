@@ -234,8 +234,15 @@ Vec4::operator DirectX::SimpleMath::Vector4()
 
 Rect::Rect(Vec2 V1, Vec2 V2) 
 {
-	min = V1;
-	max = V2;
+	min.x = V1.x;  min.y = V1.y;
+	max.x = V2.x;  max.y = V2.y;
+}
+
+Rect operator+(const Rect& original, const Vec2 displacement)
+{
+	Vec2 a = original.min + displacement;
+	Vec2 b = original.max + displacement;
+	return Rect(a,b);
 }
 
 bool Rect::Contains(Vec2 oth)

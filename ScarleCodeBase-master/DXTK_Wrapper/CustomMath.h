@@ -23,7 +23,7 @@ struct Vec2
 	// Operator Overloads
 	Vec2& operator+=(const Vec2& other) { return Vec2(x += other.x, y += other.y); }
 	Vec2& operator-=(const Vec2& other) { return Vec2(x -= other.x, y -= other.y); }
-	Vec2& operator*=(const Vec2& other);
+	Vec2& operator*=(const Vec2& other) { return Vec2(x *= other.x, y *= other.y); }
 	Vec2& operator*=(const float& other);
 	Vec2& operator/=(const float& other);
 
@@ -46,7 +46,9 @@ struct Rect
 	Vec2 min;
 	Vec2 max;
 
-	Rect(Vec2, Vec2);
+	Rect(Vec2 = Vec2(0.0f, 0.0f), Vec2 = Vec2(0.0f, 0.0f));
+
+	friend Rect operator+(const Rect& original, const Vec2 displacement);
 
 	bool Contains(Vec2 oth);
 	Vec2 Center();

@@ -39,7 +39,7 @@ public:
 	virtual void setMovementDirection(Direction _movement_direction) { move_direction = _movement_direction; }
 	void setSolid(bool _solid);
 	
-	void setPosition(Vec2* _position) { position.x = _position->x; position.y = _position->y; }
+	void setPosition(Vec2* _position);
 	void setSize(Vec2* _size);
 	void setScale(Vec2* _scale) { scale.x = _scale->x; scale.y = _scale->y; }
 	void setOrigin(Vec2* _origin) { origin.x = _origin->x; origin.y = _origin->y; }
@@ -68,6 +68,7 @@ protected:
 	Vec2 scale;
 	Vec2 origin;
 	float rotation;
+	Rect bottomCollider;
 
 	Rect box = Rect(Vec2(0, 0), Vec2(0,0));
 

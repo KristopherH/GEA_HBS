@@ -6,6 +6,7 @@
 GameObjectV2::GameObjectV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:sprite(_sprite), name(_name), tag(_tag)
 {
+
 }
 
 GameObjectV2::GameObjectV2()
@@ -56,6 +57,24 @@ bool GameObjectV2::Update()
 	return false;
 }
 
+void GameObjectV2::setPosition(Vec2 * _position)
+{
+	position.x = _position->x; position.y = _position->y;
+	if (sprite != nullptr)
+	{
+		bottomCollider.max += sprite->GetSize();
+		bottomCollider.min += Vec2(0.0f, sprite->GetSize().y);
+		bottomCollider.max *= scale;
+		bottomCollider.min *= scale;
+		bottomCollider.max.y += 10.0f;
+
+		box.max += sprite->GetSize();
+		box.max *= scale;
+		box.min *= scale;
+		box.max.y += 10.0f;
+	}
+}
+
 void GameObjectV2::setSize(Vec2 * _size)
 {
 	Vec2 textureSize = sprite->GetSize();
@@ -104,16 +123,23 @@ void GameObjectV2::gravityUpdate()
 					if (GameDataV2::collsion_manager->boxCollision(
 						this->name, current_object->getName()))
 					{
-						if (!grounded)
+						Rect top_of_the_platform(current_object->getBox() + current_object->getPosition());
+						top_of_the_platform.max.y = top_of_the_platform.min.y + 60.0f;
+						if (GameDataV2::collsion_manager->boxCollision(
+							bottomCollider + position , top_of_the_platform))
 						{
-							velocity.y = 0.0f;
-							acceleration.y = 0.0f;
+							if (velocity.y >= 0.0f)
+							{
+								if (!grounded) // If not previously grounded
+								{
+									velocity.y = 0.0f;
+									acceleration.y = 0.0f;
+								}
+
+								new_grounded = true;
+								break;
+							}
 						}
-						//if (GameDataV2::collsion_manager->getCollisionDirection() == Direction::TOP)
-						{
-							new_grounded = true;
-						}
-						break;
 					}
 				}
 			}

@@ -8,16 +8,18 @@ PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObjectV2(_sprite, _name, _tag)
 {
 	setScale(new Vec2(0.5f, 1.5f));
-	jumpStrength = -1.0f;
+	jumpStrength = -0.02f;
 	speed = 0.01f;
 	lives = 3;
+	jumpTime = 0.8f;
+	jumpTimeCounter = jumpTime;
 	//Load keybinds from file into list
 
 	#ifndef ARCADE
 	std::cout << "Arcade not defined" << std::endl;
 	#endif
 
-	KeyBindsPress[Inputs::JUMP] = std::bind(&PlayerV2::OnJump, this);
+	KeyBindsHold[Inputs::JUMP] = std::bind(&PlayerV2::OnJump, this);
 	KeyBindsHold[Inputs::LEFT] = std::bind(&PlayerV2::OnMove, this, Vec2(-speed, 0.0f));
 	KeyBindsHold[Inputs::RIGHT] = std::bind(&PlayerV2::OnMove, this, Vec2(speed, 0.0f));
 	KeyBindsHold[Inputs::UP] = std::bind(&PlayerV2::OnMove, this, Vec2(0.0f, -speed));
@@ -32,11 +34,14 @@ PlayerV2::~PlayerV2()
 
 bool PlayerV2::Update()
 {
-	GameObjectV2::Update();
-	ProcessInput();
-	climb();
-	oneWayPlatformMove();
-
+	jumping = false;
+	if (grounded)
+	{
+		//the jumpcounter is whatever we set jumptime to in the editor.
+		jumpTimeCounter = jumpTime;
+		jump_platform = false;
+	}
+	can_jump = true;
 	for (auto go : GameDataV2::go_list)
 	{
 		if (go->getTag() == "Conveyor Left" || go->getTag() == "Conveyor Right")
@@ -51,12 +56,27 @@ bool PlayerV2::Update()
 		{
 			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 			{
-				OnJump();
+				jump_platform = true;
+			}
+		}
+		else if (go->getTag() == "Sticky Platform")
+		{
+			if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+			{
+				//prevent jumping
+				can_jump = false;
+				stoppedJumping = true;
 			}
 		}
 	}
-
-	return false;
+	if (jump_platform)
+	{
+		OnJump();
+	}
+	ProcessInput();
+	climb();
+	//oneWayPlatformMove();
+	return 	GameObjectV2::Update();
 }
 
 void PlayerV2::ProcessInput()
@@ -68,11 +88,8 @@ void PlayerV2::ProcessInput()
 	{
 		if (GameDataV2::inputManager->getKeyHeld(key.first))
 		{
-			if (key.first != Inputs::DOWN)
-			{
-				movement = true;
-				key.second();
-			}
+			movement = true;
+			key.second();
 		}
 	}
 
@@ -80,14 +97,15 @@ void PlayerV2::ProcessInput()
 	{
 		if (GameDataV2::inputManager->getKeyDown(key.first))
 		{
-			if (key.first != Inputs::DOWN)
-			{
-				movement = true;
-				key.second();
-			}
+			movement = true;
+			key.second();
 		}
 	}
-
+	if (!jumping)
+	{
+		jumpTimeCounter = 0;
+		stoppedJumping = true;
+	}
 	if (!movement)
 	{
 		move_direction = Direction::NONE;
@@ -97,18 +115,31 @@ void PlayerV2::ProcessInput()
 
 void PlayerV2::OnJump()
 {
+	if (!can_jump)
+	{
+		return;
+	}
+	jumping = true;
 	if (gravity_on)
 	{
-		for (auto go : GameDataV2::go_list)
+		//and you are on the ground...
+		if (grounded)
 		{
-			if (this != go && GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
+			
+			//position += Vec2(0.0f, jumpStrength);
+			acceleration += Vec2(0.0f, jumpStrength);
+			stoppedJumping = false;		
+		}
+	
+		//if you keep holding down the mouse button...
+		if (!stoppedJumping)
+		{
+			//and your counter hasn't reached zero...
+			if (jumpTimeCounter > 0)
 			{
-				if (go->getTag() != "Sticky Platform")
-				{
-					//position += Vec2(0.0f, jumpStrength);
-					acceleration += Vec2(0.0f, jumpStrength);
-					break;
-				}
+				//keep jumping!
+				acceleration += Vec2(0.0f, jumpStrength);
+           		jumpTimeCounter -= /*detaTime???*/0.01f;
 			}
 		}
 	}
@@ -116,7 +147,17 @@ void PlayerV2::OnJump()
 
 void PlayerV2::OnMove(Vec2 _direction)
 {
- 	for (auto go : GameDataV2::go_list)
+	bool moved = false;
+	if (climbing)
+	{
+		position += _direction *100;
+		return;
+	}
+	if (_direction.y != 0.0f)
+	{
+		return;
+	}
+	for (auto go : GameDataV2::go_list)
 	{
 		if (go->getName() == name)
 		{
@@ -127,25 +168,29 @@ void PlayerV2::OnMove(Vec2 _direction)
 			if (go->getTag() == "Slow Platform")
 			{
 				acceleration += _direction * 0.25;
+				moved = true;
 				break;
 			}
 			else if (go->getTag() == "Speed Platform")
 			{
 				acceleration += _direction * 3.0;
+				moved = true;
 				break;
 			}
 			else
 			{
 				acceleration += _direction;
+				moved = true;
 				break;
 			}
 		}
-		else
-		{
-			acceleration += _direction;
-			break;
-		}
 	}
+
+	if (!moved)
+	{
+		acceleration += _direction;
+	}
+
 	if (!key_down)
 	{
 		if (_direction.x > 0)
@@ -182,10 +227,16 @@ void PlayerV2::climb()
 			{
 				if (GameDataV2::collsion_manager->boxCollision(this->name, go->getName()))
 				{
+					if( !climbing)
+					{
+						velocity.y = 0.0f;
+						acceleration.y = 0.0f;
+					}
 					climbing = true;
 					gravity_on = false;
 					grounded = false;
 					Climbable_name = go->getName();
+					
 				}
 			}
 		}
@@ -204,38 +255,38 @@ float PlayerV2::getSpeed()
 	return speed;
 }
 
-void PlayerV2::oneWayPlatformMove()
-{
-	for (auto go : GameDataV2::go_list)
-	{
-		if (GameDataV2::collsion_manager->getCollisionDirection() != Direction::TOP &&
-			GameDataV2::collsion_manager->oneWayPlatform(go->getName()) && !one_way_plat_move)
-		{
-			one_way_plat_move = true;
-		}
-	}
-
-	if (one_way_plat_move && grounded && !climbing)
-	{
-		position += Vec2(0.0f, -speed * 2000);
-	}
-
-	if (!grounded && one_way_plat_move)
-	{
-		one_way_plat_move = false;
-	}
-}
+//void PlayerV2::oneWayPlatformMove()
+//{
+//	for (auto go : GameDataV2::go_list)
+//	{
+//		if (GameDataV2::collsion_manager->getCollisionDirection() != Direction::TOP &&
+//			GameDataV2::collsion_manager->oneWayPlatform(go->getName()) && !one_way_plat_move)
+//		{
+//			one_way_plat_move = true;
+//		}
+//	}
+//
+//	if (one_way_plat_move && grounded && !climbing)
+//	{
+//		//position += Vec2(0.0f, -speed * 2000);
+//	}
+//
+//	if (!grounded && one_way_plat_move)
+//	{
+//		one_way_plat_move = false;
+//	}
+//}
 
 //Pass true for left, false for right
 void PlayerV2::conveyor(bool _left)
 {
 	if (_left)
 	{
-		OnMove(Vec2(-speed * 0.25, 0.0f));
+		OnMove(Vec2(-speed * 0.5f, 0.0f));
 	}
 	else if (!_left)
 	{
-		OnMove(Vec2(speed * 0.25, 0.0f));
+		OnMove(Vec2(speed * 0.5f, 0.0f));
 	}
 
 }
