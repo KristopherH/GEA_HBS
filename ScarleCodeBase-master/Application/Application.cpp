@@ -21,6 +21,7 @@
 #include "../DXTK_Wrapper/Collision_Manager.h"
 #include "Game_Controller.h"
 #include "../Main_Engine/Engine.h"
+#include "../Main_Engine/GameDataV2.h"
 
 
 #define DESTROY( x ) if( x ){ x->Release(); x = nullptr;}
@@ -59,16 +60,21 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 	unsigned int window_height = GetSystemMetrics(SM_CYSCREEN);
 #ifdef DEBUG
 	unsigned int windowed_width = window_width * 0.85;
-	unsigned int windowed_heigth = window_height * 0.85;
+	unsigned int windowed_height = window_height * 0.85;
 
 	unsigned int windowed_pos_x = (window_width - windowed_width) / 2;
-	unsigned int windowed_pos_y = (window_height - windowed_heigth) / 4;
+	unsigned int windowed_pos_y = (window_height - windowed_height) / 4;
 
-	RECT rc = { 0, 0, windowed_width, windowed_heigth };
+	RECT rc = { 0, 0, windowed_width, windowed_height };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 	m_hWnd = CreateWindow(L"GEAWindowClass", L"GEA GROUP PROJECT", WS_OVERLAPPEDWINDOW,
 		windowed_pos_x, windowed_pos_y, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, _hInstance,
 		nullptr);
+
+	GameDataV2::screen_width = windowed_width;
+	GameDataV2::screen_height = windowed_height;
+	GameDataV2::screen_pos_x = windowed_pos_x;
+	GameDataV2::screen_pos_y = windowed_pos_y;
 #else
 	//Go to Fullscreen in Release
 	m_hWnd = CreateWindowEx(NULL,
@@ -81,6 +87,11 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		NULL,
 		_hInstance,
 		NULL);
+
+	GameDataV2::screen_width = window_width;
+	GameDataV2::screen_height = window_height;
+	GameDataV2::screen_pos_x = 0;
+	GameDataV2::screen_pos_y = 0;
 #endif
 
 	if (!m_hWnd)
@@ -356,9 +367,14 @@ bool Application::Update()
 		return m_Game->Tick();
 	}*/
 
+
+	if (GameDataV2::inputManager)
+	{
+		GameDataV2::inputManager->update();
+	}
 	if (engine)
 	{
-		return engine->Update();
+		engine->Update();
 	}
 
 	return true;

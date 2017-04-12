@@ -22,15 +22,9 @@ public:
 
 
 #pragma region Mouse Input
-	bool getMouseRightDown();
-	bool getMouseRightUp();
-	bool getMouseRightHeld();
-	bool getMouseLeftDown();
-	bool getMouseLeftUp();
-	bool getMouseLeftHeld();
-	bool getMouseMiddleDown();
-	bool getMouseMiddleUp();
-	bool getMouseMiddleHeld();
+	bool getMouseRight();
+	bool getMouseLeft();
+	bool getMouseMiddle();
 #pragma endregion
 
 #pragma region Keyboard Input
@@ -48,6 +42,8 @@ public:
 #pragma region Couple of checkers (need to double check what these would be)
 	bool init();
 	bool readKeyboard();
+	bool readMouse();
+	void update();
 #pragma endregion
 
 private:
@@ -58,6 +54,12 @@ private:
 	static unsigned char previous_keyboard_state[256];
 	static IDirectInput8* user_direct_input;
 	static IDirectInputDevice8* user_keyboard;
+	static IDirectInputDevice8* user_mouse;
+	static DIMOUSESTATE mouse_state;
+
 	HWND window;
 	HINSTANCE h_instance;
+
+	static int mouse_x;
+	static int mouse_y;
 };

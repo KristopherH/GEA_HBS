@@ -82,7 +82,6 @@ bool PlayerV2::Update()
 void PlayerV2::ProcessInput()
 {
 	bool movement = false;
-	GameDataV2::inputManager->readKeyboard();
 
 	for (auto key : KeyBindsHold)
 	{

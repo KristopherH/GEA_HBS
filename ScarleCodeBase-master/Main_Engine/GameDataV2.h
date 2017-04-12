@@ -30,5 +30,9 @@ struct GameDataV2
 	static GameController* game_controller;
 	static std::vector<GameObjectV2*> go_list;
 	static Inputs input;
+	static unsigned int screen_width;
+	static unsigned int screen_height;
+	static unsigned int screen_pos_x;
+	static unsigned int screen_pos_y;
  
 };

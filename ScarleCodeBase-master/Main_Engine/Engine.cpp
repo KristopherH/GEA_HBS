@@ -85,10 +85,8 @@ bool Engine::Update()
 		break;
 
 	case GameState::GS_MAIN_MENU:
-
-		GameDataV2::inputManager->readKeyboard();
-
-		if (GameDataV2::inputManager->getKeyHeld(Inputs::USE))
+		if (GameDataV2::inputManager->getKeyHeld(Inputs::USE) ||
+			GameDataV2::inputManager->getMouseRight())
 		{
 			_GS = GameState::GS_PLAY;
 			playGame();
@@ -119,7 +117,7 @@ bool Engine::Draw()
 
 	if (_GS == GameState::GS_MAIN_MENU)
 	{
-		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Space", (mainCamera->getPosition() + Vec2(150.0f, 200.0f)) * -1.0);
+		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (mainCamera->GetPosition() + Vec2(150.0f, 200.0f)) * -1.0);
 	}
 
 	if (_GS == GameState::GS_PLAY)
