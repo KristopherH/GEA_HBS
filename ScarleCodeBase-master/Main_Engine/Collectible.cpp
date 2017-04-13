@@ -10,10 +10,11 @@
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
+#include "Texture.h"
 
 Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {
-	setSprite(new Sprite("coin", GameDataV2::renderer));
+	setSprite(new Sprite(new Texture("coin", GameDataV2::renderer)));
 	setPosition(_pos);
 	setSize(_size);
 	setRotation(_rotation);

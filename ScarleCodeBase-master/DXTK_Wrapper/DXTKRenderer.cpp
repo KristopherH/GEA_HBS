@@ -2,11 +2,14 @@
 //C++
 
 //DXTK
+#include <CommonStates.h>
 
 //OURS
 #include "GameObjectV2.h"
+#include "BaseCamera.h"
 #include "Helper.h"
-
+#include "../DXTK_Wrapper/Texture.h"
+#include "../DXTK_Wrapper/Sprite.h"
 
 Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	:pd3dDevice(_pd3dDevice), hWnd(_hWnd)
@@ -50,26 +53,22 @@ bool Renderer::BeginDraw(OurMatrix* transformMatrix)
 bool Renderer::BeginDraw(BaseCamera * mainCamera)
 {
 	DirectX::SimpleMath::Matrix transMat = OurMatrix::toDXTK(mainCamera->GetTransMat());
-	spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, nullptr, nullptr, nullptr, nullptr, nullptr, transMat);
+	DirectX::CommonStates states(pd3dDevice);
+	spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, states.NonPremultiplied(), nullptr, nullptr, nullptr, nullptr, transMat);
 	return false;
 }
 
-bool Renderer::Draw(GameObjectV2 * _go)
+bool Renderer::Draw(Sprite* _sprite)
 {
-	if (_go->getSprite() != nullptr)
-	{
-		spriteBatch->Draw(_go->getSprite()->GetTexture(),
-			_go->getPosition(),
-			nullptr,
-			/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
-			_go->getRotation(),
-			_go->getSprite()->GetOrigin(),
-			_go->getScale(),
-			SpriteEffects_None);
-		return true;
-	}
-	
-	return false;
+	spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
+		_sprite->getPosition(),
+		nullptr,
+		/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+		_sprite->getRotation(),
+		_sprite->getOrigin(),
+		_sprite->getScale(),
+		SpriteEffects_None);
+	return true;
 }
 
 bool Renderer::EndDraw()

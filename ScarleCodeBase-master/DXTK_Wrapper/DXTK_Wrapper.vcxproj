@@ -171,6 +171,7 @@
     <ClInclude Include="Object_Manager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collision_Manager.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Input_Manager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

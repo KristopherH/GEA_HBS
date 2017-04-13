@@ -1,42 +1,46 @@
 #pragma once
 //C++
-#include <string>
 
 //DXTK
-#include <d3d11_1.h>
-#include "DDSTextureLoader.h"
 
 //OURS
 #include "..\DXTK_Wrapper\CustomMath.h"
+#include "..\DXTK_Wrapper\DXTKRenderer.h"
 
-
+class Texture;
 class Renderer;
 
 //=================================================================
-//A Game Object 2D for displaying images
-//image needs to have been converted to a dds by the Assets project
-//add orginal file to this project and set it to "Image Content Pipeline"
-// in a similar fashion as getting the models
+// Sprite is a Texture with position scale and rotation,
+//it is also the basic drawable object
 //=================================================================
-
-using namespace DirectX;
-using namespace std;
 
 class Sprite
 {
 public:
+	Sprite(Texture*);
 	Sprite(std::string _fileName, Renderer* _renderer);
-	Sprite();
 	virtual ~Sprite();
 
-	ID3D11ShaderResourceView* GetTexture() { return m_pTextureRV; } //his needs to be removed
-	Vec4 GetColour() { return colour; }
-	Vec2 GetOrigin() { return origin; }
-	Vec2 GetSize();
+	Texture* GetTexture() { return texture; } //his needs to be removed
+	Vec4 getColour() { return colour; }
+	Vec2 getOrigin() { return origin; }
+	Vec2 getSize();
+	Vec2 getScale();
+	float getRotation();
+	Vec2 getPosition();
+
+	void setScale(Vec2);
+	void setRotation(float);
+	void setPosition(Vec2);
+	void setOrigin(Vec2);
 
 protected:
 
+	Vec2 position;
+	float rotation;
+	Vec2 scale;
 	Vec4 colour;
 	Vec2 origin;
-	ID3D11ShaderResourceView* m_pTextureRV;
+	Texture* texture;
 };

@@ -52,8 +52,10 @@ public:
 	void update();
 #pragma endregion
 
-private:
+	static int mouse_x;
+	static int mouse_y;
 
+private:
 	//int convertCharToDinput(char _input);
 
 	static unsigned char keyboard_state[256];
@@ -66,6 +68,4 @@ private:
 	HWND window;
 	HINSTANCE h_instance;
 
-	static int mouse_x;
-	static int mouse_y;
 };

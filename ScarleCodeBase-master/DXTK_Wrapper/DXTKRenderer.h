@@ -10,13 +10,15 @@
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
 #include "CustomMath.h"
-#include "BaseCamera.h"
 
 class GameObjectV2;
+class BaseCamera;
+class Sprite;
 
 using namespace std;
 using namespace DirectX;
 
+// ??? What is this supposed to be ???
 enum spriteeffects
 {
 
@@ -30,7 +32,8 @@ public:
 
 	bool BeginDraw(OurMatrix* transformMatrix = nullptr);
 	bool BeginDraw(BaseCamera* mainCamera);
-	bool Draw(GameObjectV2* _go);
+	//bool Draw(GameObjectV2* _go);
+	bool Draw(Sprite* _sprite);
 	bool EndDraw();
 	void renderText(string text, Vec2 position);
 

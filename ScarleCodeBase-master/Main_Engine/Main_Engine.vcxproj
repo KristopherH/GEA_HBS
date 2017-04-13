@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="Collectible.h" />
     <ClInclude Include="Enemy.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="Collectible.cpp" />
     <ClCompile Include="Enemy.cpp" />

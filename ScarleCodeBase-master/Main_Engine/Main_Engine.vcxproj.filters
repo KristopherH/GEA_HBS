@@ -34,6 +34,7 @@
     <ClCompile Include="Collectible.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Background.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseCamera.h">
@@ -70,6 +71,9 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Collectible.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

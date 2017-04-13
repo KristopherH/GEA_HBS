@@ -6,6 +6,7 @@
 //OURS
 #include "GameDataV2.h"
 #include "Collision_Manager.h"
+#include "DXTKRenderer.h"
 
 
 GameObjectV2::GameObjectV2(Sprite* _sprite, std::string _name, std::string _tag)
@@ -50,6 +51,10 @@ bool GameObjectV2::Update()
 		box = Rect(Vec2(this->getPosition().x, this->getPosition().y),
 			Vec2(this->getPosition().x + this->getSize().x,
 				this->getPosition().y + this->getSize().y));
+
+		sprite->setPosition(position);
+		sprite->setRotation(rotation);
+		sprite->setScale(scale);
 	}
 
 	velocity += acceleration;
@@ -62,18 +67,23 @@ bool GameObjectV2::Update()
 	return false;
 }
 
+bool GameObjectV2::Draw()
+{
+	return GameDataV2::renderer->Draw(sprite);
+}
+
 void GameObjectV2::setPosition(Vec2 * _position)
 {
 	position.x = _position->x; position.y = _position->y;
 	if (sprite != nullptr)
 	{
-		bottomCollider.max += sprite->GetSize();
-		bottomCollider.min += Vec2(0.0f, sprite->GetSize().y);
+		bottomCollider.max += sprite->getSize();
+		bottomCollider.min += Vec2(0.0f, sprite->getSize().y);
 		bottomCollider.max *= scale;
 		bottomCollider.min *= scale;
 		bottomCollider.max.y += 10.0f;
 
-		box.max += sprite->GetSize();
+		box.max += sprite->getSize();
 		box.max *= scale;
 		box.min *= scale;
 		box.max.y += 10.0f;
@@ -82,7 +92,7 @@ void GameObjectV2::setPosition(Vec2 * _position)
 
 void GameObjectV2::setSize(Vec2 * _size)
 {
-	Vec2 textureSize = sprite->GetSize();
+	Vec2 textureSize = sprite->getSize();
 	scale.x = _size->x / textureSize.x;
 	scale.y = _size->y / textureSize.y;
 	return;
@@ -181,7 +191,7 @@ Vec2 GameObjectV2::getPosition()
 
 Vec2 GameObjectV2::getSize()
 {
-	return Vec2(sprite->GetSize().x * scale.x, sprite->GetSize().y * scale.y);
+	return Vec2(sprite->getSize().x * scale.x, sprite->getSize().y * scale.y);
 }
 
 Vec2 GameObjectV2::getScale()

@@ -21,6 +21,7 @@
 #include "BaseCamera.h"
 #include "LevelLoader.h"
 #include "Game_Controller.h"
+#include "Background.h"
 
 
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
@@ -113,7 +114,7 @@ bool Engine::Draw()
 	for (const auto go : GameDataV2::go_list)
 	{
 		if (go->getAlive())
-			GameDataV2::renderer->Draw(go);
+			go->Draw();
 	}
 
 	if (_GS == GameState::GS_MAIN_MENU)
@@ -179,6 +180,22 @@ void Engine::moveCamera(Vec2* _translation)
 
 void Engine::playGame()
 {
+	std::vector<Sprite*> BGs;
+	BGs.push_back(new Sprite("_11_background", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_10_distant_clouds", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_09_distant_clouds1", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_08_clouds", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_07_huge_clouds", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_06_hill2", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_05_hill1", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_04_bushes", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_03_distant_trees", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_02_trees and bushes", GameDataV2::renderer));
+	BGs.push_back(new Sprite("_01_ground", GameDataV2::renderer));
+
+	Background* bg = new Background(BGs, mainCamera);
+	GameDataV2::go_list.push_back(bg);
+
 	Sprite* sprite1 = new Sprite("player_sprite", GameDataV2::renderer);
 	player = new PlayerV2(sprite1, "Player", "Player");
 
@@ -193,8 +210,6 @@ void Engine::playGame()
 	player->setGravityTag("Conveyor Right");
 	player->setGravityTag("Jump Platform");
 	player->setGravityTag("Standard Platform");
-
-	GameDataV2::go_list.push_back(player);
 
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
 	player->setPosition(level1->playerStartingPosition);
@@ -212,5 +227,6 @@ void Engine::playGame()
 		temp_cam->setPlayerTracker(player);
 		temp_cam = nullptr;
 	}
-	
+
+	GameDataV2::go_list.push_back(player);
 }

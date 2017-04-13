@@ -83,9 +83,18 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 		}
 		else if (type == "Enemy")
 		{
+			//get positions and give them
+			// PLACEHOLDER
+
+			std::vector<Vec2> foo;
+			foo.push_back(Vec2(0.0f, 10.0f));
+			foo.push_back(Vec2(100.0f, 10.0f));
+			foo.push_back(Vec2(200.0f, 300.0f));
+
+			// END PLACEHOLDER
 			if (getStringFromFile(fileStream) == "END")
 			{
-				go = new Enemy(pos, size, rotation, name);
+				go = new Enemy(pos, size, rotation, name, foo);
 			}
 			else
 			{

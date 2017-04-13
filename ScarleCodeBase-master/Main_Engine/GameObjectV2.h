@@ -6,10 +6,11 @@
 
 //OURS
 #include "CustomMath.h"
-#include "Sprite.h"
+#include "../DXTK_Wrapper/Sprite.h"
 #include "Enum_container.h"
 
 class InputManager;
+class Renderer;
 
 class GameObjectV2
 {
@@ -22,6 +23,7 @@ public:
 
 	//Updates
 	virtual bool Update();
+	virtual bool Draw();
 	void gravityUpdate();
 	void movePosition(Vec2* _translation);
 

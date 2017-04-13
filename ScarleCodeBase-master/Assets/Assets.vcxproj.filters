@@ -16,6 +16,9 @@
     <Filter Include="Textures">
       <UniqueIdentifier>{d0ca2129-2972-476d-82a9-1f0a9000b117}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Textures\BG">
+      <UniqueIdentifier>{7933e860-9705-4bf6-9ec6-a0dba96bbb9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="italic.spritefont">
@@ -87,5 +90,40 @@
     <ImageContentTask Include="enemy_sprite.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="BG\01_ground.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\02_trees and bushes.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\03_distant_trees.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\04_bushes.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\05_hill1.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\06_hill2.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\07_huge_clouds.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\08_clouds.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\09_distant_clouds1.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\10_distant_clouds.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+    <Image Include="BG\11_background.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
   </ItemGroup>
 </Project>

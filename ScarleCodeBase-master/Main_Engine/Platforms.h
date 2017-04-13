@@ -11,9 +11,10 @@
 #include "PlayerV2.h"
 #include "GameDataV2.h"
 #include "GameObjectV2.h"
+#include "Texture.h"
 
 
-class Platforms : public Sprite
+class Platforms
 {
 public:
 	Platforms() = delete;
@@ -29,7 +30,7 @@ public:
 
 
 private:
-	std::map<std::string, Sprite*> platform_sprites;
-	Sprite* spr = nullptr;
+	std::map<std::string, Texture*> platform_sprites;
+	//Sprite* spr = nullptr;
 	GameObjectV2* platform = nullptr;
 };

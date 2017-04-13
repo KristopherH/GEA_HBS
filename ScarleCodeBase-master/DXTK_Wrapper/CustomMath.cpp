@@ -15,9 +15,9 @@ Vec2::Vec2(float _x, float _y)
 {
 }
 
-DirectX::SimpleMath::Vector2 Vec2::operator=(Vec2)
+DirectX::SimpleMath::Vector2 Vec2::operator=(Vec2 _vec)
 {
-	return DirectX::SimpleMath::Vector2();
+	return DirectX::SimpleMath::Vector2(_vec.x, _vec.y);
 }
 
 Vec2 Vec2::operator=(DirectX::SimpleMath::Vector2 _vec)
