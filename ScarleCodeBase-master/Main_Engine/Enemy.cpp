@@ -1,11 +1,15 @@
 #include "Enemy.h"
+//C++
+#include <vector>
+#include <algorithm> // remove and remove_if
+
+//DXTK
+
+//OURS
 #include "GameDataV2.h"
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
-#include <vector>
-#include <algorithm> // remove and remove_if
 #include "Game_Controller.h"
-
 
 Enemy::Enemy(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {
@@ -24,6 +28,13 @@ Enemy::Enemy(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::st
 	setSize(_size);
 	setRotation(_rotation);
 	setName(_name);
+	setSolid(false);
+}
+
+Enemy::Enemy(Sprite * _sprite, Vec2 * _pos, Vec2 * _size, float _rotation, std::string _name, std::vector<Vec2> _waypoints)
+	:Enemy(_sprite, _pos, _size, _rotation, _name)
+{
+	waypoints = _waypoints;
 }
 
 Enemy::~Enemy()
@@ -37,19 +48,6 @@ bool Enemy::Update()
  		player = new PlayerV2();
  		player->setLives();
 		alive = false;
-		//GameDataV2::go_list.erase(GameDataV2::go_list.begin() + GameDataV2::game_controller->getGameObjectLocation(name));
-			
-			
-			/*std::remove_if(GameDataV2::go_list.begin(), GameDataV2::go_list.end(), 
-			[](GameObjectV2* go) 
-			{
-				if (go->getName() == "Enemy1")
-				{
-					return true;
-				}
-				return false;
-			}), GameDataV2::go_list.end());*/
-
 	}
 	return false;
 }

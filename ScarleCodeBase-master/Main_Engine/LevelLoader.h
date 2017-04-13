@@ -1,6 +1,11 @@
 #pragma once
+//C++
 #include <string>
 #include <vector>
+
+//DXTK
+
+//OURS
 #include "GameObjectV2.h"
 #include "CustomMath.h"
 

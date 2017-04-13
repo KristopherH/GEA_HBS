@@ -1,7 +1,13 @@
 #pragma once
+//C++
 #include <string>
-#include "..\Main_Engine\GameDataV2.h"
 #include <memory>
+
+//DXTK
+
+//OURS
+#include "..\Main_Engine\GameDataV2.h"
+
 
 using namespace std;
 

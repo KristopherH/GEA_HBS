@@ -1,8 +1,13 @@
 #include "PlayerV2.h"
+//C++
+#include <iostream>
+
+//DXTK
+
+//OURS
 #include "Input_Manager.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
-#include <iostream>
 
 PlayerV2::PlayerV2(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObjectV2(_sprite, _name, _tag)
@@ -74,9 +79,15 @@ bool PlayerV2::Update()
 		OnJump();
 	}
 	ProcessInput();
-	climb();
 	//oneWayPlatformMove();
-	return 	GameObjectV2::Update();
+	if (climbing && !stoppedJumping && velocity.y <= 0)
+	{
+		stoppedJumping = true;
+		gravity_on = true;
+	}
+	GameObjectV2::Update();
+	climb();
+	return false;
 }
 
 void PlayerV2::ProcessInput()
@@ -127,7 +138,7 @@ void PlayerV2::OnJump()
 			
 			//position += Vec2(0.0f, jumpStrength);
 			acceleration += Vec2(0.0f, jumpStrength);
-			stoppedJumping = false;		
+			stoppedJumping = false;
 		}
 	
 		//if you keep holding down the mouse button...

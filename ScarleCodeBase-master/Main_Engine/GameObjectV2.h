@@ -1,9 +1,13 @@
 #pragma once
+//C++
+#include <vector>
 
+//DXTK
+
+//OURS
 #include "CustomMath.h"
 #include "Sprite.h"
 #include "Enum_container.h"
-#include <vector>
 
 class InputManager;
 

@@ -1,6 +1,11 @@
 #pragma once
+//C++
+
+//DXTK
+
+//OURS
 #include "..\DXTK_Wrapper\CustomMath.h"
-#include "..\Main_Engine\GameObjectV2.h"
+#include "GameObjectV2.h"
 #include "Enum_container.h"
 
 class PlayerV2;

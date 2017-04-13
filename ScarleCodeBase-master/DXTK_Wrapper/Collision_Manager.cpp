@@ -1,9 +1,15 @@
 #include "Collision_Manager.h"
+//C++
+#include <string>
+
+//DXTK
+
+//OURS
 #include "Game_Controller.h"
 #include "PlayerV2.h"
 #include "BaseCamera.h"
 #include "GameDataV2.h"
-#include <string>
+
 
 bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 {

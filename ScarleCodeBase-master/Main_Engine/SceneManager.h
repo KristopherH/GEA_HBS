@@ -1,6 +1,11 @@
 #pragma once
+//C++
 #include <string>
 #include <atomic>
+//DXTK
+
+//OURS
+
 
 enum class GameState {
 
@@ -13,4 +18,4 @@ enum class GameState {
 };
 
 
-extern std::atomic<GameState> _GS;
+extern std::atomic<GameState> _GS; // ??? WHY ON EARTH IS THIS ATOMIC ???

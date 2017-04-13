@@ -1,13 +1,11 @@
 #pragma once
 //C++
 
-//External
+//DXTK
 #include <d3d11_1.h>
 #include "../Inc/SimpleMath.h"
 
-//Internal
-
-//Definitions
+//OURS
 
 struct Vec2
 {

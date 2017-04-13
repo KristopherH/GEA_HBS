@@ -1,4 +1,9 @@
 #include "Platforms.h"
+//C++
+
+//DXTK
+
+//OURS
 
 Platforms::Platforms(Renderer* _renderer)
 {

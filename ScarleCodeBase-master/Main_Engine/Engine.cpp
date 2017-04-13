@@ -1,26 +1,27 @@
 #include "Engine.h"
-//#ifdef __d3d11_1_h__
-#include "..\DXTK_Wrapper\DXTKRenderer.h"
-#include "..\DXTK_Wrapper\Input_Manager.h"
-//#endif
-
-//system headers
+//C++
 #include <windows.h>
 #include <time.h>
+#include <functional>
 
-#include "GameObjectV2.h"
+//DXTK
+
+//Wrapper
+#include "..\DXTK_Wrapper\Input_Manager.h"
+#include "..\DXTK_Wrapper\DXTKRenderer.h"
 #include "..\DXTK_Wrapper\Sprite.h"
+#include "..\DXTK_Wrapper\Text.h"
+
+//OURS
+#include "GameObjectV2.h"
 #include "PlayerV2.h"
 #include "SceneManager.h"
 #include "GameDataV2.h"
-#include "..\DXTK_Wrapper\Text.h"
-
 #include "Platforms.h"
 #include "BaseCamera.h"
-#include <functional>
-
 #include "LevelLoader.h"
 #include "Game_Controller.h"
+
 
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 				CollisionManager* _collision_manager, GameController* _game_controller)
@@ -117,7 +118,7 @@ bool Engine::Draw()
 
 	if (_GS == GameState::GS_MAIN_MENU)
 	{
-		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (mainCamera->GetPosition() + Vec2(150.0f, 200.0f)) * -1.0);
+		GameDataV2::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (mainCamera->getPosition() + Vec2(150.0f, 200.0f)) * -1.0);
 	}
 
 	if (_GS == GameState::GS_PLAY)

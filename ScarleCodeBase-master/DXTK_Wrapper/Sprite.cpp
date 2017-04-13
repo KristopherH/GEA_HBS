@@ -1,4 +1,9 @@
 #include "Sprite.h"
+//C++
+
+//DXTK
+
+//OURS
 #include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "Helper.h"
 

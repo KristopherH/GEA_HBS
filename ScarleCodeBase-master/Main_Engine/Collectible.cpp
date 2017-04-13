@@ -1,9 +1,14 @@
 #include "Collectible.h"
+//C++
+#include <vector>
+#include <algorithm> // remove and remove_if
+
+//DXTK
+
+//OURS
 #include "GameDataV2.h"
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
-#include <vector>
-#include <algorithm> // remove and remove_if
 #include "Game_Controller.h"
 
 Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)

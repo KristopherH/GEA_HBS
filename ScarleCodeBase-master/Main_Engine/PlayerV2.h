@@ -1,9 +1,15 @@
 #pragma once
+//C++
+#include <map>
+#include <functional>
+
+//DXTK
+
+//OURS
 #include "GameObjectV2.h"
 #include "GameDataV2.h"
 #include "Input_Manager.h"
-#include <map>
-#include <functional>
+
 
 class PlayerV2 : public GameObjectV2
 {

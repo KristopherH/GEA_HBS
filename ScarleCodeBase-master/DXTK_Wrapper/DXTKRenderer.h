@@ -1,10 +1,15 @@
 #pragma once
+//C++
+#include <memory>
+
+//DXTK
 #include <d3d11_1.h>
+#include "SimpleMath.h"
+
+//OURS
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
-#include <memory>
 #include "CustomMath.h"
-#include "SimpleMath.h"
 #include "BaseCamera.h"
 
 class GameObjectV2;

@@ -1,13 +1,10 @@
 #pragma once
-//#include "../DXTK_Wrapper/DXTKRenderer.h"
-//#include "../DXTK_Wrapper/Input_Manager.h"
-//#include "../DXTK_Wrapper/Collision_Manager.h"
-//#include "../Main_Engine/Game_Controller.h"
+//C++
 #include <vector>
 
-//#include "Input_Manager.h"
- 
-//#include "SceneManager.h"
+//DXTK
+
+//OURS
  
 class InputManager;
 class Renderer;
@@ -20,7 +17,7 @@ struct Inputs;
 struct GameDataV2
 {
  
-	//float m_dt;
+	//float m_dt; ??? Why is this commented away ???
 	//GameState m_gS; // game state
 
  
@@ -30,6 +27,8 @@ struct GameDataV2
 	static GameController* game_controller;
 	static std::vector<GameObjectV2*> go_list;
 	static Inputs input;
+	
+	// ??? whys is this not a rect ???
 	static unsigned int screen_width;
 	static unsigned int screen_height;
 	static unsigned int screen_pos_x;

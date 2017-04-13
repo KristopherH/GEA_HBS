@@ -1,8 +1,14 @@
 #pragma once
-#include <d3d11_1.h>
+//C++
 #include <string>
+
+//DXTK
+#include <d3d11_1.h>
 #include "DDSTextureLoader.h"
+
+//OURS
 #include "..\DXTK_Wrapper\CustomMath.h"
+
 
 class Renderer;
 

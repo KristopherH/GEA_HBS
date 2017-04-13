@@ -1,10 +1,15 @@
 #include "Input_Manager.h"
+//C++
 #include <string>
-#include <GameDataV2.h>
-
 #ifdef DEBUG
 #include <iostream>
 #endif
+
+//DXTK
+
+//OURS
+#include <GameDataV2.h>
+
 
 unsigned char InputManager::keyboard_state[256];
 unsigned char InputManager::previous_keyboard_state[256];

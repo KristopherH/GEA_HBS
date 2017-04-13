@@ -1,4 +1,9 @@
 #include "GameObjectV2.h"
+//C++
+
+//DXTK
+
+//OURS
 #include "GameDataV2.h"
 #include "Collision_Manager.h"
 

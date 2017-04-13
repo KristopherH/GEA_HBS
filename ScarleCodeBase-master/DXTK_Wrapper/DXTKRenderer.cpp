@@ -1,4 +1,9 @@
 #include "DXTKRenderer.h"
+//C++
+
+//DXTK
+
+//OURS
 #include "GameObjectV2.h"
 #include "Helper.h"
 

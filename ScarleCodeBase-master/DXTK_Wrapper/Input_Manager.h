@@ -1,5 +1,11 @@
 #pragma once
+//C++
+
+//DXTK
 #include <dinput.h>
+
+//OURS
+
 
 using Input = int;
 

@@ -1,12 +1,17 @@
 #pragma once
+//C++
+#include <map>
+#include <string>
 
+//DXTK
+
+//OURS
 #include "..\DXTK_Wrapper\DXTKRenderer.h"
 #include "Sprite.h"
 #include "PlayerV2.h"
 #include "GameDataV2.h"
 #include "GameObjectV2.h"
-#include <map>
-#include <string>
+
 
 class Platforms : public Sprite
 {

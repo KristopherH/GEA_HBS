@@ -1,4 +1,9 @@
 #include "Text.h"
+//C++
+
+//DXTK
+
+//OURS
 
 bool Text::Draw()
 {
