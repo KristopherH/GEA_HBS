@@ -126,7 +126,7 @@ void GameObjectV2::gravityUpdate()
 	}*/
 	//Very messy Needs tidying up after alpha submission
 	bool new_grounded = false;
-	for (const auto& current_object : GameDataV2::go_list)
+	for (const auto& current_object : *GameDataV2::go_list)
 	{
 		//This could be changed to solid now that's implemented (Post Alpha Task)
 		for (const auto& current_gravity_tag : this->gravity_trigger_tags)
@@ -224,3 +224,38 @@ std::string GameObjectV2::getTag()
 	return tag;
 }
 #pragma endregion
+
+
+GameObjectV2* GameObjectV2::createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name)
+{
+	Sprite* ladder_spr;
+	GameObjectV2* ladder;
+	ladder_spr = nullptr;
+	ladder = nullptr;
+
+	ladder_spr = new Sprite("Ladder", GameDataV2::renderer);
+	ladder = new GameObjectV2(ladder_spr, name, "Climbable");
+
+	ladder->setPosition(new Vec2(x, y));
+	ladder->setSize(new Vec2(sizeX, sizeY));
+	ladder->setSolid(solid);
+
+
+	return ladder;
+}
+
+GameObjectV2 * GameObjectV2::createCollectible(float x, float y, float sizeX, float sizeY)
+{
+	Sprite* collectible_spr;
+	GameObjectV2* collectible;
+	collectible_spr = nullptr;
+	collectible = nullptr;
+
+	collectible_spr = new Sprite("coin", GameDataV2::renderer);
+	collectible = new GameObjectV2(collectible_spr, "Collectible", "Collectible");
+
+	collectible->setPosition(new Vec2(x, y));
+	collectible->setSize(new Vec2(sizeX, sizeY));
+
+	return collectible;
+}

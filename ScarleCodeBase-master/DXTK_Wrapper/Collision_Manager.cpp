@@ -22,8 +22,8 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 		return false;
 	}
 
-	GameObjectV2* a = GameDataV2::go_list.at(a_location);
-	GameObjectV2* b = GameDataV2::go_list.at(b_location);
+	GameObjectV2* a = GameDataV2::go_list->at(a_location);
+	GameObjectV2* b = GameDataV2::go_list->at(b_location);
 
 	if (!a->getAlive() || !b->getAlive() || !a->getSprite() || !b->getSprite())
 	{
@@ -135,8 +135,8 @@ bool CollisionManager::oneWayPlatform(std::string a_name)
 		return false;
 	}
 
-	GameObjectV2* a = GameDataV2::go_list.at(a_location);
-	GameObjectV2* player = GameDataV2::go_list.at(player_location);
+	GameObjectV2* a = GameDataV2::go_list->at(a_location);
+	GameObjectV2* player = GameDataV2::go_list->at(player_location);
 
 	if (player->getPosition().y > a->getPosition().y + a->getSize().y ||
 		player->getPosition().y + player->getSize().y < a->getPosition().y)

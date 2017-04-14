@@ -47,7 +47,7 @@ bool PlayerV2::Update()
 		jump_platform = false;
 	}
 	can_jump = true;
-	for (auto go : GameDataV2::go_list)
+	for (auto go : *GameDataV2::go_list)
 	{
 		if (go->getTag() == "Conveyor Left" || go->getTag() == "Conveyor Right")
 		{
@@ -167,7 +167,7 @@ void PlayerV2::OnMove(Vec2 _direction)
 	{
 		return;
 	}
-	for (auto go : GameDataV2::go_list)
+	for (auto go : *GameDataV2::go_list)
 	{
 		if (go->getName() == name)
 		{
@@ -231,7 +231,7 @@ void PlayerV2::climb()
 {
 	if (gravity_on)
 	{
-		for (auto go : GameDataV2::go_list)
+		for (auto go : (*GameDataV2::go_list))
 		{
 			if (go->getTag() == "Climbable")
 			{

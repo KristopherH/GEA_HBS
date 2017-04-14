@@ -4,5 +4,72 @@
 //DXTK
 
 //OURS
+#include "Scene.h"
+#include "GameDataV2.h"
 
-std::atomic<GameState> _GS = GameState::GS_MAIN_MENU; // ???????????? WHY ON EARTH IS THIS ATOMIC ??????????????????????
+GameState _GS = GameState::GS_MAIN_MENU;
+
+SceneManager::SceneManager()
+{
+	currentScene = "NONE";
+}
+
+SceneManager::~SceneManager()
+{
+	//TODO: clear scenes map
+}
+
+void SceneManager::addScene(std::string sceneName, Scene* newScene)
+{
+	if (scenes[sceneName] == nullptr)
+	{
+		scenes[sceneName] = newScene;
+	}
+	if (currentScene == "NONE")
+	{
+		currentScene = sceneName;
+		GameDataV2::go_list = &scenes[sceneName]->go_list;
+	}
+}
+
+void SceneManager::setCurrentScene(std::string sceneName, bool removeCurrent)
+{
+	if (removeCurrent)
+	{
+		scenes[currentScene]->toBeDeleted = true;
+	}
+	auto scene = scenes.find(sceneName);
+	if (scene != scenes.end())
+	{
+		currentScene = sceneName;
+		GameDataV2::go_list = &scenes[sceneName]->go_list;
+	}
+}
+
+Scene* SceneManager::getScene(const std::string sceneName)
+{
+	return scenes[sceneName];
+}
+
+Scene* SceneManager::getCurrentScene()
+{
+	return scenes[currentScene];
+}
+
+std::string SceneManager::getCurrentSceneName()
+{
+	return currentScene;
+}
+
+void SceneManager::clearOldScenes()
+{
+	auto iter = scenes.begin();
+	for (; iter != scenes.end(); ) {
+		if (iter->second->toBeDeleted) {
+			scenes.erase(iter++);
+		}
+		else {
+			++iter;
+		}
+	}
+}

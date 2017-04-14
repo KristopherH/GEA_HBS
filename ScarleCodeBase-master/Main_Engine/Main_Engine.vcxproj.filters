@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="BaseCamera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -13,33 +10,47 @@
     <ClCompile Include="GameDataV2.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectV2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Platforms.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerV2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="LevelLoader.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Source\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Collectible.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectV2.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerV2.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Platforms.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEditor.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseCamera.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header</Filter>
     </ClInclude>
@@ -52,29 +63,44 @@
     <ClInclude Include="GameDataV2.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectV2.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Platforms.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerV2.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="LevelLoader.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header</Filter>
+    <ClInclude Include="Background.h">
+      <Filter>Header\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCamera.h">
+      <Filter>Header\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Collectible.h">
-      <Filter>Header</Filter>
+      <Filter>Header\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>Header</Filter>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectV2.h">
+      <Filter>Header\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Platforms.h">
+      <Filter>Header\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerV2.h">
+      <Filter>Header\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditor.h">
+      <Filter>Header\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +109,18 @@
     </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{1dfd9d90-f86c-47d9-ba33-b2bf60d72d57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Scenes">
+      <UniqueIdentifier>{c5d4e537-cff9-4205-b769-6fa4bc892e0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scenes">
+      <UniqueIdentifier>{043215e3-ef22-4063-a701-a425c3a1ec17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\GameObjects">
+      <UniqueIdentifier>{3479483a-1814-4ad9-84d5-581c1096eb3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameObjects">
+      <UniqueIdentifier>{243af841-ba78-49e6-84e7-dbad03b7396a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

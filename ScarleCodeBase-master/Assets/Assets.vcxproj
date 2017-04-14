@@ -251,17 +251,17 @@
     <ImageContentTask Include="enemy_sprite.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="BG\01_ground.png" />
-    <Image Include="BG\02_trees and bushes.png" />
-    <Image Include="BG\03_distant_trees.png" />
-    <Image Include="BG\04_bushes.png" />
-    <Image Include="BG\05_hill1.png" />
-    <Image Include="BG\06_hill2.png" />
-    <Image Include="BG\07_huge_clouds.png" />
-    <Image Include="BG\08_clouds.png" />
-    <Image Include="BG\09_distant_clouds1.png" />
-    <Image Include="BG\10_distant_clouds.png" />
-    <Image Include="BG\11_background.png" />
+    <ImageContentTask Include="BG\01_ground.png" />
+    <ImageContentTask Include="BG\02_trees and bushes.png" />
+    <ImageContentTask Include="BG\03_distant_trees.png" />
+    <ImageContentTask Include="BG\04_bushes.png" />
+    <ImageContentTask Include="BG\05_hill1.png" />
+    <ImageContentTask Include="BG\06_hill2.png" />
+    <ImageContentTask Include="BG\07_huge_clouds.png" />
+    <ImageContentTask Include="BG\08_clouds.png" />
+    <ImageContentTask Include="BG\09_distant_clouds1.png" />
+    <ImageContentTask Include="BG\10_distant_clouds.png" />
+    <ImageContentTask Include="BG\11_background.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

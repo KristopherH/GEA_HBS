@@ -9,7 +9,7 @@
 
 using Input = int;
 
-static struct Inputs
+struct Inputs
 {
 	static Input UP;
 	static Input DOWN;

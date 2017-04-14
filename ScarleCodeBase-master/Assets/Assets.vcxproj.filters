@@ -90,40 +90,38 @@
     <ImageContentTask Include="enemy_sprite.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="BG\01_ground.png">
+    <ImageContentTask Include="BG\01_ground.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\02_trees and bushes.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\02_trees and bushes.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\03_distant_trees.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\03_distant_trees.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\04_bushes.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\04_bushes.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\05_hill1.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\05_hill1.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\06_hill2.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\06_hill2.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\07_huge_clouds.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\07_huge_clouds.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\08_clouds.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\08_clouds.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\09_distant_clouds1.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\09_distant_clouds1.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\10_distant_clouds.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\10_distant_clouds.png">
       <Filter>Textures\BG</Filter>
-    </Image>
-    <Image Include="BG\11_background.png">
+    </ImageContentTask>
+    <ImageContentTask Include="BG\11_background.png">
       <Filter>Textures\BG</Filter>
-    </Image>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

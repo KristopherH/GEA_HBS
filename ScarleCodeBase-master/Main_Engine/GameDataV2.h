@@ -10,6 +10,7 @@ class InputManager;
 class Renderer;
 class CollisionManager;
 class GameController;
+class SceneManager;
 class GameObjectV2;
 struct Inputs;
  
@@ -24,8 +25,9 @@ struct GameDataV2
 	static InputManager* inputManager;
 	static Renderer* renderer;
 	static CollisionManager* collsion_manager;
+	static SceneManager* scene_manager;
 	static GameController* game_controller;
-	static std::vector<GameObjectV2*> go_list;
+	static std::vector<GameObjectV2*>* go_list;
 	static Inputs input;
 	
 	// ??? whys is this not a rect ???

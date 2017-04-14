@@ -297,8 +297,8 @@ void InputManager::update()
 
 	if (mouse_x < 0) mouse_x = 0;
 	if (mouse_y < 0) mouse_y = 0;
-	if (mouse_x > GameDataV2::screen_width) mouse_x = GameDataV2::screen_width;
-	if (mouse_y > GameDataV2::screen_height) mouse_y = GameDataV2::screen_height;
+	if (mouse_x > (int)GameDataV2::screen_width) mouse_x = (int)GameDataV2::screen_width;
+	if (mouse_y > (int)GameDataV2::screen_height) mouse_y = (int)GameDataV2::screen_height;
 
 	#ifdef DEBUG
 	std::cout << "Mouse X: " << mouse_x << std::endl;

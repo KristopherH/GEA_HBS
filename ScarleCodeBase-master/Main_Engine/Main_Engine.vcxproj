@@ -110,6 +110,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Inc;..\DXTK_Wrapper</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Arcade|Win32'">
@@ -170,10 +171,14 @@
     <ClInclude Include="Enum_container.h" />
     <ClInclude Include="GameDataV2.h" />
     <ClInclude Include="GameObjectV2.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="Game_Controller.h" />
+    <ClInclude Include="LevelEditor.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Platforms.h" />
     <ClInclude Include="PlayerV2.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -184,10 +189,14 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameDataV2.cpp" />
     <ClCompile Include="GameObjectV2.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Game_Controller.cpp" />
+    <ClCompile Include="LevelEditor.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Platforms.cpp" />
     <ClCompile Include="PlayerV2.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

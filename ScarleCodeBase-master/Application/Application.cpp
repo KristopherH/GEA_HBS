@@ -59,13 +59,13 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 	unsigned int window_width = GetSystemMetrics(SM_CXSCREEN);
 	unsigned int window_height = GetSystemMetrics(SM_CYSCREEN);
 #ifdef DEBUG
-	unsigned int windowed_width = window_width * 0.85;
-	unsigned int windowed_height = window_height * 0.85;
+	unsigned int windowed_width = (unsigned int)(window_width * 0.85f);
+	unsigned int windowed_height = (unsigned int)(window_height * 0.85f);
 
 	unsigned int windowed_pos_x = (window_width - windowed_width) / 2;
 	unsigned int windowed_pos_y = (window_height - windowed_height) / 4;
 
-	RECT rc = { 0, 0, windowed_width, windowed_height };
+	RECT rc = { 0, 0, (LONG)windowed_width, (LONG)windowed_height };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 	m_hWnd = CreateWindow(L"GEAWindowClass", L"GEA GROUP PROJECT", WS_OVERLAPPEDWINDOW,
 		windowed_pos_x, windowed_pos_y, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, _hInstance,

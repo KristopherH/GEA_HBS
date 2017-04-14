@@ -39,7 +39,10 @@ public:
 	float getRotation();
 	std::string getName();
 	std::string getTag();
+	GameObjectV2 * createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name);
+	GameObjectV2 * createCollectible(float x, float y, float sizeX, float sizeY);
 	Rect getBox();
+	std::string getType() { return type; }
 
 	//Setters
 	virtual void setMovementDirection(Direction _movement_direction) { move_direction = _movement_direction; }
@@ -53,6 +56,7 @@ public:
 	void setRotation(float _rot) { rotation = _rot; }
 	void setName(std::string _name) { name = _name; }
 	void setTag(std::string _tag) { tag = _tag; }
+	void setType(std::string _type) { type = _type; }
 
 	void setGravity(bool _gravity_on) { gravity_on = _gravity_on; }
 	bool setGravityTag(std::string _gravity_tag);
@@ -82,6 +86,7 @@ protected:
 
 	std::string tag = "GameObject";
 	std::string name = "GameObject";
+	std::string type = "GameObject";
 	std::vector<std::string> gravity_trigger_tags;
 
 	Sprite* sprite = nullptr;

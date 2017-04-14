@@ -41,11 +41,6 @@ private:
 	GameObjectV2* platform2;
 	std::unique_ptr<Platforms> createPlatform;
 	std::unique_ptr<Text> createText;
-	Sprite* ladder_spr;
-	GameObjectV2* ladder;
-	Sprite* collectible_spr;
-	GameObjectV2* collectible;
-	PlayerV2* player;
 
 protected: 
 	BaseCamera* mainCamera = nullptr;

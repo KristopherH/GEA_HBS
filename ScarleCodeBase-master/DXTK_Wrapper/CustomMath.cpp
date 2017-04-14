@@ -25,7 +25,7 @@ Vec2 Vec2::operator=(DirectX::SimpleMath::Vector2 _vec)
 	return Vec2(_vec.x, _vec.y);
 }
 
-Vec2 & Vec2::operator*=(const float & other)
+Vec2 Vec2::operator*=(const float & other)
 {
 	x *= other;
 	y *= other;
@@ -226,10 +226,10 @@ Vec4 Vec4::operator=(DirectX::SimpleMath::Vector4 oth)
 	return Vec4(oth.x, oth.y, oth.z, oth.w);
 }
 
-Vec4::operator DirectX::SimpleMath::Vector4()
-{
-	return Vec4(0.0f, 0.0f, 0.0f, 0.0f);
-}
+//Vec4::operator DirectX::SimpleMath::Vector4()
+//{
+//	return Vec4(0.0f, 0.0f, 0.0f, 0.0f);
+//}
 
 #pragma endregion
 
