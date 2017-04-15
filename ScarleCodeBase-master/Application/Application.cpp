@@ -71,10 +71,10 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		windowed_pos_x, windowed_pos_y, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, _hInstance,
 		nullptr);
 
-	GameDataV2::screen_width = windowed_width;
-	GameDataV2::screen_height = windowed_height;
-	GameDataV2::screen_pos_x = windowed_pos_x;
-	GameDataV2::screen_pos_y = windowed_pos_y;
+	GameDataV2::screen.max.x = windowed_width;
+	GameDataV2::screen.max.y = windowed_height;
+	GameDataV2::screen.min.x = windowed_pos_x;
+	GameDataV2::screen.min.y = windowed_pos_y;
 #else
 	//Go to Fullscreen in Release
 	m_hWnd = CreateWindowEx(NULL,

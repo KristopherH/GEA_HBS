@@ -49,6 +49,9 @@
     <ClCompile Include="LevelEditor.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source\UIElements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -102,6 +105,9 @@
     <ClInclude Include="LevelEditor.h">
       <Filter>Header\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header\UIElements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -121,6 +127,12 @@
     </Filter>
     <Filter Include="Source\GameObjects">
       <UniqueIdentifier>{243af841-ba78-49e6-84e7-dbad03b7396a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\UIElements">
+      <UniqueIdentifier>{f46aef8d-3b11-48d5-878c-692ca08a1713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UIElements">
+      <UniqueIdentifier>{3e83ee4c-2b93-4a79-9395-f134005517eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

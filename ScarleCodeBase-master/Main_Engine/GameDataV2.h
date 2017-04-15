@@ -5,19 +5,21 @@
 //DXTK
 
 //OURS
- 
+#include "../DXTK_Wrapper/CustomMath.h"
+
 class InputManager;
 class Renderer;
 class CollisionManager;
 class GameController;
 class SceneManager;
 class GameObjectV2;
+class BaseCamera;
 struct Inputs;
- 
+
 
 struct GameDataV2
 {
- 
+
 	//float m_dt; ??? Why is this commented away ???
 	//GameState m_gS; // game state
 
@@ -29,11 +31,9 @@ struct GameDataV2
 	static GameController* game_controller;
 	static std::vector<GameObjectV2*>* go_list;
 	static Inputs input;
-	
-	// ??? whys is this not a rect ???
-	static unsigned int screen_width;
-	static unsigned int screen_height;
-	static unsigned int screen_pos_x;
-	static unsigned int screen_pos_y;
+
+	static BaseCamera* currentCamera;
+
+	static Rect screen;
  
 };

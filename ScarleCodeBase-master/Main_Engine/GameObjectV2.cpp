@@ -48,9 +48,10 @@ bool GameObjectV2::Update()
 {
 	if (this->getSprite())
 	{
-		box = Rect(Vec2(this->getPosition().x, this->getPosition().y),
-			Vec2(this->getPosition().x + this->getSize().x,
-				this->getPosition().y + this->getSize().y));
+		box.min.x = position.x;
+		box.min.y = position.y;
+		box.max.x = position.x + this->getSize().x;
+		box.max.y = position.y + this->getSize().y;
 
 		sprite->setPosition(position);
 		sprite->setRotation(rotation);
@@ -81,12 +82,6 @@ void GameObjectV2::setPosition(Vec2 * _position)
 		bottomCollider.min += Vec2(0.0f, sprite->getSize().y);
 		bottomCollider.max *= scale;
 		bottomCollider.min *= scale;
-		bottomCollider.max.y += 10.0f;
-
-		box.max += sprite->getSize();
-		box.max *= scale;
-		box.min *= scale;
-		box.max.y += 10.0f;
 	}
 }
 
@@ -138,7 +133,7 @@ void GameObjectV2::gravityUpdate()
 					if (GameDataV2::collsion_manager->boxCollision(
 						this->name, current_object->getName()))
 					{
-						Rect top_of_the_platform(current_object->getBox() + current_object->getPosition());
+						Rect top_of_the_platform(current_object->getBox()/* + current_object->getPosition()*/);
 						top_of_the_platform.max.y = top_of_the_platform.min.y + 60.0f;
 						if (GameDataV2::collsion_manager->boxCollision(
 							bottomCollider + position , top_of_the_platform))

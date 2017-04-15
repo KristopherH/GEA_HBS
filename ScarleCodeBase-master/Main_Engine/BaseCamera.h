@@ -39,6 +39,7 @@ public:
 	void setPlayerBoxPosY(float _player_box_y) { player_box_y = _player_box_y; }
 	void setPlayerTracker(PlayerV2* _player) { player = _player; }
 
+	Vec2 getCameraSize() { return Vec2(width, height); }
 protected:
 	//Principle transforms/matrices for this camera
 	OurMatrix m_projMat;

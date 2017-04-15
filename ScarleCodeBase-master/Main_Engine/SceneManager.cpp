@@ -29,6 +29,7 @@ void SceneManager::addScene(std::string sceneName, Scene* newScene)
 	{
 		currentScene = sceneName;
 		GameDataV2::go_list = &scenes[sceneName]->go_list;
+		GameDataV2::currentCamera = scenes[sceneName]->cam;
 	}
 }
 
@@ -43,6 +44,7 @@ void SceneManager::setCurrentScene(std::string sceneName, bool removeCurrent)
 	{
 		currentScene = sceneName;
 		GameDataV2::go_list = &scenes[sceneName]->go_list;
+		GameDataV2::currentCamera = scenes[sceneName]->cam;
 	}
 }
 

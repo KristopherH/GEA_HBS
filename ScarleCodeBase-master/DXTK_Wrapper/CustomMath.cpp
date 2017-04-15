@@ -253,12 +253,19 @@ Rect operator+(const Rect& original, const Vec2 displacement)
 
 bool Rect::Contains(Vec2 oth)
 {
+	if (oth.x < max.x &&
+		oth.x > min.x &&
+		oth.y < max.y &&
+		oth.y > min.y)
+	{
+		return true;
+	}
 	return false;
 }
 
 Vec2 Rect::Center()
 {
-	return Vec2();
+	return Vec2(min.x + (max.x/2), min.y + (max.y / 2));
 }
 
 #pragma endregion

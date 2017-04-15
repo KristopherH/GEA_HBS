@@ -42,7 +42,7 @@ InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 	window = _window;
 	h_instance = _h_instance;
 	
-	SetCursorPos(GameDataV2::screen_pos_x, GameDataV2::screen_pos_y);
+	SetCursorPos(GameDataV2::screen.min.x, GameDataV2::screen.min.y);
 }
 
 
@@ -58,7 +58,7 @@ InputManager::~InputManager()
 
 bool InputManager::getMouseRight()
 {
-	if (mouse_state.rgbButtons[0] & 0x80)
+	if (mouse_state.rgbButtons[1] & 0x80)
 		return true;
 
 	return false;
@@ -68,7 +68,7 @@ bool InputManager::getMouseRight()
 
 bool InputManager::getMouseLeft()
 {
-	if (mouse_state.rgbButtons[1] & 0x80)
+	if (mouse_state.rgbButtons[0] & 0x80)
 		return true;
 
 	return false;
@@ -292,13 +292,13 @@ void InputManager::update()
 	POINT mouse_pos;
 	GetCursorPos(&mouse_pos);
 
-	mouse_x = mouse_pos.x - GameDataV2::screen_pos_x;
-	mouse_y = mouse_pos.y - GameDataV2::screen_pos_y;
+	mouse_x = mouse_pos.x - GameDataV2::screen.min.x;
+	mouse_y = mouse_pos.y - GameDataV2::screen.min.y;
 
 	if (mouse_x < 0) mouse_x = 0;
 	if (mouse_y < 0) mouse_y = 0;
-	if (mouse_x > (int)GameDataV2::screen_width) mouse_x = (int)GameDataV2::screen_width;
-	if (mouse_y > (int)GameDataV2::screen_height) mouse_y = (int)GameDataV2::screen_height;
+	if (mouse_x > (int)(GameDataV2::screen.min.x + GameDataV2::screen.max.x)) mouse_x = (int)GameDataV2::screen.min.x + GameDataV2::screen.max.x;
+	if (mouse_y > (int)(GameDataV2::screen.min.y + GameDataV2::screen.max.y)) mouse_y = (int)GameDataV2::screen.min.y + GameDataV2::screen.max.y;
 
 	#ifdef DEBUG
 	std::cout << "Mouse X: " << mouse_x << std::endl;

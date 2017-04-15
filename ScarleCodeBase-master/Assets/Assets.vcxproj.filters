@@ -123,5 +123,8 @@
     <ImageContentTask Include="BG\11_background.png">
       <Filter>Textures\BG</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Button.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

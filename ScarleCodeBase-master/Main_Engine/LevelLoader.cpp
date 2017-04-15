@@ -44,7 +44,7 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 			std::string platformType = getStringFromFile(fileStream);
 			if (getStringFromFile(fileStream) == "END")
 			{
-				if (platformType == "Slow")
+				if (platformType == "SlowPlatform")
 				{
 					go = platformsManager.slowPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
@@ -56,19 +56,19 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 				{
 					go = platformsManager.conveyorPlatform(pos->x, pos->y, size->x, size->y, name, false);
 				}
-				else if (platformType == "Jump")
+				else if (platformType == "JumpPlatform")
 				{
 					go = platformsManager.jumpPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
-				else if (platformType == "Speed")
+				else if (platformType == "SpeedPlatform")
 				{
 					go = platformsManager.speedPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
-				else if (platformType == "Standard")
+				else if (platformType == "StandardPlatform")
 				{
 					go = platformsManager.standardPlatform(pos->x, pos->y, size->x, size->y, name);
 				}
-				else if (platformType == "Sticky")
+				else if (platformType == "StickyPlatform")
 				{
 					go = platformsManager.stickyPlatform(pos->x, pos->y, size->x, size->y, name);
 				}

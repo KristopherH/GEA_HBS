@@ -13,7 +13,7 @@ Background::Background(Sprite * _sprite, BaseCamera * camera)
 	sprite = _sprite;
 	parallax = false;
 	sprite->setPosition(main_camera->getPosition() * -1);
-	Vec2 screenSize((float)GameDataV2::screen_width, (float)GameDataV2::screen_height);
+	Vec2 screenSize(GameDataV2::screen.max);
 	Vec2 scaleFactor(screenSize.x / sprite->getSize().x, screenSize.y / sprite->getSize().y);
 	sprite->setScale(scaleFactor);
 }
@@ -31,7 +31,7 @@ Background::Background(std::vector<Sprite*> _sprites, BaseCamera * camera)
 	}
 	for (unsigned int i = 0; i < backgrounds.size(); i+=3)
 	{
-		Vec2 screenSize((float)GameDataV2::screen_width, (float)GameDataV2::screen_height);
+		Vec2 screenSize(GameDataV2::screen.max);
 		Vec2 scaleFactor(2, 2);/*screenSize.x / backgrounds[i]->getSize().x,
 						 screenSize.y / backgrounds[i]->getSize().y);*/
 		backgrounds[i]->setScale(scaleFactor /* (backgrounds.size() - i)*/);
