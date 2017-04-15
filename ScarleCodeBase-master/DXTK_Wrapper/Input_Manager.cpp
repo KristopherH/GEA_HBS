@@ -290,15 +290,16 @@ void InputManager::update()
 
 	#pragma region Mouse Position
 	POINT mouse_pos;
-	GetCursorPos(&mouse_pos);
+	GetPhysicalCursorPos(&mouse_pos);
+	ScreenToClient(window, &mouse_pos); // This function doeas hat you were trying to do and excludes the borders
 
-	mouse_x = mouse_pos.x - GameDataV2::screen.min.x;
-	mouse_y = mouse_pos.y - GameDataV2::screen.min.y;
+	mouse_x = mouse_pos.x /*- GameDataV2::screen.min.x*/;
+	mouse_y = mouse_pos.y /*- GameDataV2::screen.min.y*/;
 
 	if (mouse_x < 0) mouse_x = 0;
 	if (mouse_y < 0) mouse_y = 0;
-	if (mouse_x > (int)(GameDataV2::screen.min.x + GameDataV2::screen.max.x)) mouse_x = (int)GameDataV2::screen.min.x + GameDataV2::screen.max.x;
-	if (mouse_y > (int)(GameDataV2::screen.min.y + GameDataV2::screen.max.y)) mouse_y = (int)GameDataV2::screen.min.y + GameDataV2::screen.max.y;
+	if (mouse_x > (int)(/*GameDataV2::screen.min.x + */GameDataV2::screen.max.x)) mouse_x = (int)/*GameDataV2::screen.min.x +*/ GameDataV2::screen.max.x;
+	if (mouse_y > (int)(/*GameDataV2::screen.min.y + */GameDataV2::screen.max.y)) mouse_y = (int)/*GameDataV2::screen.min.y +*/ GameDataV2::screen.max.y;
 
 	#ifdef DEBUG
 	std::cout << "Mouse X: " << mouse_x << std::endl;

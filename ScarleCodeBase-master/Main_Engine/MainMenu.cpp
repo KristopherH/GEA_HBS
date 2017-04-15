@@ -15,13 +15,21 @@ MainMenuScene::MainMenuScene()
 {
 	Scene::Scene();
 	Button* btn = new Button(new Sprite("Button", GameDataV2::renderer), "button1", "");
-	btn->setSize(new Vec2(600.0f, 300.0f));
+	btn->setSize(new Vec2(200.0f, 100.0f));
 	btn->setPosition(new Vec2(0.0f, 0.0f)/*&GameDataV2::screen.Center()*/);
 	btn->setCallbackFunction([]() {
 		GameDataV2::scene_manager->addScene("GameScene", new GameScene());
 		GameDataV2::scene_manager->setCurrentScene("GameScene");
 	});
 	go_list.push_back(btn);
+	Button* btn1 = new Button(new Sprite("Button", GameDataV2::renderer), "button1", "");
+	btn1->setSize(new Vec2(200.0f, 100.0f));
+	btn1->setPosition(new Vec2(GameDataV2::screen.Center().x - btn1->getSize().x/2, 400.0f)/*&GameDataV2::screen.Center()*/);
+	btn1->setCallbackFunction([]() {
+		GameDataV2::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
+		GameDataV2::scene_manager->setCurrentScene("LevelEditorScene");
+	});
+	go_list.push_back(btn1);
 }
 
 void MainMenuScene::Update(float dt)
