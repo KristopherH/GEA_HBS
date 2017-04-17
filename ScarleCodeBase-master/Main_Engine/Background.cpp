@@ -59,7 +59,7 @@ bool Background::Update(float dt)
 	{
 		for (unsigned int i = 0; i < backgrounds.size(); i+=3)
 		{
-			float parallax = previousCamPosition.x - (main_camera->getPosition().x );
+			float parallax = previousCamPosition.x - (main_camera->getPosition().x);
 			Vec2 backgroundTargetPosition;
 			backgroundTargetPosition += backgrounds[i]->getPosition();
 			backgroundTargetPosition.x += parallax;

@@ -133,7 +133,7 @@ void GameObject::gravityUpdate()
 				if (current_object->tag == current_gravity_tag)
 				{
 					if (GameData::collsion_manager->boxCollision(
-						this->name, current_object->getName()))
+						this->box, current_object->getBox()))
 					{
 						Rect top_of_the_platform(current_object->getBox()/* + current_object->getPosition()*/);
 						top_of_the_platform.max.y = top_of_the_platform.min.y + 60.0f;
@@ -221,38 +221,3 @@ std::string GameObject::getTag()
 	return tag;
 }
 #pragma endregion
-
-
-GameObject* GameObject::createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name)
-{
-	Sprite* ladder_spr;
-	GameObject* ladder;
-	ladder_spr = nullptr;
-	ladder = nullptr;
-
-	ladder_spr = new Sprite("Ladder", GameData::renderer);
-	ladder = new GameObject(ladder_spr, name, "Climbable");
-
-	ladder->setPosition(new Vec2(x, y));
-	ladder->setSize(new Vec2(sizeX, sizeY));
-	ladder->setSolid(solid);
-
-
-	return ladder;
-}
-
-GameObject * GameObject::createCollectible(float x, float y, float sizeX, float sizeY)
-{
-	Sprite* collectible_spr;
-	GameObject* collectible;
-	collectible_spr = nullptr;
-	collectible = nullptr;
-
-	collectible_spr = new Sprite("coin", GameData::renderer);
-	collectible = new GameObject(collectible_spr, "Collectible", "Collectible");
-
-	collectible->setPosition(new Vec2(x, y));
-	collectible->setSize(new Vec2(sizeX, sizeY));
-
-	return collectible;
-}

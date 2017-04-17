@@ -12,7 +12,7 @@ class LevelEditorScene : public Scene
 {
 public:
 	LevelEditorScene();
-	virtual ~LevelEditorScene() = default;
+	virtual ~LevelEditorScene();
 
 	virtual void Update(float dt) override;
 	virtual void Draw() override;
@@ -21,6 +21,9 @@ public:
 	void moveObject();
 
 protected:
+	std::vector<GameObject*> ui_elements;
+	std::vector<std::string> creatableObjectTypes = { "StandardPlatform", "Ladder", "enemy_sprite", "coin" };
+
 	Player* player = nullptr;
 	GameObject* obj_selected = nullptr;
 };

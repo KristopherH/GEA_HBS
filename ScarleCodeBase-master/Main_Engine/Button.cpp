@@ -13,8 +13,11 @@ Button::Button(Sprite* sprite, std::string _name, std::string _tag)
 bool Button::Update(float dt)
 {
 	GameObject::Update(dt);
-	sprite->setPosition(position - Vec2(GameData::currentCamera->getCameraSize().x /2,
-										GameData::currentCamera->getCameraSize().y / 2));
+	Vec2 newPos = Vec2(0.0f, 0.0f);
+	newPos -= GameData::currentCamera->getCameraSize() / 2;
+	newPos -= GameData::currentCamera->getPosition();
+	newPos += sprite->getPosition();
+	sprite->setPosition(newPos);
 	if (box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y)))
 	{
 		hovering = true;

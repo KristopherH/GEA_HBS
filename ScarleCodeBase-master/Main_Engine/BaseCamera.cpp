@@ -30,6 +30,9 @@ BaseCamera::~BaseCamera()
 
 bool BaseCamera::Update(float dt)
 {
+	previousPosition.x = position.x;
+	previousPosition.y = position.y;
+
 	if (player)
 	{
 		setPosition(new Vec2(-player->getPosition().x, -player->getPosition().y));

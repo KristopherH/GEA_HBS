@@ -34,5 +34,4 @@ protected:
 	static void saveVectorToFile(std::fstream& _file, std::string label, Vec2*);
 	static void saveFloatToFile(std::fstream & _file, std::string label, float);
 	static void saveIntToFile(std::fstream & _file, std::string label, int);
-
 };

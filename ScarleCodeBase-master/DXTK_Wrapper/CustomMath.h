@@ -29,6 +29,7 @@ struct Vec2
 	friend Vec2 operator+(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x + V2.x, V1.y + V2.y); }
 	friend Vec2 operator-(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x - V2.x, V1.y - V2.y); }
 	friend Vec2 operator*(const Vec2& V1, const float& V2) { return Vec2(V1.x * V2, V1.y * V2); }
+	friend Vec2 operator/(const Vec2& V1, const float& V2) { return Vec2(V1.x / V2, V1.y / V2); }
 
 	// Useful Functions
 	void Limit(float _length);

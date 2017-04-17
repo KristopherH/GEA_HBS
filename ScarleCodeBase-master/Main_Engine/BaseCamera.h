@@ -40,6 +40,8 @@ public:
 	void setPlayerTracker(Player* _player) { player = _player; }
 
 	Vec2 getCameraSize() { return Vec2(width, height); }
+
+	Vec2 getPreviousPosition() { return previousPosition; }
 protected:
 	//Principle transforms/matrices for this camera
 	OurMatrix m_projMat;
@@ -65,4 +67,6 @@ protected:
 
 	Player* player = nullptr;
 	Direction movement_direction = Direction::NONE;
+
+	Vec2 previousPosition;
 };

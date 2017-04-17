@@ -39,8 +39,6 @@ public:
 	float getRotation();
 	std::string getName();
 	std::string getTag();
-	GameObject * createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name);
-	GameObject * createCollectible(float x, float y, float sizeX, float sizeY);
 	Rect getBox();
 	std::string getType() { return type; }
 
