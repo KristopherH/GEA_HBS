@@ -5,7 +5,7 @@
 
 //OURS
 #include "Scene.h"
-#include "GameDataV2.h"
+#include "GameData.h"
 
 GameState _GS = GameState::GS_MAIN_MENU;
 
@@ -28,8 +28,8 @@ void SceneManager::addScene(std::string sceneName, Scene* newScene)
 	if (currentScene == "NONE")
 	{
 		currentScene = sceneName;
-		GameDataV2::go_list = &scenes[sceneName]->go_list;
-		GameDataV2::currentCamera = scenes[sceneName]->cam;
+		GameData::go_list = &scenes[sceneName]->go_list;
+		GameData::currentCamera = scenes[sceneName]->cam;
 	}
 }
 
@@ -43,8 +43,8 @@ void SceneManager::setCurrentScene(std::string sceneName, bool removeCurrent)
 	if (scene != scenes.end())
 	{
 		currentScene = sceneName;
-		GameDataV2::go_list = &scenes[sceneName]->go_list;
-		GameDataV2::currentCamera = scenes[sceneName]->cam;
+		GameData::go_list = &scenes[sceneName]->go_list;
+		GameData::currentCamera = scenes[sceneName]->cam;
 	}
 }
 

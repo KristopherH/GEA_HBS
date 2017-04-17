@@ -7,7 +7,7 @@
 
 bool Text::Draw()
 {
-	//GameDataV2::renderer->renderText("Hi", player->GetPosition());
+	//GameData::renderer->renderText("Hi", player->GetPosition());
 
 	return true;
 }

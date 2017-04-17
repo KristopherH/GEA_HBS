@@ -6,14 +6,14 @@
 //DXTK
 
 //OURS
-#include "GameDataV2.h"
+#include "GameData.h"
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 
 Enemy::Enemy(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {
-	setSprite(new Sprite("enemy_sprite", GameDataV2::renderer));
+	setSprite(new Sprite("enemy_sprite", GameData::renderer));
 	setPosition(_pos);
 	setSize(_size);
 	setRotation(_rotation);
@@ -22,7 +22,7 @@ Enemy::Enemy(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 }
 
 Enemy::Enemy(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
-	:GameObjectV2(_sprite)
+	:GameObject(_sprite)
 {
 	setPosition(_pos);
 	setSize(_size);
@@ -51,9 +51,9 @@ Enemy::~Enemy()
 
 bool Enemy::Update()
 {
-	if (GameDataV2::collsion_manager->boxCollision(name, "Player"))
+	if (GameData::collsion_manager->boxCollision(name, "Player"))
 	{
- 		player = new PlayerV2();
+ 		player = new Player();
  		player->setLives();
 		alive = false;
 	}
@@ -74,7 +74,7 @@ bool Enemy::Update()
 			}
 		}
 	}
-	GameObjectV2::Update();
+	GameObject::Update();
 	return false;
 }
 

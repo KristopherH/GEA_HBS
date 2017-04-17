@@ -12,14 +12,14 @@
 class InputManager;
 class Renderer;
 
-class GameObjectV2
+class GameObject
 {
 public:
 	//Init
-	GameObjectV2();
-	GameObjectV2(Sprite* sprite, std::string _name, std::string _tag);
-	GameObjectV2(Sprite* _sprite);
-	~GameObjectV2();
+	GameObject();
+	GameObject(Sprite* sprite, std::string _name, std::string _tag);
+	GameObject(Sprite* _sprite);
+	~GameObject();
 
 	//Updates
 	virtual bool Update();
@@ -39,8 +39,8 @@ public:
 	float getRotation();
 	std::string getName();
 	std::string getTag();
-	GameObjectV2 * createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name);
-	GameObjectV2 * createCollectible(float x, float y, float sizeX, float sizeY);
+	GameObject * createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name);
+	GameObject * createCollectible(float x, float y, float sizeX, float sizeY);
 	Rect getBox();
 	std::string getType() { return type; }
 

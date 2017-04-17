@@ -5,7 +5,7 @@
 
 //OURS
 #include "Scene.h"
-class PlayerV2;
+class Player;
 
 class LevelEditorScene : public Scene
 {
@@ -17,5 +17,5 @@ public:
 	virtual void Draw() override;
 
 protected:
-	PlayerV2* player;
+	Player* player;
 };

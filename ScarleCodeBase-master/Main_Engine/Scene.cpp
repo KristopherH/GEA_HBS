@@ -1,11 +1,11 @@
 #include "Scene.h"
 #include "BaseCamera.h"
-#include "GameDataV2.h"
+#include "GameData.h"
 
 Scene::Scene()
 {
 	//create a base camera
-	cam = new BaseCamera(GameDataV2::renderer->getWindowWidth(), GameDataV2::renderer->getWindowHeight(), -1.0f, 10000.0f);
+	cam = new BaseCamera(GameData::renderer->getWindowWidth(), GameData::renderer->getWindowHeight(), -1.0f, 10000.0f);
 	//mainCamera->SetPosition(new Vec2(player->GetPosition().x + player->GetSize().x, player->GetPosition().y - player->GetSize().y));
 	cam->setName("Camera");
 	cam->setTag("Camera");

@@ -21,7 +21,7 @@
 #include "../DXTK_Wrapper/Collision_Manager.h"
 #include "Game_Controller.h"
 #include "../Main_Engine/Engine.h"
-#include "../Main_Engine/GameDataV2.h"
+#include "../Main_Engine/GameData.h"
 
 
 #define DESTROY( x ) if( x ){ x->Release(); x = nullptr;}
@@ -71,10 +71,10 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		windowed_pos_x, windowed_pos_y, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, _hInstance,
 		nullptr);
 
-	GameDataV2::screen.max.x = windowed_width;
-	GameDataV2::screen.max.y = windowed_height;
-	GameDataV2::screen.min.x = windowed_pos_x;
-	GameDataV2::screen.min.y = windowed_pos_y;
+	GameData::screen.max.x = (float)windowed_width;
+	GameData::screen.max.y = (float)windowed_height;
+	GameData::screen.min.x = (float)windowed_pos_x;
+	GameData::screen.min.y = (float)windowed_pos_y;
 #else
 	//Go to Fullscreen in Release
 	m_hWnd = CreateWindowEx(NULL,
@@ -88,10 +88,10 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		_hInstance,
 		NULL);
 
-	GameDataV2::screen_width = window_width;
-	GameDataV2::screen_height = window_height;
-	GameDataV2::screen_pos_x = 0;
-	GameDataV2::screen_pos_y = 0;
+	GameData::screen_width = window_width;
+	GameData::screen_height = window_height;
+	GameData::screen_pos_x = 0;
+	GameData::screen_pos_y = 0;
 #endif
 
 	if (!m_hWnd)
@@ -368,9 +368,9 @@ bool Application::Update()
 	}*/
 
 
-	if (GameDataV2::inputManager)
+	if (GameData::inputManager)
 	{
-		GameDataV2::inputManager->update();
+		GameData::inputManager->update();
 	}
 	if (engine)
 	{

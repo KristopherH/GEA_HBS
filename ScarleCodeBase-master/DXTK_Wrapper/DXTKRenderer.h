@@ -11,18 +11,12 @@
 #include "SpriteFont.h"
 #include "CustomMath.h"
 
-class GameObjectV2;
+class GameObject;
 class BaseCamera;
 class Sprite;
 
 using namespace std;
 using namespace DirectX;
-
-// ??? What is this supposed to be ???
-enum spriteeffects
-{
-
-};
 
 class Renderer
 {
@@ -32,7 +26,7 @@ public:
 
 	bool BeginDraw(OurMatrix* transformMatrix = nullptr);
 	bool BeginDraw(BaseCamera* mainCamera);
-	//bool Draw(GameObjectV2* _go);
+	//bool Draw(GameObject* _go);
 	bool Draw(Sprite* _sprite);
 	bool EndDraw();
 	void renderText(string text, Vec2 position);

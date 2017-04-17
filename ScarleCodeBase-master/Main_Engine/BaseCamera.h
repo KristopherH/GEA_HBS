@@ -5,12 +5,12 @@
 
 //OURS
 #include "..\DXTK_Wrapper\CustomMath.h"
-#include "GameObjectV2.h"
+#include "GameObject.h"
 #include "Enum_container.h"
 
-class PlayerV2;
+class Player;
 
-class BaseCamera : public GameObjectV2
+class BaseCamera : public GameObject
 {
 public:
 	BaseCamera(float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up = Vec3::Up, Vec3 _target = Vec3::Zero);
@@ -37,7 +37,7 @@ public:
 	void setPlayerBoxHeight(float _player_box_height) { player_box_height = _player_box_height; }
 	void setPlayerBoxPosX(float _player_box_x) { player_box_x = _player_box_x; }
 	void setPlayerBoxPosY(float _player_box_y) { player_box_y = _player_box_y; }
-	void setPlayerTracker(PlayerV2* _player) { player = _player; }
+	void setPlayerTracker(Player* _player) { player = _player; }
 
 	Vec2 getCameraSize() { return Vec2(width, height); }
 protected:
@@ -63,6 +63,6 @@ protected:
 	float rotation = 0.0f;
 	float zoom = 1.0f;
 
-	PlayerV2* player = nullptr;
+	Player* player = nullptr;
 	Direction movement_direction = Direction::NONE;
 };

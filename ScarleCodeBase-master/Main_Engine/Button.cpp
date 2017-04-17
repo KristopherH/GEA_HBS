@@ -1,24 +1,24 @@
 #include "Button.h"
-#include "GameDataV2.h"
+#include "GameData.h"
 #include "Collision_Manager.h"
 #include "Input_Manager.h"
 #include "BaseCamera.h"
 
 Button::Button(Sprite* sprite, std::string _name, std::string _tag)
-	:GameObjectV2(sprite, _name, _tag)
+	:GameObject(sprite, _name, _tag)
 {
 
 }
 
 bool Button::Update()
 {
-	GameObjectV2::Update();
-	sprite->setPosition(position - Vec2(GameDataV2::currentCamera->getCameraSize().x /2,
-										GameDataV2::currentCamera->getCameraSize().y / 2));
-	if (box.Contains(Vec2(GameDataV2::inputManager->mouse_x, GameDataV2::inputManager->mouse_y)))
+	GameObject::Update();
+	sprite->setPosition(position - Vec2(GameData::currentCamera->getCameraSize().x /2,
+										GameData::currentCamera->getCameraSize().y / 2));
+	if (box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y)))
 	{
 		hovering = true;
-		if (GameDataV2::inputManager->getMouseLeft())
+		if (GameData::inputManager->getMouseLeft())
 		{
 			onClick();
 		}
@@ -41,7 +41,7 @@ bool Button::Draw()
 	{
 
 	}
-	return GameObjectV2::Draw();
+	return GameObject::Draw();
 }
 
 void Button::setCallbackFunction(std::function<void()> funct)

@@ -6,7 +6,7 @@
 //DXTK
 
 //OURS
-#include "..\Main_Engine\GameDataV2.h"
+#include "..\Main_Engine\GameData.h"
 
 
 using namespace std;

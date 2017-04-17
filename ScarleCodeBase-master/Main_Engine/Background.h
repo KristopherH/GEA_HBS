@@ -5,10 +5,10 @@
 //DXTK
 
 //OURS
-#include "GameObjectV2.h"
+#include "GameObject.h"
 #include "BaseCamera.h"
 
-class Background : public GameObjectV2
+class Background : public GameObject
 {
 public:
 	Background(Sprite* _sprite, BaseCamera * camera);

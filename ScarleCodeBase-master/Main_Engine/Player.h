@@ -6,17 +6,17 @@
 //DXTK
 
 //OURS
-#include "GameObjectV2.h"
-#include "GameDataV2.h"
+#include "GameObject.h"
+#include "GameData.h"
 #include "Input_Manager.h"
 
 
-class PlayerV2 : public GameObjectV2
+class Player : public GameObject
 {
 public:
-	PlayerV2() = default;
-	PlayerV2(Sprite* _sprite, std::string _name, std::string _tag);
-	~PlayerV2();
+	Player() = default;
+	Player(Sprite* _sprite, std::string _name, std::string _tag);
+	~Player();
 
 	bool Update() override;
 

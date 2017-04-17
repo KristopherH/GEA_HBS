@@ -4,9 +4,9 @@
 //DXTK
 
 //OURS
-#include "GameObjectV2.h"
+#include "GameObject.h"
 
-class Collectible : public GameObjectV2
+class Collectible : public GameObject
 {
 public:
 	Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name);

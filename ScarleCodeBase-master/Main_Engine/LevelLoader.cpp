@@ -14,7 +14,7 @@
 Level* LevelLoader::loadLevel(std::string LevelPath)
 {
 	Level* tmpLevel = new Level();
-	Platforms platformsManager(GameDataV2::renderer);
+	Platforms platformsManager(GameData::renderer);
 
 	std::fstream fileStream;
 	fileStream.open(LevelPath);
@@ -30,7 +30,7 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 
 	for (int i = 0; i < ObjNumber; i++)
 	{
-		GameObjectV2* go = nullptr;
+		GameObject* go = nullptr;
 		std::string index;
 		getline(fileStream, index);
 		std::string type = getStringFromFile(fileStream);
@@ -117,7 +117,7 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 		{
 			if (getStringFromFile(fileStream) == "END")
 			{
-				go = new GameObjectV2(new Sprite("Ladder", GameDataV2::renderer), name, "Climbable");
+				go = new GameObject(new Sprite("Ladder", GameData::renderer), name, "Climbable");
 
 				go->setPosition(pos);
 				go->setSize(size);
@@ -130,7 +130,7 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 		}
 		else
 		{
-			go = new GameObjectV2();
+			go = new GameObject();
 			return nullptr;
 		}
 
@@ -178,7 +178,7 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 			saveStringToFile(fileStream, "Name: ", level->go_list[i]->getName());
 			saveVectorToFile(fileStream, "Position: ", &level->go_list[i]->getPosition());
 			saveVectorToFile(fileStream, "Size: ", &level->go_list[i]->getSize());
-			saveIntToFile(fileStream, "Rotation: ", level->go_list[i]->getRotation());
+			saveFloatToFile(fileStream, "Rotation: ", level->go_list[i]->getRotation());
 
 			if (type == "Platform")
 			{
@@ -193,7 +193,7 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 	saveStringToFile(fileStream, "", "END");
 }
 
-Level * LevelLoader::createLevel(std::vector<GameObjectV2*> level, Vec2* playerPos)
+Level * LevelLoader::createLevel(std::vector<GameObject*> level, Vec2* playerPos)
 {
 	Level* tmp = new Level();
 	tmp->playerStartingPosition = playerPos;

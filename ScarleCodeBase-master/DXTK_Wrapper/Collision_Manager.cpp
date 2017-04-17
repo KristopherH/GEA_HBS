@@ -6,15 +6,15 @@
 
 //OURS
 #include "Game_Controller.h"
-#include "PlayerV2.h"
+#include "Player.h"
 #include "BaseCamera.h"
-#include "GameDataV2.h"
+#include "GameData.h"
 
 
 bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 {
-	int a_location = GameDataV2::game_controller->getGameObjectLocation(a_name);
-	int b_location = GameDataV2::game_controller->getGameObjectLocation(b_name);
+	int a_location = GameData::game_controller->getGameObjectLocation(a_name);
+	int b_location = GameData::game_controller->getGameObjectLocation(b_name);
 
 	if (a_location == -1 || b_location == -1)
 	{
@@ -22,21 +22,21 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 		return false;
 	}
 
-	GameObjectV2* a = GameDataV2::go_list->at(a_location);
-	GameObjectV2* b = GameDataV2::go_list->at(b_location);
+	GameObject* a = GameData::go_list->at(a_location);
+	GameObject* b = GameData::go_list->at(b_location);
 
 	if (!a->getAlive() || !b->getAlive() || !a->getSprite() || !b->getSprite())
 	{
 		return false;
 	}
 
-	PlayerV2* player = nullptr;
+	Player* player = nullptr;
 	BaseCamera* camera = nullptr;
-	GameObjectV2* other = nullptr;
+	GameObject* other = nullptr;
 
 	if (a->getTag() == "Player")
 	{
-		player = static_cast<PlayerV2*>(a);
+		player = static_cast<Player*>(a);
 		/*if (b->getTag() == "Camera")
 		{
 			camera = static_cast<BaseCamera*>(b);
@@ -49,7 +49,7 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 
 	if (b->getTag() == "Player")
 	{
-		player = static_cast<PlayerV2*>(b);
+		player = static_cast<Player*>(b);
 		/*if (a->getTag() == "Camera")
 		{
 			camera = static_cast<BaseCamera*>(b);
@@ -126,8 +126,8 @@ bool CollisionManager::oneWayPlatform(std::string a_name)
 	if (a_name == "Camera")
 		return false;
 
-	int a_location = GameDataV2::game_controller->getGameObjectLocation(a_name);
-	int player_location = GameDataV2::game_controller->getGameObjectLocation("Player");
+	int a_location = GameData::game_controller->getGameObjectLocation(a_name);
+	int player_location = GameData::game_controller->getGameObjectLocation("Player");
 
 	if (a_location == -1 || player_location == -1)
 	{
@@ -135,8 +135,8 @@ bool CollisionManager::oneWayPlatform(std::string a_name)
 		return false;
 	}
 
-	GameObjectV2* a = GameDataV2::go_list->at(a_location);
-	GameObjectV2* player = GameDataV2::go_list->at(player_location);
+	GameObject* a = GameData::go_list->at(a_location);
+	GameObject* player = GameData::go_list->at(player_location);
 
 	if (player->getPosition().y > a->getPosition().y + a->getSize().y ||
 		player->getPosition().y + player->getSize().y < a->getPosition().y)
@@ -147,7 +147,7 @@ bool CollisionManager::oneWayPlatform(std::string a_name)
 	return false;
 }
 
-Direction CollisionManager::findCollisionDirection(GameObjectV2* a, GameObjectV2* b)
+Direction CollisionManager::findCollisionDirection(GameObject* a, GameObject* b)
 {
 	BaseCamera* camera = nullptr;
 

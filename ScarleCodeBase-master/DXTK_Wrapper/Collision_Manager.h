@@ -8,7 +8,7 @@
 #include "Enum_container.h"
 #include "CustomMath.h"
 
-class GameObjectV2;
+class GameObject;
 
 class CollisionManager
 {
@@ -24,7 +24,7 @@ public:
 	bool oneWayPlatform(std::string a_name);
 
 private:
-	Direction findCollisionDirection(GameObjectV2* a, GameObjectV2* b);
+	Direction findCollisionDirection(GameObject* a, GameObject* b);
 	Direction findCollisionDirection(Rect * a, Rect * b);
 	Direction col_direction = Direction::NONE;
 };

@@ -13,9 +13,9 @@
 #include "..\DXTK_Wrapper\Text.h"
 
 //OURS
-#include "GameObjectV2.h"
+#include "GameObject.h"
 #include "SceneManager.h"
-#include "GameDataV2.h"
+#include "GameData.h"
 #include "Platforms.h"
 #include "BaseCamera.h"
 #include "LevelLoader.h"
@@ -31,55 +31,55 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 {
 	GameState::GS_MAIN_MENU;
 
-	GameDataV2::inputManager = _inputManager;
-	if (!GameDataV2::inputManager->init())
+	GameData::inputManager = _inputManager;
+	if (!GameData::inputManager->init())
 	{
 		OutputDebugString("Input manager failed to initialize");
 	}
-	GameDataV2::renderer = _renderer;
+	GameData::renderer = _renderer;
 
-	GameDataV2::collsion_manager = _collision_manager;
-	GameDataV2::game_controller = _game_controller;
+	GameData::collsion_manager = _collision_manager;
+	GameData::game_controller = _game_controller;
 	createPlatform = std::make_unique<Platforms>(_renderer);
 
-	GameDataV2::scene_manager = new SceneManager();
-	GameDataV2::scene_manager->addScene("MainMenu", new MainMenuScene());
+	GameData::scene_manager = new SceneManager();
+	GameData::scene_manager->addScene("MainMenu", new MainMenuScene());
 }
 
 Engine::~Engine()
 {
 	mainCamera = nullptr;
 
-	delete GameDataV2::renderer;
-	GameDataV2::renderer = nullptr;
+	delete GameData::renderer;
+	GameData::renderer = nullptr;
 
-	delete GameDataV2::inputManager;
-	GameDataV2::inputManager = nullptr;
+	delete GameData::inputManager;
+	GameData::inputManager = nullptr;
 
-	delete GameDataV2::collsion_manager;
-	GameDataV2::collsion_manager = nullptr;
+	delete GameData::collsion_manager;
+	GameData::collsion_manager = nullptr;
 
-	delete GameDataV2::game_controller;
-	GameDataV2::game_controller = nullptr;
+	delete GameData::game_controller;
+	GameData::game_controller = nullptr;
 
-	delete GameDataV2::scene_manager;
-	GameDataV2::scene_manager = nullptr;
+	delete GameData::scene_manager;
+	GameData::scene_manager = nullptr;
 }
 
 bool Engine::Update()
 {	
-	GameDataV2::scene_manager->getCurrentScene()->Update(0.0001f);
+	GameData::scene_manager->getCurrentScene()->Update(0.0001f);
 
 	return true;
 }
 
 bool Engine::Draw() 
 {
-	GameDataV2::renderer->BeginDraw(GameDataV2::scene_manager->getCurrentScene()->getCamera());
+	GameData::renderer->BeginDraw(GameData::scene_manager->getCurrentScene()->getCamera());
 
-	GameDataV2::scene_manager->getCurrentScene()->Draw();
+	GameData::scene_manager->getCurrentScene()->Draw();
 	
-	GameDataV2::renderer->EndDraw();
+	GameData::renderer->EndDraw();
 
 	return true;
 }

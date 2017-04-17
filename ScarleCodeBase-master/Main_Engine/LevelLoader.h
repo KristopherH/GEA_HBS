@@ -6,13 +6,13 @@
 //DXTK
 
 //OURS
-#include "GameObjectV2.h"
+#include "GameObject.h"
 #include "CustomMath.h"
 
 struct Level
 {
 	Vec2* playerStartingPosition;
-	std::vector<GameObjectV2*> go_list;
+	std::vector<GameObject*> go_list;
 };
 
 static const std::vector<std::string> acceptedTypes = { "Platform", "Collectible", "Enemy", "Ladder" };
@@ -22,7 +22,7 @@ class LevelLoader
 public:
 	static Level* loadLevel(std::string LevelPath);
 	static void saveLevel(Level* level, std::string LevelPath);
-	static Level* createLevel(std::vector<GameObjectV2*>, Vec2*);
+	static Level* createLevel(std::vector<GameObject*>, Vec2*);
 
 protected:
 	static std::string getStringFromFile(std::fstream& _file);

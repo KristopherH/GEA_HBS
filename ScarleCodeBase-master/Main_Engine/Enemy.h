@@ -5,11 +5,11 @@
 //DXTK
 
 //OURS
-#include "GameObjectV2.h"
-#include "PlayerV2.h"
+#include "GameObject.h"
+#include "Player.h"
 #include "CustomMath.h"
 
-class Enemy : public GameObjectV2
+class Enemy : public GameObject
 {
 public:
 	Enemy(Vec2* _pos, Vec2* _size, float _rotation, std::string _name);
@@ -21,7 +21,7 @@ public:
 	bool Update() override;
 
 private:
-	PlayerV2* player;
+	Player* player;
 	std::vector<Vec2> waypoints;
 	std::vector<Vec2>::iterator current_waypoint;
 };

@@ -5,7 +5,7 @@
 //DXTK
 
 //OURS
-#include "GameObjectV2.h"
+#include "GameObject.h"
 
 class Scene
 {
@@ -23,6 +23,6 @@ public:
 	bool toBeDeleted;
 
 protected:
-	std::vector<GameObjectV2*> go_list;
+	std::vector<GameObject*> go_list;
 	BaseCamera* cam;
 };

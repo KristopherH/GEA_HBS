@@ -4,9 +4,9 @@
 //DXTK
 
 //OURS
-#include "GameObjectV2.h"
+#include "GameObject.h"
 
-class Button : public GameObjectV2
+class Button : public GameObject
 {
 public:
 	Button(Sprite* sprite, std::string _name, std::string _tag);

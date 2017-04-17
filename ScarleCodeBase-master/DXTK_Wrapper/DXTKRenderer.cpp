@@ -5,7 +5,7 @@
 #include <CommonStates.h>
 
 //OURS
-#include "GameObjectV2.h"
+#include "GameObject.h"
 #include "BaseCamera.h"
 #include "Helper.h"
 #include "../DXTK_Wrapper/Texture.h"

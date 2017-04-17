@@ -6,7 +6,7 @@
 //DXTK
 
 //OURS
-#include "GameDataV2.h"
+#include "GameData.h"
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
@@ -14,7 +14,7 @@
 
 Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {
-	setSprite(new Sprite(new Texture("coin", GameDataV2::renderer)));
+	setSprite(new Sprite(new Texture("coin", GameData::renderer)));
 	setPosition(_pos);
 	setSize(_size);
 	setRotation(_rotation);
@@ -23,7 +23,7 @@ Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _
 }
 
 Collectible::Collectible(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
-	:GameObjectV2(_sprite)
+	:GameObject(_sprite)
 {
 	setPosition(_pos);
 	setSize(_size);
@@ -37,7 +37,7 @@ Collectible::~Collectible()
 
 bool Collectible::Update()
 {
-	if (GameDataV2::collsion_manager->boxCollision(name, "Player"))
+	if (GameData::collsion_manager->boxCollision(name, "Player"))
 	{
 		alive = false;
 	}
