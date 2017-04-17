@@ -22,6 +22,8 @@ public:
 	Sprite(std::string _fileName, Renderer* _renderer);
 	virtual ~Sprite();
 
+	virtual void Update();
+
 	Texture* GetTexture() { return texture; }
 	Vec4 getColour() { return colour; }
 	Vec2 getOrigin() { return origin; }

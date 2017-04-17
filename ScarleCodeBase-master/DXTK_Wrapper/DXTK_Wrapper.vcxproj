@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Collision_Manager.h" />
     <ClInclude Include="CustomMath.h" />
     <ClInclude Include="DXTKRenderer.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Collision_Manager.cpp" />
     <ClCompile Include="CustomMath.cpp" />
     <ClCompile Include="DXTKRenderer.cpp" />

@@ -26,6 +26,10 @@ Sprite::~Sprite()
 	texture = nullptr;
 }
 
+void Sprite::Update()
+{
+}
+
 Vec2 Sprite::getSize()
 {
 	return texture->getSize();

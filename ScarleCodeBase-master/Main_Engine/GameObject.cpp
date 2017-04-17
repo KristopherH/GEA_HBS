@@ -48,6 +48,8 @@ bool GameObject::Update(float dt)
 {
 	if (this->getSprite())
 	{
+		sprite->Update();
+
 		box.min.x = position.x;
 		box.min.y = position.y;
 		box.max.x = position.x + this->getSize().x;

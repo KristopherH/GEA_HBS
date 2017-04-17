@@ -4,6 +4,8 @@
 #include "LevelLoader.h"
 #include "Player.h"
 #include "Background.h"
+#include "Button.h"
+#include <string>
 
 LevelEditorScene::LevelEditorScene()
 {
@@ -50,6 +52,15 @@ LevelEditorScene::LevelEditorScene()
 	cam->setPlayerTracker(player);
 
 	go_list.push_back(player);
+
+#pragma region UI
+
+	float y = 0;
+	for (auto type : acceptedTypes)
+	{
+		Button* btn = new Button(type, "Button", "Button");
+	}
+#pragma endregion
 	return;
 }
 
@@ -103,6 +114,8 @@ void LevelEditorScene::Update(float dt)
 			}
 		}
 	}
+
+
 }
 
 void LevelEditorScene::Draw()

@@ -10,6 +10,8 @@
 #include "LevelLoader.h"
 #include "Game_Controller.h"
 #include "Scene.h"
+#include "AnimatedSprite.h"
+#include "Texture.h"
 
 GameScene::GameScene()
 {
@@ -29,7 +31,12 @@ GameScene::GameScene()
 	Background* bg = new Background(BGs, cam);
 	go_list.push_back(bg);
 
-	Sprite* sprite1 = new Sprite("player_sprite", GameData::renderer);
+	std::vector<Texture*> textures;
+
+	/*textures.push_back(new Texture("SlowPlatform", GameData::renderer));
+	textures.push_back(new Texture("SpeedPlatform", GameData::renderer));*/
+
+	Sprite* sprite1 = new Sprite("player_sprite", GameData::renderer); //new AnimatedSprite(textures);
 	player = new Player(sprite1, "Player", "Player");
 
 	player->setSize(new Vec2(100.0f, 120.0f));
