@@ -64,14 +64,22 @@ LevelEditorScene::LevelEditorScene()
 		Sprite* sprite = new Sprite(type, GameData::renderer);
 		Button* btn = new Button(sprite, "Button", "Button");
 		btn->setPosition(new Vec2(0.0f, y));
-		btn->setCallbackFunction([]() {
+		btn->setCallbackFunction([this, type, y]() {
 			//bowties are cool
-			/*
-			if(!selected_object)
-			then
-				create the gameobject
-				set the selected object to the new object created
-			*/
+			if (!obj_selected)
+			{
+				//create the gameobject
+				float mouse_world_x = (float)0.0f - 
+					((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
+				float mouse_world_y = (float)y - 
+					((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
+
+				GameObject* go = ObjectFactory::createPlatform();
+				go->setPosition(new Vec2(mouse_world_x, mouse_world_y));
+				go_list.push_back(go);
+				//set the selected object to the new object created
+				obj_selected = go;
+			}
 		});
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setSize(new Vec2(100.0f, 100.0f));

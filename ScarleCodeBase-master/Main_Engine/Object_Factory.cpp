@@ -40,7 +40,7 @@ GameObject* ObjectFactory::createPlatform()
 	GameObject* platform = new GameObject(new Sprite(Platforms::platform_sprites["Standard"]),
 										  "Standard Platform", "Standard Platform");
 
-	platform->setSize(new Vec2(70, 7));
+	platform->setSize(new Vec2(100.0f, 100.0f));
 	platform->setPosition(new Vec2(0, 0));
 
 	return platform;
@@ -59,7 +59,7 @@ GameObject* ObjectFactory::createLadder()
 	ladder = new GameObject(ladder_spr, "Ladder", "Climbable");
 
 	ladder->setPosition(new Vec2(0, 0));
-	ladder->setSize(new Vec2(30, 150));
+	ladder->setSize(new Vec2(500.0f, 1000.0f));
 	ladder->setSolid(false);
 
 	return ladder;
@@ -78,7 +78,7 @@ GameObject* ObjectFactory::createCollectable()
 	collectible = new GameObject(collectible_spr, "Collectible", "Collectible");
 
 	collectible->setPosition(new Vec2(0, 0));
-	collectible->setSize(new Vec2(10, 10));
+	collectible->setSize(new Vec2(100.0f, 100.0f));
 
 	return collectible;
 }
