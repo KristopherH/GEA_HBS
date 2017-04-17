@@ -1,4 +1,4 @@
-PlayerPos: (-78.5213 -262.775)
+PlayerPos: (-213.67 -864.991)
 Objects: (15)
 0:
 Type: (Platform)
@@ -67,14 +67,14 @@ PlatformType: (StandardPlatform)
 8:
 Type: (Enemy)
 Name: (Enemy1)
-Position: (110.643 171.459)
+Position: (168.465 253.565)
 Size: (100 100)
 Rotation: (0)
 (END)
 9:
 Type: (Ladder)
 Name: (Ladder1)
-Position: (105 -110)
+Position: (91 -744)
 Size: (100 550)
 Rotation: (0)
 (END)
@@ -117,6 +117,7 @@ Rotation: (0)
 (END)
 (END)
 (END)
+
 1:
         Type: (Ladder)
         Name: (Ladder2)

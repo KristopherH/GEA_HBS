@@ -7,6 +7,7 @@
 #include "Collision_Manager.h"
 #include "Button.h"
 #include <string>
+#include "Object_Factory.h"
 
 LevelEditorScene::LevelEditorScene()
 {
@@ -89,7 +90,7 @@ LevelEditorScene::LevelEditorScene()
 		ofn.lpstrFilter = "Text Files\0*.txt\0Any File\0*.*\0";
 		ofn.lpstrFile = filename;
 		ofn.nMaxFile = MAX_PATH;
-		ofn.lpstrTitle = "Select a File, yo!";
+		ofn.lpstrTitle = "Save File";
 		ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
 
 		if (GetOpenFileNameA(&ofn))
@@ -141,32 +142,22 @@ LevelEditorScene::LevelEditorScene()
 		ofn.lpstrFilter = "Text Files\0*.txt\0Any File\0*.*\0";
 		ofn.lpstrFile = filename;
 		ofn.nMaxFile = MAX_PATH;
-		ofn.lpstrTitle = "Select a File, yo!";
+		ofn.lpstrTitle = "Load FIle";
 		ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
 
 		if (GetOpenFileNameA(&ofn))
 		{
 			for (auto go : go_list)
 			{
-				delete go;
+				if (go->getTag() != "Camera"
+					&& go->getTag() != "Player")
+				{
+					delete go;
+				}
 			}
 			go_list.clear();
 
-			std::vector<Sprite*> BGs;
-			BGs.push_back(new Sprite("11_background", GameData::renderer));
-			BGs.push_back(new Sprite("10_distant_clouds", GameData::renderer));
-			BGs.push_back(new Sprite("09_distant_clouds1", GameData::renderer));
-			BGs.push_back(new Sprite("08_clouds", GameData::renderer));
-			BGs.push_back(new Sprite("07_huge_clouds", GameData::renderer));
-			BGs.push_back(new Sprite("06_hill2", GameData::renderer));
-			BGs.push_back(new Sprite("05_hill1", GameData::renderer));
-			BGs.push_back(new Sprite("04_bushes", GameData::renderer));
-			BGs.push_back(new Sprite("03_distant_trees", GameData::renderer));
-			BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
-			BGs.push_back(new Sprite("01_ground", GameData::renderer));
-
-			Background* bg = new Background(BGs, cam);
-			go_list.push_back(bg);
+			go_list.push_back(ObjectFactory::createBackground());
 
 			Sprite* sprite1 = new Sprite("player_sprite", GameData::renderer);
 			player = new Player(sprite1, "Player", "Player");
@@ -192,9 +183,10 @@ LevelEditorScene::LevelEditorScene()
 			}
 			delete level1;
 
-			cam->setPlayerTracker(player);
+			GameData::currentCamera->setPlayerTracker(player);
 
 			go_list.push_back(player);
+			go_list.push_back(cam);
 		}
 		else
 		{
@@ -241,7 +233,7 @@ LevelEditorScene::~LevelEditorScene()
 void LevelEditorScene::Update(float dt)
 {
 	Scene::Update(dt);
-  selectObject();
+	selectObject();
 	moveObject();
 	for (auto element : ui_elements)
 	{

@@ -5,14 +5,11 @@ class GameObject;
 class ObjectFactory
 {
 public:
-	ObjectFactory() = default;
-	~ObjectFactory() = default;
-
-	GameObject* createPlayer();
-	GameObject* createEnemy();
-	GameObject* createPlatform();
-	GameObject* createLadder();
-	GameObject* createCollectable();
-	GameObject* createBackground();
+	static GameObject* createPlayer();
+	static GameObject* createEnemy();
+	static GameObject* createPlatform();
+	static GameObject* createLadder();
+	static GameObject* createCollectable();
+	static GameObject* createBackground();
 
 };
