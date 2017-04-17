@@ -264,6 +264,7 @@ void LevelEditorScene::selectObject()
 	{
 		if (!obj_selected)
 		{
+			GameData::inputManager->update();
 			for (auto go : *GameData::go_list)
 			{
 				if (GameData::collsion_manager->mouseCollision(go->getBox()))
