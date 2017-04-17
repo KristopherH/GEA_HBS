@@ -4,6 +4,7 @@
 #include "LevelLoader.h"
 #include "Player.h"
 #include "Background.h"
+#include "Collision_Manager.h"
 #include "Button.h"
 #include <string>
 
@@ -67,6 +68,8 @@ LevelEditorScene::LevelEditorScene()
 void LevelEditorScene::Update(float dt)
 {
 	Scene::Update(dt);
+	selectObject();
+	moveObject();
 	if (GameData::inputManager->getKeyHeld(Inputs::DOWN))
 	{
 		char filename[MAX_PATH];
@@ -121,4 +124,37 @@ void LevelEditorScene::Update(float dt)
 void LevelEditorScene::Draw()
 {
 	Scene::Draw();
+}
+
+void LevelEditorScene::selectObject()
+{
+	if (GameData::inputManager->getMouseLeft())
+	{
+		if (!obj_selected)
+		{
+			for (auto go : *GameData::go_list)
+			{
+				if (GameData::collsion_manager->mouseCollision(go->getBox()))
+				{
+					obj_selected = go;
+					break;
+				}
+			}
+		}
+	}
+	else if(obj_selected)
+	{
+		obj_selected = nullptr;
+	}
+}
+
+
+
+void LevelEditorScene::moveObject()
+{
+	if (obj_selected)
+	{
+		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_x_translation,
+								   -GameData::inputManager->mouse_y_translation));
+	}
 }

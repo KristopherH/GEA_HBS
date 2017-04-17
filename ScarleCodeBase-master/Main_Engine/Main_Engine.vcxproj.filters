@@ -52,6 +52,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Object_Factory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -107,6 +108,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Object_Factory.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

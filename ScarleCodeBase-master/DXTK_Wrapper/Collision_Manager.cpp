@@ -111,6 +111,40 @@ bool CollisionManager::boxCollision(Rect a, Rect b)
 }
 
 
+
+bool CollisionManager::mouseCollision(std::string name)
+{
+	int obj_location = GameData::game_controller->getGameObjectLocation(name);
+
+	if (obj_location == -1)
+	{
+		OutputDebugString("One or both of the game objects searched for do not exist\n");
+		return false;
+	}
+
+	GameObject* obj = GameData::go_list->at(obj_location);
+
+	if (obj->getBox().Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y)))
+		return true;
+
+	return false;
+}
+
+
+
+bool CollisionManager::mouseCollision(Rect box)
+{
+	float mouse_world_x = (float)GameData::inputManager->mouse_x - ((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x/2));
+	float mouse_world_y = (float)GameData::inputManager->mouse_y - ((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y/2));
+
+	if (box.Contains(Vec2(mouse_world_x, mouse_world_y)))
+		return true;
+
+	return false;
+}
+
+
+
 bool CollisionManager::circleCollision(std::string a, std::string b)
 {
 	return false;

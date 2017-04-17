@@ -18,6 +18,8 @@ public:
 
 	bool boxCollision(std::string a_name, std::string b_name);
 	bool boxCollision(Rect a, Rect b);
+	bool mouseCollision(std::string name);
+	bool mouseCollision(Rect box);
 	bool circleCollision(std::string a_name, std::string b_name);
 	bool bitMapCollision(std::string a_name, std::string b_name);
 	Direction getCollisionDirection();

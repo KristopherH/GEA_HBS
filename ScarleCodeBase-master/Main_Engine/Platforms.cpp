@@ -5,6 +5,9 @@
 
 //OURS
 
+
+std::map<std::string, Texture*> Platforms::platform_sprites;
+
 Platforms::Platforms(Renderer* _renderer)
 {
 	platform_sprites["Standard"] = new Texture("StandardPlatform", _renderer);

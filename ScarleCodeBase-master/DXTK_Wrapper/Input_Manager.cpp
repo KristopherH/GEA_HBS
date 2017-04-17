@@ -20,6 +20,8 @@ DIMOUSESTATE InputManager::mouse_state;
 
 int InputManager::mouse_x = 0;
 int InputManager::mouse_y = 0;
+int InputManager::mouse_x_translation = 0;
+int InputManager::mouse_y_translation = 0;
 
 #ifdef ARCADE
 Input Inputs::UP = DIK_R;
@@ -293,17 +295,42 @@ void InputManager::update()
 	GetPhysicalCursorPos(&mouse_pos);
 	ScreenToClient(window, &mouse_pos); // This function doeas hat you were trying to do and excludes the borders
 
-	mouse_x = mouse_pos.x /*- GameData::screen.min.x*/;
-	mouse_y = mouse_pos.y /*- GameData::screen.min.y*/;
+	mouse_x_translation = mouse_x - mouse_pos.x;
+	mouse_y_translation = mouse_y - mouse_pos.y;
 
-	if (mouse_x < 0) mouse_x = 0;
-	if (mouse_y < 0) mouse_y = 0;
-	if (mouse_x > (int)(/*GameData::screen.min.x + */GameData::screen.max.x)) mouse_x = (int)/*GameData::screen.min.x +*/ GameData::screen.max.x;
-	if (mouse_y > (int)(/*GameData::screen.min.y + */GameData::screen.max.y)) mouse_y = (int)/*GameData::screen.min.y +*/ GameData::screen.max.y;
+	mouse_x = mouse_pos.x;
+	mouse_y = mouse_pos.y;
 
+	if (mouse_x < 0)
+	{
+		mouse_x = 0;
+		mouse_x_translation = 0;
+	}
+
+	if (mouse_y < 0)
+	{
+		mouse_y = 0;
+		mouse_y_translation = 0;
+	}
+
+	if (mouse_x > (int)(GameData::screen.max.x))
+	{
+		mouse_x = (int)GameData::screen.max.x;
+		mouse_x_translation = 0;
+	}
+
+	if (mouse_y > (int)(GameData::screen.max.y))
+	{
+		mouse_y = (int)GameData::screen.max.y;
+		mouse_y_translation = 0;
+	}
+
+	
 	#ifdef DEBUG
 	std::cout << "Mouse X: " << mouse_x << std::endl;
 	std::cout << "Mouse Y: " << mouse_y << std::endl;
+	std::cout << "Mouse X Change: " << mouse_x_translation << std::endl;
+	std::cout << "Mouse Y Change: " << mouse_y_translation << std::endl;
 	#endif
 	#pragma endregion
 }
