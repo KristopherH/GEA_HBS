@@ -88,10 +88,10 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		_hInstance,
 		NULL);
 
-	GameData::screen_width = window_width;
-	GameData::screen_height = window_height;
-	GameData::screen_pos_x = 0;
-	GameData::screen_pos_y = 0;
+	GameData::screen.max.x = (float)window_width;
+	GameData::screen.max.y = (float)window_height;
+	GameData::screen.min.x = (float)0;
+	GameData::screen.min.y = (float)0;
 #endif
 
 	if (!m_hWnd)
