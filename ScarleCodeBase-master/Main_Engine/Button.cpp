@@ -10,9 +10,9 @@ Button::Button(Sprite* sprite, std::string _name, std::string _tag)
 
 }
 
-bool Button::Update()
+bool Button::Update(float dt)
 {
-	GameObject::Update();
+	GameObject::Update(dt);
 	sprite->setPosition(position - Vec2(GameData::currentCamera->getCameraSize().x /2,
 										GameData::currentCamera->getCameraSize().y / 2));
 	if (box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y)))

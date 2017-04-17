@@ -29,7 +29,6 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold[Inputs::RIGHT] = std::bind(&Player::OnMove, this, Vec2(speed, 0.0f));
 	KeyBindsHold[Inputs::UP] = std::bind(&Player::OnMove, this, Vec2(0.0f, -speed));
 	KeyBindsHold[Inputs::DOWN] = std::bind(&Player::OnMove, this, Vec2(0.0f, speed));
-	
 }
 
 Player::~Player()
@@ -37,7 +36,7 @@ Player::~Player()
 
 }
 
-bool Player::Update()
+bool Player::Update(float dt)
 {
 	jumping = false;
 	if (grounded)
@@ -85,7 +84,7 @@ bool Player::Update()
 		stoppedJumping = true;
 		gravity_on = true;
 	}
-	GameObject::Update();
+	GameObject::Update(dt);
 	climb();
 	return false;
 }

@@ -28,7 +28,7 @@ BaseCamera::~BaseCamera()
 {
 }
 
-bool BaseCamera::Update()
+bool BaseCamera::Update(float dt)
 {
 	if (player)
 	{

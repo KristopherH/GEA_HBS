@@ -49,7 +49,7 @@ Enemy::~Enemy()
 {
 }
 
-bool Enemy::Update()
+bool Enemy::Update(float dt)
 {
 	if (GameData::collsion_manager->boxCollision(name, "Player"))
 	{
@@ -62,7 +62,7 @@ bool Enemy::Update()
 		acceleration.x = 0; acceleration.y = 0;
 		Vec2 movement((((*current_waypoint) - position)));
 		movement.Normalize();
-		acceleration +=  movement /* * dt*/ * 0.1f;
+		acceleration +=  movement * 0.1f;
 		acceleration.Limit(max_speed);
 		if (Vec2::DistanceSqrd(position, (*current_waypoint)) < 10.0f)
 		{
@@ -74,7 +74,7 @@ bool Enemy::Update()
 			}
 		}
 	}
-	GameObject::Update();
+	GameObject::Update(dt);
 	return false;
 }
 

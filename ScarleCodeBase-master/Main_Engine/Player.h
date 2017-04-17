@@ -18,7 +18,7 @@ public:
 	Player(Sprite* _sprite, std::string _name, std::string _tag);
 	~Player();
 
-	bool Update() override;
+	bool Update(float dt) override;
 
 	void ProcessInput();
 

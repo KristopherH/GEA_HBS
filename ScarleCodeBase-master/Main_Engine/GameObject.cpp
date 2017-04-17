@@ -44,7 +44,7 @@ bool GameObject::getSolid()
 	return solid;
 }
 
-bool GameObject::Update()
+bool GameObject::Update(float dt)
 {
 	if (this->getSprite())
 	{
@@ -63,7 +63,7 @@ bool GameObject::Update()
 	acceleration.y *= 0.99f;
 	acceleration.x *= 0.95f;
 	velocity *= 0.9f;
-	position += velocity;
+	position += velocity * dt * speed;
 
 	return false;
 }

@@ -22,7 +22,7 @@ public:
 	~GameObject();
 
 	//Updates
-	virtual bool Update();
+	virtual bool Update(float dt);
 	virtual bool Draw();
 	void gravityUpdate();
 	void movePosition(Vec2* _translation);
@@ -69,6 +69,7 @@ protected:
 	Vec2 acceleration;
 	Vec2 velocity;
 	Vec2 drag;
+	float speed = 400;
 	float max_speed = 1.0f;
 	bool grounded = false;
 	bool gravity_on = false;

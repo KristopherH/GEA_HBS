@@ -29,8 +29,6 @@
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 				CollisionManager* _collision_manager, GameController* _game_controller)
 {
-	GameState::GS_MAIN_MENU;
-
 	GameData::inputManager = _inputManager;
 	if (!GameData::inputManager->init())
 	{
@@ -40,7 +38,6 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 
 	GameData::collsion_manager = _collision_manager;
 	GameData::game_controller = _game_controller;
-	createPlatform = std::make_unique<Platforms>(_renderer);
 
 	GameData::scene_manager = new SceneManager();
 	GameData::scene_manager->addScene("MainMenu", new MainMenuScene());
@@ -67,8 +64,11 @@ Engine::~Engine()
 }
 
 bool Engine::Update()
-{	
-	GameData::scene_manager->getCurrentScene()->Update(0.0001f);
+{
+	std::chrono::duration<float> elapsed_seconds = std::chrono::system_clock::now() - start;
+	start = std::chrono::system_clock::now();
+
+	GameData::scene_manager->getCurrentScene()->Update(elapsed_seconds.count());
 
 	return true;
 }

@@ -22,7 +22,7 @@ public:
 	Sprite(std::string _fileName, Renderer* _renderer);
 	virtual ~Sprite();
 
-	Texture* GetTexture() { return texture; } //his needs to be removed
+	Texture* GetTexture() { return texture; }
 	Vec4 getColour() { return colour; }
 	Vec2 getOrigin() { return origin; }
 	Vec2 getSize();

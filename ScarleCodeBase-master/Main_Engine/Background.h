@@ -17,7 +17,7 @@ public:
 	//Background(std::vector<AnimatedSprite*> _sprites);
 	~Background();
 
-	virtual bool Update() override;
+	virtual bool Update(float dt) override;
 	virtual bool Draw() override;
 
 protected:

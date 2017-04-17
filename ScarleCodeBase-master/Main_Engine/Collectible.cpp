@@ -35,7 +35,7 @@ Collectible::~Collectible()
 {
 }
 
-bool Collectible::Update()
+bool Collectible::Update(float dt)
 {
 	if (GameData::collsion_manager->boxCollision(name, "Player"))
 	{

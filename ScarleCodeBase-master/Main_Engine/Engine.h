@@ -4,6 +4,8 @@
 #include <memory>
 #include <list>
 #include <map>
+#include <chrono>
+
 //DXTK
 
 //OURS
@@ -29,22 +31,11 @@ public:
 
 	bool Update();
 	bool Draw(); // will pass an object at the renderer and ask to draw it
-	void clearGameObjectList();
-	GameObject* createLadder(float x, float y, float sizeX, float sizeY, bool solid, string name);
-	GameObject* createCollectible(float x, float y, float sizeX, float sizeY);
 	void moveCamera(Vec2* _translation);
-	void playGame();
-	float m_dt;
-
-private:
-	Sprite* spd_plat;
-	GameObject* platform2;
-	std::unique_ptr<Platforms> createPlatform;
-	std::unique_ptr<Text> createText;
 
 protected: 
 	BaseCamera* mainCamera = nullptr;
 	BaseCamera* cam;
-	string playerLives;
-	int lives;
+
+	std::chrono::time_point<std::chrono::system_clock> start;
 };

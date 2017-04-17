@@ -16,7 +16,7 @@ public:
 	BaseCamera(float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up = Vec3::Up, Vec3 _target = Vec3::Zero);
 	~BaseCamera();
 
-	virtual bool Update();
+	virtual bool Update(float dt) override;
 
 	virtual bool Draw();
 

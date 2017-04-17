@@ -30,7 +30,7 @@ void Scene::Update(float dt)
 		if (go->getAlive())
 		{
 			go->gravityUpdate();
-			go->Update();
+			go->Update(dt);
 		}
 	}
 }

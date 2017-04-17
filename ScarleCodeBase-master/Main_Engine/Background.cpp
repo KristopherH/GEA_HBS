@@ -53,7 +53,7 @@ Background::~Background()
 {
 }
 
-bool Background::Update()
+bool Background::Update(float dt)
 {
 	if (parallax)
 	{

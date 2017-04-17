@@ -18,7 +18,7 @@ public:
 	Enemy(Vec2* _pos, Vec2* _size, float _rotation, std::string _name, std::vector<Vec2> _waypoints);
 	~Enemy();
 
-	bool Update() override;
+	bool Update(float dt) override;
 
 private:
 	Player* player;

@@ -11,7 +11,7 @@ class Button : public GameObject
 public:
 	Button(Sprite* sprite, std::string _name, std::string _tag);
 
-	virtual bool Update() override;
+	virtual bool Update(float dt) override;
 	virtual bool Draw() override;
 
 	void setCallbackFunction(std::function<void()>);
