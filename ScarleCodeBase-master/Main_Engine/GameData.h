@@ -35,5 +35,5 @@ struct GameData
 	static BaseCamera* currentCamera;
 
 	static Rect screen;
- 
+
 };

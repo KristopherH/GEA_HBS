@@ -24,8 +24,7 @@ class Player;
 class Engine
 {
 public:
-	Engine(Renderer* _renderer, InputManager* _inputManager, 
-			CollisionManager* _collision_manager, GameController* _game_controller);
+	Engine(Renderer* _renderer, InputManager* _inputManager);
 
 	~Engine();
 

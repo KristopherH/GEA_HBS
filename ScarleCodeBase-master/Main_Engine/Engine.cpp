@@ -9,8 +9,7 @@
 //Wrapper
 #include "..\DXTK_Wrapper\Input_Manager.h"
 #include "..\DXTK_Wrapper\DXTKRenderer.h"
-#include "..\DXTK_Wrapper\Sprite.h"
-#include "..\DXTK_Wrapper\Text.h"
+#include "Sprite.h"
 
 //OURS
 #include "GameObject.h"
@@ -21,13 +20,13 @@
 #include "LevelLoader.h"
 #include "Game_Controller.h"
 #include "Background.h"
+#include "Collision_Manager.h"
 
 #include "Scene.h"
 #include "MainMenu.h"
 
 
-Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
-				CollisionManager* _collision_manager, GameController* _game_controller)
+Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 {
 	GameData::inputManager = _inputManager;
 	if (!GameData::inputManager->init())
@@ -36,8 +35,8 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager,
 	}
 	GameData::renderer = _renderer;
 
-	GameData::collsion_manager = _collision_manager;
-	GameData::game_controller = _game_controller;
+	GameData::collsion_manager = new CollisionManager();;
+	GameData::game_controller = new GameController();
 
 	GameData::scene_manager = new SceneManager();
 	GameData::scene_manager->addScene("MainMenu", new MainMenuScene());

@@ -18,7 +18,7 @@
 #include "Application.h"
 #include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "../DXTK_Wrapper/Input_Manager.h"
-#include "../DXTK_Wrapper/Collision_Manager.h"
+#include "Collision_Manager.h"
 #include "Game_Controller.h"
 #include "../Main_Engine/Engine.h"
 #include "../Main_Engine/GameData.h"
@@ -324,13 +324,13 @@ HRESULT Application::InitDevice()
 	InputManager* inputManager = new InputManager(m_hWnd, m_hInst);
 
 	//Create the collsiion_manager
-	CollisionManager* collision_manager = new CollisionManager();
+	//CollisionManager* collision_manager = new CollisionManager();
 
 	//Create the GameController
-	GameController* game_controller = new GameController();
+	//GameController* game_controller = new GameController();
 
 	//actually create the engine
-	engine = new Engine(renderer, inputManager, collision_manager, game_controller);
+	engine = new Engine(renderer, inputManager);
 
     return S_OK;
 }

@@ -8,8 +8,8 @@
 #include "GameObject.h"
 #include "BaseCamera.h"
 #include "Helper.h"
+#include "Sprite.h"
 #include "../DXTK_Wrapper/Texture.h"
-#include "../DXTK_Wrapper/Sprite.h"
 
 Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	:pd3dDevice(_pd3dDevice), hWnd(_hWnd)

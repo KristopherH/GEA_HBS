@@ -4,10 +4,11 @@
 //DXTK
 
 //OURS
+//ifdef Arcade or Normal Debug
 #include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "../DXTK_Wrapper/Input_Manager.h"
-#include "../DXTK_Wrapper/Collision_Manager.h"
 #include "../Main_Engine/Game_Controller.h"
+#include "Collision_Manager.h"
 #include "SceneManager.h"
 #include "BaseCamera.h"
 

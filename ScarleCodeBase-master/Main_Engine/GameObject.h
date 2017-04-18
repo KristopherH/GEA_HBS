@@ -6,7 +6,7 @@
 
 //OURS
 #include "CustomMath.h"
-#include "../DXTK_Wrapper/Sprite.h"
+#include "Sprite.h"
 #include "Enum_container.h"
 
 class InputManager;
