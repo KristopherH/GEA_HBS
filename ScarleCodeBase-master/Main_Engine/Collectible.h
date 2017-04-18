@@ -1,12 +1,17 @@
 #pragma once
-#include "GameObjectV2.h"
+//C++
 
-class Collectible : public GameObjectV2
+//DXTK
+
+//OURS
+#include "GameObject.h"
+
+class Collectible : public GameObject
 {
 public:
 	Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name);
 	Collectible(Sprite* _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::string _name);
 	~Collectible();
 
-	bool Update() override;
+	bool Update(float dt) override;
 };

@@ -111,6 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Inc;..\Main_Engine</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);_DEBUG;DEBUG</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Arcade|Win32'">
@@ -163,22 +164,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Collision_Manager.h" />
     <ClInclude Include="CustomMath.h" />
     <ClInclude Include="DXTKRenderer.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Input_Manager.h" />
-    <ClInclude Include="Object_Manager.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Text.h" />
+    <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Collision_Manager.cpp" />
     <ClCompile Include="CustomMath.cpp" />
     <ClCompile Include="DXTKRenderer.cpp" />
     <ClCompile Include="Input_Manager.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Text.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

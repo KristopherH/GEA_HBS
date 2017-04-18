@@ -1,4 +1,10 @@
 #include "CustomMath.h"
+//C++
+
+//DXTK
+
+//OURS
+
 
 //-----------------------
 //-----Vec2
@@ -9,9 +15,9 @@ Vec2::Vec2(float _x, float _y)
 {
 }
 
-DirectX::SimpleMath::Vector2 Vec2::operator=(Vec2)
+DirectX::SimpleMath::Vector2 Vec2::operator=(Vec2 _vec)
 {
-	return DirectX::SimpleMath::Vector2();
+	return DirectX::SimpleMath::Vector2(_vec.x, _vec.y);
 }
 
 Vec2 Vec2::operator=(DirectX::SimpleMath::Vector2 _vec)
@@ -19,7 +25,7 @@ Vec2 Vec2::operator=(DirectX::SimpleMath::Vector2 _vec)
 	return Vec2(_vec.x, _vec.y);
 }
 
-Vec2 & Vec2::operator*=(const float & other)
+Vec2 Vec2::operator*=(const float & other)
 {
 	x *= other;
 	y *= other;
@@ -220,10 +226,10 @@ Vec4 Vec4::operator=(DirectX::SimpleMath::Vector4 oth)
 	return Vec4(oth.x, oth.y, oth.z, oth.w);
 }
 
-Vec4::operator DirectX::SimpleMath::Vector4()
-{
-	return Vec4(0.0f, 0.0f, 0.0f, 0.0f);
-}
+//Vec4::operator DirectX::SimpleMath::Vector4()
+//{
+//	return Vec4(0.0f, 0.0f, 0.0f, 0.0f);
+//}
 
 #pragma endregion
 
@@ -234,18 +240,32 @@ Vec4::operator DirectX::SimpleMath::Vector4()
 
 Rect::Rect(Vec2 V1, Vec2 V2) 
 {
-	min = V1;
-	max = V2;
+	min.x = V1.x;  min.y = V1.y;
+	max.x = V2.x;  max.y = V2.y;
+}
+
+Rect operator+(const Rect& original, const Vec2 displacement)
+{
+	Vec2 a = original.min + displacement;
+	Vec2 b = original.max + displacement;
+	return Rect(a,b);
 }
 
 bool Rect::Contains(Vec2 oth)
 {
+	if (oth.x < max.x &&
+		oth.x > min.x &&
+		oth.y < max.y &&
+		oth.y > min.y)
+	{
+		return true;
+	}
 	return false;
 }
 
 Vec2 Rect::Center()
 {
-	return Vec2();
+	return Vec2(min.x + (max.x/2), min.y + (max.y / 2));
 }
 
 #pragma endregion

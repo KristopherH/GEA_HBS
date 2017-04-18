@@ -1,5 +1,10 @@
 #pragma once
+//C++
 #include <string>
+
+//DXTK
+
+//OURS
 
 //=================================================================
 //helper function to convert to odd char type used by Microsoft stuff

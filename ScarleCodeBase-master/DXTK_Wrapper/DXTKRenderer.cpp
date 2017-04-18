@@ -1,7 +1,15 @@
 #include "DXTKRenderer.h"
-#include "GameObjectV2.h"
-#include "Helper.h"
+//C++
 
+//DXTK
+#include <CommonStates.h>
+
+//OURS
+#include "GameObject.h"
+#include "BaseCamera.h"
+#include "Helper.h"
+#include "Sprite.h"
+#include "../DXTK_Wrapper/Texture.h"
 
 Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	:pd3dDevice(_pd3dDevice), hWnd(_hWnd)
@@ -45,26 +53,22 @@ bool Renderer::BeginDraw(OurMatrix* transformMatrix)
 bool Renderer::BeginDraw(BaseCamera * mainCamera)
 {
 	DirectX::SimpleMath::Matrix transMat = OurMatrix::toDXTK(mainCamera->GetTransMat());
-	spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, nullptr, nullptr, nullptr, nullptr, nullptr, transMat);
+	DirectX::CommonStates states(pd3dDevice);
+	spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, states.NonPremultiplied(), nullptr, nullptr, nullptr, nullptr, transMat);
 	return false;
 }
 
-bool Renderer::Draw(GameObjectV2 * _go)
+bool Renderer::Draw(Sprite* _sprite)
 {
-	if (_go->GetSprite() != nullptr)
-	{
-		spriteBatch->Draw(_go->GetSprite()->GetTexture(),
-			_go->GetPosition(),
-			nullptr,
-			/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
-			_go->GetRotation(),
-			_go->GetSprite()->GetOrigin(),
-			_go->GetScale(),
-			SpriteEffects_None);
-		return true;
-	}
-	
-	return false;
+	spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
+		_sprite->getPosition(),
+		nullptr,
+		/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+		_sprite->getRotation(),
+		_sprite->getOrigin(),
+		_sprite->getScale(),
+		SpriteEffects_None);
+	return true;
 }
 
 bool Renderer::EndDraw()
@@ -93,14 +97,14 @@ float Renderer::getWindowWidth()
 {
 	RECT rc;
 	GetClientRect(hWnd, &rc);
-	return rc.right - rc.left;
+	return (float)(rc.right - rc.left);
 }
 
 float Renderer::getWindowHeight()
 {
 	RECT rc;
 	GetClientRect(hWnd, &rc);
-	return rc.bottom - rc.top;
+	return (float)(rc.bottom - rc.top);
 }
 
 //void Renderer::DrawString(wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const

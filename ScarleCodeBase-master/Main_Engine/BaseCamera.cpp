@@ -1,5 +1,10 @@
 #include "BaseCamera.h"
-#include "PlayerV2.h"
+//C++
+
+//DXTK
+
+//OURS
+#include "Player.h"
 
 BaseCamera::BaseCamera(float _width, float _height, float _nearPlane, float _farPlane, Vec3 _up, Vec3 _target)
 {
@@ -7,7 +12,7 @@ BaseCamera::BaseCamera(float _width, float _height, float _nearPlane, float _far
 	height = _height;
 	nearPlane = _nearPlane;
 	farPlane = _farPlane;
-	position = Vec2(10.0f, 10.0f);
+	position = Vec2(0.0f, 0.0f);
 	m_target = _target;
 	m_up = _up;
 
@@ -23,11 +28,14 @@ BaseCamera::~BaseCamera()
 {
 }
 
-bool BaseCamera::Update()
+bool BaseCamera::Update(float dt)
 {
+	previousPosition.x = position.x;
+	previousPosition.y = position.y;
+
 	if (player)
 	{
-		SetPosition(new Vec2(-player->GetPosition().x, -player->GetPosition().y));
+		setPosition(new Vec2(-player->getPosition().x, -player->getPosition().y));
 		
 		//setPlayerBoxPosX(player->GetPosition().x + player_box_width);
 		//setPlayerBoxPosY(player->GetPosition().y + player_box_height);

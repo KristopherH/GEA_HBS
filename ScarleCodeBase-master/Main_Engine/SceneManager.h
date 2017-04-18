@@ -1,6 +1,35 @@
 #pragma once
+//C++
 #include <string>
-#include <atomic>
+#include <map>
+//DXTK
+
+//OURS
+
+
+class Scene;
+
+class SceneManager
+{
+public:
+	SceneManager();
+	~SceneManager();
+
+	void addScene(std::string sceneName, Scene* newScene);
+	void setCurrentScene(std::string sceneName, bool deleteCurrent = true);
+
+	Scene* getScene(std::string sceneName);
+	Scene* getCurrentScene();
+	std::string getCurrentSceneName();
+
+	void clearOldScenes();
+
+private:
+
+	std::map<std::string, Scene*> scenes;
+	std::string currentScene;
+};
+
 
 enum class GameState {
 
@@ -12,5 +41,4 @@ enum class GameState {
 	GS_EXIT
 };
 
-
-extern std::atomic<GameState> _GS;
+extern GameState _GS;
