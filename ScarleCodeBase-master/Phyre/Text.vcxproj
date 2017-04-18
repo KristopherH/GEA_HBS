@@ -389,12 +389,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\PhyreSamplesCommonScene.cpp" />
+    <ClCompile Include="Code\CustomMath.cpp" />
+    <ClCompile Include="Code\InputManager.cpp" />
+    <ClCompile Include="Code\LevelLoader.cpp" />
     <ClCompile Include="Code\Main.cpp" />
+    <ClCompile Include="Code\Renderer.cpp" />
+    <ClCompile Include="Code\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\PhyreSamplesCommon.h" />
     <ClInclude Include="..\Common\PhyreSamplesCommonScene.h" />
+    <ClInclude Include="Code\CustomMath.h" />
+    <ClInclude Include="Code\InputManager.h" />
+    <ClInclude Include="Code\LevelLoader.h" />
     <ClInclude Include="Code\Main.h" />
+    <ClInclude Include="Code\Renderer.h" />
+    <ClInclude Include="Code\Texture.h" />
   </ItemGroup>
   <Import Project="$(SCE_PHYRE)\Build\Props\PhyreApp.targets" />
 </Project>

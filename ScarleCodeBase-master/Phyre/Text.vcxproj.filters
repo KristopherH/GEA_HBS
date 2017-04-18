@@ -71,6 +71,21 @@
     <ClInclude Include="Code\Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Code\CustomMath.h">
+      <Filter>Header Files\Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\InputManager.h">
+      <Filter>Header Files\Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\LevelLoader.h">
+      <Filter>Header Files\Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Renderer.h">
+      <Filter>Header Files\Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Texture.h">
+      <Filter>Header Files\Wrapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\PhyreSamplesCommonScene.cpp">
@@ -78,6 +93,21 @@
     </ClCompile>
     <ClCompile Include="Code\Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\InputManager.cpp">
+      <Filter>Source Files\Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\CustomMath.cpp">
+      <Filter>Source Files\Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\LevelLoader.cpp">
+      <Filter>Source Files\Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Renderer.cpp">
+      <Filter>Source Files\Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Texture.cpp">
+      <Filter>Source Files\Wrapper</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
