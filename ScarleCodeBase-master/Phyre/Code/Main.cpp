@@ -312,7 +312,7 @@ PResult PTextSample::render()
 	PHYRE_TRY(m_renderer.endScene());
 
 	// Render sample gui.
-	PImGui::RenderGui(m_renderer, *this);
+	//PImGui::RenderGui(m_renderer, *this);
 
 	return PE_RESULT_NO_ERROR;
 }

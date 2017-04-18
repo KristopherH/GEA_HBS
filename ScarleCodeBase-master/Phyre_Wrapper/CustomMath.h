@@ -1,7 +1,8 @@
 #pragma once
 //C++
 
-//DXTK
+//Phyre
+#include <Phyre.h>
 
 //OURS
 
@@ -12,6 +13,8 @@ struct Vec2
 
 	//Creation and convertion
 	Vec2(float _x = 0.0f, float _y = 0.0f);
+	Vectormath::Aos::Vector3 operator=(Vec3);
+	Vec3 operator=(Vectormath::Aos::Vector3);
 	//DirectX::SimpleMath::Vector2 operator=(Vec2);
 	//Vec2 operator=(DirectX::SimpleMath::Vector2);
 	//operator DirectX::SimpleMath::Vector2() const { return  DirectX::SimpleMath::Vector2(x, y); }

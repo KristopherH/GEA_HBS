@@ -1,14 +1,13 @@
 #include "Renderer.h"
 //C++
 
-//DXTK
-#include <CommonStates.h>
+//Phyre
 
 //OURS
 #include "GameObject.h"
 #include "BaseCamera.h"
-#include "Helper.h"
-#include "Sprite.h"
+
+
 #include "Texture.h"
 
 Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)

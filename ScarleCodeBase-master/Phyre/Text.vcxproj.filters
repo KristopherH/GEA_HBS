@@ -31,6 +31,12 @@
     <Filter Include="Android">
       <UniqueIdentifier>{2f0274e4-d847-4818-9d2b-f97fafc45d31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Wrapper">
+      <UniqueIdentifier>{045229d4-b6f2-4515-a006-7815943e8273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Wrapper">
+      <UniqueIdentifier>{7a8791fc-b27f-4fad-af89-417922069ab4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme_e.txt" />
