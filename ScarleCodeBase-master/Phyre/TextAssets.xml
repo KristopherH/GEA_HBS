@@ -3,5 +3,7 @@
     <asset source="%SCE_PHYRE%/Media/Samples/banana.dae"/>
     <asset source="%SCE_PHYRE%/Media/Shaders/PhyreText.cgfx"/>
     <asset source="%SCE_PHYRE%/Media/Samples/tuffy.fgen"/>
+    <asset source="%SCE_PHYRE%/Media/Shaders/PhyreSprite.cgfx"/>
+    <asset source="%SCE_PHYRE%/Media/Samples/Sprite/sprite.agx"/>
   </node>
 </assets>

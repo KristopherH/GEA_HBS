@@ -6,7 +6,7 @@
 //DXTK
 
 //OURS
-#include "GameObject.h"
+#include "../Main_Engine/GameObject.h"
 #include "CustomMath.h"
 
 struct Level
