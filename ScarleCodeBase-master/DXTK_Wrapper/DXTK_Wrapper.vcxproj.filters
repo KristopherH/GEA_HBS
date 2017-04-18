@@ -15,13 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Input_Manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CustomMath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DXTKRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Helper.h">
@@ -33,21 +27,27 @@
     <ClInclude Include="LevelLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Input_Manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CustomMath.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DXTKRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LevelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

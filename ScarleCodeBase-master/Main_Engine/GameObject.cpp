@@ -6,7 +6,7 @@
 //OURS
 #include "GameData.h"
 #include "Collision_Manager.h"
-#include "DXTKRenderer.h"
+#include "Renderer.h"
 
 
 GameObject::GameObject(Sprite* _sprite, std::string _name, std::string _tag)

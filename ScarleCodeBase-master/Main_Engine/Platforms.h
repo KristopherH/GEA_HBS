@@ -6,7 +6,7 @@
 //DXTK
 
 //OURS
-#include "..\DXTK_Wrapper\DXTKRenderer.h"
+#include "..\DXTK_Wrapper\Renderer.h"
 #include "Sprite.h"
 #include "Player.h"
 #include "GameData.h"

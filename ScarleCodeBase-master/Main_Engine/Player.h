@@ -8,7 +8,7 @@
 //OURS
 #include "GameObject.h"
 #include "GameData.h"
-#include "Input_Manager.h"
+#include "InputManager.h"
 
 
 class Player : public GameObject

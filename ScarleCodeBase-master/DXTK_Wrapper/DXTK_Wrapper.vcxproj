@@ -165,16 +165,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CustomMath.h" />
-    <ClInclude Include="DXTKRenderer.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Helper.h" />
-    <ClInclude Include="Input_Manager.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CustomMath.cpp" />
-    <ClCompile Include="DXTKRenderer.cpp" />
-    <ClCompile Include="Input_Manager.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>

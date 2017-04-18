@@ -5,7 +5,7 @@
 //DXTK
 
 //OURS
-#include "Input_Manager.h"
+#include "InputManager.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 

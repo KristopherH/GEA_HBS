@@ -4,7 +4,7 @@
 //DXTK
 
 //OURS
-#include "DXTKRenderer.h"
+#include "Renderer.h"
 #include "Helper.h"
 
 Texture::Texture(std::string _fileName, Renderer * _renderer)

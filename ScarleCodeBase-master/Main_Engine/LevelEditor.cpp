@@ -1,6 +1,6 @@
 #include "LevelEditor.h"
 #include "GameData.h"
-#include "Input_Manager.h"
+#include "InputManager.h"
 #include "LevelLoader.h"
 #include "Player.h"
 #include "Background.h"

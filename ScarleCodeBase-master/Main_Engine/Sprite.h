@@ -5,7 +5,7 @@
 
 //OURS
 #include "..\DXTK_Wrapper\CustomMath.h"
-#include "..\DXTK_Wrapper\DXTKRenderer.h"
+#include "..\DXTK_Wrapper\Renderer.h"
 
 class Texture;
 class Renderer;

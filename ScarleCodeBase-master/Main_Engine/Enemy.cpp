@@ -7,7 +7,7 @@
 
 //OURS
 #include "GameData.h"
-#include "DXTKRenderer.h"
+#include "Renderer.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 

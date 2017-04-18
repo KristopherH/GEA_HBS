@@ -7,9 +7,14 @@
 #include <chrono>
 
 //DXTK
+#if defined _DXTK_
+#include "../DXTK_Wrapper/Renderer.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre_Wrapper/Renderer.h"
+#endif
 
 //OURS
-#include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "GameData.h"
 
 using std::list;

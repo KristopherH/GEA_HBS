@@ -1,7 +1,7 @@
 #include "Button.h"
 #include "GameData.h"
 #include "Collision_Manager.h"
-#include "Input_Manager.h"
+#include "InputManager.h"
 #include "BaseCamera.h"
 
 Button::Button(Sprite* sprite, std::string _name, std::string _tag)

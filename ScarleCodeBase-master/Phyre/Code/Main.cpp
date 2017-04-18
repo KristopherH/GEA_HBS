@@ -15,6 +15,7 @@ PhyreEngine(TM) Package 3.17.0.0
 #include "../Common/PhyreSamplesCommon.h"
 #include "../Common/PhyreSamplesCommonScene.h"
 #include "Main.h"
+#include "../Main_Engine/Engine.h"
 
 using namespace Phyre;
 using namespace PFramework;
@@ -42,6 +43,9 @@ PTextSample::PTextSample()
 	, m_bitmapFont(NULL)
 	, m_previousDistance(0.0f)
 {
+
+	Engine* engine = new Engine(nullptr, nullptr);
+
 	setWindowTitle("Text Sample");
 	setReadmeDirectory("./Samples/Text/");
 
@@ -63,6 +67,8 @@ PTextSample::PTextSample()
 // PE_RESULT_NO_ERROR - The scene initialization succeeded.
 PResult PTextSample::initScene()
 {
+
+	
 	// Set the current working directory to SCE_PHYRE.
 	PHYRE_TRY(PhyreOS::SetCurrentDirToPhyre());
 

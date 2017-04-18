@@ -7,8 +7,8 @@
 //DXTK
 
 //Wrapper
-#include "..\DXTK_Wrapper\Input_Manager.h"
-#include "..\DXTK_Wrapper\DXTKRenderer.h"
+#include "..\DXTK_Wrapper\InputManager.h"
+#include "..\DXTK_Wrapper\Renderer.h"
 #include "Sprite.h"
 
 //OURS

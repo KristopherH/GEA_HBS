@@ -35,7 +35,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>Application</ProjectName>
+    <ProjectName>DXTKApplication</ProjectName>
     <ProjectGuid>{06EDC280-1187-4614-A248-E640C095FA6B}</ProjectGuid>
     <RootNamespace>Tutorial01</RootNamespace>
     <Keyword>Win32Proj</Keyword>

@@ -299,6 +299,7 @@
     <ProjectGuid>{33FA10BE-0953-11E1-9CA8-89024824019B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Text</RootNamespace>
+    <ProjectName>PhyreApplication</ProjectName>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Platform)'=='Tegra-Android'">
     <AndroidMinAPI>android-10</AndroidMinAPI>
@@ -344,11 +345,13 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ProgramDataBaseFileName>$(IntDir)$(TargetFileName).pdb</ProgramDataBaseFileName>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='GLDebug|Win32'">%(PreprocessorDefinitions);_DEBUG;_PHYRE_</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='PSVita'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='GLDebug|PSVita'">%(PreprocessorDefinitions);_DEBUG;_PHYRE_</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='Android'">
@@ -374,6 +377,9 @@
     </ProjectReference>
     <ProjectReference Include="$(SCE_PHYRE)\DeveloperExtensions\PhyreDeveloperExtensions.vcxproj">
       <Project>{ec8c49f0-52a1-11e3-ba94-1eb46188709b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Main_Engine\Main_Engine.vcxproj">
+      <Project>{d465bf62-e8da-45cd-8abc-54d4b35b76a6}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
