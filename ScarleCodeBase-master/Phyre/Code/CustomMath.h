@@ -13,8 +13,8 @@ struct Vec2
 
 	//Creation and convertion
 	Vec2(float _x = 0.0f, float _y = 0.0f);
-	Vectormath::Aos::Vector3 operator=(Vec3);
-	Vec3 operator=(Vectormath::Aos::Vector3);
+	Vectormath::Aos::Vector2 operator=(Vec2);
+	Vec2 operator=(Vectormath::Aos::Vector2);
 	//DirectX::SimpleMath::Vector2 operator=(Vec2);
 	//Vec2 operator=(DirectX::SimpleMath::Vector2);
 	//operator DirectX::SimpleMath::Vector2() const { return  DirectX::SimpleMath::Vector2(x, y); }
@@ -62,6 +62,8 @@ struct Vec3
 
 	//Creation and convertion
 	Vec3(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f);
+	Vectormath::Aos::Vector3 operator=(Vec3);
+	Vec3 operator=(Vectormath::Aos::Vector3);
 	//DirectX::SimpleMath::Vector3 operator=(Vec3);
 	//Vec3 operator=(DirectX::SimpleMath::Vector3);
 	//operator DirectX::SimpleMath::Vector3();
@@ -100,6 +102,8 @@ struct Vec4
 	float w;
 
 	Vec4(float _x = 0.0f, float _y = 0.0f,float _z = 0.0f, float _w = 0.0f);
+	Vectormath::Aos::Vector4 operator=(Vec4);
+	Vec4 operator=(Vectormath::Aos::Vector4);
 	//DirectX::SimpleMath::Color operator=(Vec4);
 	//Vec4 operator=(DirectX::SimpleMath::Vector4);
 	//operator DirectX::SimpleMath::Vector4();
@@ -111,7 +115,7 @@ struct OurMatrix
 				float m10 = 0.0f, float m11 = 1.0f, float m12 = 0.0f, float m13 = 0.0f, 
 				float m20 = 0.0f, float m21 = 0.0f, float m22 = 1.0f, float m23 = 0.0f, 
 				float m30 = 0.0f, float m31 = 0.0f, float m32 = 0.0f, float m33 = 1.0f);
-	//OurMatrix(_In_reads_(16) const float *pArray);
+	OurMatrix(_In_reads_(16) const float *pArray);
 
 	union
 	{
@@ -131,8 +135,11 @@ struct OurMatrix
 	//static DirectX::SimpleMath::Matrix toDXTK(OurMatrix mat) { return DirectX::SimpleMath::Matrix(*mat.m); }
 	//static OurMatrix toOur(DirectX::SimpleMath::Matrix mat) { return OurMatrix(*mat.m); }
 
-	static OurMatrix CreatePerspectiveFieldOfView(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance, float _farPlaneDistance);
-	static OurMatrix CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane);
-	static OurMatrix CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up);
-	static OurMatrix CreateTrasform(Vec3 _pos, float _rot, float _zoom = 1.0f, float _viewportWidth = 0.0f, float _viewportHeight = 0.0f);
+	static Vectormath::Aos::Matrix4 toPHYRE(OurMatrix mat);
+	static OurMatrix toOur(Vectormath::Aos::Matrix4);
+
+	//static OurMatrix CreatePerspectiveFieldOfView(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance, float _farPlaneDistance);
+	//static OurMatrix CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane);
+	//static OurMatrix CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up);
+	//static OurMatrix CreateTrasform(Vec3 _pos, float _rot, float _zoom = 1.0f, float _viewportWidth = 0.0f, float _viewportHeight = 0.0f);
 };

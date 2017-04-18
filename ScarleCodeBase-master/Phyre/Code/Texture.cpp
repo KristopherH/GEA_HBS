@@ -5,41 +5,52 @@
 
 //OURS
 #include "Renderer.h"
-#include "Helper.h"
+
+using namespace Phyre;
+using namespace PRendering;
+using namespace PGeometry;
 
 Texture::Texture(std::string _fileName, Renderer * _renderer)
-	:m_pTextureRV(nullptr)
 {
-	std::string fullfilename =
-#if DEBUG
-		"../Debug/"
-#else
-		"../Release/"
-#endif
-		+ _fileName + ".dds";
-	HRESULT hr = CreateDDSTextureFromFile(_renderer->GetDevice(), Helper::charToWChar(fullfilename.c_str()), nullptr, &m_pTextureRV);
-
-	if (hr != S_OK)
+	PSharray<PAssetReference *> assetReferences;
+	PChar *file;
+	file = (Phyre::PChar*)_fileName.c_str();
+	PAssetReference::Find(assetReferences, NULL, file, &PHYRE_CLASS(PTexture2D));
+	PTexture2D *texture;
+	if (assetReferences.getCount() > 0)
 	{
-		OutputDebugString("Sprite File Not Found");
+		const PAssetReference *ar = assetReferences[0];
+		const PCluster *cluster;
+		cluster = ar->getCluster();
+		texture = (PTexture2D*)&ar->getAsset();
 	}
 
-	//Why don't you just call getSize in here?
-	//this nasty thing is required to find out the size of this image!
+	PSharray<PAssetReference *> assetReferences;
+	PChar *file;
+	file = "Shaders/PhyreSprite";
+	PAssetReference::Find(assetReferences, NULL, file, &PHYRE_CLASS(PMaterial));
+	PMaterial *material;
+	if (assetReferences.getCount() > 0)
+	{
+		const PAssetReference *ar = assetReferences[0];
+		const PCluster *cluster;
+		cluster = ar->getCluster();
+		material = (PMaterial*)&ar->getAsset();
+	}
+	
+	PMesh &mesh = PSprite::s_utilitySprite.createQuadMesh();
 
-	/*ID3D11Resource *pResource;
-	D3D11_TEXTURE2D_DESC Desc;
-	m_pTextureRV->GetResource(&pResource);
-	((ID3D11Texture2D *)pResource)->GetDesc(&Desc);*/
+	sprite = PHYRE_NEW PSprite::PSpriteCollection();
+
+	// Create a sprite collection with maximum of sprites.
+	// Use 2 buffers to allow CPU update while the GPU is rendering.
+	sprite->initialize(m_cluster, 1, *material, *texture, mesh, true);
+	sprite->setBufferCount(2);
 }
 
 Vec2 Texture::getSize()
 {
-	//this nasty thing is required to find out the size of this image!
-	ID3D11Resource *pResource;
-	D3D11_TEXTURE2D_DESC Desc;
-	m_pTextureRV->GetResource(&pResource);
-	((ID3D11Texture2D *)pResource)->GetDesc(&Desc);
-
-	return Vec2((float)Desc.Width, (float)Desc.Height);
+	Phyre::PUInt32 width, height;
+	sprite->getSpriteTextureSize(0, width, height);
+	return Vec2(width, height);
 }

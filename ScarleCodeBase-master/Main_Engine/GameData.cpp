@@ -1,13 +1,20 @@
 #include "GameData.h"
 //C++
 
+
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\InputManager.h"
+#include "..\DXTK_Wrapper\Renderer.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/InputManager.h"
+#include "../Phyre/Code/Renderer.h"
+#endif
+
 
 //OURS
-//ifdef Arcade or Normal Debug
-#include "../DXTK_Wrapper/Renderer.h"
-#include "../DXTK_Wrapper/InputManager.h"
-#include "../Main_Engine/Game_Controller.h"
+#include "Game_Controller.h"
 #include "Collision_Manager.h"
 #include "SceneManager.h"
 #include "BaseCamera.h"

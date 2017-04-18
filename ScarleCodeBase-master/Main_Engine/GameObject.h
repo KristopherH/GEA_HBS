@@ -3,9 +3,14 @@
 #include <vector>
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\CustomMath.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/CustomMath.h"
+#endif
 
 //OURS
-#include "CustomMath.h"
 #include "Sprite.h"
 #include "Enum_container.h"
 

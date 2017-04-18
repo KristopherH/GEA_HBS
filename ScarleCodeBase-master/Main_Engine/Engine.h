@@ -11,7 +11,7 @@
 #include "../DXTK_Wrapper/Renderer.h"
 #elif defined _PHYRE_
 //Phyre
-#include "../Phyre_Wrapper/Renderer.h"
+#include "../Phyre/Code/Renderer.h"
 #endif
 
 //OURS

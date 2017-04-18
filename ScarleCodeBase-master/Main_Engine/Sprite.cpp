@@ -2,9 +2,14 @@
 //C++
 
 //DXTK
-
-//OURS
-#include "Texture.h"
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\Renderer.h"
+#include "../DXTK_Wrapper/Texture.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/Texture.h"
+#include "../Phyre/Code/Renderer.h"
+#endif
 
 Sprite::Sprite(Texture* _texture) 
 	:texture(_texture)

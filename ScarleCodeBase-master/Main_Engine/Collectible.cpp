@@ -4,13 +4,19 @@
 #include <algorithm> // remove and remove_if
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\Renderer.h"
+#include "../DXTK_Wrapper/Texture.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/Texture.h"
+#include "../Phyre/Code/Renderer.h"
+#endif
 
 //OURS
 #include "GameData.h"
-#include "Renderer.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
-#include "Texture.h"
 
 Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {

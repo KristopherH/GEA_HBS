@@ -28,10 +28,7 @@ protected:
 	Phyre::PText::PBitmapTextMaterial			*m_textMaterial[c_totalTextStrings];	// The material used to render the text with.
 	Phyre::PText::PBitmapFontText				*m_text[c_totalTextStrings];			// The text object to be rendered.
 
-	Phyre::PCameraPerspective					m_camera;								// The camera to be used for rendering the scene.
-	Phyre::PWorldMatrixOrbitController			m_cameraController;						// The camera controller used to orientate the camera within the scene.
-
-	float										m_previousDistance;						// The previous camera distance.
+	Renderer* renderer = nullptr;
 
 public:
 	PTextSample();

@@ -15,14 +15,14 @@ Vec2::Vec2(float _x, float _y)
 {
 }
 
-DirectX::SimpleMath::Vector2 Vec2::operator=(Vec2 _vec)
+Vectormath::Aos::Vector2 Vec2::operator= (Vec2 _vec)
 {
-	return DirectX::SimpleMath::Vector2(_vec.x, _vec.y);
+	return Vectormath::Aos::Vector2(_vec.x, _vec.y);
 }
 
-Vec2 Vec2::operator=(DirectX::SimpleMath::Vector2 _vec)
+Vec2 Vec2::operator=(Vectormath::Aos::Vector2 _vec)
 {
-	return Vec2(_vec.x, _vec.y);
+	return Vec2(_vec.getX(), _vec.getY());
 }
 
 Vec2 Vec2::operator*=(const float & other)
@@ -81,19 +81,14 @@ Vec3::Vec3(float _x, float _y, float _z)
 {
 }
 
-DirectX::SimpleMath::Vector3 Vec3::operator=(Vec3 _vec)
+Vectormath::Aos::Vector3 Vec3::operator= (Vec3 _vec)
 {
-	return DirectX::SimpleMath::Vector3(_vec.x, _vec.y, _vec.z);
+	return Vectormath::Aos::Vector3(_vec.x, _vec.y, _vec.z);
 }
 
-Vec3 Vec3::operator=(DirectX::SimpleMath::Vector3 _vec)
+Vec3 Vec3::operator=(Vectormath::Aos::Vector3 _vec)
 {
-	return Vec3(_vec.x, _vec.y, _vec.z);
-}
-
-Vec3::operator DirectX::SimpleMath::Vector3()
-{
-	return DirectX::SimpleMath::Vector3(x, y, z);
+	return Vec3(_vec.getX(), _vec.getY(), _vec.getZ());
 }
 
 /*Vec3 & Vec3::operator=(const Vec3 & other)
@@ -139,11 +134,6 @@ Vec3& Vec3::operator/=(const float & oth)
 	y /= oth;
 	z /= oth;
 	return (*this);
-}
-
-DirectX::SimpleMath::Vector3 Vec3::toDXTK(Vec3 oth)
-{
-	return DirectX::SimpleMath::Vector3(oth.x, oth.y, oth.z);
 }
 
 const Vec3 Vec3::Zero = Vec3(0.0f, 0.0f, 0.0f);
@@ -216,14 +206,14 @@ Vec4::Vec4(float _x, float _y, float _z, float _w)
 
 }
 
-DirectX::SimpleMath::Color Vec4::operator=(Vec4 oth)
+Vectormath::Aos::Vector4 Vec4::operator= (Vec4 _vec)
 {
-	return DirectX::SimpleMath::Color(oth.x, oth.y, oth.z, oth.w);
+	return Vectormath::Aos::Vector4(_vec.x, _vec.y, _vec.z, _vec.w);
 }
 
-Vec4 Vec4::operator=(DirectX::SimpleMath::Vector4 oth)
+Vec4 Vec4::operator=(Vectormath::Aos::Vector4 _vec)
 {
-	return Vec4(oth.x, oth.y, oth.z, oth.w);
+	return Vec4(_vec.getX(), _vec.getY(), _vec.getZ(), _vec.getW());
 }
 
 //Vec4::operator DirectX::SimpleMath::Vector4()
@@ -303,7 +293,7 @@ OurMatrix::OurMatrix(float m00, float m01, float m02, float m03,
 
 OurMatrix::OurMatrix(const float * pArray)
 {
-	assert(pArray != nullptr);
+	//assert(pArray != nullptr);
 
 	m[0][0] = pArray[0];
 	m[0][1] = pArray[1];
@@ -326,32 +316,49 @@ OurMatrix::OurMatrix(const float * pArray)
 	m[3][3] = pArray[15];
 }
 
-OurMatrix OurMatrix::CreatePerspectiveFieldOfView(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance, float _farPlaneDistance)
+Vectormath::Aos::Matrix4 OurMatrix::toPHYRE(OurMatrix mat)
 {
-	return toOur(DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(_fieldOfView, _aspectRatio, _nearPlaneDistance, _farPlaneDistance));
+	return Vectormath::Aos::Matrix4(
+		Vectormath::Aos::Vector4(mat._11, mat._12, mat._13, mat._14),
+		Vectormath::Aos::Vector4(mat._21, mat._22, mat._23, mat._24), 
+		Vectormath::Aos::Vector4(mat._31, mat._32, mat._33, mat._34), 
+		Vectormath::Aos::Vector4(mat._41, mat._42, mat._43, mat._44));
 }
 
-OurMatrix OurMatrix::CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane)
+OurMatrix OurMatrix::toOur(Vectormath::Aos::Matrix4 mat)
 {
-	return toOur(DirectX::SimpleMath::Matrix::CreateOrthographic(_width, _height, _nearPlane, _farPlane));
+	return OurMatrix(mat.getCol0().getX(), mat.getCol0().getY(), mat.getCol0().getZ(), mat.getCol0().getW(),
+					 mat.getCol1().getX(), mat.getCol1().getY(), mat.getCol1().getZ(), mat.getCol1().getW(), 
+					 mat.getCol2().getX(), mat.getCol2().getY(), mat.getCol2().getZ(), mat.getCol2().getW(), 
+					 mat.getCol3().getX(), mat.getCol3().getY(), mat.getCol3().getZ(), mat.getCol3().getW());
 }
 
-OurMatrix OurMatrix::CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up)
-{
-	DirectX::SimpleMath::Vector3 pos = Vec3::toDXTK(position);
-	DirectX::SimpleMath::Vector3 targ = Vec3::toDXTK(m_target);
-	DirectX::SimpleMath::Vector3 up = Vec3::toDXTK(m_up);
-	return toOur(DirectX::SimpleMath::Matrix::CreateLookAt(pos, DirectX::SimpleMath::Vector3::Forward, DirectX::SimpleMath::Vector3::Up));
-}
-
-OurMatrix OurMatrix::CreateTrasform(Vec3 _pos, float _rot, float _zoom, float _viewportWidth, float _viewportHeight )
-{
-	DirectX::SimpleMath::Matrix matrix = DirectX::SimpleMath::Matrix::CreateTranslation(_pos) *
-		DirectX::SimpleMath::Matrix::CreateRotationZ(_rot) *
-		DirectX::SimpleMath::Matrix::CreateScale(DirectX::SimpleMath::Vector3(_zoom, _zoom, 1)) *
-		DirectX::SimpleMath::Matrix::CreateTranslation(DirectX::SimpleMath::Vector3(_viewportWidth * 0.5f, _viewportHeight * 0.5f, 0));
-	
-	return toOur(matrix);
-}
+//OurMatrix OurMatrix::CreatePerspectiveFieldOfView(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance, float _farPlaneDistance)
+//{
+//	return toOur(/*DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(_fieldOfView, _aspectRatio, _nearPlaneDistance, _farPlaneDistance)*/);
+//}
+//
+//OurMatrix OurMatrix::CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane)
+//{
+//	return toOur(/*DirectX::SimpleMath::Matrix::CreateOrthographic(_width, _height, _nearPlane, _farPlane)*/);
+//}
+//
+//OurMatrix OurMatrix::CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up)
+//{
+//	DirectX::SimpleMath::Vector3 pos = Vec3::toDXTK(position);
+//	DirectX::SimpleMath::Vector3 targ = Vec3::toDXTK(m_target);
+//	DirectX::SimpleMath::Vector3 up = Vec3::toDXTK(m_up);
+//	return toOur(DirectX::SimpleMath::Matrix::CreateLookAt(pos, DirectX::SimpleMath::Vector3::Forward, DirectX::SimpleMath::Vector3::Up));
+//}
+//
+//OurMatrix OurMatrix::CreateTrasform(Vec3 _pos, float _rot, float _zoom, float _viewportWidth, float _viewportHeight )
+//{
+//	DirectX::SimpleMath::Matrix matrix = DirectX::SimpleMath::Matrix::CreateTranslation(_pos) *
+//		DirectX::SimpleMath::Matrix::CreateRotationZ(_rot) *
+//		DirectX::SimpleMath::Matrix::CreateScale(DirectX::SimpleMath::Vector3(_zoom, _zoom, 1)) *
+//		DirectX::SimpleMath::Matrix::CreateTranslation(DirectX::SimpleMath::Vector3(_viewportWidth * 0.5f, _viewportHeight * 0.5f, 0));
+//	
+//	return toOur(matrix);
+//}
 
 #pragma endregion

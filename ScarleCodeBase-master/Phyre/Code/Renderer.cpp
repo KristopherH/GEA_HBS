@@ -1,112 +1,79 @@
-#include "Renderer.h"
+
 //C++
 
 //Phyre
 
 //OURS
-#include "GameObject.h"
-#include "BaseCamera.h"
+#include <../Main_Engine/GameObject.h>
+#include <../Main_Engine/BaseCamera.h>
 
+#include <Rendering\PhyreRenderInterface.h>
 
 #include "Texture.h"
+#include "Renderer.h"
+#include "CustomMath.h"
 
-Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
-	:pd3dDevice(_pd3dDevice), hWnd(_hWnd)
+using namespace PRendering;
+
+Renderer::Renderer(PRendering::PRenderer* _renderer)
 {
-	////Create DirectXTK spritebatch stuff
-	ID3D11DeviceContext* pd3dImmediateContext;
-	_pd3dDevice->GetImmediateContext(&pd3dImmediateContext);
-	spriteBatch.reset(new SpriteBatch(pd3dImmediateContext));
-	spriteFont.reset(new SpriteFont(_pd3dDevice, L"../Assets/italic.spritefont"));
-	//m_DD2D->m_Font.reset(new SpriteFont(_pd3dDevice, L"..\\Assets\\italic.spritefont"));
-
-	////set up DirectXTK Effects system
-    //m_fxFactory = new EffectFactory(_pd3dDevice);
-
-	//find how big my window is to correctly calculate my aspect ratio
-	RECT rc;
-	GetClientRect(hWnd, &rc);
-	UINT width = rc.right - rc.left;
-	UINT height = rc.bottom - rc.top;
-	float AR = (float)width / (float)height;
+	renderer = _renderer;
 }
 
 Renderer::~Renderer()
 {
 }
 
-bool Renderer::BeginDraw(OurMatrix* transformMatrix)
+bool Renderer::BeginDraw(BaseCamera* mainCamera)
 {
-	if (transformMatrix == nullptr)
-	{
-		spriteBatch->Begin();
-	}
-	else
-	{
-		DirectX::SimpleMath::Matrix transMat = OurMatrix::toDXTK(*transformMatrix);
-		spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, nullptr, nullptr, nullptr, nullptr, nullptr, transMat);
-	}
-	return true;
-}
+	PHYRE_TRY(m_cameraController.bind(m_camera));
+	m_cameraController.setDistance(35.0f);
+	m_cameraController.setFromMatrix(OurMatrix::toPHYRE(mainCamera->GetProj()));
 
-bool Renderer::BeginDraw(BaseCamera * mainCamera)
-{
-	DirectX::SimpleMath::Matrix transMat = OurMatrix::toDXTK(mainCamera->GetTransMat());
-	DirectX::CommonStates states(pd3dDevice);
-	spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, states.NonPremultiplied(), nullptr, nullptr, nullptr, nullptr, transMat);
+	// Tell the renderer which camera we want to use for rendering
+	renderer->setCamera(m_camera);
+	PHYRE_TRY(renderer->setClearColor(0.1f, 0.1f, 0.8f, 0.5f));
+	PHYRE_TRY(renderer->beginScene(PRenderInterfaceBase::PE_CLEAR_COLOR_BUFFER_BIT | PRenderInterfaceBase::PE_CLEAR_DEPTH_BUFFER_BIT));
+
 	return false;
 }
 
 bool Renderer::Draw(Sprite* _sprite)
 {
-	spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
-		_sprite->getPosition(),
-		nullptr,
-		/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
-		_sprite->getRotation(),
-		_sprite->getOrigin(),
-		_sprite->getScale(),
-		SpriteEffects_None);
+	//spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
+	//	_sprite->getPosition(),
+	//	nullptr,
+	//	/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+	//	_sprite->getRotation(),
+	//	_sprite->getOrigin(),
+	//	_sprite->getScale(),
+	//	SpriteEffects_None);
+	
+	if (_sprite->GetTexture()->getTexture() && _sprite->GetTexture()->getTexture()->m_quadMeshInstance)
+		renderer->renderMeshInstance(*_sprite->GetTexture()->getTexture()->m_quadMeshInstance);
+
+	// Iterate through all mesh instances in the cluster and render them for the Opaque render pass
+	renderer->setSceneRenderPassType(PHYRE_GET_SCENE_RENDER_PASS_TYPE(Opaque));
+	//renderWorld(m_world, m_camera);
+	// Render the text objects
+	/*for (PUInt32 i = 0; i < c_totalTextStrings; i++)
+	{
+		if (m_text[i])
+			PHYRE_TRY(m_text[i]->renderText(m_renderer));
+	}*/
+
+
 	return true;
 }
 
 bool Renderer::EndDraw()
 {
-	spriteBatch->End();
+	PHYRE_TRY(renderer->endScene());
 	return true;
 }
 
-void Renderer::renderText(string text, Vec2 position)
+void Renderer::setCameraAspect(float ratio)
 {
-	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position);
+	m_camera.setAspect(ratio);
+	m_camera.updateViewMatrices();
 }
-
-float Renderer::getAspectRatio()
-{
-	//find how big my window is to correctly calculate my aspect ratio
-	RECT rc;
-	GetClientRect(hWnd, &rc);
-	UINT width = rc.right - rc.left;
-	UINT height = rc.bottom - rc.top;
-	return (float)width / (float)height;
-
-}
-
-float Renderer::getWindowWidth()
-{
-	RECT rc;
-	GetClientRect(hWnd, &rc);
-	return (float)(rc.right - rc.left);
-}
-
-float Renderer::getWindowHeight()
-{
-	RECT rc;
-	GetClientRect(hWnd, &rc);
-	return (float)(rc.bottom - rc.top);
-}
-
-//void Renderer::DrawString(wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const
-//{
-//	m_Font->DrawString(spriteBatch.get(), text, position, color, rotation, origin, scale, layerDepth);
-//}

@@ -2,6 +2,12 @@
 //C++
 
 //DXTK
+#if defined _DXTK_
+#include "../DXTK_Wrapper/Texture.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/Texture.h"
+#endif
 
 //OURS
 #include "GameData.h"
@@ -11,7 +17,7 @@
 #include "Game_Controller.h"
 #include "Scene.h"
 #include "AnimatedSprite.h"
-#include "Texture.h"
+
 
 GameScene::GameScene()
 {

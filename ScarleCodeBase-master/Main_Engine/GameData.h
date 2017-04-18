@@ -3,9 +3,12 @@
 #include <vector>
 
 //DXTK
-
-//OURS
-#include "../DXTK_Wrapper/CustomMath.h"
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\CustomMath.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/CustomMath.h"
+#endif
 
 class InputManager;
 class Renderer;

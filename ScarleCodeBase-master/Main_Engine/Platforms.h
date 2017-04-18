@@ -4,9 +4,14 @@
 #include <string>
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\Renderer.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/Renderer.h"
+#endif
 
 //OURS
-#include "..\DXTK_Wrapper\Renderer.h"
 #include "Sprite.h"
 #include "Player.h"
 #include "GameData.h"

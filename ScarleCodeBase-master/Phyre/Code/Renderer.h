@@ -3,49 +3,45 @@
 #include <memory>
 
 //DXTK
-#include <d3d11_1.h>
-#include "SimpleMath.h"
 
 //OURS
-#include "SpriteBatch.h"
-#include "SpriteFont.h"
 #include "CustomMath.h"
+
+#include <Phyre.h>
+#include <Rendering/PhyreRendering.h>
 
 class GameObject;
 class BaseCamera;
 class Sprite;
 
-using namespace std;
-using namespace DirectX;
+using namespace Phyre;
 
 class Renderer
 {
 public:
-	Renderer(ID3D11Device* _pd3dDevice, HWND _hWnd);
+	Renderer(PRendering::PRenderer* _renderer);
+	/*ID3D11Device* _pd3dDevice, HWND _hWnd*/
 	~Renderer();
 
-	bool BeginDraw(OurMatrix* transformMatrix = nullptr);
+	//bool BeginDraw(OurMatrix* transformMatrix = nullptr);
 	bool BeginDraw(BaseCamera* mainCamera);
-	//bool Draw(GameObject* _go);
 	bool Draw(Sprite* _sprite);
 	bool EndDraw();
-	void renderText(string text, Vec2 position);
+	//void renderText(string text, Vec2 position);
 
-	ID3D11Device* GetDevice() { return pd3dDevice; }
-	HWND GetWindow() { return hWnd; }
+	/*ID3D11Device* GetDevice() { return pd3dDevice; }
+	HWND GetWindow() { return hWnd; }*/
 
 	float getAspectRatio();
 	float getWindowWidth();
 	float getWindowHeight();
-
-	//void DrawString (wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const;
+	void setCameraAspect(float);
 
 private:
-	ID3D11Device* pd3dDevice;
-	HWND hWnd;
-	string newText;
+	PRendering::PRenderer* renderer;
+	Phyre::PCameraPerspective					m_camera;								// The camera to be used for rendering the scene.
+	Phyre::PWorldMatrixOrbitController			m_cameraController;						// The camera controller used to orientate the camera within the scene.
 
-	//spritebatch stuff
-	unique_ptr<SpriteBatch> spriteBatch;
-	unique_ptr<SpriteFont> spriteFont;
+	float										m_previousDistance;						// The previous camera distance.
+
 };

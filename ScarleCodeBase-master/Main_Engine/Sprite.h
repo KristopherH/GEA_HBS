@@ -2,10 +2,16 @@
 //C++
 
 //DXTK
-
-//OURS
+#if defined _DXTK_
 #include "..\DXTK_Wrapper\CustomMath.h"
 #include "..\DXTK_Wrapper\Renderer.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/CustomMath.h"
+#include "../Phyre/Code/Renderer.h"
+#endif
+
+//OURS
 
 class Texture;
 class Renderer;

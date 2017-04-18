@@ -2,11 +2,17 @@
 //C++
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\Renderer.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/Renderer.h"
+#endif
 
 //OURS
 #include "GameData.h"
 #include "Collision_Manager.h"
-#include "Renderer.h"
+
 
 
 GameObject::GameObject(Sprite* _sprite, std::string _name, std::string _tag)

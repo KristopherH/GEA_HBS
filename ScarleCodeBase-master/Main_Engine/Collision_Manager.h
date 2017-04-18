@@ -3,10 +3,15 @@
 #include <string>
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\CustomMath.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/CustomMath.h"
+#endif
 
 //OURS
 #include "Enum_container.h"
-#include "../DXTK_Wrapper/CustomMath.h"
 
 class GameObject;
 

@@ -1,4 +1,19 @@
 #include "MainMenu.h"
+//C++
+
+//DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\CustomMath.h"
+#include "..\DXTK_Wrapper\Renderer.h"
+#include "../DXTK_Wrapper/Texture.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/CustomMath.h"
+#include "../Phyre/Code/Texture.h"
+#include "../Phyre/Code/Renderer.h"
+#endif
+
+//OURS
 #include "GameData.h"
 #include "InputManager.h"
 #include "GameScene.h"
@@ -6,10 +21,8 @@
 #include "BaseCamera.h"
 #include "LevelEditor.h"
 #include "Button.h"
-#include "Texture.h"
-#include "Renderer.h"
 #include "Sprite.h"
-#include "CustomMath.h"
+
 
 MainMenuScene::MainMenuScene()
 {

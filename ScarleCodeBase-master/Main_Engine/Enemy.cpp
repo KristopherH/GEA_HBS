@@ -4,10 +4,15 @@
 #include <algorithm> // remove and remove_if
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\Renderer.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/Renderer.h"
+#endif
 
 //OURS
 #include "GameData.h"
-#include "Renderer.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 

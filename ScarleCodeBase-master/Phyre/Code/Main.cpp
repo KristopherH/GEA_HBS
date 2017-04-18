@@ -16,6 +16,7 @@ PhyreEngine(TM) Package 3.17.0.0
 #include "../Common/PhyreSamplesCommonScene.h"
 #include "Main.h"
 #include "../Main_Engine/Engine.h"
+#include "Renderer.h"
 
 using namespace Phyre;
 using namespace PFramework;
@@ -41,10 +42,9 @@ PTextSample::PTextSample()
 	: m_loadedCluster(NULL)
 	, m_meshInstance(NULL)
 	, m_bitmapFont(NULL)
-	, m_previousDistance(0.0f)
 {
-
-	Engine* engine = new Engine(nullptr, nullptr);
+	Renderer* renderer = new Renderer(&m_renderer);
+	Engine* engine = new Engine(renderer, nullptr);
 
 	setWindowTitle("Text Sample");
 	setReadmeDirectory("./Samples/Text/");
@@ -67,8 +67,6 @@ PTextSample::PTextSample()
 // PE_RESULT_NO_ERROR - The scene initialization succeeded.
 PResult PTextSample::initScene()
 {
-
-	
 	// Set the current working directory to SCE_PHYRE.
 	PHYRE_TRY(PhyreOS::SetCurrentDirToPhyre());
 
@@ -144,8 +142,7 @@ PResult PTextSample::initScene()
 
 	// Ensure the matrices are up to date before creating the camera controller
 	UpdateWorldMatricesForNodes(m_world);
-	PHYRE_TRY(m_cameraController.bind(m_camera));
-	m_cameraController.setDistance(35.0f);
+
 
 	// The scene context encapsulates information about the current scene, so add the lights from the cluster in order to light the scene
 	PUInt32 lightCount = PopulateSceneContextWithLights(m_sceneContext, *m_loadedCluster, 1);
@@ -181,9 +178,6 @@ PResult PTextSample::exitScene()
 	// Free up the scene context containing the lights
 	PHYRE_TRY(m_sceneContext.m_lights.resize(0));
 
-	// Unbind the camera from the controller
-	m_cameraController.unbind(m_camera);
-
 	// Free the text objects and text materials
 	for(PUInt32 i = 0; i < c_totalTextStrings; i++)
 	{
@@ -209,46 +203,40 @@ PResult PTextSample::handleInputs()
 	// Handle gui.
 	if (checkAndClearKey(PInputBase::InputChannel_Key_Y) || checkAndClearJoypadButton(PInputBase::InputChannel_Button_Start))
 		m_showImGui = !m_showImGui;
-	// Handle camera transformations
-	updateCamera(m_cameraController, (float)m_elapsedTime);
-
-	m_camera.updateViewMatrices();
-
-	m_cameraController.setDistance(PhyreClamp(m_cameraController.getDistance(), 0.0f, 500.0f));
 
 	PMatrix4 matrix = PMatrix4::identity();
 	float viewportScale = (float)getWidth() / (float)getHeight();
 
-	if(m_text[1] && m_textMaterial[1])
-	{
-		// Configure the position of text 1
-		PMatrix4 localToWorld = PMatrix4(m_meshInstance->getLocalToWorldMatrix()->getMatrix());
-		Vector4 position = m_camera.getViewProjectionMatrix() * Point3(localToWorld.getTranslation());
-		Vector3 screenPosition = position.getXYZ() / position.getW();
-		screenPosition.setZ(1.0f);
+	//if(m_text[1] && m_textMaterial[1])
+	//{
+	//	// Configure the position of text 1
+	//	PMatrix4 localToWorld = PMatrix4(m_meshInstance->getLocalToWorldMatrix()->getMatrix());
+	//	Vector4 position = m_camera.getViewProjectionMatrix() * Point3(localToWorld.getTranslation());
+	//	Vector3 screenPosition = position.getXYZ() / position.getW();
+	//	screenPosition.setZ(1.0f);
 
-		float scale  = 1.0f / ((m_cameraController.getDistance() / 4) * m_textMaterial[1]->getBitmapFontSize());
-		float width  = 0.5f * m_text[1]->getTextWidth() * scale;
-		
-		matrix.setUpper3x3(Vectormath::Aos::Matrix3::scale(Vectormath::Aos::Vector3(scale, scale, 1.0f)));
-		matrix.setTranslation(Vectormath::Aos::Vector3((screenPosition.getX() * viewportScale) - width, screenPosition.getY(), 1.0f));
-		m_text[1]->setMatrix(matrix);
-	}
+	//	float scale  = 1.0f / ((m_cameraController.getDistance() / 4) * m_textMaterial[1]->getBitmapFontSize());
+	//	float width  = 0.5f * m_text[1]->getTextWidth() * scale;
+	//	
+	//	matrix.setUpper3x3(Vectormath::Aos::Matrix3::scale(Vectormath::Aos::Vector3(scale, scale, 1.0f)));
+	//	matrix.setTranslation(Vectormath::Aos::Vector3((screenPosition.getX() * viewportScale) - width, screenPosition.getY(), 1.0f));
+	//	m_text[1]->setMatrix(matrix);
+	//}
 
-	if(m_text[2] && m_textMaterial[2])
-	{
-		// Configure the text 2 string and its position
-		float currentDistance = m_cameraController.getDistance();
-		if(currentDistance != m_previousDistance)
-		{
-			PChar distanceString[PD_MAX_DYNAMIC_TEXT_LENGTH];
-			PHYRE_SNPRINTF(distanceString, PHYRE_STATIC_ARRAY_SIZE(distanceString), "Camera distance: %.2f", currentDistance);
-			PHYRE_TRY(m_text[2]->setText(distanceString));
+	//if(m_text[2] && m_textMaterial[2])
+	//{
+	//	// Configure the text 2 string and its position
+	//	float currentDistance = m_cameraController.getDistance();
+	//	if(currentDistance != m_previousDistance)
+	//	{
+	//		PChar distanceString[PD_MAX_DYNAMIC_TEXT_LENGTH];
+	//		PHYRE_SNPRINTF(distanceString, PHYRE_STATIC_ARRAY_SIZE(distanceString), "Camera distance: %.2f", currentDistance);
+	//		PHYRE_TRY(m_text[2]->setText(distanceString));
 
-			// Update the previous distance
-			m_previousDistance = currentDistance;
-		}
-	}
+	//		// Update the previous distance
+	//		m_previousDistance = currentDistance;
+	//	}
+	//}
 
 	return PApplication::handleInputs();
 }
@@ -261,9 +249,6 @@ PResult PTextSample::handleInputs()
 PResult PTextSample::resize()
 {
 	PResult success = PApplication::resize();
-
-	// Forcibly change the distance value to trigger the text matrix to be updated taking into account the new window size
-	m_previousDistance = FLT_MAX;
 
 	// Reconfigure the position of the dynamic text due to window resize
 	if(m_text[2])
@@ -291,25 +276,7 @@ PResult PTextSample::render()
 {
 	UpdateWorldMatricesForNodes(m_world);
 
-	m_camera.setAspect((float)(getWidth()) / (float)(getHeight()));
-	m_camera.updateViewMatrices();
-
-	// Tell the renderer which camera we want to use for rendering
-	m_renderer.setCamera(m_camera);
-	PHYRE_TRY(m_renderer.setClearColor(0.1f, 0.1f, 0.8f, 0.5f));
-	PHYRE_TRY(m_renderer.beginScene(PRenderInterfaceBase::PE_CLEAR_COLOR_BUFFER_BIT | PRenderInterfaceBase::PE_CLEAR_DEPTH_BUFFER_BIT));
-	
-	// Iterate through all mesh instances in the cluster and render them for the Opaque render pass
-	m_renderer.setSceneRenderPassType(PHYRE_GET_SCENE_RENDER_PASS_TYPE(Opaque));
-	//renderWorld(m_world, m_camera);
-
-	// Render the text objects
-	for(PUInt32 i = 0; i < c_totalTextStrings; i++)
-	{
-		if(m_text[i])
-			PHYRE_TRY(m_text[i]->renderText(m_renderer));
-	}
-	PHYRE_TRY(m_renderer.endScene());
+	renderer->setCameraAspect((float)(getWidth()) / (float)(getHeight()));
 
 	// Render sample gui.
 	//PImGui::RenderGui(m_renderer, *this);
