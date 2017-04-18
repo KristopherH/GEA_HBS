@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="D3D11DebugOpt|Android">
+      <Configuration>D3D11DebugOpt</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11DebugOpt|ORBIS">
+      <Configuration>D3D11DebugOpt</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11DebugOpt|PS3">
+      <Configuration>D3D11DebugOpt</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11DebugOpt|PSVita">
+      <Configuration>D3D11DebugOpt</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11DebugOpt|Win32">
+      <Configuration>D3D11DebugOpt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11DebugOpt|x64">
+      <Configuration>D3D11DebugOpt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Debug|Android">
+      <Configuration>D3D11Debug</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Debug|ORBIS">
+      <Configuration>D3D11Debug</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Debug|PS3">
+      <Configuration>D3D11Debug</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Debug|PSVita">
+      <Configuration>D3D11Debug</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Debug|Win32">
+      <Configuration>D3D11Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Debug|x64">
+      <Configuration>D3D11Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Release|Android">
+      <Configuration>D3D11Release</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Release|ORBIS">
+      <Configuration>D3D11Release</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Release|PS3">
+      <Configuration>D3D11Release</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Release|PSVita">
+      <Configuration>D3D11Release</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Release|Win32">
+      <Configuration>D3D11Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D3D11Release|x64">
+      <Configuration>D3D11Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugOpt|Android">
+      <Configuration>DebugOpt</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebugOpt|Android">
+      <Configuration>GLDebugOpt</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebugOpt|ORBIS">
+      <Configuration>GLDebugOpt</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebugOpt|PS3">
+      <Configuration>GLDebugOpt</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebugOpt|PSVita">
+      <Configuration>GLDebugOpt</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebugOpt|Win32">
+      <Configuration>GLDebugOpt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebugOpt|x64">
+      <Configuration>GLDebugOpt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebug|Android">
+      <Configuration>GLDebug</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebug|ORBIS">
+      <Configuration>GLDebug</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebug|PS3">
+      <Configuration>GLDebug</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebug|PSVita">
+      <Configuration>GLDebug</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebug|Win32">
+      <Configuration>GLDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLDebug|x64">
+      <Configuration>GLDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLRelease|Android">
+      <Configuration>GLRelease</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLRelease|ORBIS">
+      <Configuration>GLRelease</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLRelease|PS3">
+      <Configuration>GLRelease</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLRelease|PSVita">
+      <Configuration>GLRelease</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLRelease|Win32">
+      <Configuration>GLRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GLRelease|x64">
+      <Configuration>GLRelease</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugOpt|ORBIS">
+      <Configuration>DebugOpt</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugOpt|PS3">
+      <Configuration>DebugOpt</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugOpt|PSVita">
+      <Configuration>DebugOpt</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugOpt|Win32">
+      <Configuration>DebugOpt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugOpt|x64">
+      <Configuration>DebugOpt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ORBIS">
+      <Configuration>Debug</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|PS3">
+      <Configuration>Debug</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|PSVita">
+      <Configuration>Debug</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebugOpt|Android">
+      <Configuration>PS3SNCDebugOpt</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebugOpt|ORBIS">
+      <Configuration>PS3SNCDebugOpt</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebugOpt|PS3">
+      <Configuration>PS3SNCDebugOpt</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebugOpt|PSVita">
+      <Configuration>PS3SNCDebugOpt</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebugOpt|Win32">
+      <Configuration>PS3SNCDebugOpt</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebugOpt|x64">
+      <Configuration>PS3SNCDebugOpt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebug|Android">
+      <Configuration>PS3SNCDebug</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebug|ORBIS">
+      <Configuration>PS3SNCDebug</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebug|PS3">
+      <Configuration>PS3SNCDebug</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebug|PSVita">
+      <Configuration>PS3SNCDebug</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebug|Win32">
+      <Configuration>PS3SNCDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCDebug|x64">
+      <Configuration>PS3SNCDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCRelease|Android">
+      <Configuration>PS3SNCRelease</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCRelease|ORBIS">
+      <Configuration>PS3SNCRelease</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCRelease|PS3">
+      <Configuration>PS3SNCRelease</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCRelease|PSVita">
+      <Configuration>PS3SNCRelease</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCRelease|Win32">
+      <Configuration>PS3SNCRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS3SNCRelease|x64">
+      <Configuration>PS3SNCRelease</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Android">
+      <Configuration>Release</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ORBIS">
+      <Configuration>Release</Configuration>
+      <Platform>ORBIS</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|PS3">
+      <Configuration>Release</Configuration>
+      <Platform>PS3</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|PSVita">
+      <Configuration>Release</Configuration>
+      <Platform>PSVita</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(SCE_PHYRE)\Media\Shaders\PhyreText.cgfx" />
+    <None Include="$(SCE_PHYRE)\Media\Shaders\PhyreText.fx" />
+    <None Include="Readme_e.txt" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{33FA10BE-0953-11E1-9CA8-89024824019B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Text</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Platform)'=='Tegra-Android'">
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(VisualStudioVersion)'=='11.0' and ('$(Platform)'=='Win32' or '$(Platform)'=='x64')">
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(VisualStudioVersion)'=='12.0' and ('$(Platform)'=='Win32' or '$(Platform)'=='x64')">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(VisualStudioVersion)'=='14.0' and ('$(Platform)'=='Win32' or '$(Platform)'=='x64')">
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Platform)'=='PS3'">
+    <PlatformToolset>GCC</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Platform)'=='PS3' and $(Configuration.StartsWith(`PS3SNC`))">
+    <PlatformToolset>SNC</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(VisualStudioVersion)'=='11.0'">
+    <IntDir>$(SCE_PHYRE)\Lib\Intermediate\vs2012\Samples\$(ProjectName)\$(Configuration)_$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(VisualStudioVersion)'=='12.0'">
+    <IntDir>$(SCE_PHYRE)\Lib\Intermediate\vs2013\Samples\$(ProjectName)\$(Configuration)_$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(VisualStudioVersion)'=='14.0'">
+    <IntDir>$(SCE_PHYRE)\Lib\Intermediate\vs2015\Samples\$(ProjectName)\$(Configuration)_$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Platform)'=='PS3' or '$(Platform)'=='PSVita' or '$(Platform)'=='ORBIS'">
+    <IntDir>$(SCE_PHYRE)\Lib\Intermediate\Samples\$(ProjectName)\$(Configuration)_$(Platform)\</IntDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SCE_PHYRE)\Build\Props\PhyreCommon.props" />
+    <Import Project="$(SCE_PHYRE)\Build\Props\PhyreApp.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='Win32' or '$(Platform)'=='x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetFileName).pdb</ProgramDataBaseFileName>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='PSVita'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='Android'">
+    <ClCompile>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)'=='ORBIS'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemGroup>
+    <PhyreAssetGatherTask Include="TextAssets.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SCE_PHYRE)\Core\PhyreCore.vcxproj">
+      <Project>{5201fe7c-03e6-11e1-b01c-997d4824019b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="$(SCE_PHYRE)\Framework\PhyreFramework.vcxproj">
+      <Project>{6720c73c-092e-11e1-b4cb-44d24724019b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="$(SCE_PHYRE)\DeveloperExtensions\PhyreDeveloperExtensions.vcxproj">
+      <Project>{ec8c49f0-52a1-11e3-ba94-1eb46188709b}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="AndroidManifest.xml" />
+    <Xml Include="build.xml" />
+    <None Include="project.properties" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\PhyreSamplesCommonScene.cpp" />
+    <ClCompile Include="Code\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\PhyreSamplesCommon.h" />
+    <ClInclude Include="..\Common\PhyreSamplesCommonScene.h" />
+    <ClInclude Include="Code\Main.h" />
+  </ItemGroup>
+  <Import Project="$(SCE_PHYRE)\Build\Props\PhyreApp.targets" />
+</Project>

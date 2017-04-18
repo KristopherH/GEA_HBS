@@ -1,0 +1,31 @@
+<State>
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Samples\banana.dae" size="263457" package="True" date="-8587121055896013222">
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Samples\textures\banana.dds" depOnly="False" />
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Samples\textures\banana_normal.dds" depOnly="False" />
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreDefaultLitShader.cgfx" depOnly="False" switches="#LIGHTING_ENABLED=1,NORMAL_MAPPING_ENABLED=1,TEXTURE_ENABLED=1" />
+  </Asset>
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Samples\textures\banana.dds" size="174904" package="True" date="-8587121055728814788" />
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Samples\textures\banana_normal.dds" size="174904" package="True" date="-8587121055728814788" />
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreDefaultLitShader.cgfx" size="18106" package="True" date="-8587121055710491414">
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreShaderPlatform.h" depOnly="True" />
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreSceneWideParameters.h" depOnly="True" />
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreDefaultShaderSharedCode.h" depOnly="True" />
+  </Asset>
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreShaderPlatform.h" size="7642" package="False" date="-8587121055706792489" />
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreSceneWideParameters.h" size="1343" package="False" date="-8587121055707639114" />
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreDefaultShaderSharedCode.h" size="39687" package="False" date="-8587121055710491414">
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreShaderCommon.h" depOnly="True" />
+  </Asset>
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreShaderCommon.h" size="21535" package="False" date="-8587121055707170313">
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreShaderDefs.h" depOnly="True" />
+  </Asset>
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreShaderDefs.h" size="6504" package="False" date="-8587121055707014065" />
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreText.cgfx" size="6319" package="True" date="-8587121055706323480">
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Shaders\PhyreShaderPlatform.h" depOnly="True" />
+  </Asset>
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Samples\tuffy.fgen" size="459" package="True" date="-8587121055719024719">
+    <Dependency name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Samples\../Fonts/Tuffy.ttf" depOnly="True" />
+  </Asset>
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Samples\../Fonts/Tuffy.ttf" size="19300" package="False" date="-8587121055923581384" />
+  <Asset name="C:\Program Files (x86)\SCE\Engines\PhyreEngine31700\PhyreEngine\Media\Fonts\Tuffy.ttf" size="19300" package="False" date="-8587121055923581384" />
+</State>

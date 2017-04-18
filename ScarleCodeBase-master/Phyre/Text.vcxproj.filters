@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Common">
+      <UniqueIdentifier>{140c4c48-3e6d-438b-87b4-c64ab9914c09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{1acbee99-343e-479d-89c7-407d0207bbfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media Files">
+      <UniqueIdentifier>{86ed268b-5858-4b5e-84be-60ccb8c926cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media Files\Shaders">
+      <UniqueIdentifier>{c9da4a82-bc47-4c9d-8624-acaa084e0497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{2d54ee6a-4842-465f-a24c-ea1d67bfd9cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media Files\Shaders\CgFX">
+      <UniqueIdentifier>{e7f8a01e-f7d7-4584-89e9-f99b67e2091b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media Files\Shaders\FX">
+      <UniqueIdentifier>{d16309cb-640f-4966-9fe2-86a3920c0030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Android">
+      <UniqueIdentifier>{2f0274e4-d847-4818-9d2b-f97fafc45d31}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme_e.txt" />
+    <PhyreAssetGatherTask Include="TextAssets.xml">
+      <Filter>Assets</Filter>
+    </PhyreAssetGatherTask>
+    <None Include="$(SCE_PHYRE)\Media\Shaders\PhyreText.cgfx">
+      <Filter>Media Files\Shaders\CgFX</Filter>
+    </None>
+    <None Include="$(SCE_PHYRE)\Media\Shaders\PhyreText.fx">
+      <Filter>Media Files\Shaders\FX</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="AndroidManifest.xml">
+      <Filter>Android</Filter>
+    </Xml>
+    <Xml Include="build.xml">
+      <Filter>Android</Filter>
+    </Xml>
+    <None Include="project.properties">
+      <Filter>Android</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\PhyreSamplesCommonScene.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\PhyreSamplesCommon.h">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\PhyreSamplesCommonScene.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

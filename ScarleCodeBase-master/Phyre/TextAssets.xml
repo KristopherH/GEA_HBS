@@ -1,0 +1,7 @@
+<assets>
+  <node shared="true" db="%SCE_PHYRE%/Media/Samples/Text/text">
+    <asset source="%SCE_PHYRE%/Media/Samples/banana.dae"/>
+    <asset source="%SCE_PHYRE%/Media/Shaders/PhyreText.cgfx"/>
+    <asset source="%SCE_PHYRE%/Media/Samples/tuffy.fgen"/>
+  </node>
+</assets>
