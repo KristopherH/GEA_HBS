@@ -25,10 +25,10 @@ public:
 
 	
 	//ID3D11ShaderResourceView* getTexture() { return m_pTextureRV; }
-	Phyre::PSprite::PSpriteCollection* getTexture() { return sprite; }
+	Phyre::PSprite::PSpriteCollection* getTexture() { return m_spriteCollection; }
 
 protected:
-	Phyre::PSprite::PSpriteCollection* sprite;
-	Phyre::PCluster* m_cluster;
+	Phyre::PSprite::PSpriteCollection  *m_spriteCollection; // Pointer to the sprite collection. 
+	int m_id;
 	//ID3D11ShaderResourceView* m_pTextureRV;
 };

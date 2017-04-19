@@ -9,6 +9,11 @@ namespace Phyre
 	{
 		class PRenderer;
 	}
+	namespace PSprite
+	{
+		class PSpriteCollection;
+	}
+	enum PResult;
 	class PCameraPerspective;
 	class PWorldMatrixOrbitController;
 }
@@ -38,7 +43,11 @@ public:
 	float getWindowHeight();
 	void setCameraAspect(float);
 
+	virtual Phyre::PResult addToCollection(Phyre::PSprite::PSpriteCollection * _collection);
+	virtual Phyre::PSprite::PSpriteCollection* getCollection() { return collection; };
+
 private:
+	Phyre::PSprite::PSpriteCollection* collection;
 	Phyre::PRendering::PRenderer* renderer;
 	Phyre::PCameraPerspective*					m_camera;								// The camera to be used for rendering the scene.
 	Phyre::PWorldMatrixOrbitController*			m_cameraController;						// The camera controller used to orientate the camera within the scene.

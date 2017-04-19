@@ -70,14 +70,33 @@ PResult PTextSample::initScene()
 	// Set the current working directory to SCE_PHYRE.
 	PHYRE_TRY(PhyreOS::SetCurrentDirToPhyre());
 
-	// Load the asset file
-	//PHYRE_TRY(PCluster::LoadAssetFile(m_loadedCluster, "Media/" PHYRE_PLATFORM_ID "/Samples/Text/text.phyre"));
-	//PHYRE_TRY(FixupClusters(&m_loadedCluster, 1));
 	PHYRE_TRY(PCluster::LoadAssetFile(m_loadedCluster, "Media/" PHYRE_PLATFORM_ID "/Samples/Sprite/sprite.phyre"));
 	PHYRE_TRY(FixupClusters(&m_loadedCluster, 1));
 
+	PTexture2D *texture = FindAssetRefObj<PTexture2D>(NULL, "Samples/Sprite/sprite.agx");
+	if (!texture)
+		return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Failed to find sprite sheet texture");
+
+	PMaterial *material = FindAssetRefObj<PMaterial>(NULL, "Shaders/PhyreSprite");
+	if (!material)
+		return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Failed to find sprite shader");
+
+	PMesh &mesh = PSprite::s_utilitySprite.createQuadMesh();
+	m_spriteCollection = PHYRE_NEW PSprite::PSpriteCollection();
+	if (!m_spriteCollection)
+		return PE_RESULT_UNKNOWN_ERROR;
+
+	// Create a sprite collection with maximum of sprites.
+	// Use 2 buffers to allow CPU update while the GPU is rendering.
+	PHYRE_TRY(m_spriteCollection->initialize(*m_loadedCluster, 50, *material, *texture, mesh, true));
+	PHYRE_TRY(m_spriteCollection->setBufferCount(2));
+
 	renderer = new Renderer(&m_renderer);
-	Engine* engine = new Engine(renderer, nullptr);
+
+	// The sprite collection needs to be mapped before sprites can be added/removed or be modified.
+	initSprites();
+
+	engine = new Engine(renderer, nullptr);
 
 	// Add the main cluster to a world
 	m_world.addCluster(*m_loadedCluster);
@@ -87,77 +106,77 @@ PResult PTextSample::initScene()
 	//!
 
 	// Search for the font object in the loaded cluster
-	m_bitmapFont = FindAssetRefObj<PBitmapFont>(NULL, "Samples/tuffy.fgen");
-	if(!m_bitmapFont)
-		return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Unable to find bitmap font object in cluster");
+	//m_bitmapFont = FindAssetRefObj<PBitmapFont>(NULL, "Samples/tuffy.fgen");
+	//if(!m_bitmapFont)
+	//	return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Unable to find bitmap font object in cluster");
 
-	const PMaterial *textShader = FindAssetRefObj<PMaterial>(NULL, "Shaders/PhyreText");
-	if (!textShader)
-		return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Unable to find text shader in cluster");
+	//const PMaterial *textShader = FindAssetRefObj<PMaterial>(NULL, "Shaders/PhyreText");
+	//if (!textShader)
+	//	return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Unable to find text shader in cluster");
 
-		// Create the text and text materials
-	for(PUInt32 i = 0; i < c_totalTextStrings; i++)
-		PHYRE_TRY(PUtilityText::CreateText(*m_bitmapFont, *m_loadedCluster, *textShader, m_text[i], m_textMaterial[i], PUtilityText::PE_TEXT_RENDER_TECHNIQUE_ALPHA_BLEND));
-	
-	// Configure text 0
-	if(m_text[0] && m_textMaterial[0])
-	{
-		const PChar *text = getWindowTitle();
-		PHYRE_TRY(m_text[0]->setTextLength(PhyreCheckCast<PUInt32>(strlen(text))));
-		PHYRE_TRY(m_text[0]->setText(text));
-		PHYRE_TRY(m_textMaterial[0]->setColor(Vector3(0.5f)));
+	//	// Create the text and text materials
+	//for(PUInt32 i = 0; i < c_totalTextStrings; i++)
+	//	PHYRE_TRY(PUtilityText::CreateText(*m_bitmapFont, *m_loadedCluster, *textShader, m_text[i], m_textMaterial[i], PUtilityText::PE_TEXT_RENDER_TECHNIQUE_ALPHA_BLEND));
+	//
+	//// Configure text 0
+	//if(m_text[0] && m_textMaterial[0])
+	//{
+	//	const PChar *text = getWindowTitle();
+	//	PHYRE_TRY(m_text[0]->setTextLength(PhyreCheckCast<PUInt32>(strlen(text))));
+	//	PHYRE_TRY(m_text[0]->setText(text));
+	//	PHYRE_TRY(m_textMaterial[0]->setColor(Vector3(0.5f)));
 
-		// Position the text in the center on the screen, near the top
-		float scale  = 1.0f / (8 * m_textMaterial[0]->getBitmapFontSize());
-		float height = 2.0f * m_text[0]->getTextHeight() * scale;
-		float width  = 0.5f * m_text[0]->getTextWidth()  * scale;
+	//	// Position the text in the center on the screen, near the top
+	//	float scale  = 1.0f / (8 * m_textMaterial[0]->getBitmapFontSize());
+	//	float height = 2.0f * m_text[0]->getTextHeight() * scale;
+	//	float width  = 0.5f * m_text[0]->getTextWidth()  * scale;
 
-		PMatrix4 matrix = PMatrix4::identity();
-		matrix.setUpper3x3(Vectormath::Aos::Matrix3::scale(Vectormath::Aos::Vector3(scale, scale, 1.0f)));
-		matrix.setTranslation(Vectormath::Aos::Vector3(-width, 1.0f - height, 1.0f));
-		m_text[0]->setMatrix(matrix);
-	}
-	
-	// Configure text 1
-	if(m_text[1])
-		PHYRE_TRY(m_text[1]->setText("banana.dae.phyre"));
+	//	PMatrix4 matrix = PMatrix4::identity();
+	//	matrix.setUpper3x3(Vectormath::Aos::Matrix3::scale(Vectormath::Aos::Vector3(scale, scale, 1.0f)));
+	//	matrix.setTranslation(Vectormath::Aos::Vector3(-width, 1.0f - height, 1.0f));
+	//	m_text[0]->setMatrix(matrix);
+	//}
+	//
+	//// Configure text 1
+	//if(m_text[1])
+	//	PHYRE_TRY(m_text[1]->setText("banana.dae.phyre"));
 
-	// Configure text 2
-	if(m_text[2])
-	{
-		PMatrix4 matrix = PMatrix4::identity();
-		float viewportScale = (float)getWidth() / (float)getHeight();
+	//// Configure text 2
+	//if(m_text[2])
+	//{
+	//	PMatrix4 matrix = PMatrix4::identity();
+	//	float viewportScale = (float)getWidth() / (float)getHeight();
 
-		// Since the text will be updated dynamically, we want to make sure that there should be no stalls due
-		// to allocating memory or waiting for existing memory for geometry to become available.
-		PHYRE_TRY(m_text[2]->setBufferCount(2));
-		PHYRE_TRY(m_text[2]->setTextLength(PD_MAX_DYNAMIC_TEXT_LENGTH));
+	//	// Since the text will be updated dynamically, we want to make sure that there should be no stalls due
+	//	// to allocating memory or waiting for existing memory for geometry to become available.
+	//	PHYRE_TRY(m_text[2]->setBufferCount(2));
+	//	PHYRE_TRY(m_text[2]->setTextLength(PD_MAX_DYNAMIC_TEXT_LENGTH));
 
-		// Position the text in the bottom left corner
-		float scale = 1.0f / (12 * m_textMaterial[2]->getBitmapFontSize());
-			
-		matrix.setUpper3x3(Vectormath::Aos::Matrix3::scale(Vectormath::Aos::Vector3(scale, scale, 1.0f)));
-		matrix.setTranslation(Vectormath::Aos::Vector3((-1.0f * viewportScale), -0.98f, 1.0f));
-		m_text[2]->setMatrix(matrix);
-	}
-	
-	//!
-	//! Setup the scene camera and lights
-	//!
+	//	// Position the text in the bottom left corner
+	//	float scale = 1.0f / (12 * m_textMaterial[2]->getBitmapFontSize());
+	//		
+	//	matrix.setUpper3x3(Vectormath::Aos::Matrix3::scale(Vectormath::Aos::Vector3(scale, scale, 1.0f)));
+	//	matrix.setTranslation(Vectormath::Aos::Vector3((-1.0f * viewportScale), -0.98f, 1.0f));
+	//	m_text[2]->setMatrix(matrix);
+	//}
+	//
+	////!
+	////! Setup the scene camera and lights
+	////!
 
 	// Ensure the matrices are up to date before creating the camera controller
-	UpdateWorldMatricesForNodes(m_world);
+	//UpdateWorldMatricesForNodes(m_world);
 
 
-	// The scene context encapsulates information about the current scene, so add the lights from the cluster in order to light the scene
-	PUInt32 lightCount = PopulateSceneContextWithLights(m_sceneContext, *m_loadedCluster, 1);
-	if(!lightCount)
-		PHYRE_WARN("Unable to find any lights in the asset file, your asset will be unlit\n");
+	//// The scene context encapsulates information about the current scene, so add the lights from the cluster in order to light the scene
+	//PUInt32 lightCount = PopulateSceneContextWithLights(m_sceneContext, *m_loadedCluster, 1);
+	//if(!lightCount)
+	//	PHYRE_WARN("Unable to find any lights in the asset file, your asset will be unlit\n");
 
-	// Find a mesh instance in the cluster, use the position of the mesh instance in 3D to position the text in 2D
-	m_meshInstance = FindAssetRefObj<PMeshInstance>(NULL, "Samples/banana.dae");
-	if(!m_meshInstance)
-		return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Unable to find a mesh instance in the cluster");
+	//// Find a mesh instance in the cluster, use the position of the mesh instance in 3D to position the text in 2D
+	//m_meshInstance = FindAssetRefObj<PMeshInstance>(NULL, "Samples/banana.dae");
+	//if(!m_meshInstance)
+	//	return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Unable to find a mesh instance in the cluster");
 
 	// Initialize gui.
 	PHYRE_TRY(PImGui::Initialize(getWidth(), getHeight()));
@@ -281,10 +300,48 @@ PResult PTextSample::render()
 {
 	UpdateWorldMatricesForNodes(m_world);
 
+	engine->Update();
+
 	renderer->setCameraAspect((float)(getWidth()) / (float)(getHeight()));
 
+	engine->Draw();
+
 	// Render sample gui.
-	//PImGui::RenderGui(m_renderer, *this);
+	PImGui::RenderGui(m_renderer, *this);
+
+	return PE_RESULT_NO_ERROR;
+}
+
+PResult PTextSample::initSprites()
+{
+	// The sprite collection needs to be mapped before sprites can be added/removed or be modified.
+	PHYRE_TRY(m_spriteCollection->map());
+
+	// Find the animation infos for ship and stars.
+	PSharray<PAssetReference *> spriteAnimationInfos;
+	PAssetReference::Find(spriteAnimationInfos, NULL, "Samples/Sprite/sprite.agx", &PHYRE_CLASS(PSprite::PSpriteAnimationInfo));
+	for (PUInt32 i=0; i<spriteAnimationInfos.getCount(); i++)
+	{
+		PSprite::PSpriteAnimationInfo &animInfo = (PSprite::PSpriteAnimationInfo &)(spriteAnimationInfos[i]->getAsset());
+		m_spriteCollection->addSprite(i);
+	//	if (strstr(animInfo.m_name.c_str(), "Star"))
+	//		m_starAnimations.add(&animInfo);
+	//	if (strstr(animInfo.m_name.c_str(), "ship"))
+	//		m_shipAnimations.add(&animInfo);
+	}
+	
+	renderer->addToCollection(m_spriteCollection);
+	//// Add the stars.
+	//m_stars.resize(MAX_SPRITE_COUNT - 1);
+	//StarSprite::s_height = (float)getHeight();
+	//for (PUInt32 i = 0; i < MAX_SPRITE_COUNT - 1; i++)
+	//	PHYRE_TRY(m_stars[i].addToCollection(m_spriteCollection, m_starAnimations, (float)getWidth(), ANIM_TIME_INTERVAL));
+
+	//// Add space ship.
+	//PHYRE_TRY(m_spaceShip.addToCollection(m_spriteCollection, m_shipAnimations, (float)getWidth(), (float)getHeight(), ANIM_TIME_INTERVAL));
+
+	// Now unmap the sprite collection so it can be rendered.
+	PHYRE_TRY(m_spriteCollection->unmap());
 
 	return PE_RESULT_NO_ERROR;
 }

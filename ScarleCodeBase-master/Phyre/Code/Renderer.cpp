@@ -42,6 +42,8 @@ using namespace Vectormath::Aos;
 Renderer::Renderer(PRendering::PRenderer* _renderer)
 {
 	renderer = _renderer;
+	m_camera = new Phyre::PCameraPerspective();
+	m_cameraController = new Phyre::PWorldMatrixOrbitController();
 }
 
 Renderer::~Renderer()
@@ -73,11 +75,13 @@ bool Renderer::Draw(Sprite* _sprite)
 	//	_sprite->getScale(),
 	//	SpriteEffects_None);
 	
-	if (_sprite->GetTexture()->getTexture() && _sprite->GetTexture()->getTexture()->m_quadMeshInstance)
-		renderer->renderMeshInstance(*_sprite->GetTexture()->getTexture()->m_quadMeshInstance);
+	
 
 	// Iterate through all mesh instances in the cluster and render them for the Opaque render pass
 	renderer->setSceneRenderPassType(PHYRE_GET_SCENE_RENDER_PASS_TYPE(Opaque));
+
+	if (_sprite->GetTexture()->getTexture() && _sprite->GetTexture()->getTexture()->m_quadMeshInstance)
+		renderer->renderMeshInstance(*collection->m_quadMeshInstance);
 	//renderWorld(m_world, m_camera);
 	// Render the text objects
 	/*for (PUInt32 i = 0; i < c_totalTextStrings; i++)
@@ -100,4 +104,11 @@ void Renderer::setCameraAspect(float ratio)
 {
 	m_camera->setAspect(ratio);
 	m_camera->updateViewMatrices();
+}
+
+PResult Renderer::addToCollection(Phyre::PSprite::PSpriteCollection *_collection)
+{
+	collection = _collection;
+
+	return PE_RESULT_NO_ERROR;
 }
