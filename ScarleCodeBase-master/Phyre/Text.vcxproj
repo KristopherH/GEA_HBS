@@ -352,6 +352,7 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='GLDebug|PSVita'">%(PreprocessorDefinitions);_DEBUG;_PHYRE_</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|PSVita'">%(PreprocessorDefinitions);_DEBUG;_PHYRE_</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='Android'">
@@ -378,9 +379,6 @@
     <ProjectReference Include="$(SCE_PHYRE)\DeveloperExtensions\PhyreDeveloperExtensions.vcxproj">
       <Project>{ec8c49f0-52a1-11e3-ba94-1eb46188709b}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Main_Engine\Main_Engine.vcxproj">
-      <Project>{d465bf62-e8da-45cd-8abc-54d4b35b76a6}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="AndroidManifest.xml" />
@@ -389,6 +387,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\PhyreSamplesCommonScene.cpp" />
+    <ClCompile Include="..\Main_Engine\AnimatedSprite.cpp" />
+    <ClCompile Include="..\Main_Engine\Background.cpp" />
+    <ClCompile Include="..\Main_Engine\BaseCamera.cpp" />
+    <ClCompile Include="..\Main_Engine\Button.cpp" />
+    <ClCompile Include="..\Main_Engine\Collectible.cpp" />
+    <ClCompile Include="..\Main_Engine\Collision_Manager.cpp" />
+    <ClCompile Include="..\Main_Engine\Enemy.cpp" />
+    <ClCompile Include="..\Main_Engine\Engine.cpp" />
+    <ClCompile Include="..\Main_Engine\GameData.cpp" />
+    <ClCompile Include="..\Main_Engine\GameObject.cpp" />
+    <ClCompile Include="..\Main_Engine\GameScene.cpp" />
+    <ClCompile Include="..\Main_Engine\Game_Controller.cpp" />
+    <ClCompile Include="..\Main_Engine\LevelEditor.cpp" />
+    <ClCompile Include="..\Main_Engine\MainMenu.cpp" />
+    <ClCompile Include="..\Main_Engine\Object_Factory.cpp" />
+    <ClCompile Include="..\Main_Engine\Platforms.cpp" />
+    <ClCompile Include="..\Main_Engine\Player.cpp" />
+    <ClCompile Include="..\Main_Engine\Scene.cpp" />
+    <ClCompile Include="..\Main_Engine\SceneManager.cpp" />
+    <ClCompile Include="..\Main_Engine\Sprite.cpp" />
     <ClCompile Include="Code\CustomMath.cpp" />
     <ClCompile Include="Code\InputManager.cpp" />
     <ClCompile Include="Code\LevelLoader.cpp" />
@@ -399,6 +417,27 @@
   <ItemGroup>
     <ClInclude Include="..\Common\PhyreSamplesCommon.h" />
     <ClInclude Include="..\Common\PhyreSamplesCommonScene.h" />
+    <ClInclude Include="..\Main_Engine\AnimatedSprite.h" />
+    <ClInclude Include="..\Main_Engine\Background.h" />
+    <ClInclude Include="..\Main_Engine\BaseCamera.h" />
+    <ClInclude Include="..\Main_Engine\Button.h" />
+    <ClInclude Include="..\Main_Engine\Collectible.h" />
+    <ClInclude Include="..\Main_Engine\Collision_Manager.h" />
+    <ClInclude Include="..\Main_Engine\Enemy.h" />
+    <ClInclude Include="..\Main_Engine\Engine.h" />
+    <ClInclude Include="..\Main_Engine\Enum_container.h" />
+    <ClInclude Include="..\Main_Engine\GameData.h" />
+    <ClInclude Include="..\Main_Engine\GameObject.h" />
+    <ClInclude Include="..\Main_Engine\GameScene.h" />
+    <ClInclude Include="..\Main_Engine\Game_Controller.h" />
+    <ClInclude Include="..\Main_Engine\LevelEditor.h" />
+    <ClInclude Include="..\Main_Engine\MainMenu.h" />
+    <ClInclude Include="..\Main_Engine\Object_Factory.h" />
+    <ClInclude Include="..\Main_Engine\Platforms.h" />
+    <ClInclude Include="..\Main_Engine\Player.h" />
+    <ClInclude Include="..\Main_Engine\Scene.h" />
+    <ClInclude Include="..\Main_Engine\SceneManager.h" />
+    <ClInclude Include="..\Main_Engine\Sprite.h" />
     <ClInclude Include="Code\CustomMath.h" />
     <ClInclude Include="Code\InputManager.h" />
     <ClInclude Include="Code\LevelLoader.h" />

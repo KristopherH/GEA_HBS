@@ -6,16 +6,17 @@
 #include "..\DXTK_Wrapper\CustomMath.h"
 #include "..\DXTK_Wrapper\Renderer.h"
 #include "../DXTK_Wrapper/Texture.h"
+#include "../DXTK_Wrapper/InputManager.h"
 #elif defined _PHYRE_
 //Phyre
 #include "../Phyre/Code/CustomMath.h"
 #include "../Phyre/Code/Texture.h"
 #include "../Phyre/Code/Renderer.h"
+#include "../Phyre/Code/InputManager.h"
 #endif
 
 //OURS
 #include "GameData.h"
-#include "InputManager.h"
 #include "GameScene.h"
 #include "SceneManager.h"
 #include "BaseCamera.h"
@@ -63,6 +64,6 @@ void MainMenuScene::Update(float dt)
 
 void MainMenuScene::Draw()
 {
-	GameData::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (cam->getPosition() + Vec2(150.0f, 200.0f)) * -1.0);
+	//GameData::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (cam->getPosition() + Vec2(150.0f, 200.0f)) * -1.0);
 	Scene::Draw();
 }

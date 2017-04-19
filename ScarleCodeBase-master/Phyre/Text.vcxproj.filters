@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Wrapper">
       <UniqueIdentifier>{7a8791fc-b27f-4fad-af89-417922069ab4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\EngineFiles">
+      <UniqueIdentifier>{294c5a79-c063-4ded-94be-ef41883bf465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineFiles">
+      <UniqueIdentifier>{e5ba333e-b683-47a5-b31d-65866e4407d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme_e.txt" />
@@ -86,6 +92,69 @@
     <ClInclude Include="Code\Texture.h">
       <Filter>Header Files\Wrapper</Filter>
     </ClInclude>
+    <ClInclude Include="..\Main_Engine\AnimatedSprite.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Background.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\BaseCamera.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Button.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Collectible.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Collision_Manager.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Enemy.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Engine.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Enum_container.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Game_Controller.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\GameData.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\GameObject.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\GameScene.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\LevelEditor.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\MainMenu.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Object_Factory.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Platforms.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Player.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Scene.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\SceneManager.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Main_Engine\Sprite.h">
+      <Filter>Header Files\EngineFiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\PhyreSamplesCommonScene.cpp">
@@ -108,6 +177,66 @@
     </ClCompile>
     <ClCompile Include="Code\Texture.cpp">
       <Filter>Source Files\Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\AnimatedSprite.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Background.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\BaseCamera.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Button.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Collectible.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Collision_Manager.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Enemy.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Engine.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Game_Controller.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\GameData.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\GameObject.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\GameScene.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\LevelEditor.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\MainMenu.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Object_Factory.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Platforms.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Player.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Scene.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\SceneManager.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Main_Engine\Sprite.cpp">
+      <Filter>Source Files\EngineFiles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

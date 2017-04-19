@@ -1,7 +1,15 @@
 #include "LevelEditor.h"
 #include "GameData.h"
-#include "InputManager.h"
-#include "LevelLoader.h"
+//DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper/InputManager.h"
+#include "..\DXTK_Wrapper/LevelLoader.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/InputManager.h"
+#include "../Phyre/Code/LevelLoader.h"
+#endif
+
 #include "Player.h"
 #include "Background.h"
 #include "Collision_Manager.h"
@@ -86,6 +94,8 @@ LevelEditorScene::LevelEditorScene()
 		y += 100.0f;
 		ui_elements.push_back(btn);
 	}
+
+#ifndef _PHYRE_
  Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button");
 	save->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
@@ -225,6 +235,7 @@ LevelEditorScene::LevelEditorScene()
 	load->setSize(new Vec2(100.0f, 100.0f));
 	y += 100.0f;
 	ui_elements.push_back(load);
+#endif // _PHYRE_
 
 #pragma endregion
 }

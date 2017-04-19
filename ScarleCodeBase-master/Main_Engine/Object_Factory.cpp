@@ -7,6 +7,14 @@
 #include "Platforms.h"
 #include "Player.h"
 
+//DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\CustomMath.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/CustomMath.h"
+#endif
+
 GameObject* ObjectFactory::createPlayer()
 {
 	Sprite* sprite1 = new Sprite("player_sprite", GameData::renderer);

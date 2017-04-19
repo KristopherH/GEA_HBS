@@ -179,9 +179,9 @@
     <IncludePath>..\DXTK_Wrapper;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GLDebug|Win32'">
-    <OutDir>..\Bin\Desktop_2015\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\Bin\Desktop_2015\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>../Phyre_Wrapper;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)</OutDir>
+    <IntDir>$(SCE_PHYRE)\Lib\Intermediate\vs2015\Samples\$(ProjectName)\$(Configuration)_$(Platform)\</IntDir>
+    <IncludePath>$(IncludePath);../Phyre/Code/</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PSVita'">
     <OutDir>$(ProjectDir)</OutDir>
@@ -220,10 +220,18 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\Inc;..\DXTK_Wrapper</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Inc;%(AdditionalIncludeDirectories);"$(CG_INC_PATH)";$(WindowsSDK_IncludePath);"$(SCE_PHYRE)/External/WinSDK";"$(SCE_PHYRE)/External/openvr/headers"</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);_PHYRE_</PreprocessorDefinitions>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetFileName).pdb</ProgramDataBaseFileName>
     </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);"$(SCE_PHYRE_SCALEFORM)/3rdParty/libpng-1.5.13/Lib/Win32/Msvc14/Debug";"$(SCE_PHYRE_SCALEFORM)/3rdParty/jpeg-8d/lib/Win32/Msvc14/Debug";"$(SCE_PHYRE_SCALEFORM)/3rdParty/zlib-1.2.7/lib/win32/Msvc14/Debug";"$(SCE_PHYRE_SCALEFORM)/3rdParty/pcre/lib/win32/Msvc14/Debug";"$(SCE_PHYRE_SCALEFORM)/3rdParty/curl-7.29.0/lib/win32/Msvc14/Debug"</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PSVita'">
     <ClCompile>

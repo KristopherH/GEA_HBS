@@ -18,7 +18,7 @@ Platforms::Platforms(Renderer* _renderer)
 	platform_sprites["Conveyor"] = new Texture("ConveyorPlatform", _renderer);
 }
 
-GameObject* Platforms::standardPlatform(float x, float y, float sizeX, float sizeY, string name)
+GameObject* Platforms::standardPlatform(float x, float y, float sizeX, float sizeY, std::string name)
 {
 	platform = new GameObject(new Sprite(platform_sprites["Standard"]) , name, "Standard Platform");
 
@@ -28,7 +28,7 @@ GameObject* Platforms::standardPlatform(float x, float y, float sizeX, float siz
 	return platform;
 }
 
-GameObject* Platforms::stickyPlatform(float x, float y, float sizeX, float sizeY, string name)
+GameObject* Platforms::stickyPlatform(float x, float y, float sizeX, float sizeY, std::string name)
 {
 	platform = new GameObject(new Sprite(platform_sprites["Sticky"]), name, "Sticky Platform");
 
@@ -38,7 +38,7 @@ GameObject* Platforms::stickyPlatform(float x, float y, float sizeX, float sizeY
 	return platform;
 }
 
-GameObject* Platforms::speedPlatform(float x, float y, float sizeX, float sizeY, string name)
+GameObject* Platforms::speedPlatform(float x, float y, float sizeX, float sizeY, std::string name)
 {
 	platform = new GameObject(new Sprite(platform_sprites["Speed"]), name, "Speed Platform");
 
@@ -48,7 +48,7 @@ GameObject* Platforms::speedPlatform(float x, float y, float sizeX, float sizeY,
 	return platform;
 }
 
-GameObject* Platforms::slowPlatform(float x, float y, float sizeX, float sizeY, string name)
+GameObject* Platforms::slowPlatform(float x, float y, float sizeX, float sizeY, std::string name)
 {
 	platform = new GameObject(new Sprite(platform_sprites["Slow"]), name, "Slow Platform");
 	
@@ -58,7 +58,7 @@ GameObject* Platforms::slowPlatform(float x, float y, float sizeX, float sizeY, 
 	return platform;
 }
 
-GameObject* Platforms::conveyorPlatform(float x, float y, float sizeX, float sizeY, string name, bool _left)
+GameObject* Platforms::conveyorPlatform(float x, float y, float sizeX, float sizeY, std::string name, bool _left)
 {
 	std::string tag = "Conveyor Left";
 	if (!_left)	tag = "Conveyor Right";
@@ -71,7 +71,7 @@ GameObject* Platforms::conveyorPlatform(float x, float y, float sizeX, float siz
 	return platform;
 }
 
-GameObject* Platforms::jumpPlatform(float x, float y, float sizeX, float sizeY, string name)
+GameObject* Platforms::jumpPlatform(float x, float y, float sizeX, float sizeY, std::string name)
 {
 	platform = new GameObject(new Sprite(platform_sprites["Jump"]), name, "Jump Platform");
 

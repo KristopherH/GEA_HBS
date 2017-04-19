@@ -2,10 +2,15 @@
 //C++
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\Texture.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/Texture.h"
+#endif
 
 //OURS
 #include "GameData.h"
-#include "Texture.h"
 
 Background::Background(Sprite * _sprite, BaseCamera * camera)
 	:main_camera(camera)

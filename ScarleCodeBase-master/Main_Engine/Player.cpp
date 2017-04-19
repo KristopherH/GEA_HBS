@@ -3,9 +3,14 @@
 #include <iostream>
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\InputManager.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/InputManager.h"
+#endif
 
 //OURS
-#include "InputManager.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 

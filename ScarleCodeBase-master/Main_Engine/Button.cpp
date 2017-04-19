@@ -1,7 +1,13 @@
 #include "Button.h"
 #include "GameData.h"
 #include "Collision_Manager.h"
-#include "InputManager.h"
+//DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\InputManager.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/InputManager.h"
+#endif
 #include "BaseCamera.h"
 
 Button::Button(Sprite* sprite, std::string _name, std::string _tag)

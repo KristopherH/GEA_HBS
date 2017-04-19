@@ -28,9 +28,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assets", "Assets\Assets.vcxproj", "{248AADEE-AC04-4739-8C74-503788D7698D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Main_Engine", "Main_Engine\Main_Engine.vcxproj", "{D465BF62-E8DA-45CD-8ABC-54D4B35B76A6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{964045D9-99C9-493E-BBFB-7BFFDA71E678} = {964045D9-99C9-493E-BBFB-7BFFDA71E678}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXTK_Wrapper", "DXTK_Wrapper\DXTK_Wrapper.vcxproj", "{964045D9-99C9-493E-BBFB-7BFFDA71E678}"
 	ProjectSection(ProjectDependencies) = postProject

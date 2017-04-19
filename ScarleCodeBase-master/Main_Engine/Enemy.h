@@ -3,11 +3,17 @@
 #include <vector>
 
 //DXTK
+#if defined _DXTK_
+#include "..\DXTK_Wrapper\CustomMath.h"
+#elif defined _PHYRE_
+//Phyre
+#include "../Phyre/Code/CustomMath.h"
+#endif
 
 //OURS
 #include "GameObject.h"
 #include "Player.h"
-#include "CustomMath.h"
+
 
 class Enemy : public GameObject
 {

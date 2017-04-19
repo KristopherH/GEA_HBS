@@ -1,5 +1,6 @@
 #pragma once
 //C++
+#include <string>
 
 //DXTK
 #if defined _DXTK_

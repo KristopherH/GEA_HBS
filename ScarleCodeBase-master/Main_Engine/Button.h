@@ -1,5 +1,6 @@
 #pragma once
 //c++
+#include <functional>
 
 //DXTK
 

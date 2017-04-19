@@ -10,12 +10,14 @@
 #include "..\DXTK_Wrapper\CustomMath.h"
 #include "..\DXTK_Wrapper\Renderer.h"
 #include "../DXTK_Wrapper/Texture.h"
+#include "../DXTK_Wrapper/LevelLoader.h"
 #elif defined _PHYRE_
 //Phyre
 #include "../Phyre/Code/InputManager.h"
 #include "../Phyre/Code/CustomMath.h"
 #include "../Phyre/Code/Texture.h"
 #include "../Phyre/Code/Renderer.h"
+#include "../Phyre/Code/LevelLoader.h"
 #endif
 
 //OURS
@@ -25,7 +27,6 @@
 #include "GameData.h"
 #include "Platforms.h"
 #include "BaseCamera.h"
-#include "LevelLoader.h"
 #include "Game_Controller.h"
 #include "Background.h"
 #include "Collision_Manager.h"

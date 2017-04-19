@@ -2,6 +2,8 @@
 //C++
 
 //DXTK
+#include <Phyre.h>
+#include <vectormath\cpp\vectormath_aos.h>
 
 //OURS
 
@@ -15,15 +17,15 @@ Vec2::Vec2(float _x, float _y)
 {
 }
 
-Vectormath::Aos::Vector2 Vec2::operator= (Vec2 _vec)
-{
-	return Vectormath::Aos::Vector2(_vec.x, _vec.y);
-}
-
-Vec2 Vec2::operator=(Vectormath::Aos::Vector2 _vec)
-{
-	return Vec2(_vec.getX(), _vec.getY());
-}
+//Vectormath::Aos::Vector2 Vec2::operator= (Vec2& _vec)
+//{
+//	return Vectormath::Aos::Vector2(_vec.x, _vec.y);
+//}
+//
+//Vec2 Vec2::operator=(Vectormath::Aos::Vector2& _vec)
+//{
+//	return Vec2(_vec.getX(), _vec.getY());
+//}
 
 Vec2 Vec2::operator*=(const float & other)
 {
@@ -316,7 +318,7 @@ OurMatrix::OurMatrix(const float * pArray)
 	m[3][3] = pArray[15];
 }
 
-Vectormath::Aos::Matrix4 OurMatrix::toPHYRE(OurMatrix mat)
+Vectormath::Aos::Matrix4 OurMatrix::toPHYRE(OurMatrix& mat)
 {
 	return Vectormath::Aos::Matrix4(
 		Vectormath::Aos::Vector4(mat._11, mat._12, mat._13, mat._14),
@@ -333,32 +335,46 @@ OurMatrix OurMatrix::toOur(Vectormath::Aos::Matrix4 mat)
 					 mat.getCol3().getX(), mat.getCol3().getY(), mat.getCol3().getZ(), mat.getCol3().getW());
 }
 
-//OurMatrix OurMatrix::CreatePerspectiveFieldOfView(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance, float _farPlaneDistance)
-//{
-//	return toOur(/*DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(_fieldOfView, _aspectRatio, _nearPlaneDistance, _farPlaneDistance)*/);
-//}
-//
-//OurMatrix OurMatrix::CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane)
-//{
-//	return toOur(/*DirectX::SimpleMath::Matrix::CreateOrthographic(_width, _height, _nearPlane, _farPlane)*/);
-//}
-//
-//OurMatrix OurMatrix::CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up)
-//{
-//	DirectX::SimpleMath::Vector3 pos = Vec3::toDXTK(position);
-//	DirectX::SimpleMath::Vector3 targ = Vec3::toDXTK(m_target);
-//	DirectX::SimpleMath::Vector3 up = Vec3::toDXTK(m_up);
-//	return toOur(DirectX::SimpleMath::Matrix::CreateLookAt(pos, DirectX::SimpleMath::Vector3::Forward, DirectX::SimpleMath::Vector3::Up));
-//}
-//
-//OurMatrix OurMatrix::CreateTrasform(Vec3 _pos, float _rot, float _zoom, float _viewportWidth, float _viewportHeight )
-//{
-//	DirectX::SimpleMath::Matrix matrix = DirectX::SimpleMath::Matrix::CreateTranslation(_pos) *
-//		DirectX::SimpleMath::Matrix::CreateRotationZ(_rot) *
-//		DirectX::SimpleMath::Matrix::CreateScale(DirectX::SimpleMath::Vector3(_zoom, _zoom, 1)) *
-//		DirectX::SimpleMath::Matrix::CreateTranslation(DirectX::SimpleMath::Vector3(_viewportWidth * 0.5f, _viewportHeight * 0.5f, 0));
-//	
-//	return toOur(matrix);
-//}
+OurMatrix OurMatrix::CreatePerspectiveFieldOfView(float _fieldOfView, float _aspectRatio, float _nearPlaneDistance, float _farPlaneDistance)
+{
+	return toOur(sce::Vectormath::Scalar::Aos::Matrix4::perspective(_fieldOfView, _aspectRatio, _nearPlaneDistance, _farPlaneDistance));
+}
+
+OurMatrix OurMatrix::CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane)
+{
+	return toOur(sce::Vectormath::Scalar::Aos::Matrix4::orthographic(0, _width, _height, 0, _nearPlane, _farPlane));
+}
+
+OurMatrix OurMatrix::CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up)
+{
+	Vectormath::Aos::Point3 pos;
+	pos.setX(position.x);
+	pos.setY(position.y);
+	pos.setZ(position.z);
+	Vectormath::Aos::Point3 target;
+	target.setX(m_target.x);
+	target.setY(m_target.y);
+	target.setZ(m_target.z);
+	Vectormath::Aos::Vector3 up;
+	up.setX(m_up.x);
+	up.setY(m_up.y);
+	up.setZ(m_up.z);
+
+	return (toOur(Vectormath::Aos::Matrix4::lookAt(pos, target, up)));
+}
+
+OurMatrix OurMatrix::CreateTrasform(Vec3 _pos, float _rot, float _zoom, float _viewportWidth, float _viewportHeight )
+{
+	using namespace Vectormath::Aos;
+	Vector3 pos;
+	pos.setX(_pos.x);
+	pos.setY(_pos.y);
+	pos.setZ(_pos.z);
+	Matrix4 matrix = Matrix4::translation(pos)
+		* Matrix4::rotationZ(_rot)
+		* Matrix4::scale(Vector3(_zoom, _zoom, 1))
+		* Matrix4::translation(Vector3(_viewportWidth * 0.5f, _viewportHeight * 0.5f, 0));
+	return toOur(matrix);
+}
 
 #pragma endregion

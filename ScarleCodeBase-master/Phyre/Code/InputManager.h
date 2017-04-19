@@ -1,13 +1,22 @@
 #pragma once
 //C++
 
-//DXTK
-//#include <dinput.h>
+//PHYRE
+#include <Phyre.h>
+#include <Inputs/PhyreInputs.h>
+#include <Framework/PhyreFrameworkApplication.h>
 
 //OURS
 
 
 using Input = int;
+using namespace Phyre;
+using namespace PFramework;
+using namespace PRendering;
+using namespace PGeometry;
+using namespace PSerialization;
+using namespace Vectormath::Aos;
+using namespace PInputs;
 
 struct Inputs
 {
@@ -23,33 +32,32 @@ class InputManager
 {
 public:
 	InputManager() = delete;
-	InputManager(HWND _window, HINSTANCE _h_instance);
-	~InputManager();
-
+	InputManager(PInputMapper* _input_mapper);
+	~InputManager(); 
 
 #pragma region Mouse Input
-	bool getMouseRight();
-	bool getMouseLeft();
-	bool getMouseMiddle();
+	static bool getMouseRight();
+	static bool getMouseLeft();
+	static bool getMouseMiddle();
 #pragma endregion
 
 #pragma region Keyboard Input
-	bool getKeyDown(Input _key);
-	bool getKeyUp(Input _key);
-	bool getKeyHeld(Input _key);
+	static bool getKeyDown(Input _key);
+	static bool getKeyUp(Input _key);
+	static bool getKeyHeld(Input _key);
 #pragma endregion
 
 #pragma region GamePad Input
-	bool gamePadButtonDown(unsigned int button);
-	bool gamePadButtonUp(unsigned int button);
-	bool gamePadButtonHeld(unsigned int button);
+	static bool gamePadButtonPress(Input _input);
+	static bool gamePadButtonUp(Input _input);
+	static bool gamePadButtonHeld(Input _input);
 #pragma endregion going to have to look more into this (pre-processor shit)
 
 #pragma region Couple of checkers (need to double check what these would be)
-	bool init();
-	bool readKeyboard();
-	bool readMouse();
-	void update();
+	static bool init();
+	static bool readKeyboard();
+	static bool readMouse();
+	static void update();
 #pragma endregion
 
 	static int mouse_x;
@@ -57,17 +65,9 @@ public:
 	static int mouse_x_translation;
 	static int mouse_y_translation;
 
+	static PInputMapper* input_mapper;
 private:
-	//int convertCharToDinput(char _input);
+	//int convertCharToDinput(char _input)
 
-	static unsigned char keyboard_state[256];
-	static unsigned char previous_keyboard_state[256];
-	static IDirectInput8* user_direct_input;
-	static IDirectInputDevice8* user_keyboard;
-	static IDirectInputDevice8* user_mouse;
-	static DIMOUSESTATE mouse_state;
-
-	HWND window;
-	HINSTANCE h_instance;
 
 };

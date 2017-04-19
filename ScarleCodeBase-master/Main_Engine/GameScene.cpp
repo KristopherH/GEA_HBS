@@ -4,16 +4,19 @@
 //DXTK
 #if defined _DXTK_
 #include "../DXTK_Wrapper/Texture.h"
+#include "../DXTK_Wrapper/LevelLoader.h"
+
 #elif defined _PHYRE_
 //Phyre
 #include "../Phyre/Code/Texture.h"
+#include "../Phyre/Code/LevelLoader.h"
 #endif
 
 //OURS
 #include "GameData.h"
 #include "Background.h"
 #include "Player.h"
-#include "LevelLoader.h"
+
 #include "Game_Controller.h"
 #include "Scene.h"
 #include "AnimatedSprite.h"
@@ -80,5 +83,5 @@ void GameScene::Update(float dt)
 void GameScene::Draw()
 {
 	Scene::Draw();
-	GameData::renderer->renderText("Lives: " + std::to_string(player->getLives()), (cam->getPosition() + Vec2(-600.0f, 450.0f)) * -1.0);
+	//GameData::renderer->renderText("Lives: " + std::to_string(player->getLives()), (cam->getPosition() + Vec2(-600.0f, 450.0f)) * -1.0);
 }

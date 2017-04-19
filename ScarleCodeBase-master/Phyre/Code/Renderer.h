@@ -2,24 +2,25 @@
 //C++
 #include <memory>
 
-//DXTK
-
 //OURS
-#include "CustomMath.h"
-
-#include <Phyre.h>
-#include <Rendering/PhyreRendering.h>
+namespace Phyre
+{
+	namespace PRendering
+	{
+		class PRenderer;
+	}
+	class PCameraPerspective;
+	class PWorldMatrixOrbitController;
+}
 
 class GameObject;
 class BaseCamera;
 class Sprite;
 
-using namespace Phyre;
-
 class Renderer
 {
 public:
-	Renderer(PRendering::PRenderer* _renderer);
+	Renderer(Phyre::PRendering::PRenderer* _renderer);
 	/*ID3D11Device* _pd3dDevice, HWND _hWnd*/
 	~Renderer();
 
@@ -38,10 +39,9 @@ public:
 	void setCameraAspect(float);
 
 private:
-	PRendering::PRenderer* renderer;
-	Phyre::PCameraPerspective					m_camera;								// The camera to be used for rendering the scene.
-	Phyre::PWorldMatrixOrbitController			m_cameraController;						// The camera controller used to orientate the camera within the scene.
-
+	Phyre::PRendering::PRenderer* renderer;
+	Phyre::PCameraPerspective*					m_camera;								// The camera to be used for rendering the scene.
+	Phyre::PWorldMatrixOrbitController*			m_cameraController;						// The camera controller used to orientate the camera within the scene.
 	float										m_previousDistance;						// The previous camera distance.
 
 };

@@ -6,9 +6,11 @@
 //DXTK
 #if defined _DXTK_
 #include "..\DXTK_Wrapper\Renderer.h"
+#include "..\DXTK_Wrapper\Texture.h"
 #elif defined _PHYRE_
 //Phyre
 #include "../Phyre/Code/Renderer.h"
+#include "../Phyre/Code/Texture.h"
 #endif
 
 //OURS
@@ -16,8 +18,6 @@
 #include "Player.h"
 #include "GameData.h"
 #include "GameObject.h"
-#include "Texture.h"
-
 
 class Platforms
 {
@@ -26,12 +26,12 @@ public:
 	Platforms(Renderer* _renderer);
 	~Platforms() = default;
 
-	GameObject* standardPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObject* stickyPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObject* speedPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObject* slowPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObject* conveyorPlatform(float x, float y, float sizeX, float sizeY, string name, bool leftOrRight);
-	GameObject* jumpPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObject* standardPlatform(float x, float y, float sizeX, float sizeY, std::string name);
+	GameObject* stickyPlatform(float x, float y, float sizeX, float sizeY, std::string name);
+	GameObject* speedPlatform(float x, float y, float sizeX, float sizeY, std::string name);
+	GameObject* slowPlatform(float x, float y, float sizeX, float sizeY, std::string name);
+	GameObject* conveyorPlatform(float x, float y, float sizeX, float sizeY, std::string name, bool leftOrRight);
+	GameObject* jumpPlatform(float x, float y, float sizeX, float sizeY, std::string name);
 
 	static std::map<std::string, Texture*> platform_sprites;
 

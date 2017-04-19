@@ -17,6 +17,7 @@ PhyreEngine(TM) Package 3.17.0.0
 #include "Main.h"
 #include "../Main_Engine/Engine.h"
 #include "Renderer.h"
+#include "CustomMath.h"
 
 using namespace Phyre;
 using namespace PFramework;
@@ -43,7 +44,7 @@ PTextSample::PTextSample()
 	, m_meshInstance(NULL)
 	, m_bitmapFont(NULL)
 {
-	Renderer* renderer = new Renderer(&m_renderer);
+	renderer = new Renderer(&m_renderer);
 	Engine* engine = new Engine(renderer, nullptr);
 
 	setWindowTitle("Text Sample");

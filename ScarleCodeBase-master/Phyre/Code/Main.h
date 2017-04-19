@@ -7,6 +7,8 @@ PhyreEngine(TM) Package 3.17.0.0
 #ifndef TEXT_H
 #define TEXT_H
 
+#include "Renderer.h"
+
 // Description:
 // Sample application definition.
 class PTextSample : public Phyre::PFramework::PApplication
