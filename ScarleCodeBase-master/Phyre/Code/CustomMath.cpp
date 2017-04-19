@@ -2,7 +2,7 @@
 //C++
 
 //DXTK
-#include <Phyre.h>
+//#include <Phyre.h>
 #include <vectormath\cpp\vectormath_aos.h>
 
 //OURS

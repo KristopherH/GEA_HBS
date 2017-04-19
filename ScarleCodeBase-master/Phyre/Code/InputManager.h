@@ -1,22 +1,15 @@
 #pragma once
 //C++
 
-//PHYRE
-#include <Phyre.h>
-#include <Inputs/PhyreInputs.h>
-#include <Framework/PhyreFrameworkApplication.h>
+////PHYRE
+//#include <Phyre.h>
+//#include <Inputs/PhyreInputs.h>
+//#include <Framework/PhyreFrameworkApplication.h>
 
 //OURS
 
 
 using Input = int;
-using namespace Phyre;
-using namespace PFramework;
-using namespace PRendering;
-using namespace PGeometry;
-using namespace PSerialization;
-using namespace Vectormath::Aos;
-using namespace PInputs;
 
 struct Inputs
 {
@@ -28,12 +21,21 @@ struct Inputs
 	static Input USE;
 };
 
+namespace Phyre
+{
+	namespace PFramework
+	{
+		class PInputMapper;
+	}
+}
+//class PInputMapper;
+
 class InputManager
 {
 public:
-	InputManager() = delete;
-	InputManager(PInputMapper* _input_mapper);
-	~InputManager(); 
+	InputManager() = default;
+	//InputManager(Phyre::PFramework::PInputMapper* _input_mapper);
+	~InputManager() = default; 
 
 #pragma region Mouse Input
 	static bool getMouseRight();
@@ -65,7 +67,7 @@ public:
 	static int mouse_x_translation;
 	static int mouse_y_translation;
 
-	static PInputMapper* input_mapper;
+	//static Phyre::PFramework::PInputMapper* input_mapper;
 private:
 	//int convertCharToDinput(char _input)
 

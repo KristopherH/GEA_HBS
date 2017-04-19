@@ -5,7 +5,9 @@
 #include <sstream>
 #include <string>
 
-//DXTK
+//Phyre
+#include "../Main_Engine/GameObject.h"
+#include "CustomMath.h"
 
 //OURS
 #include "../Main_Engine/Platforms.h"

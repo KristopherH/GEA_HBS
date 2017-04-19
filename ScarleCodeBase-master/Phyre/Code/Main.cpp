@@ -18,6 +18,7 @@ PhyreEngine(TM) Package 3.17.0.0
 #include "../Main_Engine/Engine.h"
 #include "Renderer.h"
 #include "CustomMath.h"
+#include "InputManager.h"
 
 using namespace Phyre;
 using namespace PFramework;
@@ -44,8 +45,6 @@ PTextSample::PTextSample()
 	, m_meshInstance(NULL)
 	, m_bitmapFont(NULL)
 {
-	renderer = new Renderer(&m_renderer);
-	Engine* engine = new Engine(renderer, nullptr);
 
 	setWindowTitle("Text Sample");
 	setReadmeDirectory("./Samples/Text/");
@@ -72,8 +71,13 @@ PResult PTextSample::initScene()
 	PHYRE_TRY(PhyreOS::SetCurrentDirToPhyre());
 
 	// Load the asset file
-	PHYRE_TRY(PCluster::LoadAssetFile(m_loadedCluster, "Media/" PHYRE_PLATFORM_ID "/Samples/Text/text.phyre"));
+	//PHYRE_TRY(PCluster::LoadAssetFile(m_loadedCluster, "Media/" PHYRE_PLATFORM_ID "/Samples/Text/text.phyre"));
+	//PHYRE_TRY(FixupClusters(&m_loadedCluster, 1));
+	PHYRE_TRY(PCluster::LoadAssetFile(m_loadedCluster, "Media/" PHYRE_PLATFORM_ID "/Samples/Sprite/sprite.phyre"));
 	PHYRE_TRY(FixupClusters(&m_loadedCluster, 1));
+
+	renderer = new Renderer(&m_renderer);
+	Engine* engine = new Engine(renderer, nullptr);
 
 	// Add the main cluster to a world
 	m_world.addCluster(*m_loadedCluster);

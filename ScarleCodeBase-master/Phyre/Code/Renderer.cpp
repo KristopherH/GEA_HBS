@@ -9,25 +9,25 @@
 
 //Phyre
 #include <Phyre.h>
-//#include <Framework/PhyreFramework.h>
-//#include <Rendering/PhyreRendering.h>
-//#include <Geometry/PhyreGeometry.h>
-//#include <Scene/PhyreScene.h>
-//#include <Serialization/PhyreSerialization.h>
-//#include <Sprite/PhyreSprite.h>
-//#include <Rendering\PhyreMeshInstance.h>
-//#include <Rendering/PhyreRendering.h>
-
-
-#include <Geometry/PhyreGeometry.h>
+#include <Framework/PhyreFramework.h>
 #include <Rendering/PhyreRendering.h>
-#include <Scripting/PhyreScripting.h>
-#include <Gameplay/PhyreGameplay.h>
-#include <WorldRendering/PhyreWorldRenderer.h>
+#include <Geometry/PhyreGeometry.h>
+#include <Scene/PhyreScene.h>
+#include <Serialization/PhyreSerialization.h>
 #include <Sprite/PhyreSprite.h>
-#include <Particle/PhyreParticle.h>
+#include <Rendering\PhyreMeshInstance.h>
+#include <Rendering/PhyreRendering.h>
 
-#include <Framework\PhyreFrameworkInputMapper.h>
+//
+//#include <Geometry/PhyreGeometry.h>
+//#include <Rendering/PhyreRendering.h>
+//#include <Scripting/PhyreScripting.h>
+//#include <Gameplay/PhyreGameplay.h>
+//#include <WorldRendering/PhyreWorldRenderer.h>
+//#include <Sprite/PhyreSprite.h>
+//#include <Particle/PhyreParticle.h>
+
+//#include <Framework\PhyreFrameworkInputMapper.h>
 
 using namespace Phyre;
 using namespace PFramework;
@@ -50,7 +50,7 @@ Renderer::~Renderer()
 
 bool Renderer::BeginDraw(BaseCamera* mainCamera)
 {
-	PHYRE_TRY(m_cameraController->bind(m_camera));
+	m_cameraController->bind(*m_camera);
 	m_cameraController->setDistance(35.0f);
 	m_cameraController->setFromMatrix(OurMatrix::toPHYRE(mainCamera->GetProj()));
 

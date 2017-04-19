@@ -6,26 +6,14 @@
 
 //OURS
 #include "CustomMath.h"
-#include <Phyre.h>
-#include <Rendering\PhyreRenderer.h>
-#include <Sprite\PhyreSprite.h>
-
-#include <Phyre.h>
-#include <Framework/PhyreFramework.h>
-#include <Rendering/PhyreRendering.h>
-#include <Geometry/PhyreGeometry.h>
-#include <Scene/PhyreScene.h>
-#include <Serialization/PhyreSerialization.h>
-#include <Sprite/PhyreSprite.h>
-
-using namespace Phyre;
-using namespace PFramework;
-using namespace PRendering;
-using namespace PGeometry;
-using namespace PSerialization;
-using namespace PInputs;
-using namespace Vectormath::Aos;
-
+namespace Phyre
+{
+	namespace  PSprite
+	{
+		class PSpriteCollection;
+	}
+	class PCluster;
+}
 class Renderer;
 
 class Texture
@@ -41,6 +29,6 @@ public:
 
 protected:
 	Phyre::PSprite::PSpriteCollection* sprite;
-	Phyre::PCluster m_cluster;
+	Phyre::PCluster* m_cluster;
 	//ID3D11ShaderResourceView* m_pTextureRV;
 };
