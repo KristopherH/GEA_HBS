@@ -56,6 +56,6 @@ protected:
 	//void oneWayPlatformMove(); 
 	Inputs input;
 	//Input component
-	std::map<int, std::function<void()>> KeyBindsHold;
-	std::map<int, std::function<void()>> KeyBindsPress;
+	std::map<Input, std::function<void()>> KeyBindsHold;
+	std::map<Input, std::function<void()>> KeyBindsPress;
 };

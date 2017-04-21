@@ -1,73 +1,37 @@
 #include "InputManager.h"
 //C++
 #include <string>
-//#include <Phyre.h>
-//#include <Inputs/PhyreInputs.h>
-//#include <Framework/PhyreFrameworkApplication.h>
-/*
-#ifdef DEBUG
-#include <iostream>
-#endif*/
-
-//DXTK
-
-//OURS
-//#include <GameData.h>
-
-//using namespace Phyre;
-//using namespace PFramework;
-//using namespace PRendering;
-//using namespace PGeometry;
-//using namespace PSerialization;
-//using namespace Vectormath::Aos;
-//using namespace PInputs;
+////Phyre
+#include <Framework/PhyreFrameworkInput.h>
+#include <Framework/PhyreFrameworkInputFilter.h>
+#include <Framework/PhyreFrameworkInputDevice.h>
+#include <Framework/PhyreFrameworkInputMotion.h>
+#include <Framework/PhyreFrameworkInputMotionController.h>
+#include <Framework/PhyreFrameworkInputTouch.h>
+#include <Framework/PhyreFrameworkInputMapper.h>
 
 int InputManager::mouse_x = 0;
 int InputManager::mouse_y = 0;
 int InputManager::mouse_x_translation = 0;
 int InputManager::mouse_y_translation = 0;
-//PInputMapper* InputManager::input_mapper = nullptr;
+Phyre::PFramework::PInputMapper* InputManager::input_mapper = nullptr;
+Input InputManager::previous_key = Input::InputChannel_Empty;
 
-#ifdef ARCADE
-Input Inputs::UP = DIK_R;
-Input Inputs::DOWN = DIK_F;
-Input Inputs::LEFT = DIK_D;
-Input Inputs::RIGHT = DIK_G;
-Input Inputs::JUMP = DIK_LSHIFT;
-Input Inputs::USE = DIK_1;
-#elif defined _DXTK_
-Input Inputs::UP = DIK_W;
-Input Inputs::DOWN = DIK_S;
-Input Inputs::LEFT = DIK_A;
-Input Inputs::RIGHT = DIK_D;
-Input Inputs::JUMP = DIK_SPACE;
-Input Inputs::USE = DIK_RETURN;
-#elif defined _PHYRE_
-//Input Inputs::UP = Phyre::PInputs::PInputBase::InputChannel_Button_Up;
-//Input Inputs::DOWN = Phyre::PInputs::PInputBase::InputChannel_Button_Down;
-//Input Inputs::LEFT = Phyre::PInputs::PInputBase::InputChannel_Button_Left;
-//Input Inputs::RIGHT = Phyre::PInputs::PInputBase::InputChannel_Button_Right;
-//Input Inputs::JUMP = Phyre::PInputs::PInputBase::InputChannel_Button_X;
-//Input Inputs::USE = Phyre::PInputs::PInputBase::InputChannel_Button_Square;
-Input Inputs::UP = 0;
-Input Inputs::DOWN = 0;
-Input Inputs::LEFT = 0;
-Input Inputs::RIGHT = 0;
-Input Inputs::JUMP = 0;
-Input Inputs::USE = 0;
+#ifdef _PHYRE_
+Input Inputs::NONE = Input::InputChannel_Empty;
+Input Inputs::UP = Input::InputChannel_Button_Up;
+Input Inputs::DOWN = Input::InputChannel_Button_Down;
+Input Inputs::LEFT = Input::InputChannel_Button_Left;
+Input Inputs::RIGHT = Input::InputChannel_Button_Right;
+Input Inputs::JUMP = Input::InputChannel_Button_X;
+Input Inputs::USE = Input::InputChannel_Button_Circle;
 #endif
 
-//InputManager::InputManager(Phyre::PFramework::PInputMapper* _input_mapper)
-//{
-//	input_mapper = _input_mapper;
-//}
-
 #pragma region Mouse
-
 bool InputManager::getMouseRight()
 {
 	//if (mouse_state.rgbButtons[1] & 0x80)
-		return true;
+	//return true;
 
 	return false;
 }
@@ -77,7 +41,7 @@ bool InputManager::getMouseRight()
 bool InputManager::getMouseLeft()
 {
 	//if (mouse_state.rgbButtons[0] & 0x80)
-		return true;
+	//return true;
 
 	return false;
 }
@@ -87,7 +51,7 @@ bool InputManager::getMouseLeft()
 bool InputManager::getMouseMiddle()
 {
 	//if (mouse_state.rgbButtons[2] & 0x80)
-		return true;
+	//return true;
 
 	return false;
 }
@@ -99,14 +63,17 @@ bool InputManager::getMouseMiddle()
 
 bool InputManager::getKeyDown(Input _key)
 {
-	if (_key == 0)
+	if (_key == Inputs::NONE)
 	{
-		//OutputDebugString("Key Request Was Invalid!");
+		PHYRE_PRINTF("Key Request Was Invalid!");
 		return false;
 	}
 
-	//if (keyboard_state[_key] && !previous_keyboard_state[_key])
+	if ((_key != previous_key) && input_mapper->checkAndClearJoypadButton(_key))
+	{
+		previous_key = _key;
 		return true;
+	}
 
 	return false;
 }
@@ -115,14 +82,17 @@ bool InputManager::getKeyDown(Input _key)
 
 bool InputManager::getKeyUp(Input _key)
 {
-	if (_key == 0)
+	if (_key == Inputs::NONE)
 	{
-		//OutputDebugString("Key Request Was Invalid!");
+		PHYRE_PRINTF("Key Request Was Invalid!");
 		return false;
 	}
 
-	//if (!keyboard_state[_key] && previous_keyboard_state[_key])
+	if ((_key == previous_key) && !input_mapper->checkAndClearJoypadButton(_key))
+	{
+		previous_key = Input::InputChannel_Empty;
 		return true;
+	}
 
 	return false;
 }
@@ -131,13 +101,17 @@ bool InputManager::getKeyUp(Input _key)
 
 bool InputManager::getKeyHeld(Input _key)
 {
-	if (_key == 0)
+	if (_key == Inputs::NONE)
 	{
-		//OutputDebugString("Key Request Was Invalid!");
+		PHYRE_PRINTF("Key Request Was Invalid!");
 		return false;
 	}
-
-	//if (keyboard_state[_key]) return true;
+	
+	if (input_mapper->checkAndClearJoypadButton(_key))
+	{
+		previous_key = _key;
+		return true;
+	}
 
 	return false;
 }
@@ -149,10 +123,7 @@ bool InputManager::getKeyHeld(Input _key)
 
 bool InputManager::gamePadButtonPress(Input _input)
 {
-	/*if (input_mapper->checkAndClearJoypadButton(0))
-	{
-		return true;
-	}*/
+
 	return false;
 }
 
@@ -181,16 +152,24 @@ bool InputManager::init()
 
 
 
-bool InputManager::readKeyboard()
+void InputManager::readKeyboard()
 {
-	return false;
+	if (previous_key == Inputs::NONE)
+		return;
+
+	if (!input_mapper->checkAndClearJoypadButton(previous_key))
+	{
+		previous_key = Inputs::NONE;
+		return;
+	}
+
+	return;
 }
 
 
 
-bool InputManager::readMouse()
+void InputManager::readMouse()
 {
-	return false;
 }
 
 
@@ -198,7 +177,6 @@ bool InputManager::readMouse()
 void InputManager::update()
 {
 	readKeyboard();
-	readMouse();
 }
 
 #pragma endregion

@@ -370,17 +370,6 @@
     <PhyreAssetGatherTask Include="TextAssets.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SCE_PHYRE)\Core\PhyreCore.vcxproj">
-      <Project>{5201fe7c-03e6-11e1-b01c-997d4824019b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="$(SCE_PHYRE)\Framework\PhyreFramework.vcxproj">
-      <Project>{6720c73c-092e-11e1-b4cb-44d24724019b}</Project>
-    </ProjectReference>
-    <ProjectReference Include="$(SCE_PHYRE)\DeveloperExtensions\PhyreDeveloperExtensions.vcxproj">
-      <Project>{ec8c49f0-52a1-11e3-ba94-1eb46188709b}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="AndroidManifest.xml" />
     <Xml Include="build.xml" />
     <None Include="project.properties" />
