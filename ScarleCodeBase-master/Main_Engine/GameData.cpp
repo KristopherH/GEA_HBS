@@ -17,6 +17,7 @@ Renderer* GameData::renderer = nullptr;
 CollisionManager* GameData::collsion_manager = nullptr;
 GameController* GameData::game_controller = nullptr;
 SceneManager* GameData::scene_manager = nullptr;
+SoundManager* GameData::sound_manager = nullptr;
 
 BaseCamera* GameData::currentCamera = nullptr;
 

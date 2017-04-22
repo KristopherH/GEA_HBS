@@ -22,6 +22,7 @@
 #include "Game_Controller.h"
 #include "../Main_Engine/Engine.h"
 #include "../Main_Engine/GameData.h"
+#include "../DXTK_Wrapper/SoundManager.h"
 
 
 #define DESTROY( x ) if( x ){ x->Release(); x = nullptr;}
@@ -323,6 +324,8 @@ HRESULT Application::InitDevice()
 	//Create the input_manager, it needs Window and Instance
 	InputManager* inputManager = new InputManager(m_hWnd, m_hInst);
 
+	GameData::sound_manager = new SoundManager();
+
 	//Create the collsiion_manager
 	//CollisionManager* collision_manager = new CollisionManager();
 
@@ -371,6 +374,10 @@ bool Application::Update()
 	if (GameData::inputManager)
 	{
 		GameData::inputManager->update();
+	}
+	if (GameData::sound_manager)
+	{
+		GameData::sound_manager->Update();
 	}
 	if (engine)
 	{

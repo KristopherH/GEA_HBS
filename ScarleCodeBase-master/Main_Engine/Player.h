@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "GameData.h"
 #include "Input_Manager.h"
+#include "SoundManager.h"
 
 
 class Player : public GameObject
