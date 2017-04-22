@@ -1,30 +1,36 @@
 #pragma once
-
-#include "..\DXTK_Wrapper\DXTKRenderer.h"
-#include "Sprite.h"
-#include "PlayerV2.h"
-#include "GameDataV2.h"
-#include "GameObjectV2.h"
+//C++
 #include <map>
 #include <string>
 
-class Platforms : public Sprite
+//DXTK
+
+//OURS
+#include "..\DXTK_Wrapper\DXTKRenderer.h"
+#include "Sprite.h"
+#include "Player.h"
+#include "GameData.h"
+#include "GameObject.h"
+#include "Texture.h"
+
+
+class Platforms
 {
 public:
 	Platforms() = delete;
 	Platforms(Renderer* _renderer);
 	~Platforms() = default;
 
-	GameObjectV2* standardPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObjectV2* stickyPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObjectV2* speedPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObjectV2* slowPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObjectV2* conveyorPlatform(float x, float y, float sizeX, float sizeY, string name, bool leftOrRight);
-	GameObjectV2* jumpPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObject* standardPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObject* stickyPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObject* speedPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObject* slowPlatform(float x, float y, float sizeX, float sizeY, string name);
+	GameObject* conveyorPlatform(float x, float y, float sizeX, float sizeY, string name, bool leftOrRight);
+	GameObject* jumpPlatform(float x, float y, float sizeX, float sizeY, string name);
 
+	static std::map<std::string, Texture*> platform_sprites;
 
 private:
-	std::map<std::string, Sprite*> platform_sprites;
-	Sprite* spr = nullptr;
-	GameObjectV2* platform = nullptr;
+	//Sprite* spr = nullptr;
+	GameObject* platform = nullptr;
 };

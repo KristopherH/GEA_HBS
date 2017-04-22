@@ -250,6 +250,22 @@
   <ItemGroup>
     <ImageContentTask Include="enemy_sprite.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="BG\01_ground.png" />
+    <ImageContentTask Include="BG\02_trees and bushes.png" />
+    <ImageContentTask Include="BG\03_distant_trees.png" />
+    <ImageContentTask Include="BG\04_bushes.png" />
+    <ImageContentTask Include="BG\05_hill1.png" />
+    <ImageContentTask Include="BG\06_hill2.png" />
+    <ImageContentTask Include="BG\07_huge_clouds.png" />
+    <ImageContentTask Include="BG\08_clouds.png" />
+    <ImageContentTask Include="BG\09_distant_clouds1.png" />
+    <ImageContentTask Include="BG\10_distant_clouds.png" />
+    <ImageContentTask Include="BG\11_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Button.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

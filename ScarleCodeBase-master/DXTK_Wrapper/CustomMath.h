@@ -1,13 +1,11 @@
 #pragma once
 //C++
 
-//External
+//DXTK
 #include <d3d11_1.h>
 #include "../Inc/SimpleMath.h"
 
-//Internal
-
-//Definitions
+//OURS
 
 struct Vec2
 {
@@ -21,16 +19,17 @@ struct Vec2
 	operator DirectX::SimpleMath::Vector2() const { return  DirectX::SimpleMath::Vector2(x, y); }
 
 	// Operator Overloads
-	Vec2& operator+=(const Vec2& other) { return Vec2(x += other.x, y += other.y); }
-	Vec2& operator-=(const Vec2& other);
-	Vec2& operator*=(const Vec2& other);
-	Vec2& operator*=(const float& other);
-	Vec2& operator/=(const float& other);
+	Vec2 operator+=(const Vec2& other) { return Vec2(x += other.x, y += other.y); }
+	Vec2 operator-=(const Vec2& other) { return Vec2(x -= other.x, y -= other.y); }
+	Vec2 operator*=(const Vec2& other) { return Vec2(x *= other.x, y *= other.y); }
+	Vec2 operator*=(const float& other);
+	Vec2 operator/=(const float& other);
 
 	// Static Operators
 	friend Vec2 operator+(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x + V2.x, V1.y + V2.y); }
 	friend Vec2 operator-(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x - V2.x, V1.y - V2.y); }
 	friend Vec2 operator*(const Vec2& V1, const float& V2) { return Vec2(V1.x * V2, V1.y * V2); }
+	friend Vec2 operator/(const Vec2& V1, const float& V2) { return Vec2(V1.x / V2, V1.y / V2); }
 
 	// Useful Functions
 	void Limit(float _length);
@@ -46,7 +45,9 @@ struct Rect
 	Vec2 min;
 	Vec2 max;
 
-	Rect(Vec2, Vec2);
+	Rect(Vec2 = Vec2(0.0f, 0.0f), Vec2 = Vec2(0.0f, 0.0f));
+
+	friend Rect operator+(const Rect& original, const Vec2 displacement);
 
 	bool Contains(Vec2 oth);
 	Vec2 Center();

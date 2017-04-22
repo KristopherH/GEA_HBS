@@ -18,9 +18,11 @@
 #include "Application.h"
 #include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "../DXTK_Wrapper/Input_Manager.h"
-#include "../DXTK_Wrapper/Collision_Manager.h"
+#include "Collision_Manager.h"
 #include "Game_Controller.h"
 #include "../Main_Engine/Engine.h"
+#include "../Main_Engine/GameData.h"
+#include "../DXTK_Wrapper/SoundManager.h"
 
 
 #define DESTROY( x ) if( x ){ x->Release(); x = nullptr;}
@@ -58,17 +60,22 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 	unsigned int window_width = GetSystemMetrics(SM_CXSCREEN);
 	unsigned int window_height = GetSystemMetrics(SM_CYSCREEN);
 #ifdef DEBUG
-	unsigned int windowed_width = window_width * 0.85;
-	unsigned int windowed_heigth = window_height * 0.85;
+	unsigned int windowed_width = (unsigned int)(window_width * 0.85f);
+	unsigned int windowed_height = (unsigned int)(window_height * 0.85f);
 
 	unsigned int windowed_pos_x = (window_width - windowed_width) / 2;
-	unsigned int windowed_pos_y = (window_height - windowed_heigth) / 4;
+	unsigned int windowed_pos_y = (window_height - windowed_height) / 4;
 
-	RECT rc = { 0, 0, windowed_width, windowed_heigth };
+	RECT rc = { 0, 0, (LONG)windowed_width, (LONG)windowed_height };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 	m_hWnd = CreateWindow(L"GEAWindowClass", L"GEA GROUP PROJECT", WS_OVERLAPPEDWINDOW,
 		windowed_pos_x, windowed_pos_y, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, _hInstance,
 		nullptr);
+
+	GameData::screen.max.x = (float)windowed_width;
+	GameData::screen.max.y = (float)windowed_height;
+	GameData::screen.min.x = (float)windowed_pos_x;
+	GameData::screen.min.y = (float)windowed_pos_y;
 #else
 	//Go to Fullscreen in Release
 	m_hWnd = CreateWindowEx(NULL,
@@ -81,6 +88,11 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		NULL,
 		_hInstance,
 		NULL);
+
+	GameData::screen.max.x = (float)window_width;
+	GameData::screen.max.y = (float)window_height;
+	GameData::screen.min.x = (float)0;
+	GameData::screen.min.y = (float)0;
 #endif
 
 	if (!m_hWnd)
@@ -312,14 +324,16 @@ HRESULT Application::InitDevice()
 	//Create the input_manager, it needs Window and Instance
 	InputManager* inputManager = new InputManager(m_hWnd, m_hInst);
 
+	GameData::sound_manager = new SoundManager();
+
 	//Create the collsiion_manager
-	CollisionManager* collision_manager = new CollisionManager();
+	//CollisionManager* collision_manager = new CollisionManager();
 
 	//Create the GameController
-	GameController* game_controller = new GameController();
+	//GameController* game_controller = new GameController();
 
 	//actually create the engine
-	engine = new Engine(renderer, inputManager, collision_manager, game_controller);
+	engine = new Engine(renderer, inputManager);
 
     return S_OK;
 }
@@ -356,9 +370,19 @@ bool Application::Update()
 		return m_Game->Tick();
 	}*/
 
+
+	if (GameData::inputManager)
+	{
+		GameData::inputManager->update();
+	}
+
 	if (engine)
 	{
-		return engine->Update();
+		engine->Update();
+	}
+	if (GameData::sound_manager)
+	{
+		GameData::sound_manager->Update();
 	}
 
 	return true;

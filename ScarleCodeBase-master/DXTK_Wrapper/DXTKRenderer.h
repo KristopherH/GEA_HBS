@@ -1,21 +1,22 @@
 #pragma once
+//C++
+#include <memory>
+
+//DXTK
 #include <d3d11_1.h>
+#include "SimpleMath.h"
+
+//OURS
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
-#include <memory>
 #include "CustomMath.h"
-#include "SimpleMath.h"
-#include "BaseCamera.h"
 
-class GameObjectV2;
+class GameObject;
+class BaseCamera;
+class Sprite;
 
 using namespace std;
 using namespace DirectX;
-
-enum spriteeffects
-{
-
-};
 
 class Renderer
 {
@@ -25,7 +26,8 @@ public:
 
 	bool BeginDraw(OurMatrix* transformMatrix = nullptr);
 	bool BeginDraw(BaseCamera* mainCamera);
-	bool Draw(GameObjectV2* _go);
+	//bool Draw(GameObject* _go);
+	bool Draw(Sprite* _sprite);
 	bool EndDraw();
 	void renderText(string text, Vec2 position);
 
