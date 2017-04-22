@@ -1,7 +1,11 @@
 #pragma once
+
+#ifndef ARCADE
+
 #include <string>
 #include <d3d11.h>
 #include <Audio.h>
+#include <map>
 
 class SoundManager
 {
@@ -19,6 +23,10 @@ public:
 private:
 	
 	DirectX::AudioEngine* audioEngine;
+	std::map<std::string, std::unique_ptr<DirectX::SoundEffect>> sounds;
+	std::vector<std::unique_ptr<DirectX::SoundEffectInstance>> playingSounds;
 	unsigned short Volume = 50;
 	unsigned short SFX_Volume = 50;
 };
+
+#endif
