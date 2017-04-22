@@ -375,13 +375,14 @@ bool Application::Update()
 	{
 		GameData::inputManager->update();
 	}
-	if (GameData::sound_manager)
-	{
-		GameData::sound_manager->Update();
-	}
+
 	if (engine)
 	{
 		engine->Update();
+	}
+	if (GameData::sound_manager)
+	{
+		GameData::sound_manager->Update();
 	}
 
 	return true;
