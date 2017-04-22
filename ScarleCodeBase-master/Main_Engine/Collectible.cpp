@@ -10,7 +10,10 @@
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
+#include "SceneManager.h"
+#include "Scene.h"
 #include "Texture.h"
+#include "Player.h"
 
 Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {
@@ -37,7 +40,8 @@ Collectible::~Collectible()
 
 bool Collectible::Update(float dt)
 {
-	if (GameData::collsion_manager->boxCollision(name, "Player"))
+	GameObject::Update(dt);
+	if (GameData::collsion_manager->boxCollision(box, GameData::player->getBox()))
 	{
 		alive = false;
 	}

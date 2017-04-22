@@ -12,6 +12,7 @@
 #include "Scene.h"
 #include "AnimatedSprite.h"
 #include "Texture.h"
+#include "Object_Factory.h"
 
 GameScene::GameScene()
 {
@@ -36,20 +37,11 @@ GameScene::GameScene()
 	/*textures.push_back(new Texture("SlowPlatform", GameData::renderer));
 	textures.push_back(new Texture("SpeedPlatform", GameData::renderer));*/
 
-	Sprite* sprite1 = new Sprite("player_sprite", GameData::renderer); //new AnimatedSprite(textures);
-	player = new Player(sprite1, "Player", "Player");
+	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
 	player->setSize(new Vec2(100.0f, 120.0f));
 	player->setPosition(new Vec2(-475.0f, 350.0f));
 	player->setGravity(true);
-
-	player->setGravityTag("Slow Platform");
-	player->setGravityTag("Sticky Platform");
-	player->setGravityTag("Speed Platform");
-	player->setGravityTag("Conveyor Left");
-	player->setGravityTag("Conveyor Right");
-	player->setGravityTag("Jump Platform");
-	player->setGravityTag("Standard Platform");
 
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
 	player->setPosition(level1->playerStartingPosition);

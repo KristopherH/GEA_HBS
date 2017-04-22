@@ -11,39 +11,19 @@
 
 LevelEditorScene::LevelEditorScene()
 {
-	std::vector<Sprite*> BGs;
-	BGs.push_back(new Sprite("11_background", GameData::renderer));
-	BGs.push_back(new Sprite("10_distant_clouds", GameData::renderer));
-	BGs.push_back(new Sprite("09_distant_clouds1", GameData::renderer));
-	BGs.push_back(new Sprite("08_clouds", GameData::renderer));
-	BGs.push_back(new Sprite("07_huge_clouds", GameData::renderer));
-	BGs.push_back(new Sprite("06_hill2", GameData::renderer));
-	BGs.push_back(new Sprite("05_hill1", GameData::renderer));
-	BGs.push_back(new Sprite("04_bushes", GameData::renderer));
-	BGs.push_back(new Sprite("03_distant_trees", GameData::renderer));
-	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
-	BGs.push_back(new Sprite("01_ground", GameData::renderer));
+	Level* level1 = LevelLoader::loadLevel("Level.txt");
 
-	Background* bg = new Background(BGs, cam);
-	go_list.push_back(bg);
-
-	Sprite* sprite1 = new Sprite("player_sprite", GameData::renderer);
-	player = new Player(sprite1, "Player", "Player");
+	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
 	player->setSize(new Vec2(100.0f, 120.0f));
-	player->setPosition(new Vec2(-475.0f, 350.0f));
+	player->setPosition(level1->playerStartingPosition);
 	player->setGravity(true);
 
-	player->setGravityTag("Slow Platform");
-	player->setGravityTag("Sticky Platform");
-	player->setGravityTag("Speed Platform");
-	player->setGravityTag("Conveyor Left");
-	player->setGravityTag("Conveyor Right");
-	player->setGravityTag("Jump Platform");
-	player->setGravityTag("Standard Platform");
+	cam->setPlayerTracker(player);
+	cam->setPosition(&player->getPosition());
 
-	Level* level1 = LevelLoader::loadLevel("Level.txt");
-	player->setPosition(level1->playerStartingPosition);
+	go_list.push_back(ObjectFactory::createBackground());
+
 	for (auto go : level1->go_list)
 	{
 		go_list.push_back(go);
@@ -51,31 +31,30 @@ LevelEditorScene::LevelEditorScene()
 	}
 	delete level1;
 
-	cam->setPlayerTracker(player);
-
 	go_list.push_back(player);
 
 #pragma region UI
 
 	float y = 0;
 	
-	for (auto type : creatableObjectTypes)
+	for (auto type : ObjectFactory::create_object)
 	{
-		Sprite* sprite = new Sprite(type, GameData::renderer);
+		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
 		Button* btn = new Button(sprite, "Button", "Button");
+
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setCallbackFunction([this, type, y]() {
 			//bowties are cool
 			if (!obj_selected)
 			{
 				//create the gameobject
-				float mouse_world_x = (float)0.0f - 
+				float pos_x = (float)0.0f - 
 					((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
-				float mouse_world_y = (float)y - 
+				float pos_y = (float)y - 
 					((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
 
-				GameObject* go = ObjectFactory::createPlatform();
-				go->setPosition(new Vec2(mouse_world_x, mouse_world_y));
+				GameObject* go = type.second();
+				go->setPosition(new Vec2(pos_x, pos_y));
 				go_list.push_back(go);
 				//set the selected object to the new object created
 				obj_selected = go;
@@ -165,33 +144,25 @@ LevelEditorScene::LevelEditorScene()
 			}
 			go_list.clear();
 
-			go_list.push_back(ObjectFactory::createBackground());
+			Level* level1 = LevelLoader::loadLevel("Level.txt");
 
-			Sprite* sprite1 = new Sprite("player_sprite", GameData::renderer);
-			player = new Player(sprite1, "Player", "Player");
+			player = static_cast<Player*>(ObjectFactory::createPlayer());
 
 			player->setSize(new Vec2(100.0f, 120.0f));
-			player->setPosition(new Vec2(-475.0f, 350.0f));
+			player->setPosition(level1->playerStartingPosition);
 			player->setGravity(true);
 
-			player->setGravityTag("Slow Platform");
-			player->setGravityTag("Sticky Platform");
-			player->setGravityTag("Speed Platform");
-			player->setGravityTag("Conveyor Left");
-			player->setGravityTag("Conveyor Right");
-			player->setGravityTag("Jump Platform");
-			player->setGravityTag("Standard Platform");
+			cam->setPlayerTracker(player);
+			cam->setPosition(&player->getPosition());
 
-			Level* level1 = LevelLoader::loadLevel(filename);
-			player->setPosition(level1->playerStartingPosition);
+			go_list.push_back(ObjectFactory::createBackground());
+
 			for (auto go : level1->go_list)
 			{
 				go_list.push_back(go);
 				go = nullptr;
 			}
 			delete level1;
-
-			GameData::currentCamera->setPlayerTracker(player);
 
 			go_list.push_back(player);
 			go_list.push_back(cam);
