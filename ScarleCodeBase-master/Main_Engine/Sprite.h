@@ -6,6 +6,7 @@
 //OURS
 #include "..\DXTK_Wrapper\CustomMath.h"
 #include "..\DXTK_Wrapper\DXTKRenderer.h"
+#include "../Main_Engine/GameData.h"
 
 class Texture;
 class Renderer;
@@ -19,7 +20,7 @@ class Sprite
 {
 public:
 	Sprite(Texture*);
-	Sprite(std::string _fileName, Renderer* _renderer);
+	Sprite(std::string _fileName, Renderer* _renderer = GameData::renderer);
 	virtual ~Sprite();
 
 	virtual void Update();

@@ -8,6 +8,7 @@
 #include "Button.h"
 #include <string>
 #include "Object_Factory.h"
+#include "ballistics.h"
 
 LevelEditorScene::LevelEditorScene()
 {
@@ -22,8 +23,14 @@ LevelEditorScene::LevelEditorScene()
 	cam->setPlayerTracker(player);
 	cam->setPosition(&player->getPosition());
 
+
+
 	go_list.push_back(ObjectFactory::createBackground());
 
+	Ballistics* bullet = new Ballistics();
+	go_list.push_back(bullet);
+	bullet->setPosition(&player->getPosition());
+	bullet->setSize(new Vec2(100.0f, 120.0f));
 	for (auto go : level1->go_list)
 	{
 		go_list.push_back(go);

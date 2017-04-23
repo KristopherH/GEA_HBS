@@ -14,6 +14,7 @@
 #include "Texture.h"
 #include "Object_Factory.h"
 
+
 GameScene::GameScene()
 {
 	std::vector<Sprite*> BGs;
@@ -29,8 +30,13 @@ GameScene::GameScene()
 	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
+
+	
+
 	Background* bg = new Background(BGs, cam);
 	go_list.push_back(bg);
+
+
 
 	std::vector<Texture*> textures;
 
