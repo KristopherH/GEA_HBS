@@ -4,7 +4,7 @@
 
 //DXTK
 #if defined _DXTK_
-#include "..\DXTK_Wrapper\CustomMath.h"
+#include "../DXTK_Wrapper/CustomMath.h"
 #elif defined _PHYRE_
 //Phyre
 #include "../Phyre/Code/CustomMath.h"

@@ -9,7 +9,7 @@
 //OURS
 #include "SpriteBatch.h"
 #include "SpriteFont.h"
-#include "CustomMath.h"
+#include "../DXTK_Wrapper/CustomMath.h"
 
 class GameObject;
 class BaseCamera;

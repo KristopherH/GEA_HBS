@@ -5,7 +5,7 @@
 //DXTK
 
 //OURS
-#include "CustomMath.h"
+#include "../Code/CustomMath.h"
 namespace Phyre
 {
 	namespace  PSprite

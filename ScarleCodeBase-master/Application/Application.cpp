@@ -18,8 +18,8 @@
 #include "Application.h"
 #include "../DXTK_Wrapper/Renderer.h"
 #include "../DXTK_Wrapper/InputManager.h"
-#include "Collision_Manager.h"
-#include "Game_Controller.h"
+#include "../Main_Engine/Collision_Manager.h"
+#include "../Main_Engine/Game_Controller.h"
 #include "../Main_Engine/Engine.h"
 #include "../Main_Engine/GameData.h"
 

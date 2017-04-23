@@ -223,8 +223,8 @@ Vec2* LevelLoader::getVectorFromFile(std::fstream& _file)
 	std::string end = ")";
 	std::string token = tmp.substr(tmp.find(start) + 1, tmp.find(end) - tmp.find(start) - 1); // token is whatever is inbetween ()
 	
-	string buf; // Have a buffer string
-	stringstream ss(token); // Insert the string into a stream
+	std::string buf; // Have a buffer string
+	std::stringstream ss(token); // Insert the string into a stream
 
 	float x, y;
 	ss >> x;

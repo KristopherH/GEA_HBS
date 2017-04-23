@@ -346,6 +346,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ProgramDataBaseFileName>$(IntDir)$(TargetFileName).pdb</ProgramDataBaseFileName>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='GLDebug|Win32'">%(PreprocessorDefinitions);_DEBUG;_PHYRE_</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions);_DEBUG;_PHYRE_;</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='PSVita'">

@@ -17,7 +17,7 @@ PhyreEngine(TM) Package 3.17.0.0
 #include "Main.h"
 #include "../Main_Engine/Engine.h"
 #include "Renderer.h"
-#include "CustomMath.h"
+#include "../Code/CustomMath.h"
 #include "InputManager.h"
 
 using namespace Phyre;
@@ -70,16 +70,16 @@ PResult PTextSample::initScene()
 	// Set the current working directory to SCE_PHYRE.
 	PHYRE_TRY(PhyreOS::SetCurrentDirToPhyre());
 
-	PHYRE_TRY(PCluster::LoadAssetFile(m_loadedCluster, "Media/" PHYRE_PLATFORM_ID "/Samples/Sprite/sprite.phyre"));
-	PHYRE_TRY(FixupClusters(&m_loadedCluster, 1));
+	PHYRE_TRY(PCluster::LoadAssetFile(m_loadedCluster, "Asset/player_sprite"/*"Media/" PHYRE_PLATFORM_ID "/Samples/Sprite/sprite.phyre"*/));
+	//PHYRE_TRY(FixupClusters(&m_loadedCluster, 1));
 
-	PTexture2D *texture = FindAssetRefObj<PTexture2D>(NULL, "Samples/Sprite/sprite.agx");
-	if (!texture)
-		return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Failed to find sprite sheet texture");
+	//PTexture2D *texture = FindAssetRefObj<PTexture2D>(NULL, "Samples/Sprite/sprite.agx");
+	//if (!texture)
+	//	return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Failed to find sprite sheet texture");
 
-	PMaterial *material = FindAssetRefObj<PMaterial>(NULL, "Shaders/PhyreSprite");
-	if (!material)
-		return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Failed to find sprite shader");
+	//PMaterial *material = FindAssetRefObj<PMaterial>(NULL, "Shaders/PhyreSprite");
+	//if (!material)
+	//	return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Failed to find sprite shader");
 
 	PMesh &mesh = PSprite::s_utilitySprite.createQuadMesh();
 	m_spriteCollection = PHYRE_NEW PSprite::PSpriteCollection();
@@ -88,8 +88,8 @@ PResult PTextSample::initScene()
 
 	// Create a sprite collection with maximum of sprites.
 	// Use 2 buffers to allow CPU update while the GPU is rendering.
-	PHYRE_TRY(m_spriteCollection->initialize(*m_loadedCluster, 50, *material, *texture, mesh, true));
-	PHYRE_TRY(m_spriteCollection->setBufferCount(2));
+	//PHYRE_TRY(m_spriteCollection->initialize(*m_loadedCluster, 50, *material, *texture, mesh, true));
+	//PHYRE_TRY(m_spriteCollection->setBufferCount(2));
 
 	renderer = new Renderer(&m_renderer);
 
@@ -99,7 +99,7 @@ PResult PTextSample::initScene()
 	engine = new Engine(renderer, nullptr);
 
 	// Add the main cluster to a world
-	m_world.addCluster(*m_loadedCluster);
+	//m_world.addCluster(*m_loadedCluster);
 	
 	//!
 	//! Configure text rendering
@@ -179,10 +179,10 @@ PResult PTextSample::initScene()
 	//	return PHYRE_SET_LAST_ERROR(PE_RESULT_OBJECT_NOT_FOUND, "Unable to find a mesh instance in the cluster");
 
 	// Initialize gui.
-	PHYRE_TRY(PImGui::Initialize(getWidth(), getHeight()));
+	//PHYRE_TRY(PImGui::Initialize(getWidth(), getHeight()));
 
 	// Call this early to ensure we have some text to render.
-	PHYRE_TRY(handleInputs());
+	//PHYRE_TRY(handleInputs());
 
 	return PApplication::initScene();
 }

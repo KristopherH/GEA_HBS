@@ -38,10 +38,7 @@
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 {
 	GameData::inputManager = _inputManager;
-	if (!GameData::inputManager->init())
-	{
-		OutputDebugString("Input manager failed to initialize");
-	}
+	GameData::inputManager->init();
 	GameData::renderer = _renderer;
 
 	GameData::collsion_manager = new CollisionManager();;

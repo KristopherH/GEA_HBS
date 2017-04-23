@@ -7,7 +7,7 @@
 #include "DDSTextureLoader.h"
 
 //OURS
-#include "CustomMath.h"
+#include "../DXTK_Wrapper/CustomMath.h"
 
 class Renderer;
 

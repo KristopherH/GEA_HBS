@@ -7,7 +7,7 @@
 
 //OURS
 #include "GameObject.h"
-#include "CustomMath.h"
+#include "../DXTK_Wrapper/CustomMath.h"
 
 struct Level
 {

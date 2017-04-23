@@ -1,4 +1,4 @@
-PlayerPos: (-213.67 -864.991)
+PlayerPos: (128.464 -860.803)
 Objects: (15)
 0:
 Type: (Platform)
@@ -67,7 +67,7 @@ PlatformType: (StandardPlatform)
 8:
 Type: (Enemy)
 Name: (Enemy1)
-Position: (168.465 253.565)
+Position: (53.2961 9.17239)
 Size: (100 100)
 Rotation: (0)
 (END)
