@@ -251,6 +251,16 @@ Rect operator+(const Rect& original, const Vec2 displacement)
 	return Rect(a,b);
 }
 
+Rect Rect::operator=(Rect other)
+{
+	this->min.x = other.min.x;
+	this->min.y = other.min.y;
+	this->max.x = other.max.x;
+	this->max.y = other.max.y;
+
+	return *this;
+}
+
 bool Rect::Contains(Vec2 oth)
 {
 	if (oth.x < max.x &&

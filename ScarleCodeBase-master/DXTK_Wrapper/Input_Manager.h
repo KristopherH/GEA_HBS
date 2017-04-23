@@ -56,6 +56,8 @@ public:
 	static int mouse_y;
 	static int mouse_x_translation;
 	static int mouse_y_translation;
+	static float mouse_world_x;
+	static float mouse_world_y;
 
 private:
 	//int convertCharToDinput(char _input);

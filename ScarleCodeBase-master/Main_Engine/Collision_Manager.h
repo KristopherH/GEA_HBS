@@ -16,17 +16,17 @@ public:
 	CollisionManager() = default;
 	~CollisionManager() = default;
 
-	bool boxCollision(std::string a_name, std::string b_name);
-	bool boxCollision(Rect a, Rect b);
-	bool mouseCollision(std::string name);
-	bool mouseCollision(Rect box);
-	bool circleCollision(std::string a_name, std::string b_name);
-	bool bitMapCollision(std::string a_name, std::string b_name);
-	Direction getCollisionDirection();
-	bool oneWayPlatform(std::string a_name);
+	static bool boxCollision(std::string a_name, std::string b_name);
+	static bool boxCollision(Rect a, Rect b);
+	static bool mouseCollision(std::string name);
+	static bool mouseCollision(Rect box);
+	static bool circleCollision(std::string a_name, std::string b_name);
+	static bool bitMapCollision(std::string a_name, std::string b_name); //GET TO IT
+	static Direction getCollisionDirection();
+	static bool oneWayPlatform(std::string a_name);
 
 private:
-	Direction findCollisionDirection(GameObject* a, GameObject* b);
-	Direction findCollisionDirection(Rect * a, Rect * b);
-	Direction col_direction = Direction::NONE;
+	static Direction findCollisionDirection(GameObject* a, GameObject* b);
+	static Direction findCollisionDirection(Rect * a, Rect * b);
+	static Direction col_direction;
 };
