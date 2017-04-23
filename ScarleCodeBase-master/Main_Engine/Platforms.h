@@ -21,14 +21,8 @@ public:
 	Platforms(Renderer* _renderer);
 	~Platforms() = default;
 
-	GameObject* standardPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObject* stickyPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObject* speedPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObject* slowPlatform(float x, float y, float sizeX, float sizeY, string name);
-	GameObject* conveyorPlatform(float x, float y, float sizeX, float sizeY, string name, bool leftOrRight);
-	GameObject* jumpPlatform(float x, float y, float sizeX, float sizeY, string name);
 
-	static std::map<std::string, Texture*> platform_sprites;
+	
 
 private:
 	//Sprite* spr = nullptr;

@@ -17,6 +17,7 @@ IDirectInput8* InputManager::user_direct_input = nullptr;
 IDirectInputDevice8* InputManager::user_keyboard = nullptr;
 IDirectInputDevice8* InputManager::user_mouse = nullptr;
 DIMOUSESTATE InputManager::mouse_state;
+DIMOUSESTATE InputManager::previous_mouse_state;
 
 int InputManager::mouse_x = 0;
 int InputManager::mouse_y = 0;
@@ -82,6 +83,33 @@ bool InputManager::getMouseMiddle()
 {
 		if (mouse_state.rgbButtons[2] & 0x80)
 			return true;
+
+	return false;
+}
+
+bool InputManager::getMouseRightPress()
+{
+	if (mouse_state.rgbButtons[1] & 0x80
+		&& !(previous_mouse_state.rgbButtons[1] & 0x80))
+		return true;
+
+	return false;
+}
+
+bool InputManager::getMouseLeftPress()
+{
+	if (mouse_state.rgbButtons[0] & 0x80
+		&& !(previous_mouse_state.rgbButtons[0] & 0x80))
+		return true;
+
+	return false;
+}
+
+bool InputManager::getMouseMiddlePress()
+{
+	if (mouse_state.rgbButtons[2] & 0x80
+		&& !(previous_mouse_state.rgbButtons[2] & 0x80))
+		return true;
 
 	return false;
 }
@@ -263,12 +291,14 @@ bool InputManager::readMouse()
 	*/
 	//ZeroMemory(&mouse_state, sizeof(mouse_state));
 
+	previous_mouse_state = mouse_state;
+
 	HRESULT result = user_mouse->GetDeviceState(sizeof(DIMOUSESTATE),
 		(LPVOID)&mouse_state);
 
 	if (FAILED(result))
 	{
-		OutputDebugString("KEYBOARD HAS LOST FOCUS, TRYING TO REGAIN CONNECTION\n");
+		OutputDebugString("MOUSE HAS LOST FOCUS, TRYING TO REGAIN CONNECTION\n");
 
 		if (result == DIERR_INPUTLOST || result == DIERR_NOTACQUIRED)
 		{
