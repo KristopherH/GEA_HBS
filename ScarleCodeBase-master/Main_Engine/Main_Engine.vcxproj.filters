@@ -61,6 +61,8 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="ballistics.cpp">
+      <Filter>Source</Filter>
     <ClCompile Include="Platform.cpp">
       <Filter>Source\GameObjects</Filter>
     </ClCompile>
@@ -129,6 +131,8 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="ballistics.h">
+      <Filter>Header</Filter>
     <ClInclude Include="Platform.h">
       <Filter>Header\GameObjects</Filter>
     </ClInclude>
