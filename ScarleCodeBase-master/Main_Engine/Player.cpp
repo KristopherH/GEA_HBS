@@ -235,9 +235,9 @@ void Player::climb()
 		{
 			if (go->getTag() == "Climbable")
 			{
-				if (GameData::collsion_manager->boxCollision(this->name, go->getName()))
+				if (GameData::collsion_manager->boxCollision(this->box, go->getBox()))
 				{
-					if( !climbing)
+					if (!climbing)
 					{
 						velocity.y = 0.0f;
 						acceleration.y = 0.0f;
@@ -245,18 +245,21 @@ void Player::climb()
 					climbing = true;
 					gravity_on = false;
 					grounded = false;
-					Climbable_name = go->getName();
-					
+					climbable_obj = go;
+
 				}
 			}
 		}
 	}
 
-	if (!GameData::collsion_manager->boxCollision(this->name, Climbable_name))
+	if (climbable_obj)
 	{
-		climbing = false;
-		gravity_on = true;
-		Climbable_name = "NULL";
+		if (!GameData::collsion_manager->boxCollision(this->box, climbable_obj->getBox()))
+		{
+			climbing = false;
+			gravity_on = true;
+			climbable_obj = nullptr;
+		}
 	}
 }
 
