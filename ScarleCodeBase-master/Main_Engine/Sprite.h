@@ -32,6 +32,7 @@ public:
 	float getRotation();
 	Vec2 getPosition();
 
+	void setTexture(Texture*);
 	void setScale(Vec2);
 	void setRotation(float);
 	void setPosition(Vec2);

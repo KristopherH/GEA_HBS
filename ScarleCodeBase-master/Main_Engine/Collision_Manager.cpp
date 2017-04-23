@@ -102,8 +102,8 @@ bool CollisionManager::boxCollision(Rect a, Rect b)
 		a.min.y < b.max.y &&
 		a.max.y > b.min.y)
 	{
-		return true;
 		findCollisionDirection(&a, &b);
+		return true;
 	}
 
 	//No collision
