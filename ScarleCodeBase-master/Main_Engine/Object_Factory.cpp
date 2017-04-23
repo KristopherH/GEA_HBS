@@ -4,7 +4,7 @@
 #include "Background.h"
 #include "GameData.h"
 #include "Enemy.h"
-#include "Platforms.h"
+#include "Platform.h"
 #include "Player.h"
 #include "Collectible.h"
 //#ifdef _DXTK_
@@ -23,13 +23,13 @@ GameObject* ObjectFactory::createPlayer()
 	player->setPosition(new Vec2(-475.0f, 350.0f));
 	player->setGravity(true);
 
-	player->setGravityTag("Slow Platform");
-	player->setGravityTag("Sticky Platform");
-	player->setGravityTag("Speed Platform");
-	player->setGravityTag("Conveyor Left");
-	player->setGravityTag("Conveyor Right");
-	player->setGravityTag("Jump Platform");
-	player->setGravityTag("Standard Platform");
+	player->setGravityTag("SlowPlatform");
+	player->setGravityTag("StickyPlatform");
+	player->setGravityTag("SpeedPlatform");
+	player->setGravityTag("ConveyorLeft");
+	player->setGravityTag("ConveyorRight");
+	player->setGravityTag("JumpPlatform");
+	player->setGravityTag("StandardPlatform");
 
 	GameData::player = player;
 
@@ -47,8 +47,7 @@ GameObject* ObjectFactory::createEnemy()
 
 GameObject* ObjectFactory::createPlatform()
 {
-	GameObject* platform = new GameObject(new Sprite(Platforms::platform_sprites["Standard"]),
-										  "Standard Platform", "Standard Platform");
+	GameObject* platform = Platform::create(STANDARD);
 
 	platform->setSize(new Vec2(100.0f, 100.0f));
 	platform->setPosition(new Vec2(0, 0));

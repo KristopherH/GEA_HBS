@@ -180,7 +180,6 @@
     <ClInclude Include="LevelEditor.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Object_Factory.h" />
-    <ClInclude Include="Platform.h" />
     <ClInclude Include="Platforms.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
@@ -204,7 +203,6 @@
     <ClCompile Include="LevelEditor.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Object_Factory.cpp" />
-    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Platforms.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />

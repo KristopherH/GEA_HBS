@@ -19,10 +19,10 @@ public:
 
 	void selectObject();
 	void moveObject();
+	void toggleMode(GameObject*);
 
 protected:
 	std::vector<GameObject*> ui_elements;
-	std::vector<std::string> creatableObjectTypes = { "StandardPlatform", "Ladder", "enemy_sprite", "coin" };
 
 	Player* player = nullptr;
 	GameObject* obj_selected = nullptr;

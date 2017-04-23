@@ -8,6 +8,8 @@
 #include "Button.h"
 #include <string>
 #include "Object_Factory.h"
+#include "ballistics.h"
+#include "Platform.h"
 
 LevelEditorScene::LevelEditorScene()
 {
@@ -22,8 +24,14 @@ LevelEditorScene::LevelEditorScene()
 	cam->setPlayerTracker(player);
 	cam->setPosition(&player->getPosition());
 
+
+
 	go_list.push_back(ObjectFactory::createBackground());
 
+	Ballistics* bullet = new Ballistics();
+	go_list.push_back(bullet);
+	bullet->setPosition(&player->getPosition());
+	bullet->setSize(new Vec2(100.0f, 120.0f));
 	for (auto go : level1->go_list)
 	{
 		go_list.push_back(go);
@@ -246,6 +254,17 @@ void LevelEditorScene::selectObject()
 			}
 		}
 	}
+	else if (GameData::inputManager->getMouseRightPress())
+	{
+		GameData::inputManager->update();
+		for (auto go : *GameData::go_list)
+		{
+			if (GameData::collsion_manager->mouseCollision(go->getBox()))
+			{
+				toggleMode(go);
+			}
+		}
+	}
 	else if(obj_selected)
 	{
 		obj_selected = nullptr;
@@ -260,5 +279,14 @@ void LevelEditorScene::moveObject()
 	{
 		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_x_translation,
 								   -GameData::inputManager->mouse_y_translation));
+	}
+}
+
+void LevelEditorScene::toggleMode(GameObject * _go)
+{
+	if (_go->getType() == "Platform")
+	{
+		Platform* platform = static_cast<Platform*>(_go);
+		platform->changeType((PLATFORM_TYPE)(((int)(platform->getPlatformType()))+1));
 	}
 }

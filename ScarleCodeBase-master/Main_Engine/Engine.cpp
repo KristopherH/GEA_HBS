@@ -15,7 +15,7 @@
 #include "GameObject.h"
 #include "SceneManager.h"
 #include "GameData.h"
-#include "Platforms.h"
+#include "Platform.h"
 #include "BaseCamera.h"
 #include "LevelLoader.h"
 #include "Game_Controller.h"
@@ -40,6 +40,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 	GameData::game_controller = new GameController();
 
 	ObjectFactory::init();
+	Platform::init();
 
 	GameData::scene_manager = new SceneManager();
 	GameData::scene_manager->addScene("MainMenu", new MainMenuScene());

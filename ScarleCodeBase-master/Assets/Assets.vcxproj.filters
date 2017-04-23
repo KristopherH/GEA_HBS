@@ -129,5 +129,8 @@
     <ImageContentTask Include="Button.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="bullet.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
