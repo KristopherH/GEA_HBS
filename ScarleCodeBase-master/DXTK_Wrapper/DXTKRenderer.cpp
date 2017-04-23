@@ -18,7 +18,7 @@ Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	ID3D11DeviceContext* pd3dImmediateContext;
 	_pd3dDevice->GetImmediateContext(&pd3dImmediateContext);
 	spriteBatch.reset(new SpriteBatch(pd3dImmediateContext));
-	spriteFont.reset(new SpriteFont(_pd3dDevice, L"../Assets/italic.spritefont"));
+	spriteFont.reset(new SpriteFont(_pd3dDevice, L"../Assets/yoster.spritefont"));
 	//m_DD2D->m_Font.reset(new SpriteFont(_pd3dDevice, L"..\\Assets\\italic.spritefont"));
 
 	////set up DirectXTK Effects system
