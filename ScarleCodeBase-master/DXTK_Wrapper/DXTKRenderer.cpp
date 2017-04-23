@@ -77,9 +77,9 @@ bool Renderer::EndDraw()
 	return true;
 }
 
-void Renderer::renderText(string text, Vec2 position)
+void Renderer::renderText(string text, Vec2 position, Vec4 colour/*, float rotation, Vec2 origin, float scale*/)
 {
-	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position);
+	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position, (DirectX::SimpleMath::Vector4)colour);
 }
 
 float Renderer::getAspectRatio()

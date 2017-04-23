@@ -30,7 +30,7 @@ MainMenuScene::MainMenuScene()
 		GameData::scene_manager->setCurrentScene("LevelEditorScene");
 	});
 
-	/*std::vector<Sprite*> BGs;
+	std::vector<Sprite*> BGs;
 
 	BGs.push_back(new Sprite("11_background", GameData::renderer));
 	BGs.push_back(new Sprite("10_distant_clouds", GameData::renderer));
@@ -46,7 +46,7 @@ MainMenuScene::MainMenuScene()
 
 	Background* bg = new Background(BGs, cam);
 
-	go_list.push_back(bg);*/
+	go_list.push_back(bg);
 	go_list.push_back(btn);
 	go_list.push_back(btn1);
 
@@ -74,6 +74,5 @@ void MainMenuScene::Update(float dt)
 
 void MainMenuScene::Draw()
 {
-	GameData::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (cam->getPosition() + Vec2(150.0f, 200.0f)) * -1.0);
 	Scene::Draw();
 }
