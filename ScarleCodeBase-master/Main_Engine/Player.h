@@ -43,7 +43,7 @@ protected:
 	bool can_jump;
 	bool jumping;
 	bool jump_platform;
-	std::string Climbable_name = "NULL";
+	GameObject* climbable_obj = nullptr;
 	bool climbing = false;
 	bool key_down = false;
 	//bool one_way_plat_move = false;

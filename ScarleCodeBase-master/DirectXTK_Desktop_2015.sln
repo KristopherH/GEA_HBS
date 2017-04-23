@@ -133,7 +133,6 @@ Global
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Arcade|Mixed Platforms.ActiveCfg = Arcade|Win32
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Arcade|Mixed Platforms.Build.0 = Arcade|Win32
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Arcade|Win32.ActiveCfg = Arcade|Win32
-		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Arcade|Win32.Build.0 = Arcade|Win32
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Arcade|x64.ActiveCfg = Arcade|x64
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Arcade|x64.Build.0 = Arcade|x64
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Debug|Any CPU.ActiveCfg = Debug|Win32
@@ -402,7 +401,6 @@ Global
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4013BE44-2C08-4108-802B-C66345BA3531}.Debug|Win32.Build.0 = Debug|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Debug|x64.ActiveCfg = Debug|x64
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Debug|x64.Build.0 = Debug|x64
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Profile|Any CPU.ActiveCfg = Release|x64
@@ -417,7 +415,6 @@ Global
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Release|Mixed Platforms.ActiveCfg = Release|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Release|Win32.ActiveCfg = Release|Win32
-		{4013BE44-2C08-4108-802B-C66345BA3531}.Release|Win32.Build.0 = Release|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Release|x64.ActiveCfg = Release|x64
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection

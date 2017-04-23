@@ -15,6 +15,7 @@ class SceneManager;
 class GameObject;
 class BaseCamera;
 class SoundManager;
+class Player;
 struct Inputs;
 
 
@@ -29,6 +30,7 @@ struct GameData
 	static SceneManager* scene_manager;
 	static GameController* game_controller;
 	static SoundManager* sound_manager;
+	static Player* player;
 	static std::vector<GameObject*>* go_list;
 	static Inputs input;
 

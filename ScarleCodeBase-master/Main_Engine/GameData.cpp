@@ -8,6 +8,7 @@
 #include "../DXTK_Wrapper/DXTKRenderer.h"
 #include "../DXTK_Wrapper/Input_Manager.h"
 #include "../Main_Engine/Game_Controller.h"
+#include "../Main_Engine/Player.h"
 #include "Collision_Manager.h"
 #include "SceneManager.h"
 #include "BaseCamera.h"
@@ -18,6 +19,7 @@ CollisionManager* GameData::collsion_manager = nullptr;
 GameController* GameData::game_controller = nullptr;
 SceneManager* GameData::scene_manager = nullptr;
 SoundManager* GameData::sound_manager = nullptr;
+Player* GameData::player = nullptr;
 
 BaseCamera* GameData::currentCamera = nullptr;
 

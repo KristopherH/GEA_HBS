@@ -1,3 +1,5 @@
+#ifndef ARCADE
+
 #include "SoundManager.h"
 #include "Helper.h"
 
@@ -24,13 +26,15 @@ void SoundManager::playSound(std::string name, bool BG, bool loop)
 {
 	std::string filename = "..\\Assets\\Sounds\\";
 	filename.append(name);
+	if (sounds.find(filename) == sounds.end())
+	{
+		sounds[filename] = std::make_unique<DirectX::SoundEffect>(audioEngine, Helper::charToWChar(filename.c_str()));
+	}
 	if (!BG)
 	{
-		std::unique_ptr<DirectX::SoundEffect> soundEffect;
-		soundEffect = std::make_unique<DirectX::SoundEffect>(audioEngine, Helper::charToWChar(filename.c_str()));
-		auto effect = soundEffect->CreateInstance();
-		effect->SetVolume(SFX_Volume);
-		effect->Play(loop);
+		playingSounds.push_back(sounds[filename]->CreateInstance());
+		playingSounds[playingSounds.size()-1]->SetVolume(SFX_Volume);
+		playingSounds[playingSounds.size() - 1]->Play(loop);
 	}
 	else
 	{
@@ -45,6 +49,7 @@ void SoundManager::Update()
 {
 	if (!audioEngine->Update())
 	{
+		playingSounds.clear();
 		// No audio device is active
 		if (audioEngine->IsCriticalError())
 		{
@@ -61,3 +66,5 @@ void SoundManager::setSFXVoume(unsigned short _volume)
 {
 	SFX_Volume = _volume;
 }
+
+#endif

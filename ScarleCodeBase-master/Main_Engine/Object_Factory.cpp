@@ -6,6 +6,14 @@
 #include "Enemy.h"
 #include "Platforms.h"
 #include "Player.h"
+#include "Collectible.h"
+//#ifdef _DXTK_
+#include "Texture.h"
+//#endif
+
+
+std::map<Type, std::function<GameObject*()>> ObjectFactory::create_object;
+std::map<Type, Texture*> ObjectFactory::texture_pool;
 
 GameObject* ObjectFactory::createPlayer()
 {
@@ -23,6 +31,8 @@ GameObject* ObjectFactory::createPlayer()
 	player->setGravityTag("Jump Platform");
 	player->setGravityTag("Standard Platform");
 
+	GameData::player = player;
+
 	return player;
 }
 
@@ -30,7 +40,7 @@ GameObject* ObjectFactory::createPlayer()
 
 GameObject* ObjectFactory::createEnemy()
 {
-	return new Enemy(new Vec2(0.0f, 0.0f), new Vec2(25.0f, 25.0f), 0.0f, "Enemy");
+	return new Enemy(new Vec2(0.0f, 0.0f), new Vec2(100.0f, 100.0f), 0.0f, "Enemy");
 }
 
 
@@ -59,7 +69,7 @@ GameObject* ObjectFactory::createLadder()
 	ladder = new GameObject(ladder_spr, "Ladder", "Climbable");
 
 	ladder->setPosition(new Vec2(0, 0));
-	ladder->setSize(new Vec2(500.0f, 1000.0f));
+	ladder->setSize(new Vec2(100.0f, 300.0f));
 	ladder->setSolid(false);
 
 	return ladder;
@@ -75,10 +85,7 @@ GameObject* ObjectFactory::createCollectable()
 	collectible = nullptr;
 
 	collectible_spr = new Sprite("coin", GameData::renderer);
-	collectible = new GameObject(collectible_spr, "Collectible", "Collectible");
-
-	collectible->setPosition(new Vec2(0, 0));
-	collectible->setSize(new Vec2(100.0f, 100.0f));
+	collectible = new Collectible(new Vec2(0, 0), new Vec2(100.0f, 100.0f), 0, "Collectible");
 
 	return collectible;
 }
@@ -103,4 +110,19 @@ GameObject* ObjectFactory::createBackground()
 	Background* bg = new Background(BGs, GameData::currentCamera);
 
 	return bg;
+}
+
+void ObjectFactory::init()
+{
+	ObjectFactory::create_object[PLATFORM] = createPlatform;
+	ObjectFactory::create_object[ENEMY] = createEnemy;
+	//create_object[PLAYER] = createPlayer;
+	ObjectFactory::create_object[LADDER] = createLadder;
+	ObjectFactory::create_object[COLLECTIBLE] = createCollectable;
+	//create_object[BACKGROUND] = createBackground;
+
+	ObjectFactory::texture_pool[PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
+	ObjectFactory::texture_pool[ENEMY] = new Texture("enemy_sprite", GameData::renderer);
+	ObjectFactory::texture_pool[LADDER] = new Texture("Ladder", GameData::renderer);
+	ObjectFactory::texture_pool[COLLECTIBLE] = new Texture("coin", GameData::renderer);
 }
