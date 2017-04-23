@@ -1,7 +1,6 @@
 #include "Player.h"
 //C++
 #include <iostream>
-#include <Audio.h>
 
 //DXTK
 
@@ -139,8 +138,7 @@ void Player::OnJump()
 			//position += Vec2(0.0f, jumpStrength);
 			acceleration += Vec2(0.0f, jumpStrength);
 			stoppedJumping = false;
-			PlaySound("..\\Assets\\Sounds\\jump.wav", NULL, SND_ASYNC);
-
+			GameData::sound_manager->playSound("jump.wav");
 		}
 	
 		//if you keep holding down the mouse button...
@@ -180,21 +178,18 @@ void Player::OnMove(Vec2 _direction)
 			if (go->getTag() == "Slow Platform")
 			{
 				acceleration += _direction * 0.25;
-				PlaySound("..\\Assets\\Sounds\\Walking.wav", NULL, SND_LOOP | SND_ASYNC);
 				moved = true;
 				break;
 			}
 			else if (go->getTag() == "Speed Platform")
 			{
 				acceleration += _direction * 3.0;
-				PlaySound("..\\Assets\\Sounds\\Walking.wav", NULL, SND_LOOP | SND_ASYNC);
 				moved = true;
 				break;
 			}
 			else
 			{
 				acceleration += _direction;
-				PlaySound("..\\Assets\\Sounds\\Walking.wav", NULL, SND_LOOP | SND_ASYNC);
 				moved = true;
 				break;
 			}
@@ -204,7 +199,6 @@ void Player::OnMove(Vec2 _direction)
 	if (!moved)
 	{
 		acceleration += _direction;
-		PlaySound("..\\Assets\\Sounds\\Walking.wav", NULL, SND_LOOP | SND_ASYNC);
 	}
 
 	if (!key_down)
@@ -241,9 +235,9 @@ void Player::climb()
 		{
 			if (go->getTag() == "Climbable")
 			{
-				if (GameData::collsion_manager->boxCollision(this->name, go->getName()))
+				if (GameData::collsion_manager->boxCollision(this->box, go->getBox()))
 				{
-					if( !climbing)
+					if (!climbing)
 					{
 						velocity.y = 0.0f;
 						acceleration.y = 0.0f;
@@ -251,18 +245,21 @@ void Player::climb()
 					climbing = true;
 					gravity_on = false;
 					grounded = false;
-					Climbable_name = go->getName();
-					
+					climbable_obj = go;
+
 				}
 			}
 		}
 	}
 
-	if (!GameData::collsion_manager->boxCollision(this->name, Climbable_name))
+	if (climbable_obj)
 	{
-		climbing = false;
-		gravity_on = true;
-		Climbable_name = "NULL";
+		if (!GameData::collsion_manager->boxCollision(this->box, climbable_obj->getBox()))
+		{
+			climbing = false;
+			gravity_on = true;
+			climbable_obj = nullptr;
+		}
 	}
 }
 

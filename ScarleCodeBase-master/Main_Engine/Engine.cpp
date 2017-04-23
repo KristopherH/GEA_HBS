@@ -24,6 +24,7 @@
 
 #include "Scene.h"
 #include "MainMenu.h"
+#include "Object_Factory.h"
 
 
 Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
@@ -37,6 +38,8 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 
 	GameData::collsion_manager = new CollisionManager();;
 	GameData::game_controller = new GameController();
+
+	ObjectFactory::init();
 
 	GameData::scene_manager = new SceneManager();
 	GameData::scene_manager->addScene("MainMenu", new MainMenuScene());
