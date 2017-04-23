@@ -21,7 +21,7 @@ MainMenuScene::MainMenuScene()
 		GameData::scene_manager->addScene("GameScene", new GameScene());
 		GameData::scene_manager->setCurrentScene("GameScene");
 	});
-
+	
 	Button* btn1 = new Button(new Sprite("Button", GameData::renderer), "button1", "");
 	btn1->setSize(new Vec2(200.0f, 100.0f));
 	btn1->setPosition(new Vec2(GameData::screen.Center().x - btn1->getSize().x/2, 400.0f)/*&GameData::screen.Center()*/);
@@ -49,11 +49,6 @@ MainMenuScene::MainMenuScene()
 	go_list.push_back(bg);
 	go_list.push_back(btn);
 	go_list.push_back(btn1);
-
-	//Camera
-	//go_list.push_back(ObjectFactory::createBackground());
-	//Background* bg = new Background(BGs, GameData::currentCamera);
-	
 }
 
 void MainMenuScene::Update(float dt)
@@ -74,6 +69,6 @@ void MainMenuScene::Update(float dt)
 
 void MainMenuScene::Draw()
 {
-	Scene::Draw();
 	GameData::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (cam->getPosition() + Vec2(150.0f, 200.0f)) * -1.0, Vec4(0.0f, 250.0f, 0.0f, 1.0f));
+	Scene::Draw();
 }
