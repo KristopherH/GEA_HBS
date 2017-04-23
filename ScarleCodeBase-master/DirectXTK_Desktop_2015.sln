@@ -394,7 +394,6 @@ Global
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Arcade|Mixed Platforms.ActiveCfg = Release|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Arcade|Mixed Platforms.Build.0 = Release|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Arcade|Win32.ActiveCfg = Release|Win32
-		{4013BE44-2C08-4108-802B-C66345BA3531}.Arcade|Win32.Build.0 = Release|Win32
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Arcade|x64.ActiveCfg = Release|x64
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Arcade|x64.Build.0 = Release|x64
 		{4013BE44-2C08-4108-802B-C66345BA3531}.Debug|Any CPU.ActiveCfg = Debug|Win32

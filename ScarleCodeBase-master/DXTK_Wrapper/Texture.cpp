@@ -12,7 +12,11 @@ Texture::Texture(std::string _fileName, Renderer * _renderer)
 {
 	std::string fullfilename =
 #if DEBUG
+#if ARCADE
+		"../Arcade/"
+#else
 		"../Debug/"
+#endif
 #else
 		"../Release/"
 #endif

@@ -19,6 +19,7 @@ public:
 
 	void selectObject();
 	void moveObject();
+	void snap(GameObject* other, GameObject * obj);
 	void toggleMode(GameObject*);
 
 protected:
