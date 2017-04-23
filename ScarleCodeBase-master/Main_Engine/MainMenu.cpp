@@ -69,6 +69,6 @@ void MainMenuScene::Update(float dt)
 
 void MainMenuScene::Draw()
 {
-	GameData::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (cam->getPosition() + Vec2(150.0f, 200.0f)) * -1.0, Vec4(0.0f, 250.0f, 0.0f, 1.0f));
 	Scene::Draw();
+	GameData::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (cam->getPosition() + Vec2(150.0f, 200.0f)) * -1.0, Vec4(0.0f, 250.0f, 0.0f, 1.0f));
 }
