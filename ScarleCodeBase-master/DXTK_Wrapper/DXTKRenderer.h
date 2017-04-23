@@ -30,7 +30,7 @@ public:
 	bool Draw(Sprite* _sprite);
 	bool EndDraw();
 	//void renderText(string text, Vec2 position);
-	void renderText(string text, Vec2 position, Vec4 colour/*, float rotation, Vec2 origin, float scale*/);
+	void renderText(string text, Vec2 position, Vec4 colour, float rotation, Vec2 origin, float scale);
 
 	ID3D11Device* GetDevice() { return pd3dDevice; }
 	HWND GetWindow() { return hWnd; }

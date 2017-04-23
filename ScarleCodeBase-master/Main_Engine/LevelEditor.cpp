@@ -48,7 +48,7 @@ LevelEditorScene::LevelEditorScene()
 	for (auto type : ObjectFactory::create_object)
 	{
 		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
-		Button* btn = new Button(sprite, "Button", "Button");
+		Button* btn = new Button(sprite, "Button", "Button", "Something", );
 
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setCallbackFunction([this, type, y]() {
@@ -73,7 +73,7 @@ LevelEditorScene::LevelEditorScene()
 		y += 100.0f;
 		ui_elements.push_back(btn);
 	}
- Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button");
+ Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "", Vec2(0.0f, 0.0f));
 	save->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -125,7 +125,7 @@ LevelEditorScene::LevelEditorScene()
 	y += 100.0f;
 	ui_elements.push_back(save);
 
-	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button");
+	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save", Vec2(0.0f,0.0f));
 	load->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 

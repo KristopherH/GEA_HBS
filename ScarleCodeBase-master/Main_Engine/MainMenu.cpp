@@ -14,18 +14,26 @@
 MainMenuScene::MainMenuScene()
 {
 	Scene::Scene();
-	Button* btn = new Button(new Sprite("Button", GameData::renderer), "button1", "");
-	btn->setSize(new Vec2(200.0f, 100.0f));
-	btn->setPosition(new Vec2(0.0f, 0.0f)/*&GameData::screen.Center()*/);
-	btn->setCallbackFunction([]() {
+	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Play", Playbtn->getPosition());
+	Playbtn->setPosition(new Vec2(0.0f, 0.0f)/*&GameData::screen.Center()*/);
+	Playbtn->setSize(new Vec2(200.0f, 100.0f));
+	Playbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("GameScene", new GameScene());
 		GameData::scene_manager->setCurrentScene("GameScene");
 	});
 	
-	Button* btn1 = new Button(new Sprite("Button", GameData::renderer), "button1", "");
-	btn1->setSize(new Vec2(200.0f, 100.0f));
-	btn1->setPosition(new Vec2(GameData::screen.Center().x - btn1->getSize().x/2, 400.0f)/*&GameData::screen.Center()*/);
-	btn1->setCallbackFunction([]() {
+	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Options");
+	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x - LevelEdbtn->getSize().x / 2, 400.0f)/*&GameData::screen.Center()*/);
+	LevelEdbtn->setSize(new Vec2(200.0f, 100.0f));
+	LevelEdbtn->setCallbackFunction([]() {
+		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
+		GameData::scene_manager->setCurrentScene("LevelEditorScene");
+	});
+
+	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Level Editor");
+	Optionsbtn->setSize(new Vec2(200.0f, 100.0f));
+	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x - LevelEdbtn->getSize().x / 2, 400.0f)/*&GameData::screen.Center()*/);
+	Optionsbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
 		GameData::scene_manager->setCurrentScene("LevelEditorScene");
 	});
@@ -47,8 +55,9 @@ MainMenuScene::MainMenuScene()
 	Background* bg = new Background(BGs, cam);
 
 	go_list.push_back(bg);
-	go_list.push_back(btn);
-	go_list.push_back(btn1);
+	go_list.push_back(Playbtn);
+	go_list.push_back(Optionsbtn);
+	go_list.push_back(LevelEdbtn);
 }
 
 void MainMenuScene::Update(float dt)
@@ -70,5 +79,6 @@ void MainMenuScene::Update(float dt)
 void MainMenuScene::Draw()
 {
 	Scene::Draw();
-	GameData::renderer->renderText("Build V1: Alpha\n\n\n\n\n\n   Press Enter", (cam->getPosition() + Vec2(150.0f, 200.0f)) * -1.0, Vec4(0.0f, 250.0f, 0.0f, 1.0f));
+	GameData::renderer->renderText("Generic Platformer \n          Engine", (cam->getPosition() + Vec2(550.0f, 350.0f)) * -1.0f,
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, 0.0f, 2.5f);
 }

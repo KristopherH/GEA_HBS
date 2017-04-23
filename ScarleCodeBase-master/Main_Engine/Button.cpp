@@ -4,10 +4,16 @@
 #include "Input_Manager.h"
 #include "BaseCamera.h"
 
-Button::Button(Sprite* sprite, std::string _name, std::string _tag)
+
+#include "DXTKRenderer.h"
+#include "CustomMath.h"
+
+Button::Button(Sprite* sprite, std::string _name, std::string _tag, string _text, Vec2 _position)
 	:GameObject(sprite, _name, _tag)
 {
-
+	buttonText = _text;
+	x = _position.x;
+	y = _position.y;
 }
 
 bool Button::Update(float dt)
@@ -36,6 +42,9 @@ bool Button::Update(float dt)
 
 bool Button::Draw()
 {
+	GameData::renderer->renderText(buttonText, Vec2(x, y),
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, getOrigin(), 1.0f);
+
 	if (hovering)
 	{
 
