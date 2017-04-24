@@ -72,5 +72,5 @@ void GameScene::Update(float dt)
 void GameScene::Draw()
 {
 	Scene::Draw();
-	GameData::renderer->renderText("Lives: " + std::to_string(player->getLives()), (cam->getPosition() + Vec2(-600.0f, 450.0f)) * -1.0);
+	GameData::renderer->renderText("Lives: " + std::to_string(player->getLives()), (cam->getPosition() + Vec2(-600.0f, 450.0f)) * -1.0, Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, 0.0f, 64.0f);
 }

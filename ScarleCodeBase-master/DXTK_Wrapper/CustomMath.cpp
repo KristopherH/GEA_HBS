@@ -218,10 +218,10 @@ Vec4::Vec4(float _x, float _y, float _z, float _w)
 
 DirectX::SimpleMath::Color Vec4::operator=(Vec4 oth)
 {
-	return DirectX::SimpleMath::Color(oth.x, oth.y, oth.z, oth.w);
+	return DirectX::SimpleMath::Vector4(oth.x, oth.y, oth.z, oth.w);
 }
 
-Vec4 Vec4::operator=(DirectX::SimpleMath::Vector4 oth)
+Vec4 Vec4::operator=(DirectX::SimpleMath::Color oth)
 {
 	return Vec4(oth.x, oth.y, oth.z, oth.w);
 }

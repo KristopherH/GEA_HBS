@@ -4,10 +4,14 @@
 #include "Input_Manager.h"
 #include "BaseCamera.h"
 
-Button::Button(Sprite* sprite, std::string _name, std::string _tag)
+
+#include "DXTKRenderer.h"
+#include "CustomMath.h"
+
+Button::Button(Sprite* sprite, std::string _name, std::string _tag, string _text)
 	:GameObject(sprite, _name, _tag)
 {
-
+	buttonText = _text;
 }
 
 bool Button::Update(float dt)
@@ -44,7 +48,17 @@ bool Button::Draw()
 	{
 
 	}
-	return GameObject::Draw();
+
+	GameObject::Draw();
+
+	GameData::renderer->renderText(buttonText, Vec2((getPosition().x - getSize().x) - 500.0f, (getPosition().y - getSize().y) - 280),
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), ((getSize().x / buttonText.size()) / 17) / 2/*((getSize().x + getSize().y) / 100) / 6*/);
+
+	float newy;
+
+	newy = ((getSize().x / buttonText.size()) / 17) / 2;
+	
+	return true;
 }
 
 void Button::setCallbackFunction(std::function<void()> funct)
