@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "BaseCamera.h"
 #include "LevelEditor.h"
+#include "OptionsMenu.h"
 #include "Button.h"
 #include "Texture.h"
 #include "DXTKRenderer.h"
@@ -37,8 +38,8 @@ MainMenuScene::MainMenuScene()
 	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f)/*&GameData::screen.Center()*/);
 	Optionsbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Optionsbtn->setCallbackFunction([]() {
-		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
-		GameData::scene_manager->setCurrentScene("LevelEditorScene");
+		GameData::scene_manager->addScene("OptionsMenuScene", new OptionsMenu());
+		GameData::scene_manager->setCurrentScene("OptionsMenuScene");
 	});
 
 	std::vector<Sprite*> BGs;
