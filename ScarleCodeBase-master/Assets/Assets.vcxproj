@@ -272,7 +272,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bullet.png" />
+    <ImageContentTask Include="bullet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
