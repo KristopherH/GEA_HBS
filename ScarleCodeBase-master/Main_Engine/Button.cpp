@@ -40,6 +40,8 @@ bool Button::Update(float dt)
 
 bool Button::Draw()
 {
+	GameData::renderer->renderText(buttonText, Vec2(-100.0f, 1600.0f),
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(getPosition().x, getPosition().y), 1.0f);
 
 	if (hovering)
 	{
