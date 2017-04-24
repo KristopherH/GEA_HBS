@@ -27,6 +27,9 @@
     <None Include="shader.fx">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="yoster.ttf">
+      <Filter>Fonts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Bird\BirdModelV1.fbx">
@@ -124,6 +127,9 @@
       <Filter>Textures\BG</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Button.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="bullet.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
   </ItemGroup>

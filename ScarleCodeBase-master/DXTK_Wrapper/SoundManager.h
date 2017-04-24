@@ -29,4 +29,29 @@ private:
 	unsigned short SFX_Volume = 50;
 };
 
+#else
+
+#include <string>
+#include <windows.h>
+#include <map>
+
+class SoundManager
+{
+public:
+	SoundManager();
+	~SoundManager();
+
+	void playSound(std::string name, bool BG = false, bool loop = false);
+
+	void Update();
+
+	void setMasterVoume(unsigned short _volume);
+	void setSFXVoume(unsigned short _volume);
+
+private:
+
+	unsigned short Volume = 50;
+	unsigned short SFX_Volume = 50;
+};
+
 #endif

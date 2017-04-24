@@ -74,6 +74,7 @@ protected:
 	bool solid = true;
 	const float gravity_constant = 0.01f;
 
+	Vec2 size;
 	Vec2 scale;
 	Vec2 origin;
 	float rotation;

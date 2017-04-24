@@ -16,6 +16,7 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	jumpStrength = -0.02f;
 	speed = 0.01f;
 	lives = 3;
+	score = 0;
 	jumpTime = 0.8f;
 	jumpTimeCounter = jumpTime;
 	//Load keybinds from file into list
@@ -48,24 +49,24 @@ bool Player::Update(float dt)
 	can_jump = true;
 	for (auto go : *GameData::go_list)
 	{
-		if (go->getTag() == "Conveyor Left" || go->getTag() == "Conveyor Right")
+		if (go->getTag() == "ConveyorLeft" || go->getTag() == "ConveyorRight")
 		{
-			if (GameData::collsion_manager->boxCollision(this->name, go->getName()))
+			if (GameData::collsion_manager->boxCollision(this->box, go->getBox()))
 			{
-				if (go->getTag() == "Conveyor Left") conveyor(true);
-				else if (go->getTag() == "Conveyor Right") conveyor(false);
+				if (go->getTag() == "ConveyorLeft") conveyor(true);
+				else if (go->getTag() == "ConveyorRight") conveyor(false);
 			}
 		}
-		else if (go->getTag() == "Jump Platform")
+		else if (go->getTag() == "JumpPlatform")
 		{
-			if (GameData::collsion_manager->boxCollision(this->name, go->getName()))
+			if (GameData::collsion_manager->boxCollision(this->box, go->getBox()))
 			{
 				jump_platform = true;
 			}
 		}
-		else if (go->getTag() == "Sticky Platform")
+		else if (go->getTag() == "StickyPlatform")
 		{
-			if (GameData::collsion_manager->boxCollision(this->name, go->getName()))
+			if (GameData::collsion_manager->boxCollision(this->box, go->getBox()))
 			{
 				//prevent jumping
 				can_jump = false;
@@ -173,15 +174,15 @@ void Player::OnMove(Vec2 _direction)
 		{
 
 		}
-		else if (GameData::collsion_manager->boxCollision(this->name, go->getName()))
+		else if (GameData::collsion_manager->boxCollision(this->box, go->getBox()))
 		{
-			if (go->getTag() == "Slow Platform")
+			if (go->getTag() == "SlowPlatform")
 			{
 				acceleration += _direction * 0.25;
 				moved = true;
 				break;
 			}
-			else if (go->getTag() == "Speed Platform")
+			else if (go->getTag() == "SpeedPlatform")
 			{
 				acceleration += _direction * 3.0;
 				moved = true;
@@ -307,4 +308,9 @@ void Player::conveyor(bool _left)
 void Player::setLives()
 {
 	lives -= 1;
+}
+
+void Player::setScore()
+{
+	score += 1;
 }

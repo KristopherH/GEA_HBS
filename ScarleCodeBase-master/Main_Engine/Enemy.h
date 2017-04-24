@@ -6,7 +6,6 @@
 
 //OURS
 #include "GameObject.h"
-#include "Player.h"
 #include "CustomMath.h"
 
 class Enemy : public GameObject
@@ -21,7 +20,6 @@ public:
 	bool Update(float dt) override;
 
 private:
-	Player* player;
 	std::vector<Vec2> waypoints;
 	std::vector<Vec2>::iterator current_waypoint;
 };

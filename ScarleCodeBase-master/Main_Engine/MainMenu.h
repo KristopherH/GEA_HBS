@@ -5,6 +5,7 @@
 
 //OURS
 #include "Scene.h"
+#include "Background.h"
 
 class MainMenuScene : public Scene
 {

@@ -7,14 +7,13 @@
 //DXTK
 
 //OURS
-#include "Platforms.h"
+#include "Platform.h"
 #include "Enemy.h"
 #include "Collectible.h"
 
 Level* LevelLoader::loadLevel(std::string LevelPath)
 {
 	Level* tmpLevel = new Level();
-	Platforms platformsManager(GameData::renderer);
 
 	std::fstream fileStream;
 	fileStream.open(LevelPath);
@@ -44,34 +43,42 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 			std::string platformType = getStringFromFile(fileStream);
 			if (getStringFromFile(fileStream) == "END")
 			{
+				Platform* platform;
 				if (platformType == "SlowPlatform")
 				{
-					go = platformsManager.slowPlatform(pos->x, pos->y, size->x, size->y, name);
+					platform = Platform::create(SLOW);
 				}
 				else if (platformType == "ConveyorLeft")
 				{
-					go = platformsManager.conveyorPlatform(pos->x, pos->y, size->x, size->y, name, true);
+					platform = Platform::create(CONVEYOR_LEFT);
 				}
 				else if (platformType == "ConveyorRight")
 				{
-					go = platformsManager.conveyorPlatform(pos->x, pos->y, size->x, size->y, name, false);
+					platform = Platform::create(CONVEYOR_RIGHT);
 				}
 				else if (platformType == "JumpPlatform")
 				{
-					go = platformsManager.jumpPlatform(pos->x, pos->y, size->x, size->y, name);
+					platform = Platform::create(JUMP);
 				}
 				else if (platformType == "SpeedPlatform")
 				{
-					go = platformsManager.speedPlatform(pos->x, pos->y, size->x, size->y, name);
+					platform = Platform::create(SPEED);
 				}
 				else if (platformType == "StandardPlatform")
 				{
-					go = platformsManager.standardPlatform(pos->x, pos->y, size->x, size->y, name);
+					platform = Platform::create(STANDARD);
 				}
 				else if (platformType == "StickyPlatform")
 				{
-					go = platformsManager.stickyPlatform(pos->x, pos->y, size->x, size->y, name);
+					platform = Platform::create(STICKY);
 				}
+				else
+				{
+					platform = Platform::create(STANDARD);
+				}
+				platform->setPosition(pos);
+				platform->setSize(size);
+				go = platform;
 			}
 			else
 			{

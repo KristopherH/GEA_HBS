@@ -31,6 +31,10 @@ public:
 	bool getMouseRight();
 	bool getMouseLeft();
 	bool getMouseMiddle();
+
+	bool getMouseRightPress();
+	bool getMouseLeftPress();
+	bool getMouseMiddlePress();
 #pragma endregion
 
 #pragma region Keyboard Input
@@ -68,6 +72,7 @@ private:
 	static IDirectInputDevice8* user_keyboard;
 	static IDirectInputDevice8* user_mouse;
 	static DIMOUSESTATE mouse_state;
+	static DIMOUSESTATE previous_mouse_state;
 
 	HWND window;
 	HINSTANCE h_instance;

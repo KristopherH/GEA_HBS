@@ -267,11 +267,6 @@
     <ImageContentTask Include="Button.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="yoster.ttf">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ImageContentTask Include="bullet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

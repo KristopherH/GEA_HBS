@@ -101,8 +101,9 @@ struct Vec4
 
 	Vec4(float _x = 0.0f, float _y = 0.0f,float _z = 0.0f, float _w = 0.0f);
 	DirectX::SimpleMath::Color operator=(Vec4);
-	Vec4 operator=(DirectX::SimpleMath::Vector4);
-	operator DirectX::SimpleMath::Vector4();
+	Vec4 operator=(DirectX::SimpleMath::Color);
+
+	operator DirectX::SimpleMath::Color() const { return DirectX::SimpleMath::Color(x, y, z, w); };
 };
 
 struct OurMatrix

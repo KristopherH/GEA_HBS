@@ -50,6 +50,11 @@ Vec2 Sprite::getPosition()
 	return position;
 }
 
+void Sprite::setTexture(Texture * _texture)
+{
+	texture = _texture;
+}
+
 void Sprite::setScale(Vec2 _scale)
 {
 	scale.x = _scale.x;

@@ -4,25 +4,6 @@
 #include <functional>
 class GameObject;
 class Texture;
-//
-//using Object_Type = std::string;
-//
-//struct ObjectTypes
-//{
-//	static Object_Type Player;
-//	static Object_Type Enemy;
-//	static Object_Type Platform;
-//	static Object_Type Ladder;
-//	static Object_Type Collectible;
-//	static Object_Type Background;
-//};
-//
-//Object_Type ObjectTypes::Player = "player_sprite";
-//Object_Type ObjectTypes::Enemy = "enemy_sprite";
-//Object_Type ObjectTypes::Platform = "StandardPlatform";
-//Object_Type ObjectTypes::Ladder = "Ladder";
-//Object_Type ObjectTypes::Collectible = "coin";
-//Object_Type ObjectTypes::Background = "02_trees and bushes";
 
 enum Type
 {

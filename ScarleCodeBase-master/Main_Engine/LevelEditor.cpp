@@ -8,6 +8,8 @@
 #include "Button.h"
 #include <string>
 #include "Object_Factory.h"
+#include "ballistics.h"
+#include "Platform.h"
 
 LevelEditorScene::LevelEditorScene()
 {
@@ -24,6 +26,10 @@ LevelEditorScene::LevelEditorScene()
 
 	go_list.push_back(ObjectFactory::createBackground());
 
+	Ballistics* bullet = new Ballistics();
+	go_list.push_back(bullet);
+	bullet->setPosition(&player->getPosition());
+	bullet->setSize(new Vec2(100.0f, 120.0f));
 	for (auto go : level1->go_list)
 	{
 		go_list.push_back(go);
@@ -40,7 +46,7 @@ LevelEditorScene::LevelEditorScene()
 	for (auto type : ObjectFactory::create_object)
 	{
 		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
-		Button* btn = new Button(sprite, "Button", "Button");
+		Button* btn = new Button(sprite, "Button", "Button", "Something");
 
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setCallbackFunction([this, type, y]() {
@@ -65,7 +71,7 @@ LevelEditorScene::LevelEditorScene()
 		y += 100.0f;
 		ui_elements.push_back(btn);
 	}
- Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button");
+ Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "");
 	save->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -117,7 +123,7 @@ LevelEditorScene::LevelEditorScene()
 	y += 100.0f;
 	ui_elements.push_back(save);
 
-	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button");
+	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
 	load->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -231,7 +237,8 @@ void LevelEditorScene::Draw()
 
 void LevelEditorScene::selectObject()
 {
-	if (GameData::inputManager->getMouseLeft())
+	if (GameData::inputManager->getMouseLeft()
+		|| (GameData::inputManager->getMouseMiddle()))
 	{
 		if (!obj_selected)
 		{
@@ -244,6 +251,17 @@ void LevelEditorScene::selectObject()
 					obj_select_type = getSelectType();
 					break;
 				}
+			}
+		}
+	}
+	else if (GameData::inputManager->getMouseRightPress())
+	{
+		GameData::inputManager->update();
+		for (auto go : *GameData::go_list)
+		{
+			if (GameData::collsion_manager->mouseCollision(go->getBox()))
+			{
+				toggleMode(go);
 			}
 		}
 	}
@@ -327,6 +345,89 @@ void LevelEditorScene::moveObject()
 	{
 		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_x_translation,
 								   -GameData::inputManager->mouse_y_translation));
+		for (auto& go : go_list)
+		{
+			if (go != obj_selected)
+			{
+				if (GameData::inputManager->getMouseMiddle())
+				{
+					snap(go, obj_selected);
+				}
+			}
+		}
+	}
+}
+
+void LevelEditorScene::snap(GameObject* other, GameObject* obj)
+{
+	if (abs(other->getBox().min.x - obj->getBox().min.x) < 10
+		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
+		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().min.x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().min.y - obj->getBox().min.y) < 10
+		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
+		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().min.y));
+	}
+
+
+	if (abs(other->getBox().max.x - obj->getBox().min.x) < 10
+		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
+		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().max.x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().max.y - obj->getBox().min.y) < 10
+		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
+		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().max.y));
+	}
+
+
+
+
+	if (abs(other->getBox().min.x - obj->getBox().max.x) < 10
+		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
+		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().min.x - obj->getSize().x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().min.y - obj->getBox().max.y) < 10
+		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
+		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().min.y - obj->getSize().y));
+	}
+
+
+	if (abs(other->getBox().max.x - obj->getBox().max.x) < 10
+		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
+		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().max.x - obj->getSize().x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().max.y - obj->getBox().max.y) < 10
+		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
+		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().max.y - obj->getSize().y));
+	}
+}
+
+void LevelEditorScene::toggleMode(GameObject * _go)
+{
+	if (_go->getType() == "Platform")
+	{
+		Platform* platform = static_cast<Platform*>(_go);
+		platform->changeType((PLATFORM_TYPE)(((int)(platform->getPlatformType()))+1));
 	}
 	else if (obj_selected && obj_select_type != ObjectSelectType::NONE)
 	{

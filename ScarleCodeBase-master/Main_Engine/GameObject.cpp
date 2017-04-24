@@ -80,6 +80,7 @@ void GameObject::setPosition(Vec2 * _position)
 	position.x = _position->x; position.y = _position->y;
 	if (sprite != nullptr)
 	{
+		bottomCollider = Rect(Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
 		bottomCollider.max += sprite->getSize();
 		bottomCollider.min += Vec2(0.0f, sprite->getSize().y);
 		bottomCollider.max *= scale;
@@ -89,6 +90,8 @@ void GameObject::setPosition(Vec2 * _position)
 
 void GameObject::setSize(Vec2 * _size)
 {
+	size.x = _size->x;
+	size.y = _size->y;
 	Vec2 textureSize = sprite->getSize();
 	scale.x = _size->x / textureSize.x;
 	scale.y = _size->y / textureSize.y;

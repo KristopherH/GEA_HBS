@@ -43,13 +43,17 @@ public:
 	void selectObject();
 	ObjectSelectType getSelectType();
 	void moveObject();
+
 	void scaleObject();
+
+	void snap(GameObject* other, GameObject * obj);
+	void toggleMode(GameObject*);
+
 
 protected:
 	void resetSelectedEdges();
 
 	std::vector<GameObject*> ui_elements;
-	std::vector<std::string> creatableObjectTypes = { "StandardPlatform", "Ladder", "enemy_sprite", "coin" };
 
 	Player* player = nullptr;
 	GameObject* obj_selected = nullptr;

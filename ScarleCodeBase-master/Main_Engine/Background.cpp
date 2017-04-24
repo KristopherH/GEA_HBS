@@ -5,6 +5,7 @@
 
 //OURS
 #include "GameData.h"
+#include "Player.h"
 #include "Texture.h"
 
 Background::Background(Sprite * _sprite, BaseCamera * camera)
@@ -39,7 +40,7 @@ Background::Background(std::vector<Sprite*> _sprites, BaseCamera * camera)
 		backgrounds[i + 2]->setScale(Vec2(scaleFactor.x, scaleFactor.y) /* (backgrounds.size() - i)*/);
 
 		Vec2 centerPosition;
-		centerPosition += camera->getPosition() * -1;
+		//centerPosition += GameData::player->getPosition();
 		backgrounds[i]->setPosition(centerPosition);
 		backgrounds[i+1]->setPosition(Vec2(centerPosition.x - (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
 		backgrounds[i+2]->setPosition(Vec2(centerPosition.x + (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
