@@ -72,5 +72,11 @@ void GameScene::Update(float dt)
 void GameScene::Draw()
 {
 	Scene::Draw();
-	GameData::renderer->renderText("Lives: " + std::to_string(player->getLives()), (cam->getPosition() + Vec2(-600.0f, 450.0f)) * -1.0, Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, 0.0f, 64.0f);
+	//GameData::renderer->renderText("Lives: " + std::to_string(player->getLives()), (cam->getPosition() + Vec2(-600.0f, 450.0f)) * -1.0, Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, 0.0f, 64.0f);
+	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(600.0f, 550.0f),
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 1.0f);
+
+	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(200.0f, 550.0f),
+		Vec4(0.0f, 0.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 1.0f);
+	//GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), cam->getPosition() + Vec2(-600.0f, 450.0f), Vec4(0.0f, 1.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 2.5f);
 }

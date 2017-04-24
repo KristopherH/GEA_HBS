@@ -16,6 +16,7 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	jumpStrength = -0.02f;
 	speed = 0.01f;
 	lives = 3;
+	score = 0;
 	jumpTime = 0.8f;
 	jumpTimeCounter = jumpTime;
 	//Load keybinds from file into list
@@ -307,4 +308,9 @@ void Player::conveyor(bool _left)
 void Player::setLives()
 {
 	lives -= 1;
+}
+
+void Player::setScore()
+{
+	score += 1;
 }
