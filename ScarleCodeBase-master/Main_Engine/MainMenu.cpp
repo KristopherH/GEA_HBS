@@ -15,26 +15,26 @@ MainMenuScene::MainMenuScene()
 {
 	Scene::Scene();
 	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Play");
-	Playbtn->setPosition(new Vec2(200.0f, 1200.0f));
-	Playbtn->setSize(new Vec2(400.0f, 200.0f));
+	Playbtn->setSize(new Vec2(300.0f, 150.0f));
+	Playbtn->setPosition(new Vec2(GameData::screen.Center().x - 800.0f, 700.0f));
 	Playbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Playbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("GameScene", new GameScene());
 		GameData::scene_manager->setCurrentScene("GameScene");
 	});
 	
-	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button2", "Button", ""/*"Level Editor"*/);
-	LevelEdbtn->setPosition(new Vec2(1170.0f, 1200.0f));/*&GameData::screen.Center());*/
-	LevelEdbtn->setSize(new Vec2(400.0f, 200.0f));
+	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button2", "Button", "Level Editor");
+	LevelEdbtn->setSize(new Vec2(300.0f, 150.0f));
+	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f));/*&GameData::screen.Center());*/	
 	LevelEdbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	LevelEdbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
 		GameData::scene_manager->setCurrentScene("LevelEditorScene");
 	});
 
-	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), "button3", "Button", "");//"Options");
-	Optionsbtn->setPosition(new Vec2(2150.0f, 1200.0f));//new Vec2(GameData::screen.Center().x - Optionsbtn->getSize().x / 2, 400.0f)/*&GameData::screen.Center()*/);
-	Optionsbtn->setSize(new Vec2(400.0f, 200.0f));
+	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), "button3", "Button", "Options");
+	Optionsbtn->setSize(new Vec2(300.0f, 150.0f));
+	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f)/*&GameData::screen.Center()*/);
 	Optionsbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Optionsbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
@@ -59,8 +59,8 @@ MainMenuScene::MainMenuScene()
 
 	go_list.push_back(bg);
 	go_list.push_back(Playbtn);
-	//go_list.push_back(LevelEdbtn);
-	//go_list.push_back(Optionsbtn);
+	go_list.push_back(LevelEdbtn);
+	go_list.push_back(Optionsbtn);
 }
 
 void MainMenuScene::Update(float dt)
@@ -82,6 +82,6 @@ void MainMenuScene::Update(float dt)
 void MainMenuScene::Draw()
 {
 	Scene::Draw();
-	GameData::renderer->renderText("Generic Platformer \n          Engine", (cam->getPosition() + Vec2(750.0f, 350.0f)) * -1.0f,
-		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, 0.0f, 3.5f);
+	GameData::renderer->renderText("Generic Platformer \n          Engine", GameData::screen.Center() * -1 + Vec2(400.0f, 200.0f),
+		Vec4(0.0f, 1.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 2.5f);
 }

@@ -79,6 +79,7 @@ bool Renderer::EndDraw()
 
 void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotation, Vec2 origin, float scale)
 {
+	// To outline text set desired colour value to 250 and other two values to 1 e.g for green outline - (1.0f, 250.0f, 1.0f)
 	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
 }
 

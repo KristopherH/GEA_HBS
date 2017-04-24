@@ -24,8 +24,6 @@ LevelEditorScene::LevelEditorScene()
 	cam->setPlayerTracker(player);
 	cam->setPosition(&player->getPosition());
 
-
-
 	go_list.push_back(ObjectFactory::createBackground());
 
 	Ballistics* bullet = new Ballistics();
