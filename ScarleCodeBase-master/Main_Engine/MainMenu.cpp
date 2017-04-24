@@ -25,7 +25,7 @@ MainMenuScene::MainMenuScene()
 	
 	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button2", "Button", "Level Editor");
 	LevelEdbtn->setSize(new Vec2(300.0f, 150.0f));
-	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f));/*&GameData::screen.Center());*/	
+	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));/*&GameData::screen.Center());*/	
 	LevelEdbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	LevelEdbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
@@ -34,7 +34,7 @@ MainMenuScene::MainMenuScene()
 
 	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), "button3", "Button", "Options");
 	Optionsbtn->setSize(new Vec2(300.0f, 150.0f));
-	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f)/*&GameData::screen.Center()*/);
+	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f)/*&GameData::screen.Center()*/);
 	Optionsbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Optionsbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
