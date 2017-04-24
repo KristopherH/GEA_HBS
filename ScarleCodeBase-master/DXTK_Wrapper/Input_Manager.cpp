@@ -9,6 +9,7 @@
 
 //OURS
 #include <GameData.h>
+#include <BaseCamera.h>
 
 
 unsigned char InputManager::keyboard_state[256];
@@ -23,6 +24,8 @@ int InputManager::mouse_x = 0;
 int InputManager::mouse_y = 0;
 int InputManager::mouse_x_translation = 0;
 int InputManager::mouse_y_translation = 0;
+float InputManager::mouse_world_x = 0.0f;
+float InputManager::mouse_world_y = 0.0f;
 
 #ifdef ARCADE
 Input Inputs::UP = DIK_R;
@@ -355,7 +358,12 @@ void InputManager::update()
 		mouse_y_translation = 0;
 	}
 
-	
+	InputManager::mouse_world_x = (float)GameData::inputManager->mouse_x - 
+		((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
+
+	InputManager::mouse_world_y = (float)GameData::inputManager->mouse_y - 
+		((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
+
 	#ifdef DEBUG
 	std::cout << "Mouse X: " << mouse_x << std::endl;
 	std::cout << "Mouse Y: " << mouse_y << std::endl;
