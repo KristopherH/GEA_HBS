@@ -270,11 +270,6 @@ void LevelEditorScene::selectObject()
 		obj_selected = nullptr;
 		resetSelectedEdges();
 	}
-
-	for (auto go : *GameData::go_list)
-	{
-
-	}
 }
 
 
@@ -355,6 +350,10 @@ void LevelEditorScene::moveObject()
 				}
 			}
 		}
+	}
+	if (obj_selected && obj_select_type != ObjectSelectType::BODY)
+	{
+		scaleObject();
 	}
 }
 
