@@ -9,7 +9,7 @@
 class Button : public GameObject
 {
 public:
-	Button(Sprite* sprite, std::string _name, std::string _tag, std::string _text, Vec2 _position);
+	Button(Sprite* sprite, std::string _name, std::string _tag, std::string _text);
 
 	virtual bool Update(float dt) override;
 	virtual bool Draw() override;
