@@ -67,4 +67,47 @@ void SoundManager::setSFXVoume(unsigned short _volume)
 	SFX_Volume = _volume;
 }
 
+#else
+
+#include "SoundManager.h"
+#include "Helper.h"
+
+SoundManager::SoundManager()
+{
+
+}
+
+SoundManager::~SoundManager()
+{
+
+}
+
+void SoundManager::playSound(std::string name, bool BG, bool loop)
+{
+	std::string filename = "..\\Assets\\Sounds\\";
+	filename.append(name);
+	if (loop)
+	{
+		PlaySound(TEXT(filename.c_str()), NULL, SND_ASYNC | SND_FILENAME | SND_LOOP); 
+	}
+	else
+	{
+		PlaySound(TEXT(filename.c_str()), NULL, SND_ASYNC | SND_FILENAME);
+	}
+}
+
+void SoundManager::Update()
+{
+}
+
+void SoundManager::setMasterVoume(unsigned short _volume)
+{
+	Volume = _volume;
+}
+
+void SoundManager::setSFXVoume(unsigned short _volume)
+{
+	SFX_Volume = _volume;
+}
+
 #endif
