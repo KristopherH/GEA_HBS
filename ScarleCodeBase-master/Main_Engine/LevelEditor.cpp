@@ -71,7 +71,7 @@ LevelEditorScene::LevelEditorScene()
 		y += 100.0f;
 		ui_elements.push_back(btn);
 	}
- Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "");
+ Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
 	save->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -123,7 +123,7 @@ LevelEditorScene::LevelEditorScene()
 	y += 100.0f;
 	ui_elements.push_back(save);
 
-	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
+	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Load");
 	load->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -272,8 +272,6 @@ void LevelEditorScene::selectObject()
 	}
 }
 
-
-
 ObjectSelectType LevelEditorScene::getSelectType()
 {
 	if (!obj_selected)
@@ -388,9 +386,6 @@ void LevelEditorScene::snap(GameObject* other, GameObject* obj)
 		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().max.y));
 	}
 
-
-
-
 	if (abs(other->getBox().min.x - obj->getBox().max.x) < 10
 		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
 		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
@@ -423,7 +418,7 @@ void LevelEditorScene::snap(GameObject* other, GameObject* obj)
 
 void LevelEditorScene::toggleMode(GameObject * _go)
 {
-	if (_go->getType() == "Platform")
+	if (_go->getName() == "Platform")
 	{
 		Platform* platform = static_cast<Platform*>(_go);
 		platform->changeType((PLATFORM_TYPE)(((int)(platform->getPlatformType()))+1));
