@@ -43,6 +43,15 @@ LevelEditorScene::LevelEditorScene()
 
 	float y = 0;
 	
+	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Play");
+	Playbtn->setSize(new Vec2(300.0f, 150.0f));
+	Playbtn->setPosition(new Vec2(GameData::screen.Center().x - 800.0f, 700.0f));
+	Playbtn->setOrigin(new Vec2(0.0f, 0.0f));
+	Playbtn->setCallbackFunction([]() {
+		/*GameData::scene_manager->addScene("GameScene", new GameScene());
+		GameData::scene_manager->setCurrentScene("GameScene");*/
+	});
+
 	for (auto type : ObjectFactory::create_object)
 	{
 		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
@@ -66,8 +75,9 @@ LevelEditorScene::LevelEditorScene()
 				obj_selected = go;
 			}
 		});
-		btn->setPosition(new Vec2(0.0f, y));
 		btn->setSize(new Vec2(100.0f, 100.0f));
+		btn->setPosition(new Vec2(0.0f, y));
+		btn->setOrigin(new Vec2(0.0f, 0.0f));
 		y += 100.0f;
 		ui_elements.push_back(btn);
 	}
@@ -118,8 +128,9 @@ LevelEditorScene::LevelEditorScene()
 			}
 		}
 	});
-	save->setPosition(new Vec2(0.0f, y));
 	save->setSize(new Vec2(100.0f, 100.0f));
+	save->setPosition(new Vec2(0.0f, y));
+	save->setOrigin(new Vec2(0.0f, 0.0f));
 	y += 100.0f;
 	ui_elements.push_back(save);
 
@@ -198,8 +209,9 @@ LevelEditorScene::LevelEditorScene()
 			}
 		}
 	});
-	load->setPosition(new Vec2(0.0f, y));
 	load->setSize(new Vec2(100.0f, 100.0f));
+	load->setPosition(new Vec2(0.0f, y));
+	load->setOrigin(new Vec2(0.0f, 0.0f));
 	y += 100.0f;
 	ui_elements.push_back(load);
 
