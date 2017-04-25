@@ -6,6 +6,7 @@
 //OURS
 #include "GameData.h"
 #include "Background.h"
+#include "UI.h"
 #include "Player.h"
 #include "LevelLoader.h"
 #include "Game_Controller.h"
@@ -30,18 +31,8 @@ GameScene::GameScene()
 	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
-
-	
-
 	Background* bg = new Background(BGs, cam);
 	go_list.push_back(bg);
-
-
-	std::vector<Sprite*> UI;
-	UI.push_back(new Sprite("sign-2", GameData::renderer));
-	
-	
-	go_list.push_back();
 
 	std::vector<Texture*> textures;
 
@@ -66,6 +57,15 @@ GameScene::GameScene()
 	cam->setPlayerTracker(player);
 
 	go_list.push_back(player);
+
+	std::vector<Sprite*> UI_objects;
+	//UI_objects.push_back(new Sprite("sign-1", GameData::renderer));
+	UI_objects.push_back(new Sprite("sign-2", GameData::renderer));
+	//UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
+
+	UI* ui_scene = new UI(UI_objects, cam);
+	go_list.push_back(ui_scene);
+
 	return;
 }
 
@@ -78,9 +78,9 @@ void GameScene::Draw()
 {
 	Scene::Draw();
 
-	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(600.0f, 550.0f),
-		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 1.0f);
+	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(620.0f, 260.0f),
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
 
-	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(200.0f, 550.0f),
-		Vec4(0.0f, 0.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 1.0f);
+	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(620.0f, 300.0f),
+		Vec4(0.0f, 0.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
 }

@@ -135,16 +135,14 @@
     <ImageContentTask Include="bullet.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="sign-1.png">
+    <ImageContentTask Include="sign-1.png">
       <Filter>Textures\UI</Filter>
-    </Image>
-    <Image Include="sign-2.png">
+    </ImageContentTask>
+    <ImageContentTask Include="sign-2.png">
       <Filter>Textures\UI</Filter>
-    </Image>
-    <Image Include="sign-3.png">
+    </ImageContentTask>
+    <ImageContentTask Include="sign-3.png">
       <Filter>Textures\UI</Filter>
-    </Image>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

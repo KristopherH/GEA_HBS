@@ -13,7 +13,7 @@ class UI : public GameObject
 {
 public:
 	UI(Sprite* _sprite, BaseCamera * camera);
-	UI(std::vector<Sprite*> _sprites, BaseCamera* camera);
+	UI(std::vector<Sprite*> UI_Sprites, BaseCamera* camera);
 	~UI();
 
 	virtual bool Update(float dt) override;
@@ -22,11 +22,6 @@ public:
 protected:
 	
 	std::vector<Sprite*> UIElements;
-	
-	//parallax
-	bool parallax = false;
-	std::vector<float> parallaxScales;
 	BaseCamera* main_camera;
-	Vec2 previousCamPosition;
 };
 

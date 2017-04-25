@@ -275,9 +275,9 @@
     <ImageContentTask Include="bullet.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="sign-1.png" />
-    <Image Include="sign-2.png" />
-    <Image Include="sign-3.png" />
+    <ImageContentTask Include="sign-1.png" />
+    <ImageContentTask Include="sign-2.png" />
+    <ImageContentTask Include="sign-3.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
