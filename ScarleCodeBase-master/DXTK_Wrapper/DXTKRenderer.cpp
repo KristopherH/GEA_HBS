@@ -107,8 +107,3 @@ float Renderer::getWindowHeight()
 	GetClientRect(hWnd, &rc);
 	return (float)(rc.bottom - rc.top);
 }
-
-//void Renderer::DrawString(wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const
-//{
-//	m_Font->DrawString(spriteBatch.get(), text, position, color, rotation, origin, scale, layerDepth);
-//}

@@ -74,6 +74,6 @@ void Platform::init()
 
 void Platform::conveyorPlatform(bool _left)
 {
-	setTag("Conveyor Left");
-	if (!_left)	setTag("Conveyor Right");
+	setTag("ConveyorLeft");
+	if (!_left)	setTag("ConveyorRight");
 }
