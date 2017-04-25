@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "BaseCamera.h"
 #include "GameData.h"
-
+Direction CollisionManager::col_direction = Direction::NONE;
 
 bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 {
@@ -18,7 +18,7 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 
 	if (a_location == -1 || b_location == -1)
 	{
-		OutputDebugString("One or both of the game objects searched for do not exist\n");
+		//OutputDebugString("One or both of the game objects searched for do not exist\n");
 		return false;
 	}
 
@@ -94,6 +94,8 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 	return false;
 }
 
+
+
 bool CollisionManager::boxCollision(Rect a, Rect b)
 {
 
@@ -118,7 +120,7 @@ bool CollisionManager::mouseCollision(std::string name)
 
 	if (obj_location == -1)
 	{
-		OutputDebugString("One or both of the game objects searched for do not exist\n");
+		//OutputDebugString("One or both of the game objects searched for do not exist\n");
 		return false;
 	}
 
@@ -134,10 +136,10 @@ bool CollisionManager::mouseCollision(std::string name)
 
 bool CollisionManager::mouseCollision(Rect box)
 {
-	float mouse_world_x = (float)GameData::inputManager->mouse_x - ((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x/2));
-	float mouse_world_y = (float)GameData::inputManager->mouse_y - ((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y/2));
+	//float mouse_world_x = (float)GameData::inputManager->mouse_x - ((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x/2));
+	//float mouse_world_y = (float)GameData::inputManager->mouse_y - ((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y/2));
 
-	if (box.Contains(Vec2(mouse_world_x, mouse_world_y)))
+	if (box.Contains(Vec2(InputManager::mouse_world_x, InputManager::mouse_world_y)))
 		return true;
 
 	return false;
@@ -150,10 +152,14 @@ bool CollisionManager::circleCollision(std::string a, std::string b)
 	return false;
 }
 
+
+
 Direction CollisionManager::getCollisionDirection()
 {
 	return col_direction;
 }
+
+
 
 bool CollisionManager::oneWayPlatform(std::string a_name)
 {
@@ -165,7 +171,7 @@ bool CollisionManager::oneWayPlatform(std::string a_name)
 
 	if (a_location == -1 || player_location == -1)
 	{
-		OutputDebugString("One or both of the game objects searched for do not exist");
+		//OutputDebugString("One or both of the game objects searched for do not exist");
 		return false;
 	}
 
@@ -180,6 +186,8 @@ bool CollisionManager::oneWayPlatform(std::string a_name)
 
 	return false;
 }
+
+
 
 Direction CollisionManager::findCollisionDirection(GameObject* a, GameObject* b)
 {
@@ -241,6 +249,8 @@ Direction CollisionManager::findCollisionDirection(GameObject* a, GameObject* b)
 
 	return Direction::NONE;
 }
+
+
 
 Direction CollisionManager::findCollisionDirection(Rect* a, Rect* b)
 {

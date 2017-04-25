@@ -48,6 +48,7 @@ struct Rect
 	Rect(Vec2 = Vec2(0.0f, 0.0f), Vec2 = Vec2(0.0f, 0.0f));
 
 	friend Rect operator+(const Rect& original, const Vec2 displacement);
+	Rect operator=(Rect other);
 
 	bool Contains(Vec2 oth);
 	Vec2 Center();
