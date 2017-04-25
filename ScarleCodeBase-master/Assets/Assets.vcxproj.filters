@@ -19,6 +19,9 @@
     <Filter Include="Textures\BG">
       <UniqueIdentifier>{7933e860-9705-4bf6-9ec6-a0dba96bbb9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Textures\UI">
+      <UniqueIdentifier>{37599edf-0441-4512-a841-710aa03815a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="italic.spritefont">
@@ -131,6 +134,15 @@
     </ImageContentTask>
     <ImageContentTask Include="bullet.png">
       <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="sign-1.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="sign-2.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="sign-3.png">
+      <Filter>Textures\UI</Filter>
     </ImageContentTask>
   </ItemGroup>
 </Project>
