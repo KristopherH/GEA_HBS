@@ -134,8 +134,7 @@ void Player::OnJump()
 	{
 		//and you are on the ground...
 		if (grounded)
-		{
-			
+		{			
 			//position += Vec2(0.0f, jumpStrength);
 			acceleration += Vec2(0.0f, jumpStrength);
 			stoppedJumping = false;
@@ -207,6 +206,7 @@ void Player::OnMove(Vec2 _direction)
 		if (_direction.x > 0)
 		{
 			move_direction = Direction::RIGHT;
+			GameData::sound_manager->playSound("Walking-SoundEffect.wav");
 			key_down = true;
 		}
 		else if (_direction.x < 0)

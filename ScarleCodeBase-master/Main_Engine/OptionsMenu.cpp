@@ -3,12 +3,14 @@
 #include "GameData.h"
 #include "Input_Manager.h"
 #include "SceneManager.h"
+#include "SoundManager.h"
 #include "BaseCamera.h"
 #include "Button.h"
 #include "Texture.h"
 #include "DXTKRenderer.h"
 #include "Sprite.h"
 #include "CustomMath.h"
+#include "UI.h"
 
 OptionsMenu::OptionsMenu()
 {
@@ -30,6 +32,13 @@ OptionsMenu::OptionsMenu()
 
 	Background* bg = new Background(BGs, cam);
 
+	optnMenuSprites.push_back(new Sprite("sign-1", GameData::renderer));
+	
+	optnMenuSprites[0]->setPosition(Vec2(0.0f, 0.0f));
+	//optnMenuSprites[1]->setPosition(Vec2(0.0f, 0.0f));
+	//optnMenuSprites[2]->setPosition(Vec2(0.0f, 0.0f));
+
+	
 
 	Button* Backbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
 	Backbtn->setSize(new Vec2(300.0f, 150.0f));
@@ -41,6 +50,10 @@ OptionsMenu::OptionsMenu()
 	});
 
 	go_list.push_back(bg);
+	for (int i = 0; i < optnMenuSprites.size(); i++)
+	{
+		go_list.push_back(optnMenuSprites[i]);
+	}
 	go_list.push_back(Backbtn);
 }
 

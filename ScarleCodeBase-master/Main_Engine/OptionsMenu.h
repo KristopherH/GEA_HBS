@@ -12,4 +12,5 @@ public:
 	virtual void Draw() override;
 
 protected:
+GameObject(std::vector<Sprite*>) optnMenuSprites;
 };

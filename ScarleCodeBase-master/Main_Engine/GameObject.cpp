@@ -25,6 +25,11 @@ GameObject::GameObject(Sprite* _sprite)
 {
 }
 
+GameObject::GameObject(std::vector<Sprite*> _sprite)
+	: sprite(_sprite)
+{
+}
+
 GameObject::~GameObject()
 {
 	if (sprite == nullptr)
