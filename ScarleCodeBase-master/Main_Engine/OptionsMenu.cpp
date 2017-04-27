@@ -42,8 +42,8 @@ OptionsMenu::OptionsMenu()
 		GameData::scene_manager->setCurrentScene("MainMenuScene");
 	});
 
-	GameObject* noticeBoard = new GameObject(new Sprite("sign-2", GameData::renderer), "button10", "Button");
-	noticeBoard->setSize(new Vec2(1000.0f, 100.0f));
+	GameObject* noticeBoard = new GameObject(new Sprite("sign-1", GameData::renderer), "button10", "Button");
+	noticeBoard->setSize(new Vec2(1000.0f, 1000.0f));
 
 	go_list.push_back(bg);
 	go_list.push_back(Backbtn);
