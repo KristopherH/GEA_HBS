@@ -91,5 +91,5 @@ protected:
 	std::vector<std::string> gravity_trigger_tags;
 
 	Sprite* sprite = nullptr;
-	std::vector<Sprite*> = nullptr;
+	std::vector<Sprite*> vectorSprites;
 };

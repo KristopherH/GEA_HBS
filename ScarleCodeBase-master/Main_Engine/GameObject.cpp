@@ -26,7 +26,7 @@ GameObject::GameObject(Sprite* _sprite)
 }
 
 GameObject::GameObject(std::vector<Sprite*> _sprite)
-	: sprite(_sprite)
+	: vectorSprites(_sprite)
 {
 }
 
