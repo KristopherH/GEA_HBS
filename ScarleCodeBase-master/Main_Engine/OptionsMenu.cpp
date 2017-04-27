@@ -32,7 +32,7 @@ OptionsMenu::OptionsMenu()
 
 
 	Button* Backbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
-	Backbtn->setSize(new Vec2(200.0f, 100.0f));
+	Backbtn->setSize(new Vec2(300.0f, 150.0f));
 	Backbtn->setPosition(new Vec2(GameData::screen.Center().x + 300.0f, 800.0f)/*&GameData::screen.Center()*/);
 	Backbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Backbtn->setCallbackFunction([]() {

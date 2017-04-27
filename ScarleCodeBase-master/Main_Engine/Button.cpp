@@ -51,16 +51,13 @@ bool Button::Draw()
 
 	GameObject::Draw();
 
-	//GameData::renderer->renderText(buttonText, Vec2((getPosition().x - buttonText.size()) - 780.0f, (getPosition().y - buttonText.size()) - 420),
-	//	Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), ((getSize().x / 2) / (buttonText.size()/2)) / 40/*((getSize().x + getSize().y) / 100) / 6*/);
-
-		GameData::renderer->renderText(buttonText, Vec2((getPosition().x / 2) - (buttonText.size() / 2), (getPosition().y) - (buttonText.size() / 2)),
+		GameData::renderer->renderText(buttonText, Vec2(((getPosition().x) - (getSize().x * 2)) - (getSize().x * 0.66), ((getPosition().y / 2) - (getSize().y * 0.33))/*((getPosition().x / 2) - (getSize().x * 0.33)) * -1.0f*/ /*((getPosition().y) - (getSize().y * 0.33))*/),
 			Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), ((getSize().x / 2) / (buttonText.size() / 2)) / 40);
 	float newy;
 	float newx;
 
-	newx = (getPosition().x / 2) - (buttonText.size() / 2);
-	newy = (getPosition().y) - (buttonText.size() / 2);
+	newx = getPosition().x + (getSize().x / 2);
+	newy = ((getPosition().y / 2) - (getSize().y * 0.33));
 	
 	return true;
 }

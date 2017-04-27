@@ -11,6 +11,7 @@
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 #include "SceneManager.h"
+#include "SoundManager.h"
 #include "Scene.h"
 #include "Texture.h"
 #include "Player.h"
@@ -45,6 +46,7 @@ bool Collectible::Update(float dt)
 	{
 		alive = false;
 		GameData::player->setScore();
+		GameData::sound_manager->playSound("Collectible-SoundEffect.wav");
 	}
 	return false;
 }

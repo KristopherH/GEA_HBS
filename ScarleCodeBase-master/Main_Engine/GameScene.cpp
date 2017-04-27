@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "LevelLoader.h"
 #include "Game_Controller.h"
+#include "SoundManager.h"
 #include "Scene.h"
 #include "AnimatedSprite.h"
 #include "Texture.h"

@@ -6,6 +6,7 @@
 #include "BaseCamera.h"
 #include "LevelEditor.h"
 #include "OptionsMenu.h"
+#include "SoundManager.h"
 #include "Button.h"
 #include "Texture.h"
 #include "DXTKRenderer.h"
@@ -22,6 +23,8 @@ MainMenuScene::MainMenuScene()
 	Playbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("GameScene", new GameScene());
 		GameData::scene_manager->setCurrentScene("GameScene");
+		GameData::sound_manager->stopSound();
+		GameData::sound_manager->playSound("Level1-Music.wav", false, true);
 	});
 	
 	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button2", "Button", "Level Editor");
@@ -62,21 +65,14 @@ MainMenuScene::MainMenuScene()
 	go_list.push_back(Playbtn);
 	go_list.push_back(LevelEdbtn);
 	go_list.push_back(Optionsbtn);
+
+	GameData::sound_manager->setMasterVoume(100.0f);
+	GameData::sound_manager->setSFXVoume(1.0f);
+	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
 }
 
 void MainMenuScene::Update(float dt)
 {
-	//if (GameData::inputManager->getKeyHeld(Inputs::USE) ||
-	//	GameData::inputManager->getMouseLeft())
-	//	{
-	//		GameData::scene_manager->addScene("GameScene", new GameScene());
-	//		GameData::scene_manager->setCurrentScene("GameScene", true);
-	//	}
-	//if (GameData::inputManager->getMouseRight())
-	//{
-	//	GameData::scene_manager->addScene("Editor", new LevelEditorScene());
-	//	GameData::scene_manager->setCurrentScene("Editor", true);
-	//}
 	Scene::Update(dt);
 }
 

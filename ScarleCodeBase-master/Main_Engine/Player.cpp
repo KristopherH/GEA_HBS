@@ -139,7 +139,7 @@ void Player::OnJump()
 			//position += Vec2(0.0f, jumpStrength);
 			acceleration += Vec2(0.0f, jumpStrength);
 			stoppedJumping = false;
-			GameData::sound_manager->playSound("jump.wav");
+			GameData::sound_manager->playSound("Jump-SoundEffect.wav");
 		}
 	
 		//if you keep holding down the mouse button...
