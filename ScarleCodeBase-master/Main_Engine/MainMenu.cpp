@@ -79,13 +79,6 @@ void MainMenuScene::Update(float dt)
 void MainMenuScene::Draw()
 {
 	Scene::Draw();
-	GameData::renderer->renderText("Generic Platformer \n          Engine", Vec2(((GameData::screen.Center().x / 2) - (GameData::screen.max.x / 2)), (((GameData::screen.Center().y / 2) * -1))),
+	GameData::renderer->renderText("Generic Platformer \n          Engine", Vec2((GameData::screen.Center().x / 2) * -1, (GameData::screen.Center().y / 2) * -1),
 		Vec4(0.0f, 1.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 2.5f);
-
-	float x = GameData::screen.Center().x;
-	float y = GameData::screen.Center().y;
-
-	Vec2 hi;
-
-	hi = GameData::screen.Center() * -1.0f;
 }

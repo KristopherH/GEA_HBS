@@ -12,5 +12,5 @@ public:
 	virtual void Draw() override;
 
 protected:
-std::vector<Sprite*> optnMenuSprites;
+
 };

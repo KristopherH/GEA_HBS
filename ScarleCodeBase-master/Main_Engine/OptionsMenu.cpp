@@ -8,6 +8,7 @@
 #include "Button.h"
 #include "Texture.h"
 #include "DXTKRenderer.h"
+#include "GameObject.h"
 #include "Sprite.h"
 #include "CustomMath.h"
 #include "UI.h"
@@ -31,20 +32,7 @@ OptionsMenu::OptionsMenu()
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
 	Background* bg = new Background(BGs, cam);
-
-	optnMenuSprites.push_back(new Sprite("sign-1", GameData::renderer));
 	
-
-	GameObject* noticeBoard = new GameObject(new Sprite("sign-1", GameData::renderer));
-	noticeBoard->setScale(new Vec2(4.0f, 4.0f));
-	noticeBoard->setPosition(new Vec2(GameData::screen.Center()));
-
-	optnMenuSprites[0]->setPosition(Vec2(0.0f, 0.0f));
-	//optnMenuSprites[1]->setPosition(Vec2(0.0f, 0.0f));
-	//optnMenuSprites[2]->setPosition(Vec2(0.0f, 0.0f));
-
-
-
 	Button* Backbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
 	Backbtn->setSize(new Vec2(300.0f, 150.0f));
 	Backbtn->setPosition(new Vec2(GameData::screen.Center().x + 300.0f, 800.0f)/*&GameData::screen.Center()*/);
@@ -54,12 +42,12 @@ OptionsMenu::OptionsMenu()
 		GameData::scene_manager->setCurrentScene("MainMenuScene");
 	});
 
+	GameObject* noticeBoard = new GameObject(new Sprite("sign-2", GameData::renderer), "button10", "Button");
+	noticeBoard->setSize(new Vec2(1000.0f, 100.0f));
+
 	go_list.push_back(bg);
-	for (int i = 0; i < optnMenuSprites.size(); i++)
-	{
-		go_list.push_back(optnMenuSprites[i]);
-	}
 	go_list.push_back(Backbtn);
+	go_list.push_back(noticeBoard);
 }
 
 void OptionsMenu::Update(float dt)
