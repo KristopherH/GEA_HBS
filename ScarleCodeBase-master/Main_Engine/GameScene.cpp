@@ -14,6 +14,7 @@
 #include "AnimatedSprite.h"
 #include "Texture.h"
 #include "Object_Factory.h"
+#include "Timer.h"
 
 
 GameScene::GameScene()
@@ -62,9 +63,15 @@ GameScene::GameScene()
 	//UI_objects.push_back(new Sprite("sign-1", GameData::renderer));
 	UI_objects.push_back(new Sprite("sign-2", GameData::renderer));
 	//UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
+	
+
+	Timer* timer = new Timer();
+	go_list.push_back(timer);
 
 	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);
+
+
 
 	return;
 }
@@ -83,4 +90,6 @@ void GameScene::Draw()
 
 	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(620.0f, 300.0f),
 		Vec4(0.0f, 0.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
+
+	
 }
