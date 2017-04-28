@@ -12,17 +12,18 @@
 struct Level
 {
 	Vec2* playerStartingPosition;
+	Vec2* backgroundStartingPos;
 	std::vector<GameObject*> go_list;
 };
 
-static const std::vector<std::string> acceptedTypes = { "Platform", "Collectible", "Enemy", "Ladder" };
+static const std::vector<std::string> acceptedTypes = { "Platform", "Collectible", "Enemy", "Ladder", "Rope" };
 
 class LevelLoader
 {
 public:
 	static Level* loadLevel(std::string LevelPath);
 	static void saveLevel(Level* level, std::string LevelPath);
-	static Level* createLevel(std::vector<GameObject*>, Vec2*);
+	static Level* createLevel(std::vector<GameObject*>, Vec2*, Vec2*);
 
 protected:
 	static std::string getStringFromFile(std::fstream& _file);

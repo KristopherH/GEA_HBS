@@ -1,32 +1,33 @@
 #include "Rope.h"
 #include "Texture.h"
 #include "Player.h"
-#include <algorithm> // remove and remove_if
+#include <algorithm> //remove and remove_if
 
-Rope::Rope(Vec2 _pos, Texture * _texture, int _numOfNodes, float _springConst, float _springLength, float _springFrictionConst)
-	:numOfNodes(_numOfNodes), springConst(_springConst), springLength(_springLength), springFrictionConst(_springFrictionConst)
+Rope::Rope(Vec2 _pos, Texture * _texture, int _numOfNodes, float _springConst, float _springLength, float _springFrictionConst, Vec2 _ropeSize, vector<GameObject*>* go_list)
+	:numOfNodes(_numOfNodes), springConst(_springConst), springLength(_springLength), springFrictionConst(_springFrictionConst), ropeSize(_ropeSize)
 {
+	type = "Rope";
 	solid = false;
 	Vec2 pos = _pos;
 	position.x = _pos.x;
 	position.y = _pos.y;
 	RopeNode* rope0 = new RopeNode(new Sprite(_texture),
 		_springConst, _springLength, _springFrictionConst);
-	rope0->setSize(new Vec2(20.0f, 100.0f));
+	rope0->setSize(&ropeSize);
 	rope0->setPosition(&pos);
-	pos.y += 100.0f;
+	pos.y += ropeSize.y;
 	ropeNodes.push_back(rope0);
-	GameData::go_list->push_back(rope0);
+	go_list->push_back(rope0);
 	for (int i = 1; i < numOfNodes; i++)
 	{
 		RopeNode* rope1 = new RopeNode(new Sprite(_texture),
 			springConst, springLength, springFrictionConst);
-		rope1->setSize(new Vec2(20.0f, 100.0f));
+		rope1->setSize(&ropeSize);
 		rope1->setPosition(&pos);
-		pos.y += 100.0f;
+		pos.y += ropeSize.y;
 		pos.x += 0.001f;
 		ropeNodes.push_back(rope1);
-		GameData::go_list->push_back(rope1);
+		go_list->push_back(rope1);
 		ropeNodes[i - 1]->setNextNode(rope1);
 		ropeNodes[i]->setPrevNode(ropeNodes[i - 1]);
 	}
@@ -67,14 +68,6 @@ bool Rope::Update(float dt)
 			if (GameData::inputManager->getKeyHeld(Inputs::DOWN))
 			{
 				playerPos.y += 1.0f;
-			}
-			if (GameData::inputManager->getKeyHeld(Inputs::LEFT))
-			{
-				//playerPos.x -= 1.0f;
-			}
-			if (GameData::inputManager->getKeyHeld(Inputs::RIGHT))
-			{
-				//playerPos.x += 1.0f;
 			}
 			if (playerPos.y > 50.0f)
 			{
@@ -144,10 +137,10 @@ void Rope::addNode()
 {
 	RopeNode* rope1 = new RopeNode(new Sprite(ropeNodes[0]->getSprite()->GetTexture()),
 		springConst, springLength, springFrictionConst);
-	rope1->setSize(new Vec2(20.0f, 100.0f));
+	rope1->setSize(&ropeSize);
 	Vec2 pos;
 	pos += ropeNodes[ropeNodes.size() - 1]->getPosition();
-	pos += Vec2(0.01f, 100.0f);
+	pos.y += ropeSize.y;
 	rope1->setPosition(&pos);
 	ropeNodes[ropeNodes.size() - 1]->setNextNode(rope1);
 	rope1->setPrevNode(ropeNodes[ropeNodes.size() - 1]);
@@ -195,6 +188,10 @@ float Rope::getRotation()
 
 void Rope::setSize(Vec2 * _size)
 {
+	for (auto& node : ropeNodes)
+	{
+		node->setSize(_size);
+	}
 }
 
 void Rope::setScale(Vec2 * _scale)
@@ -211,6 +208,7 @@ void Rope::setPosition(Vec2 * _pos)
 	translation -= ropeNodes[0]->getPosition();
 	translation += *_pos;
 	movePosition(&translation);
+	GameObject::setPosition(_pos);
 }
 
 void Rope::movePosition(Vec2 * _translation)
@@ -219,9 +217,15 @@ void Rope::movePosition(Vec2 * _translation)
 	{
 		node->setPosition(&(node->getPosition() + *_translation));
 	}
+	GameObject::movePosition(_translation);
 }
 
 Vec2 Rope::getPosition()
 {
 	return ropeNodes[0]->getPosition();
+}
+
+int Rope::getLength()
+{
+	return ropeNodes.size();
 }

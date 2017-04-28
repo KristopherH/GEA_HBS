@@ -55,9 +55,9 @@ void RopeNode::gravityUpdate()
 	{
 		Vec2 springVector = position - prevNode->getPosition();	//vector between the two masses
 
-		float d = springVector.Length();	//distance between the two masses
+		float d = springVector.Length(); //distance between the two masses
 
-		Vec2 force;		//force initially has a zero value
+		Vec2 force; //force initially has a zero value
 		if (!first)
 		{
 			acceleration.y += 0.98f;

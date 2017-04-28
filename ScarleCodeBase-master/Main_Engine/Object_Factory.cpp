@@ -96,7 +96,7 @@ GameObject* ObjectFactory::createCollectable()
 
 
 
-GameObject* ObjectFactory::createBackground()
+GameObject* ObjectFactory::createBackground(Vec2* position)
 {
 	std::vector<Sprite*> BGs;
 	BGs.push_back(new Sprite("11_background", GameData::renderer));
@@ -111,14 +111,14 @@ GameObject* ObjectFactory::createBackground()
 	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
-	Background* bg = new Background(BGs, GameData::currentCamera);
+	Background* bg = new Background(BGs, GameData::currentCamera, position);
 
 	return bg;
 }
 
 GameObject * ObjectFactory::createRope()
 {
-	return new Rope(Vec2(0.0f, 0.0f), ObjectFactory::texture_pool[ROPE], 10, 20.0f, 80.0f, 1.5f);
+	return new Rope(Vec2(0.0f, 0.0f), ObjectFactory::texture_pool[ROPE], 10, 20.0f, 80.0f, 1.5f, Vec2(20, 100), GameData::go_list);
 }
 
 void ObjectFactory::init()

@@ -13,7 +13,7 @@ class Background : public GameObject
 public:
 	Background(Sprite* _sprite, BaseCamera * camera);
 	//Background(AnimatedSprite* _sprite);
-	Background(std::vector<Sprite*> _sprites, BaseCamera* camera);
+	Background(std::vector<Sprite*> _sprites, BaseCamera* camera, Vec2* position);
 	//Background(std::vector<AnimatedSprite*> _sprites);
 	~Background();
 

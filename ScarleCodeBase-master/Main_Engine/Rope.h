@@ -10,7 +10,9 @@ public:
 		int numOfNodes,
 		float springConst,
 		float springLength,
-		float springFrictionConst);
+		float springFrictionConst,
+		Vec2 ropeSize,
+		vector<GameObject*>* go_list);
 	~Rope();
 
 	bool Update(float dt) override;
@@ -22,6 +24,8 @@ public:
 
 	void addNode();
 	void removeNode();
+
+	int getLength();
 
 	Vec2 getSize() override;
 	Vec2 getPosition() override;
@@ -45,4 +49,5 @@ private:
 	float springLength;
 	float springFrictionConst;
 	std::vector<RopeNode*> ropeNodes;
+	Vec2 ropeSize;
 };

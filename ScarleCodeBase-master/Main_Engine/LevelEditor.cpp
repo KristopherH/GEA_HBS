@@ -12,6 +12,7 @@
 #include "Platform.h"
 #include "Rope.h"
 #include "LevelEditorCamera.h"
+#include <algorithm>
 
 LevelEditorScene::LevelEditorScene()
 {
@@ -30,8 +31,9 @@ LevelEditorScene::LevelEditorScene()
 	cam->setSolid(false);
 	cam->setPlayerTracker(player);
 	cam->setPosition(&player->getPosition());
-
-	go_list.push_back(ObjectFactory::createBackground());
+	
+	GameObject* bg = ObjectFactory::createBackground(level1->backgroundStartingPos);
+	go_list.push_back(bg);
 
 	Ballistics* bullet = new Ballistics();
 	go_list.push_back(bullet);
@@ -94,7 +96,12 @@ LevelEditorScene::LevelEditorScene()
 
 		if (GetOpenFileNameA(&ofn))
 		{
-			Level* level = LevelLoader::createLevel(go_list, &player->getPosition());
+			auto go = std::find_if(go_list.begin(), go_list.end(), [](GameObject* go)
+			{
+				return go->getType() == "BG";
+			});
+
+			Level* level = LevelLoader::createLevel(go_list, &player->getPosition(), &(*go)->getPosition());
 			LevelLoader::saveLevel(level, std::string(filename));
 			delete level;
 			level = nullptr;
@@ -167,7 +174,7 @@ LevelEditorScene::LevelEditorScene()
 			cam->setPlayerTracker(player);
 			cam->setPosition(&player->getPosition());
 
-			go_list.push_back(ObjectFactory::createBackground());
+			go_list.push_back(ObjectFactory::createBackground(level1->backgroundStartingPos));
 
 			for (auto go : level1->go_list)
 			{

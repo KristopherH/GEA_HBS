@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <functional>
+#include "CustomMath.h"
 class GameObject;
 class Texture;
 
@@ -24,7 +25,7 @@ public:
 	static GameObject* createPlatform();
 	static GameObject* createLadder();
 	static GameObject* createCollectable();
-	static GameObject* createBackground();
+	static GameObject* createBackground(Vec2* pos);
 	static GameObject* createRope();
 
 	static void init();

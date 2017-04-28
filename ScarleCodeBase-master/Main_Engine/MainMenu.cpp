@@ -26,7 +26,7 @@ MainMenuScene::MainMenuScene()
 	
 	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button2", "Button", "Level Editor");
 	LevelEdbtn->setSize(new Vec2(300.0f, 150.0f));
-	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));/*&GameData::screen.Center());*/	
+	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));
 	LevelEdbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	LevelEdbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
@@ -35,7 +35,7 @@ MainMenuScene::MainMenuScene()
 
 	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), "button3", "Button", "Options");
 	Optionsbtn->setSize(new Vec2(300.0f, 150.0f));
-	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f)/*&GameData::screen.Center()*/);
+	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f));
 	Optionsbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Optionsbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("OptionsMenuScene", new OptionsMenu());
@@ -56,7 +56,7 @@ MainMenuScene::MainMenuScene()
 	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
-	Background* bg = new Background(BGs, cam);
+	Background* bg = new Background(BGs, cam, new Vec2());
 
 	go_list.push_back(bg);
 	go_list.push_back(Playbtn);
@@ -66,17 +66,6 @@ MainMenuScene::MainMenuScene()
 
 void MainMenuScene::Update(float dt)
 {
-	//if (GameData::inputManager->getKeyHeld(Inputs::USE) ||
-	//	GameData::inputManager->getMouseLeft())
-	//	{
-	//		GameData::scene_manager->addScene("GameScene", new GameScene());
-	//		GameData::scene_manager->setCurrentScene("GameScene", true);
-	//	}
-	//if (GameData::inputManager->getMouseRight())
-	//{
-	//	GameData::scene_manager->addScene("Editor", new LevelEditorScene());
-	//	GameData::scene_manager->setCurrentScene("Editor", true);
-	//}
 	Scene::Update(dt);
 }
 
