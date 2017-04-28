@@ -9,10 +9,7 @@
 #include "GameData.h"
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
-#include "Game_Controller.h"
-#include "SceneManager.h"
 #include "SoundManager.h"
-#include "Scene.h"
 #include "Texture.h"
 #include "Player.h"
 
@@ -33,10 +30,6 @@ Collectible::Collectible(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotat
 	setSize(_size);
 	setRotation(_rotation);
 	setName(_name);
-}
-
-Collectible::~Collectible()
-{
 }
 
 bool Collectible::Update(float dt)

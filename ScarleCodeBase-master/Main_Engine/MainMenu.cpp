@@ -26,10 +26,10 @@ MainMenuScene::MainMenuScene()
 		GameData::sound_manager->stopSound();
 		GameData::sound_manager->playSound("Level1-Music.wav", false, true);
 	});
-	
+
 	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button2", "Button", "Level Editor");
 	LevelEdbtn->setSize(new Vec2(300.0f, 150.0f));
-	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));/*&GameData::screen.Center());*/	
+	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));/*&GameData::screen.Center());*/
 	LevelEdbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	LevelEdbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());

@@ -57,7 +57,7 @@ bool Enemy::Update(float dt)
  		GameData::player->setLives();
 		alive = false;
 	}
-	if (waypoints.size() > 1)
+	/*if (waypoints.size() > 1)
 	{
 		acceleration.x = 0; acceleration.y = 0;
 		Vec2 movement((((*current_waypoint) - position)));
@@ -73,7 +73,7 @@ bool Enemy::Update(float dt)
 				current_waypoint = waypoints.begin();
 			}
 		}
-	}
+	}*/
 	GameObject::Update(dt);
 	return false;
 }

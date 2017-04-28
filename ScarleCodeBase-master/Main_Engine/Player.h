@@ -32,6 +32,7 @@ public:
 	int getLives() { return lives; };
 	void setLives();
 	void setScore();
+	void setLastCheckpoint(Vec2* _lastCheckpoint) { lastCheckpoint = _lastCheckpoint; };
 
 	float getSpeed();
 
@@ -57,4 +58,6 @@ protected:
 	//Input component
 	std::map<int, std::function<void()>> KeyBindsHold;
 	std::map<int, std::function<void()>> KeyBindsPress;
+
+	Vec2* lastCheckpoint = new Vec2(0.0f, 0.0f);
 };

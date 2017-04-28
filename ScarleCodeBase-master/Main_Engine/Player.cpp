@@ -308,6 +308,7 @@ void Player::conveyor(bool _left)
 void Player::setLives()
 {
 	lives -= 1;
+	setPosition(lastCheckpoint);
 }
 
 void Player::setScore()
