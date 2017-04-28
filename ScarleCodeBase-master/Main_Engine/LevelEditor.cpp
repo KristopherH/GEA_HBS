@@ -17,7 +17,7 @@ LevelEditorScene::LevelEditorScene()
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
-	player->setSize(new Vec2(100.0f, 120.0f));
+	player->setSize(new Vec2(100.0f * 5, 120.0f));
 	player->setPosition(level1->playerStartingPosition);
 	player->setGravity(true);
 

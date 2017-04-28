@@ -37,7 +37,7 @@ Vec2 Sprite::getSize()
 
 Vec2 Sprite::getScale()
 {
-	return scale;
+	return scale; //HERE
 }
 
 float Sprite::getRotation()
@@ -48,6 +48,26 @@ float Sprite::getRotation()
 Vec2 Sprite::getPosition()
 {
 	return position;
+}
+
+Rect Sprite::getSource()
+{
+	return source;
+}
+
+Rect Sprite::getDestination()
+{
+	return destination;
+}
+
+int Sprite::getSpritesAcross()
+{
+	return sprites_across;
+}
+
+int Sprite::getSpritesDown()
+{
+	return sprites_down;
 }
 
 void Sprite::setTexture(Texture * _texture)
@@ -76,4 +96,46 @@ void Sprite::setOrigin(Vec2 _origin)
 {
 	origin.x = _origin.x;
 	origin.y = _origin.y;
+}
+
+void Sprite::setSource(Rect _source)
+{
+	source = _source;
+}
+
+void Sprite::setDestination(Rect _destination)
+{
+	destination = _destination;
+}
+
+void Sprite::setSpritesAcross(int _sprites_across)
+{
+	sprites_across = _sprites_across;
+}
+
+void Sprite::setSpritesDown(int _sprites_down)
+{
+	sprites_down = _sprites_down;
+}
+
+void Sprite::setFrameWidth(int _frame_width)
+{
+	frame_width = _frame_width;
+	scale.x *= frame_width;
+}
+
+int Sprite::getFrameWidth()
+{
+	return frame_width;
+}
+
+void Sprite::setFrameHeight(int _frame_height)
+{
+	frame_height = _frame_height;
+	scale.y *= frame_height;
+}
+
+int Sprite::getFrameHeight()
+{
+	return frame_height;
 }

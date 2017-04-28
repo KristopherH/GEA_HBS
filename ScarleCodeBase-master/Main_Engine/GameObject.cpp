@@ -7,6 +7,7 @@
 #include "GameData.h"
 #include "Collision_Manager.h"
 #include "DXTKRenderer.h"
+#include "Texture.h"
 
 
 GameObject::GameObject(Sprite* _sprite, std::string _name, std::string _tag)
@@ -18,6 +19,18 @@ GameObject::GameObject(Sprite* _sprite, std::string _name, std::string _tag)
 GameObject::GameObject()
 {
 	sprite = nullptr;
+}
+
+GameObject::GameObject(Sprite * _sprite, std::string _name, std::string _tag, int width, int height) :
+	GameObject(_sprite, _name, _tag)
+{
+	int _sprites_across = _sprite->getSize().x / width;
+	int _sprites_down = _sprite->getSize().y / height;
+
+	sprite->setSpritesAcross(_sprites_across);
+	sprite->setSpritesDown(_sprites_down);
+	sprite->setFrameWidth(width);
+	sprite->setFrameHeight(height);
 }
 
 GameObject::GameObject(Sprite* _sprite)
@@ -58,6 +71,8 @@ bool GameObject::Update(float dt)
 		sprite->setPosition(position);
 		sprite->setRotation(rotation);
 		sprite->setScale(scale);
+
+		animation(dt);
 	}
 
 	velocity += acceleration;
@@ -72,7 +87,7 @@ bool GameObject::Update(float dt)
 
 bool GameObject::Draw()
 {
-	return GameData::renderer->Draw(sprite);
+	return GameData::renderer->Draw(sprite, frame_tick);
 }
 
 void GameObject::setPosition(Vec2 * _position)
@@ -110,6 +125,18 @@ bool GameObject::setGravityTag(std::string _gravity_tag)
 
 	this->gravity_trigger_tags.push_back(_gravity_tag);
 	return true;
+}
+
+void GameObject::animation(float _dt)
+{
+	animation_tick += _dt;
+	if (animation_tick >= animation_delay)
+	{
+		animation_tick = 0.0f;
+		frame_tick++;
+		if (frame_tick >= 5/*animations[animation_state].size()*/)
+			frame_tick = 0;
+	}
 }
 
 void GameObject::movePosition(Vec2* _translation)

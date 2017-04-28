@@ -1,6 +1,7 @@
 #pragma once
 //C++
 #include <vector>
+#include <map>
 
 //DXTK
 
@@ -8,6 +9,15 @@
 #include "CustomMath.h"
 #include "Sprite.h"
 #include "Enum_container.h"
+
+enum Animation
+{
+	IDLE,
+	WALK,
+	RUN,
+	JUMPING,
+	FALLING
+};
 
 class InputManager;
 class Renderer;
@@ -17,6 +27,7 @@ class GameObject
 public:
 	//Init
 	GameObject();
+	GameObject(Sprite* sprite, std::string _name, std::string _tag, int width, int height);
 	GameObject(Sprite* sprite, std::string _name, std::string _tag);
 	GameObject(Sprite* _sprite);
 	~GameObject();
@@ -58,7 +69,7 @@ public:
 
 	void setGravity(bool _gravity_on) { gravity_on = _gravity_on; }
 	bool setGravityTag(std::string _gravity_tag);
-
+	bool playerrr = false;
 
 protected:
 	bool alive = true;
@@ -73,6 +84,7 @@ protected:
 	bool gravity_on = false;
 	bool solid = true;
 	const float gravity_constant = 0.01f;
+
 
 	Vec2 size;
 	Vec2 scale;
@@ -90,4 +102,13 @@ protected:
 	std::vector<std::string> gravity_trigger_tags;
 
 	Sprite* sprite = nullptr;
+
+	float animation_tick = 0.0f;
+	float animation_delay = 0.1f;
+	int frame_tick = 0;
+
+	void animation(float _dt);
+
+	Animation animation_state = Animation::IDLE;
+	std::map<Animation, std::vector<Rect>> animations;
 };

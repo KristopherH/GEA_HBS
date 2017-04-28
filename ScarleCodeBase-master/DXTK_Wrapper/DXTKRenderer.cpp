@@ -71,6 +71,74 @@ bool Renderer::Draw(Sprite* _sprite)
 	return true;
 }
 
+bool Renderer::Draw(Sprite * _sprite, int index)
+{
+	int width = _sprite->getFrameWidth();
+	int height = _sprite->getFrameHeight();
+	int x = _sprite->getPosition().x;
+	int y = _sprite->getPosition().y;
+	int sprites_across = _sprite->getSpritesAcross();
+
+	/*Rect source = Rect(Vec2(((float)(index % _sprite->getSpritesAcross()) * width),
+		(float)(index / _sprite->getSpritesAcross()) * height),
+		Vec2((((float)(index % _sprite->getSpritesAcross()) * width) + width,
+		(float)(index / _sprite->getSpritesAcross()) * height) + height));*/
+
+	Rect destination = Rect(Vec2((float)x, (float)y),
+							Vec2((float)(x + width), (float)(y + height)));
+
+	if (_sprite->getSpritesAcross() > 1)
+	{
+		float min_x = (float)((index % 5) * width);
+		float min_y = (float)((index / 5) * height);
+		float max_x = (float)(((index % 5) * width) + width);
+		float max_y = (float)(((index / 5) * height) + height);
+
+		Vec2 min = Vec2(min_x, min_y);
+		Vec2 max = Vec2(max_x, max_y);
+
+		Rect source = Rect(min, max);
+		RECT* src = new RECT();
+
+		src->left = min_x;
+		src->top = min_y;
+		src->right = max_x;
+		src->bottom = max_y;
+
+		//_sprite->setSource(source);
+
+		Vec2 scale = _sprite->getScale();
+		
+		Vec2 size = Vec2(scale.x * max.x, scale.y * max.y);
+
+		spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
+						  _sprite->getPosition(),
+						  src,
+						  /*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+						  _sprite->getRotation(),
+						  _sprite->getOrigin(),
+						  _sprite->getScale(),
+						  SpriteEffects_None);
+		return true;
+	}
+	else
+	{
+		spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
+							_sprite->getPosition(),
+							nullptr,
+							/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+							_sprite->getRotation(),
+							_sprite->getOrigin(),
+							_sprite->getScale(),
+							SpriteEffects_None);
+		return true;
+	}
+}
+
+/*
+	Sprite width and sprite height passed
+*/
+
 bool Renderer::EndDraw()
 {
 	spriteBatch->End();

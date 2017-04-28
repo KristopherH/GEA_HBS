@@ -9,9 +9,10 @@
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 
-Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
-	:GameObject(_sprite, _name, _tag)
+Player::Player(Sprite* _sprite, std::string _name, std::string _tag, int width, int height)
+	:GameObject(_sprite, _name, _tag, width, height)
 {
+	playerrr = true;
 	setScale(new Vec2(0.5f, 1.5f));
 	jumpStrength = -0.02f;
 	speed = 0.01f;
@@ -20,10 +21,6 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	jumpTime = 0.8f;
 	jumpTimeCounter = jumpTime;
 	//Load keybinds from file into list
-
-	#ifndef ARCADE
-	std::cout << "Arcade not defined" << std::endl;
-	#endif
 
 	KeyBindsHold[Inputs::JUMP] = std::bind(&Player::OnJump, this);
 	KeyBindsHold[Inputs::LEFT] = std::bind(&Player::OnMove, this, Vec2(-speed, 0.0f));
@@ -161,7 +158,7 @@ void Player::OnMove(Vec2 _direction)
 	bool moved = false;
 	if (climbing)
 	{
-		position += _direction *100;
+		position += _direction * 100;
 		return;
 	}
 	if (_direction.y != 0.0f)
@@ -170,11 +167,7 @@ void Player::OnMove(Vec2 _direction)
 	}
 	for (auto go : *GameData::go_list)
 	{
-		if (go->getName() == name)
-		{
-
-		}
-		else if (GameData::collsion_manager->boxCollision(this->box, go->getBox()))
+		if (this != go && GameData::collsion_manager->boxCollision(this->box, go->getBox()))
 		{
 			if (go->getTag() == "SlowPlatform")
 			{
