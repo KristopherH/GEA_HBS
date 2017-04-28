@@ -16,33 +16,34 @@
 MainMenuScene::MainMenuScene()
 {
 	Scene::Scene();
+
 	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Play");
 	Playbtn->setSize(new Vec2(300.0f, 150.0f));
 	Playbtn->setPosition(new Vec2(GameData::screen.Center().x - 800.0f, 700.0f));
 	Playbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Playbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("GameScene", new GameScene());
-		GameData::scene_manager->setCurrentScene("GameScene");
+		GameData::scene_manager->setCurrentScene("GameScene", false);
 		GameData::sound_manager->stopSound();
 		GameData::sound_manager->playSound("Level1-Music.wav", false, true);
 	});
 
 	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button2", "Button", "Level Editor");
 	LevelEdbtn->setSize(new Vec2(300.0f, 150.0f));
-	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));/*&GameData::screen.Center());*/
+	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));
 	LevelEdbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	LevelEdbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
-		GameData::scene_manager->setCurrentScene("LevelEditorScene");
+		GameData::scene_manager->setCurrentScene("LevelEditorScene", false);
 	});
 
 	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), "button3", "Button", "Options");
 	Optionsbtn->setSize(new Vec2(300.0f, 150.0f));
-	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f)/*&GameData::screen.Center()*/);
+	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f));
 	Optionsbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Optionsbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("OptionsMenuScene", new OptionsMenu());
-		GameData::scene_manager->setCurrentScene("OptionsMenuScene");
+		GameData::scene_manager->setCurrentScene("OptionsMenuScene", false);
 	});
 
 	std::vector<Sprite*> BGs;
@@ -65,10 +66,13 @@ MainMenuScene::MainMenuScene()
 	go_list.push_back(Playbtn);
 	go_list.push_back(LevelEdbtn);
 	go_list.push_back(Optionsbtn);
+	go_list.push_back(cam);
 
 	GameData::sound_manager->setMasterVoume(100.0f);
 	GameData::sound_manager->setSFXVoume(1.0f);
 	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
+
+	return;
 }
 
 void MainMenuScene::Update(float dt)
@@ -79,6 +83,7 @@ void MainMenuScene::Update(float dt)
 void MainMenuScene::Draw()
 {
 	Scene::Draw();
+
 	GameData::renderer->renderText("Generic Platformer \n          Engine", Vec2((GameData::screen.Center().x / 2) * -1, (GameData::screen.Center().y / 2) * -1),
 		Vec4(0.0f, 1.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 2.5f);
 }

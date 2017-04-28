@@ -22,6 +22,7 @@ public:
 	bool Update(float dt) override;
 
 	void ProcessInput();
+	//void processPauseInput();
 
 	void OnJump();
 	void OnMove(Vec2);
@@ -35,6 +36,7 @@ public:
 	void setLastCheckpoint(Vec2* _lastCheckpoint) { lastCheckpoint = _lastCheckpoint; };
 
 	float getSpeed();
+	void PauseGame();
 
 protected:
 
@@ -51,9 +53,7 @@ protected:
 	GameObject* climbable_obj = nullptr;
 	bool climbing = false;
 	bool key_down = false;
-	//bool one_way_plat_move = false;
-
-	//void oneWayPlatformMove(); 
+	bool pauseSetUp = false;
 	Inputs input;
 	//Input component
 	std::map<int, std::function<void()>> KeyBindsHold;

@@ -11,7 +11,6 @@
 #include <GameData.h>
 #include <BaseCamera.h>
 
-
 unsigned char InputManager::keyboard_state[256];
 unsigned char InputManager::previous_keyboard_state[256];
 IDirectInput8* InputManager::user_direct_input = nullptr;
@@ -39,6 +38,7 @@ Input Inputs::UP = DIK_W;
 Input Inputs::DOWN = DIK_S;
 Input Inputs::LEFT = DIK_A;
 Input Inputs::RIGHT = DIK_D;
+Input Inputs::PAUSE = DIK_P;
 Input Inputs::JUMP = DIK_SPACE;
 Input Inputs::USE = DIK_RETURN;
 #endif

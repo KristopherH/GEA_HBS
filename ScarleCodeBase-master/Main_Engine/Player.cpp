@@ -8,6 +8,8 @@
 #include "Input_Manager.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
+#include "SceneManager.h"
+#include "PauseMenu.h"
 
 Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObject(_sprite, _name, _tag)
@@ -30,6 +32,7 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold[Inputs::RIGHT] = std::bind(&Player::OnMove, this, Vec2(speed, 0.0f));
 	KeyBindsHold[Inputs::UP] = std::bind(&Player::OnMove, this, Vec2(0.0f, -speed));
 	KeyBindsHold[Inputs::DOWN] = std::bind(&Player::OnMove, this, Vec2(0.0f, speed));
+	KeyBindsHold[Inputs::PAUSE] = std::bind(&Player::PauseGame, this);
 }
 
 Player::~Player()
@@ -206,7 +209,6 @@ void Player::OnMove(Vec2 _direction)
 		if (_direction.x > 0)
 		{
 			move_direction = Direction::RIGHT;
-			GameData::sound_manager->playSound("Walking-SoundEffect.wav");
 			key_down = true;
 		}
 		else if (_direction.x < 0)
@@ -267,6 +269,18 @@ void Player::climb()
 float Player::getSpeed()
 {
 	return speed;
+}
+
+void Player::PauseGame()
+{
+	if (pauseSetUp == false)
+	{
+		GameData::scene_manager->addScene("PauseMenuScene", new PauseMenu());
+		pauseSetUp = true;
+	}
+	GameData::scene_manager->setCurrentScene("PauseMenuScene");
+	GameData::sound_manager->stopSound();
+	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
 }
 
 //void Player::oneWayPlatformMove()

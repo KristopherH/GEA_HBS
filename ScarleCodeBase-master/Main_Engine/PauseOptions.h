@@ -1,17 +1,12 @@
 #pragma once
-//C++
 
-//DXTK
-
-//OURS
 #include "Scene.h"
-#include "Background.h"
 
-class MainMenuScene : public Scene
+class PauseOptions : public Scene
 {
 public:
-	MainMenuScene();
-	~MainMenuScene() = default;
+	PauseOptions();
+	virtual ~PauseOptions() = default;
 
 	virtual void Update(float dt) override;
 	virtual void Draw() override;
@@ -19,3 +14,4 @@ public:
 protected:
 
 };
+

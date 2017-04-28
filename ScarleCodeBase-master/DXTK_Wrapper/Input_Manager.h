@@ -17,6 +17,7 @@ struct Inputs
 	static Input RIGHT;
 	static Input JUMP;
 	static Input USE;
+	static Input PAUSE;
 };
 
 class InputManager

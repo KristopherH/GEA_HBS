@@ -26,6 +26,8 @@
     <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Checkpoint.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
+    <ClCompile Include="PauseOptions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
@@ -54,5 +56,7 @@
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Checkpoint.h" />
+    <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="PauseOptions.h" />
   </ItemGroup>
 </Project>

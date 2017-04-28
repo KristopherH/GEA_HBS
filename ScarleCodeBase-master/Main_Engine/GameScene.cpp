@@ -11,6 +11,7 @@
 #include "LevelLoader.h"
 #include "Game_Controller.h"
 #include "SoundManager.h"
+#include "SceneManager.h"
 #include "Scene.h"
 #include "AnimatedSprite.h"
 #include "Texture.h"
@@ -36,7 +37,7 @@ GameScene::GameScene()
 	Background* bg = new Background(BGs, cam);
 	go_list.push_back(bg);
 
-	std::vector<Texture*> textures;
+	//std::vector<Texture*> textures;
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
