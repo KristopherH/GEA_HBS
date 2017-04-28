@@ -12,7 +12,8 @@ enum Type
 	PLAYER,
 	LADDER,
 	COLLECTIBLE,
-	BACKGROUND
+	BACKGROUND,
+	ROPE
 };
 
 class ObjectFactory
@@ -24,6 +25,7 @@ public:
 	static GameObject* createLadder();
 	static GameObject* createCollectable();
 	static GameObject* createBackground();
+	static GameObject* createRope();
 
 	static void init();
 

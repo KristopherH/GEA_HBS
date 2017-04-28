@@ -7,6 +7,7 @@
 #include "Platform.h"
 #include "Player.h"
 #include "Collectible.h"
+#include "Rope.h"
 //#ifdef _DXTK_
 #include "Texture.h"
 //#endif
@@ -115,6 +116,11 @@ GameObject* ObjectFactory::createBackground()
 	return bg;
 }
 
+GameObject * ObjectFactory::createRope()
+{
+	return new Rope(Vec2(0.0f, 0.0f), ObjectFactory::texture_pool[ROPE], 10, 20.0f, 80.0f, 1.5f);
+}
+
 void ObjectFactory::init()
 {
 	ObjectFactory::create_object[PLATFORM] = createPlatform;
@@ -122,10 +128,12 @@ void ObjectFactory::init()
 	//create_object[PLAYER] = createPlayer;
 	ObjectFactory::create_object[LADDER] = createLadder;
 	ObjectFactory::create_object[COLLECTIBLE] = createCollectable;
+	ObjectFactory::create_object[ROPE] = createRope;
 	//create_object[BACKGROUND] = createBackground;
 
 	ObjectFactory::texture_pool[PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
 	ObjectFactory::texture_pool[ENEMY] = new Texture("enemy_sprite", GameData::renderer);
 	ObjectFactory::texture_pool[LADDER] = new Texture("Ladder", GameData::renderer);
 	ObjectFactory::texture_pool[COLLECTIBLE] = new Texture("coin", GameData::renderer);
+	ObjectFactory::texture_pool[ROPE] = new Texture("Rope", GameData::renderer);;
 }

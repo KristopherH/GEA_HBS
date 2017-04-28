@@ -14,6 +14,7 @@
 #include "AnimatedSprite.h"
 #include "Texture.h"
 #include "Object_Factory.h"
+#include "Rope.h"
 #include "Timer.h"
 
 
@@ -70,9 +71,6 @@ GameScene::GameScene()
 
 	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);
-
-
-
 	return;
 }
 

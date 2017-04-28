@@ -60,13 +60,15 @@ bool GameObject::Update(float dt)
 		sprite->setScale(scale);
 	}
 
-	velocity += acceleration;
-	// apply Drag;
-	acceleration.y *= 0.99f;
-	acceleration.x *= 0.95f;
-	velocity *= 0.9f;
-	position += velocity * dt * speed;
-
+	if (physics)
+	{
+		velocity += acceleration * dt * speed;
+		// apply Drag;
+		acceleration.y *= 0.0f;
+		acceleration.x *= 0.0f;
+		velocity *= 0.99f;
+		position += velocity;
+	}
 	return false;
 }
 
@@ -138,6 +140,24 @@ void GameObject::gravityUpdate()
 					if (GameData::collsion_manager->boxCollision(
 						this->box, current_object->getBox()))
 					{
+						//if (GameData::collsion_manager->boxCollision(box, current_object->getBox()))
+						//{
+						//	Vec2 centToSide = box.Center();
+						//	centToSide -= current_object->getBox().Center();
+						//	if (Vec2::dot(centToSide, velocity) < 0.0f)
+						//	{
+						//		if (!grounded) // If not previously grounded
+						//		{
+						//			position -= velocity;
+						//			acceleration.x = 0.0f;
+						//			acceleration.y = 0.0f;
+						//			velocity.x = 0.0f;
+						//			velocity.y = 0.0f;
+						//		}
+						//		new_grounded = true;
+						//		break;
+						//	}
+						//}
 						Rect top_of_the_platform(current_object->getBox()/* + current_object->getPosition()*/);
 						top_of_the_platform.max.y = top_of_the_platform.min.y + 60.0f;
 						if (GameData::collsion_manager->boxCollision(

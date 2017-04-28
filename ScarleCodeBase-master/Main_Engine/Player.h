@@ -32,6 +32,8 @@ public:
 	int getLives() { return lives; };
 	void setLives();
 	void setScore();
+	void setClimbing(bool _climb) { climbing = _climb; }
+	void setGrounded(bool _grounded) { grounded = _grounded; }
 
 	float getSpeed();
 

@@ -53,6 +53,8 @@ public:
 protected:
 	void resetSelectedEdges();
 
+	bool editing = true;
+
 	std::vector<GameObject*> ui_elements;
 
 	Player* player = nullptr;

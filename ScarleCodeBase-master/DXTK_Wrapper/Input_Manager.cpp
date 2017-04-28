@@ -26,6 +26,8 @@ int InputManager::mouse_x_translation = 0;
 int InputManager::mouse_y_translation = 0;
 float InputManager::mouse_world_x = 0.0f;
 float InputManager::mouse_world_y = 0.0f;
+int InputManager::mouse_scroll = 0;
+int InputManager::mouse_scroll_translation = 0;
 
 #ifdef ARCADE
 Input Inputs::UP = DIK_R;
@@ -34,6 +36,7 @@ Input Inputs::LEFT = DIK_D;
 Input Inputs::RIGHT = DIK_G;
 Input Inputs::JUMP = DIK_LSHIFT;
 Input Inputs::USE = DIK_1;
+Input Inputs::CTRL = DIK_LCONTROL;
 #else
 Input Inputs::UP = DIK_W;
 Input Inputs::DOWN = DIK_S;
@@ -41,6 +44,7 @@ Input Inputs::LEFT = DIK_A;
 Input Inputs::RIGHT = DIK_D;
 Input Inputs::JUMP = DIK_SPACE;
 Input Inputs::USE = DIK_RETURN;
+Input Inputs::CTRL = DIK_LCONTROL;
 #endif
 
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
@@ -333,6 +337,9 @@ void InputManager::update()
 
 	mouse_x = mouse_pos.x;
 	mouse_y = mouse_pos.y;
+
+	mouse_scroll_translation = mouse_scroll - mouse_state.lZ;
+	mouse_scroll = mouse_state.lZ;
 
 	if (mouse_x < 0)
 	{

@@ -13,8 +13,8 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObject(_sprite, _name, _tag)
 {
 	setScale(new Vec2(0.5f, 1.5f));
-	jumpStrength = -0.02f;
-	speed = 0.01f;
+	jumpStrength = -0.08f;
+	speed = 0.02f;
 	lives = 3;
 	score = 0;
 	jumpTime = 0.8f;

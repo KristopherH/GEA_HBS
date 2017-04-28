@@ -10,9 +10,12 @@
 #include "Object_Factory.h"
 #include "ballistics.h"
 #include "Platform.h"
+#include "Rope.h"
+#include "LevelEditorCamera.h"
 
 LevelEditorScene::LevelEditorScene()
 {
+
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
@@ -21,6 +24,10 @@ LevelEditorScene::LevelEditorScene()
 	player->setPosition(level1->playerStartingPosition);
 	player->setGravity(true);
 
+	cam = new LevelEditorCamera(GameData::screen.max.x, GameData::screen.max.y, -1.0f, 10000.0f);
+	cam->setName("Camera");
+	cam->setTag("Camera");
+	cam->setSolid(false);
 	cam->setPlayerTracker(player);
 	cam->setPosition(&player->getPosition());
 
@@ -36,7 +43,6 @@ LevelEditorScene::LevelEditorScene()
 		go = nullptr;
 	}
 	delete level1;
-
 	go_list.push_back(player);
 
 #pragma region UI
@@ -71,7 +77,7 @@ LevelEditorScene::LevelEditorScene()
 		y += 100.0f;
 		ui_elements.push_back(btn);
 	}
- Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
+	Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
 	save->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -217,7 +223,24 @@ LevelEditorScene::~LevelEditorScene()
 
 void LevelEditorScene::Update(float dt)
 {
-	Scene::Update(dt);
+	if (GameData::inputManager->getKeyDown(Inputs::USE))
+		editing = !editing;
+	if (editing)
+	{
+		for (auto go : go_list)
+		{
+			if (go->getAlive())
+			{
+				go->GameObject::Update(dt);
+			}
+		}
+		cam->Update(dt);
+	}
+	else
+	{
+		Scene::Update(dt);
+		cam->BaseCamera::Update(dt);
+	}
 	selectObject();
 	moveObject();
 	for (auto element : ui_elements)
@@ -247,8 +270,16 @@ void LevelEditorScene::selectObject()
 			{
 				if (GameData::collsion_manager->mouseCollision(go->getBox()))
 				{
-					obj_selected = go;
-					obj_select_type = getSelectType();
+					if (go->getType() == "RopeNode")
+					{
+						obj_selected = ((RopeNode*)(go))->parent;
+						obj_select_type = ObjectSelectType::BODY;
+					}
+					else
+					{
+						obj_selected = go;
+						obj_select_type = getSelectType();
+					}
 					break;
 				}
 			}
@@ -262,6 +293,7 @@ void LevelEditorScene::selectObject()
 			if (GameData::collsion_manager->mouseCollision(go->getBox()))
 			{
 				toggleMode(go);
+				break;
 			}
 		}
 	}
@@ -422,6 +454,18 @@ void LevelEditorScene::toggleMode(GameObject * _go)
 	{
 		Platform* platform = static_cast<Platform*>(_go);
 		platform->changeType((PLATFORM_TYPE)(((int)(platform->getPlatformType()))+1));
+	}
+	if (_go->getType() == "RopeNode")
+	{
+		RopeNode* rope = static_cast<RopeNode*>(_go);
+		if (GameData::inputManager->getKeyHeld(Inputs::CTRL))
+		{
+			rope->parent->removeNode();
+		}
+		else
+		{
+			rope->parent->addNode();
+		}
 	}
 	else if (obj_selected && obj_select_type != ObjectSelectType::NONE)
 	{
