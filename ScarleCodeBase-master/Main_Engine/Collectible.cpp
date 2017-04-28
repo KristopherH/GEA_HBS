@@ -44,6 +44,7 @@ bool Collectible::Update(float dt)
 	if (GameData::collsion_manager->boxCollision(box, GameData::player->getBox()))
 	{
 		alive = false;
+		GameData::player->setScore();
 	}
 	return false;
 }

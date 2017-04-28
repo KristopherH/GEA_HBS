@@ -24,8 +24,6 @@ LevelEditorScene::LevelEditorScene()
 	cam->setPlayerTracker(player);
 	cam->setPosition(&player->getPosition());
 
-
-
 	go_list.push_back(ObjectFactory::createBackground());
 
 	Ballistics* bullet = new Ballistics();
@@ -48,7 +46,7 @@ LevelEditorScene::LevelEditorScene()
 	for (auto type : ObjectFactory::create_object)
 	{
 		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
-		Button* btn = new Button(sprite, "Button", "Button");
+		Button* btn = new Button(sprite, "Button", "Button", "Something");
 
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setCallbackFunction([this, type, y]() {
@@ -73,7 +71,7 @@ LevelEditorScene::LevelEditorScene()
 		y += 100.0f;
 		ui_elements.push_back(btn);
 	}
- Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button");
+ Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
 	save->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -125,7 +123,7 @@ LevelEditorScene::LevelEditorScene()
 	y += 100.0f;
 	ui_elements.push_back(save);
 
-	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button");
+	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Load");
 	load->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -239,7 +237,8 @@ void LevelEditorScene::Draw()
 
 void LevelEditorScene::selectObject()
 {
-	if (GameData::inputManager->getMouseLeft())
+	if (GameData::inputManager->getMouseLeft()
+		|| (GameData::inputManager->getMouseMiddle()))
 	{
 		if (!obj_selected)
 		{
@@ -249,6 +248,7 @@ void LevelEditorScene::selectObject()
 				if (GameData::collsion_manager->mouseCollision(go->getBox()))
 				{
 					obj_selected = go;
+					obj_select_type = getSelectType();
 					break;
 				}
 			}
@@ -268,25 +268,268 @@ void LevelEditorScene::selectObject()
 	else if(obj_selected)
 	{
 		obj_selected = nullptr;
+		resetSelectedEdges();
 	}
 }
 
+ObjectSelectType LevelEditorScene::getSelectType()
+{
+	if (!obj_selected)
+		return ObjectSelectType::NONE;
 
+	float edge_size = 10.0f;
+	Rect edge_box = obj_selected->getBox();
+
+	//Edge A (Left Edge)
+	edge_box.max.x -= obj_selected->getSize().x - edge_size;
+	if (CollisionManager::mouseCollision(edge_box))
+		obj_edges_selected[ObjectEdge::A] = true;
+
+	//Edge B (Top Edge)
+	edge_box = obj_selected->getBox();
+	edge_box.max.y -= obj_selected->getSize().y - edge_size;
+	if (CollisionManager::mouseCollision(edge_box))
+		obj_edges_selected[ObjectEdge::B] = true;
+
+	//Edge C (Right Edge)
+	edge_box = obj_selected->getBox();
+	edge_box.min.x += obj_selected->getSize().x - edge_size;
+	if (CollisionManager::mouseCollision(edge_box))
+		obj_edges_selected[ObjectEdge::C] = true;
+
+	//Edge D (Bottom Edge)
+	edge_box = obj_selected->getBox();
+	edge_box.min.y += obj_selected->getSize().y - edge_size;
+	if (CollisionManager::mouseCollision(edge_box))
+		obj_edges_selected[ObjectEdge::D] = true;
+
+
+	//Return what edge is selected
+	if (obj_edges_selected[ObjectEdge::A] && obj_edges_selected[ObjectEdge::B])
+		return ObjectSelectType::TOP_LEFT;
+
+	if (obj_edges_selected[ObjectEdge::B] && obj_edges_selected[ObjectEdge::C])
+		return ObjectSelectType::TOP_RIGHT;
+
+	if (obj_edges_selected[ObjectEdge::C] && obj_edges_selected[ObjectEdge::D])
+		return ObjectSelectType::BOTTOM_RIGHT;
+
+	if (obj_edges_selected[ObjectEdge::D] && obj_edges_selected[ObjectEdge::A])
+		return ObjectSelectType::BOTTOM_LEFT;
+
+	if (obj_edges_selected[ObjectEdge::A])
+		return ObjectSelectType::LEFT;
+
+	if (obj_edges_selected[ObjectEdge::B])
+		return ObjectSelectType::TOP;
+
+	if (obj_edges_selected[ObjectEdge::C])
+		return ObjectSelectType::RIGHT;
+
+	if (obj_edges_selected[ObjectEdge::D])
+		return ObjectSelectType::BOTTOM;
+
+	return ObjectSelectType::BODY;
+}
 
 void LevelEditorScene::moveObject()
 {
-	if (obj_selected)
+	if (obj_selected && obj_select_type == ObjectSelectType::BODY)
 	{
 		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_x_translation,
 								   -GameData::inputManager->mouse_y_translation));
+		for (auto& go : go_list)
+		{
+			if (go != obj_selected)
+			{
+				if (GameData::inputManager->getMouseMiddle())
+				{
+					snap(go, obj_selected);
+				}
+			}
+		}
+	}
+	if (obj_selected && obj_select_type != ObjectSelectType::BODY)
+	{
+		scaleObject();
+	}
+}
+
+void LevelEditorScene::snap(GameObject* other, GameObject* obj)
+{
+	if (abs(other->getBox().min.x - obj->getBox().min.x) < 10
+		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
+		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().min.x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().min.y - obj->getBox().min.y) < 10
+		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
+		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().min.y));
+	}
+
+
+	if (abs(other->getBox().max.x - obj->getBox().min.x) < 10
+		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
+		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().max.x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().max.y - obj->getBox().min.y) < 10
+		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
+		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().max.y));
+	}
+
+	if (abs(other->getBox().min.x - obj->getBox().max.x) < 10
+		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
+		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().min.x - obj->getSize().x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().min.y - obj->getBox().max.y) < 10
+		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
+		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().min.y - obj->getSize().y));
+	}
+
+
+	if (abs(other->getBox().max.x - obj->getBox().max.x) < 10
+		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
+		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().max.x - obj->getSize().x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().max.y - obj->getBox().max.y) < 10
+		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
+		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().max.y - obj->getSize().y));
 	}
 }
 
 void LevelEditorScene::toggleMode(GameObject * _go)
 {
-	if (_go->getType() == "Platform")
+	if (_go->getName() == "Platform")
 	{
 		Platform* platform = static_cast<Platform*>(_go);
 		platform->changeType((PLATFORM_TYPE)(((int)(platform->getPlatformType()))+1));
 	}
+	else if (obj_selected && obj_select_type != ObjectSelectType::NONE)
+	{
+		scaleObject();
+	}
+}
+
+
+
+void LevelEditorScene::scaleObject()
+{
+	if (!obj_selected || obj_select_type == ObjectSelectType::BODY)
+		return;
+
+	/*
+		Left: obj_selected->getPosition().x + InputManager::mouse_x_translation
+				obj_selected->getPosition().x + InputManager::mouse_x_translation
+		Top:  obj_selected->getPosition().y + InputManager::mouse_y_translation
+				obj_selected->getSize().y - InputManager::mouse_y_translation
+		Right:  obj_selected->getSize().x + InputManager::mouse_x_translation;
+		Bottom: obj_selected->getSize().y + InputManager::mouse_y_translation
+	*/
+
+	GameData::inputManager->readMouse();
+	if (obj_select_type == ObjectSelectType::TOP_LEFT)
+	{
+		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_x_translation,
+							obj_selected->getPosition().y - InputManager::mouse_y_translation);
+		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_x_translation,
+							 obj_selected->getSize().y + InputManager::mouse_y_translation);
+
+		obj_selected->setPosition(&new_pos);
+		obj_selected->setSize(&new_size);
+	}
+
+	if (obj_select_type == ObjectSelectType::TOP)
+	{
+		Vec2 new_pos = Vec2(obj_selected->getPosition().x,
+							obj_selected->getPosition().y - InputManager::mouse_y_translation);
+		Vec2 new_size = Vec2(obj_selected->getSize().x,
+							 obj_selected->getSize().y + InputManager::mouse_y_translation);
+
+		obj_selected->setPosition(&new_pos);
+		obj_selected->setSize(&new_size);
+	}
+
+	if (obj_select_type == ObjectSelectType::TOP_RIGHT)
+	{
+		Vec2 new_pos = Vec2(obj_selected->getPosition().x,
+							obj_selected->getPosition().y - InputManager::mouse_y_translation);
+		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_x_translation,
+							 obj_selected->getSize().y + InputManager::mouse_y_translation);
+
+		obj_selected->setPosition(&new_pos);
+		obj_selected->setSize(&new_size);
+	}
+
+	if (obj_select_type == ObjectSelectType::RIGHT)
+	{
+		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_x_translation,
+							 obj_selected->getSize().y);
+		obj_selected->setSize(&new_size);
+	}
+
+	if (obj_select_type == ObjectSelectType::BOTTOM_RIGHT)
+	{
+		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_x_translation,
+							 obj_selected->getSize().y - InputManager::mouse_y_translation);
+
+		obj_selected->setSize(&new_size);
+	}
+
+	if (obj_select_type == ObjectSelectType::BOTTOM)
+	{
+		Vec2 new_size = Vec2(obj_selected->getSize().x,
+							 obj_selected->getSize().y - InputManager::mouse_y_translation);
+
+		obj_selected->setSize(&new_size);
+	}
+
+	if (obj_select_type == ObjectSelectType::BOTTOM_LEFT)
+	{
+		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_x_translation,
+							obj_selected->getPosition().y);
+		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_x_translation,
+							 obj_selected->getSize().y - InputManager::mouse_y_translation);
+
+		obj_selected->setPosition(&new_pos);
+		obj_selected->setSize(&new_size);
+	}
+
+	if (obj_select_type == ObjectSelectType::LEFT)
+	{
+		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_x_translation,
+							obj_selected->getPosition().y);
+		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_x_translation,
+							 obj_selected->getSize().y);
+
+		obj_selected->setPosition(&new_pos);
+		obj_selected->setSize(&new_size);
+	}
+
+}
+
+
+
+void LevelEditorScene::resetSelectedEdges()
+{
+	for (auto& current_edge : obj_edges_selected)
+		current_edge.second = false;
 }

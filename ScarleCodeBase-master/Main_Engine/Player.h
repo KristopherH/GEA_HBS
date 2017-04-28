@@ -27,14 +27,18 @@ public:
 	void OnMove(Vec2);
 	void climb();
 	void conveyor(bool _left);
+
+	int getScore() { return score; };
 	int getLives() { return lives; };
 	void setLives();
+	void setScore();
 
 	float getSpeed();
 
 protected:
 
 	int lives;
+	int score;
 	float speed;
 	float jumpStrength;
 	float jumpTime;

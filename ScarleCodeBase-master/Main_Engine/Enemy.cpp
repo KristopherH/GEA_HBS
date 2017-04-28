@@ -10,6 +10,7 @@
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
+#include "Player.h"
 
 Enemy::Enemy(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {
@@ -53,8 +54,7 @@ bool Enemy::Update(float dt)
 {
 	if (GameData::collsion_manager->boxCollision(name, "Player"))
 	{
- 		player = new Player();
- 		player->setLives();
+ 		GameData::player->setLives();
 		alive = false;
 	}
 	if (waypoints.size() > 1)

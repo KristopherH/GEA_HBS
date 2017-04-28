@@ -18,7 +18,7 @@ Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	ID3D11DeviceContext* pd3dImmediateContext;
 	_pd3dDevice->GetImmediateContext(&pd3dImmediateContext);
 	spriteBatch.reset(new SpriteBatch(pd3dImmediateContext));
-	spriteFont.reset(new SpriteFont(_pd3dDevice, L"../Assets/italic.spritefont"));
+	spriteFont.reset(new SpriteFont(_pd3dDevice, L"../Assets/yoster.spritefont"));
 	//m_DD2D->m_Font.reset(new SpriteFont(_pd3dDevice, L"..\\Assets\\italic.spritefont"));
 
 	////set up DirectXTK Effects system
@@ -77,9 +77,10 @@ bool Renderer::EndDraw()
 	return true;
 }
 
-void Renderer::renderText(string text, Vec2 position)
+void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotation, Vec2 origin, float scale)
 {
-	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position);
+	// To outline text set desired colour value to 250 and other two values to 1 e.g for green outline - (1.0f, 250.0f, 1.0f)
+	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
 }
 
 float Renderer::getAspectRatio()
@@ -106,8 +107,3 @@ float Renderer::getWindowHeight()
 	GetClientRect(hWnd, &rc);
 	return (float)(rc.bottom - rc.top);
 }
-
-//void Renderer::DrawString(wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const
-//{
-//	m_Font->DrawString(spriteBatch.get(), text, position, color, rotation, origin, scale, layerDepth);
-//}

@@ -40,7 +40,9 @@ GameObject* ObjectFactory::createPlayer()
 
 GameObject* ObjectFactory::createEnemy()
 {
-	return new Enemy(new Vec2(0.0f, 0.0f), new Vec2(100.0f, 100.0f), 0.0f, "Enemy");
+	Enemy* enemy = new Enemy(new Vec2(0.0f, 0.0f), new Vec2(100.0f, 100.0f), 0.0f, "Enemy");
+	enemy->setType("Enemy");
+	return enemy;
 }
 
 
@@ -66,6 +68,7 @@ GameObject* ObjectFactory::createLadder()
 
 	ladder_spr = new Sprite("Ladder", GameData::renderer);
 	ladder = new GameObject(ladder_spr, "Ladder", "Climbable");
+	ladder->setType("Ladder");
 
 	ladder->setPosition(new Vec2(0, 0));
 	ladder->setSize(new Vec2(100.0f, 300.0f));
@@ -85,6 +88,7 @@ GameObject* ObjectFactory::createCollectable()
 
 	collectible_spr = new Sprite("coin", GameData::renderer);
 	collectible = new Collectible(new Vec2(0, 0), new Vec2(100.0f, 100.0f), 0, "Collectible");
+	collectible->setType("Collectible");
 
 	return collectible;
 }
