@@ -28,7 +28,7 @@ LevelEditorScene::LevelEditorScene()
 
 	Ballistics* bullet = new Ballistics();
 	go_list.push_back(bullet);
-	bullet->setPosition(&player->getPosition());
+	bullet->setPosition(new Vec2(0.0f ,0.0f));
 	bullet->setSize(new Vec2(100.0f, 120.0f));
 	for (auto go : level1->go_list)
 	{
