@@ -16,8 +16,8 @@ LevelEditorScene::LevelEditorScene()
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
-
-	player->setSize(new Vec2(100.0f * 5, 120.0f));
+	int spr_ac = player->getSprite()->getSpritesAcross();
+	player->setSize(new Vec2(100.0f * spr_ac, 120.0f));
 	player->setPosition(level1->playerStartingPosition);
 	player->setGravity(true);
 
@@ -38,6 +38,11 @@ LevelEditorScene::LevelEditorScene()
 	delete level1;
 
 	go_list.push_back(player);
+
+	Sprite* spr = new Sprite("grass");
+	GameObject* go = new GameObject(spr, "TEST", "TEST");
+	go->setPosition(new Vec2(player->getBox().max));
+	go_list.push_back(go);
 
 #pragma region UI
 

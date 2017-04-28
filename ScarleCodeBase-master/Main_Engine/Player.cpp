@@ -9,8 +9,8 @@
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
 
-Player::Player(Sprite* _sprite, std::string _name, std::string _tag, int width, int height)
-	:GameObject(_sprite, _name, _tag, width, height)
+Player::Player(Sprite* _sprite, std::string _name, std::string _tag, int _sprites_across, int _sprites_down)
+	:GameObject(_sprite, _name, _tag, _sprites_across, _sprites_down)
 {
 	playerrr = true;
 	setScale(new Vec2(0.5f, 1.5f));

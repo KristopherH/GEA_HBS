@@ -282,6 +282,12 @@
   <ItemGroup>
     <ImageContentTask Include="SpriteRunning.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Idle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Attack.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

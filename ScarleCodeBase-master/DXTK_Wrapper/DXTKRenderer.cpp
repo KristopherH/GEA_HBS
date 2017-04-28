@@ -73,8 +73,8 @@ bool Renderer::Draw(Sprite* _sprite)
 
 bool Renderer::Draw(Sprite * _sprite, int index)
 {
-	int width = _sprite->getFrameWidth();
-	int height = _sprite->getFrameHeight();
+	int width = _sprite->getFrameWidth() / _sprite->getSpritesAcross();
+	int height = _sprite->getFrameHeight() / _sprite->getSpritesDown();
 	int x = _sprite->getPosition().x;
 	int y = _sprite->getPosition().y;
 	int sprites_across = _sprite->getSpritesAcross();
@@ -89,10 +89,10 @@ bool Renderer::Draw(Sprite * _sprite, int index)
 
 	if (_sprite->getSpritesAcross() > 1)
 	{
-		float min_x = (float)((index % 5) * width);
-		float min_y = (float)((index / 5) * height);
-		float max_x = (float)(((index % 5) * width) + width);
-		float max_y = (float)(((index / 5) * height) + height);
+		float min_x = (float)((index % sprites_across) * width);
+		float min_y = (float)((index / sprites_across) * height);
+		float max_x = (float)(((index % sprites_across) * width) + width);
+		float max_y = (float)(((index / sprites_across) * height) + height);
 
 		Vec2 min = Vec2(min_x, min_y);
 		Vec2 max = Vec2(max_x, max_y);

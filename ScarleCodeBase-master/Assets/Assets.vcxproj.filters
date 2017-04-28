@@ -22,6 +22,9 @@
     <Filter Include="Textures\UI">
       <UniqueIdentifier>{37599edf-0441-4512-a841-710aa03815a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Textures\Player">
+      <UniqueIdentifier>{33df98d8-22ae-45b6-a168-3b20762a09e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="italic.spritefont">
@@ -147,5 +150,13 @@
     <ImageContentTask Include="SpriteRunning.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Idle.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Attack.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

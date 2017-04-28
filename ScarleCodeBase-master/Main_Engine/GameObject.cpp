@@ -10,25 +10,29 @@
 #include "Texture.h"
 
 
-GameObject::GameObject(Sprite* _sprite, std::string _name, std::string _tag)
-	:sprite(_sprite), name(_name), tag(_tag)
-{
-
-}
+//GameObject::GameObject(Sprite* _sprite, std::string _name, std::string _tag)
+//	:sprite(_sprite), name(_name), tag(_tag)
+//{
+//
+//}
 
 GameObject::GameObject()
 {
 	sprite = nullptr;
 }
 
-GameObject::GameObject(Sprite * _sprite, std::string _name, std::string _tag, int width, int height) :
-	GameObject(_sprite, _name, _tag)
+GameObject::GameObject(Sprite * _sprite, std::string _name, std::string _tag, int _sprites_across, int _sprites_down) :
+	sprite(_sprite), name(_name), tag(_tag)
 {
-	int _sprites_across = _sprite->getSize().x / width;
-	int _sprites_down = _sprite->getSize().y / height;
+	if (tag == "Player")
+		int i = 0;
 
 	sprite->setSpritesAcross(_sprites_across);
 	sprite->setSpritesDown(_sprites_down);
+
+	int width = this->getSize().x / _sprites_across;
+	int height = this->getSize().y / _sprites_down;
+
 	sprite->setFrameWidth(width);
 	sprite->setFrameHeight(height);
 }
@@ -40,7 +44,7 @@ GameObject::GameObject(Sprite* _sprite)
 
 GameObject::~GameObject()
 {
-	if (sprite == nullptr)
+	if (sprite)
 	{
 		delete sprite;
 		sprite = nullptr;
@@ -62,11 +66,13 @@ bool GameObject::Update(float dt)
 	if (this->getSprite())
 	{
 		sprite->Update();
+		int width = this->size.x / this->getSprite()->getSpritesAcross();
+		int height = this->size.y / this->getSprite()->getSpritesDown();
 
-		box.min.x = position.x;
+ 		box.min.x = position.x;
 		box.min.y = position.y;
-		box.max.x = position.x + this->getSize().x;
-		box.max.y = position.y + this->getSize().y;
+ 		box.max.x = position.x + width;
+		box.max.y = position.y + height;
 
 		sprite->setPosition(position);
 		sprite->setRotation(rotation);
@@ -134,7 +140,7 @@ void GameObject::animation(float _dt)
 	{
 		animation_tick = 0.0f;
 		frame_tick++;
-		if (frame_tick >= 5/*animations[animation_state].size()*/)
+		if (frame_tick >= this->getSprite()->getSpritesAcross())
 			frame_tick = 0;
 	}
 }
@@ -218,7 +224,7 @@ Vec2 GameObject::getPosition()
 
 Vec2 GameObject::getSize()
 {
-	return Vec2(sprite->getSize().x * scale.x, sprite->getSize().y * scale.y);
+	return Vec2(size.x, size.y);
 }
 
 Vec2 GameObject::getScale()

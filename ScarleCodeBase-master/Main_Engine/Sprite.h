@@ -60,7 +60,7 @@ protected:
 	int sprites_down = 1;
 	Vec2 position;
 	float rotation;
-	Vec2 scale;
+	Vec2 scale = Vec2(1.0f, 1.0f);
 	Vec4 colour;
 	Vec2 origin;
 	Texture* texture;
