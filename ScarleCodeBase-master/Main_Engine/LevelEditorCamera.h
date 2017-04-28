@@ -13,6 +13,5 @@ public:
 
 private:
 	bool editCam = true;
-	float viewWidth = 0;
-	float viewHeight = 0;
+
 };

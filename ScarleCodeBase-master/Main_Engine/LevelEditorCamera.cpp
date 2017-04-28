@@ -37,11 +37,16 @@ bool LevelEditorCamera::Update(float dt)
 	}
 	viewWidth += GameData::inputManager->mouse_scroll;
 	viewHeight += GameData::inputManager->mouse_scroll;
+	zoom = viewWidth / width;
+	if (zoom < 0.0f)
+	{
+		zoom = 0.01f;
+	}
 	Vec3 pos3d(position.x, position.y);
 
 	m_projMat = OurMatrix::CreateOrthographic(viewWidth, viewHeight, nearPlane, farPlane);
 	m_viewMat = OurMatrix::CreateLookAt(pos3d, m_target, m_up);
 
-	m_worldMat = OurMatrix::CreateTrasform(pos3d, rotation, 1.0f, width, height);
+	m_worldMat = OurMatrix::CreateTrasform(pos3d, rotation, zoom, width, height);
 	return false;
 }

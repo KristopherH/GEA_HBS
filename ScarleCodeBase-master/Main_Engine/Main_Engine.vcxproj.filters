@@ -1,28 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ballistics.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseCamera.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Collectible.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Collision_Manager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
@@ -34,53 +13,74 @@
     <ClCompile Include="GameData.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelEditor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Object_Factory.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="OptionsMenu.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Platforms.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source\Basics</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="RopeNode.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="ballistics.cpp">
+      <Filter>Source\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Rope.cpp">
-      <Filter>Source</Filter>
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Source\Basics</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Collectible.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEditor.cpp">
+      <Filter>Source\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="LevelEditorCamera.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsMenu.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Rope.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source\Basics</Filter>
+    </ClCompile>
+    <ClCompile Include="RopeNode.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source\Basics</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source\Basics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,19 +105,10 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedSprite.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>Headers\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="ballistics.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseCamera.h">
       <Filter>Headers\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Collectible.h">
@@ -132,9 +123,6 @@
     <ClInclude Include="Platform.h">
       <Filter>Headers\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Platforms.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Headers\GameObjects</Filter>
     </ClInclude>
@@ -144,17 +132,11 @@
     <ClInclude Include="MainMenu.h">
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>Headers\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="RopeNode.h">
       <Filter>Headers\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Rope.h">
       <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Headers\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>Headers\UI</Filter>
@@ -165,8 +147,26 @@
     <ClInclude Include="OptionsMenu.h">
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="LevelEditorCamera.h">
+    <ClInclude Include="Timer.h">
       <Filter>Headers\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseCamera.h">
+      <Filter>Headers\Basics</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Headers\Basics</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Headers\Basics</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Headers\Basics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Headers\Basics</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditorCamera.h">
+      <Filter>Headers\Basics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +184,21 @@
     </Filter>
     <Filter Include="Headers\UI">
       <UniqueIdentifier>{0500a888-9e40-44e0-abc6-95d53205309d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameObjects">
+      <UniqueIdentifier>{3ede1de7-fd47-4621-aced-2739a6e735ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Basics">
+      <UniqueIdentifier>{77901d5e-89e8-4b43-bd2c-e17c4f252ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scenes">
+      <UniqueIdentifier>{184926c9-e50c-4553-a3ed-00449118ec33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UI">
+      <UniqueIdentifier>{23c81855-2d26-4bb5-ae6d-bdddd02f33ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Basics">
+      <UniqueIdentifier>{8b2072b0-3b4d-48c9-801f-d31302437e14}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -77,20 +77,23 @@ bool Background::Update(float dt)
 		previousCamPosition.x = 0.0f;
 		previousCamPosition.y = 0.0f;
 		previousCamPosition += main_camera->getPosition();
-		//bool found = false;
-		//for (auto bg : backgrounds)
-		//{
-		//	Rect* box = new Rect(bg->getPosition(), bg->getScale());
-		//	if(GameData::collsion_manager->boxCollision(GameData::player->getBox(), *box))
-		//	{
-		//		found = true;
-		//		break;
-		//	}
-		//}
-		//if (!found)
-		//{
-		//	//GameData::player->kill();
-		//}
+		if (GameData::player)
+		{	
+			bool found = false;
+			for (auto bg : backgrounds)
+			{
+				Rect* box = new Rect(bg->getPosition(), bg->getScale());
+				if(GameData::collsion_manager->boxCollision(GameData::player->getBox(), *box))
+				{
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				//GameData::player->kill();
+			}
+		}
 	}
 	else
 	{

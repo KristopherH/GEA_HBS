@@ -365,10 +365,10 @@ void InputManager::update()
 		mouse_y_translation = 0;
 	}
 
-	InputManager::mouse_world_x = (float)GameData::inputManager->mouse_x - 
+	InputManager::mouse_world_x = (float)GameData::inputManager->mouse_x / GameData::currentCamera->getZoom() -
 		((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
 
-	InputManager::mouse_world_y = (float)GameData::inputManager->mouse_y - 
+	InputManager::mouse_world_y = (float)GameData::inputManager->mouse_y / GameData::currentCamera->getZoom() -
 		((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
 
 	#ifdef DEBUG

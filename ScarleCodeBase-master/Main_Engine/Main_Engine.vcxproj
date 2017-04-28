@@ -183,7 +183,6 @@
     <ClInclude Include="Object_Factory.h" />
     <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="Platform.h" />
-    <ClInclude Include="Platforms.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rope.h" />
     <ClInclude Include="RopeNode.h" />
@@ -213,7 +212,6 @@
     <ClCompile Include="Object_Factory.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="Platform.cpp" />
-    <ClCompile Include="Platforms.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rope.cpp" />
     <ClCompile Include="RopeNode.cpp" />

@@ -52,6 +52,7 @@ GameObject* ObjectFactory::createPlatform()
 {
 	GameObject* platform = Platform::create(STANDARD);
 
+	platform->setType("Platform");
 	platform->setSize(new Vec2(100.0f, 100.0f));
 	platform->setPosition(new Vec2(0, 0));
 

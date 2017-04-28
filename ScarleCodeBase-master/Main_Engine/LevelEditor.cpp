@@ -26,6 +26,10 @@ LevelEditorScene::LevelEditorScene()
 	player->setGravity(true);
 
 	cam = new LevelEditorCamera(GameData::screen.max.x, GameData::screen.max.y, -1.0f, 10000.0f);
+	Vec2 camPosition;
+	camPosition += *level1->playerStartingPosition;
+	camPosition *= -1;
+	cam->setPosition(&camPosition);
 	cam->setName("Camera");
 	cam->setTag("Camera");
 	cam->setSolid(false);
@@ -62,10 +66,12 @@ LevelEditorScene::LevelEditorScene()
 			if (!obj_selected)
 			{
 				//create the gameobject
-				float pos_x = (float)0.0f - 
+				float pos_x = (float)0.0f -
 					((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
-				float pos_y = (float)y - 
+				float pos_y = (float)y -
 					((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
+				//float pos_x = GameData::inputManager->mouse_world_x;
+				//float pos_y = GameData::inputManager->mouse_world_x;
 
 				GameObject* go = type.second();
 				go->setPosition(new Vec2(pos_x, pos_y));
