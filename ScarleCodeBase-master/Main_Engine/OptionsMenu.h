@@ -12,6 +12,7 @@ public:
 	virtual void Draw() override;
 	void optionsText();
 	void keyBindings();
+	void volumeButtons();
 
 protected:
 
