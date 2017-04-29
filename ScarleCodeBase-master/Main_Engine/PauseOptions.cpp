@@ -15,7 +15,7 @@
 
 PauseOptions::PauseOptions()
 {
-	/*std::vector<Sprite*> BGs;
+	std::vector<Sprite*> BGs;
 
 	BGs.push_back(new Sprite("11_background", GameData::renderer));
 	BGs.push_back(new Sprite("10_distant_clouds", GameData::renderer));
@@ -29,7 +29,7 @@ PauseOptions::PauseOptions()
 	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
-	Background* bg = new Background(BGs, cam);*/
+	Background* bg = new Background(BGs, cam);
 
 	Button* Backbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
 	Backbtn->setSize(new Vec2(200.0f, 100.0f));
@@ -44,7 +44,7 @@ PauseOptions::PauseOptions()
 	noticeBoard->setPosition(new Vec2(((GameData::screen.Center().x / 2) * -1),
 		(GameData::screen.Center().y / 2) - (GameData::screen.Center().y * 2)));
 
-	//go_list.push_back(bg);
+	go_list.push_back(bg);
 	go_list.push_back(Backbtn);
 	go_list.push_back(noticeBoard);
 }
