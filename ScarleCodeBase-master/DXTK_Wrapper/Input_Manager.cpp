@@ -11,7 +11,6 @@
 #include <GameData.h>
 #include <BaseCamera.h>
 
-
 unsigned char InputManager::keyboard_state[256];
 unsigned char InputManager::previous_keyboard_state[256];
 IDirectInput8* InputManager::user_direct_input = nullptr;
@@ -26,6 +25,10 @@ int InputManager::mouse_x_translation = 0;
 int InputManager::mouse_y_translation = 0;
 float InputManager::mouse_world_x = 0.0f;
 float InputManager::mouse_world_y = 0.0f;
+float InputManager::mouse_world_x_translation = 0;
+float InputManager::mouse_world_y_translation = 0;
+int InputManager::mouse_scroll = 0;
+int InputManager::mouse_scroll_translation = 0;
 
 #ifdef ARCADE
 Input Inputs::UP = DIK_R;
@@ -34,13 +37,16 @@ Input Inputs::LEFT = DIK_D;
 Input Inputs::RIGHT = DIK_G;
 Input Inputs::JUMP = DIK_LSHIFT;
 Input Inputs::USE = DIK_1;
+Input Inputs::CTRL = DIK_LCONTROL;
 #else
 Input Inputs::UP = DIK_W;
 Input Inputs::DOWN = DIK_S;
 Input Inputs::LEFT = DIK_A;
 Input Inputs::RIGHT = DIK_D;
+Input Inputs::PAUSE = DIK_ESCAPE;
 Input Inputs::JUMP = DIK_SPACE;
 Input Inputs::USE = DIK_RETURN;
+Input Inputs::CTRL = DIK_LCONTROL;
 #endif
 
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
@@ -51,13 +57,49 @@ InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 	SetCursorPos((int)GameData::screen.min.x, (int)GameData::screen.min.y);
 }
 
-
-
 InputManager::~InputManager()
 {
 	if (user_direct_input)	user_direct_input->Release();
 	if (user_keyboard)		user_keyboard->Release();
 	if (user_mouse)         user_mouse->Release();
+}
+
+void InputManager::newUpKey(Input _Key)
+{
+	up_key = _Key;
+	Inputs::UP = _Key;
+
+	
+}
+
+void InputManager::newDownKey(Input _Key)
+{
+	down_key = _Key;
+	Inputs::DOWN = _Key;
+}
+
+void InputManager::newLeftKey(Input _Key)
+{
+	left_key = _Key;
+	Inputs::LEFT = _Key;
+}
+
+void InputManager::newRightKey(Input _Key)
+{
+	right_key = _Key;
+	Inputs::RIGHT = _Key;
+}
+
+void InputManager::newJumpKey(Input _Key)
+{
+	jump_key = _Key;
+	Inputs::JUMP = _Key;
+}
+
+void InputManager::newPauseKey(Input _Key)
+{
+	pause_key = _Key;
+	Inputs::PAUSE = _Key;
 }
 
 #pragma region Mouse
@@ -70,8 +112,6 @@ bool InputManager::getMouseRight()
 	return false;
 }
 
-
-
 bool InputManager::getMouseLeft()
 {
 	if (mouse_state.rgbButtons[0] & 0x80)
@@ -79,8 +119,6 @@ bool InputManager::getMouseLeft()
 
 	return false;
 }
-
-
 
 bool InputManager::getMouseMiddle()
 {
@@ -136,8 +174,6 @@ bool InputManager::getKeyDown(Input _key)
 	return false;
 }
 
-
-
 bool InputManager::getKeyUp(Input _key)
 {
 	if (_key == 0)
@@ -151,8 +187,6 @@ bool InputManager::getKeyUp(Input _key)
 
 	return false;
 }
-
-
 
 bool InputManager::getKeyHeld(Input _key)
 {
@@ -177,14 +211,10 @@ bool InputManager::gamePadButtonDown(unsigned int button)
 	return false;
 }
 
-
-
 bool InputManager::gamePadButtonUp(unsigned int button)
 {
 	return false;
 }
-
-
 
 bool InputManager::gamePadButtonHeld(unsigned int button)
 {
@@ -253,8 +283,6 @@ bool InputManager::init()
 	return true;
 }
 
-
-
 bool InputManager::readKeyboard()
 {
 	memcpy(previous_keyboard_state, keyboard_state, sizeof(unsigned char) * 256);
@@ -280,8 +308,6 @@ bool InputManager::readKeyboard()
 
 	return true;
 }
-
-
 
 bool InputManager::readMouse()
 {
@@ -316,8 +342,6 @@ bool InputManager::readMouse()
 	return true;
 }
 
-
-
 void InputManager::update()
 {
 	readKeyboard();
@@ -333,6 +357,9 @@ void InputManager::update()
 
 	mouse_x = mouse_pos.x;
 	mouse_y = mouse_pos.y;
+
+	mouse_scroll_translation = mouse_scroll - mouse_state.lZ;
+	mouse_scroll = mouse_state.lZ;
 
 	if (mouse_x < 0)
 	{
@@ -358,19 +385,20 @@ void InputManager::update()
 		mouse_y_translation = 0;
 	}
 
-	InputManager::mouse_world_x = (float)GameData::inputManager->mouse_x - 
-		((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
+	float CameraXScaled = GameData::currentCamera->getPosition().x + (((float)GameData::currentCamera->getCameraSize().x) / 2 ) / GameData::currentCamera->getZoom();
+	float CameraYScaled = GameData::currentCamera->getPosition().y + (((float)GameData::currentCamera->getCameraSize().y) / 2 ) / GameData::currentCamera->getZoom();
 
-	InputManager::mouse_world_y = (float)GameData::inputManager->mouse_y - 
-		((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
+	InputManager::mouse_world_x_translation = InputManager::mouse_world_x - ((GameData::inputManager->mouse_x / GameData::currentCamera->getZoom()) - CameraXScaled);
+	InputManager::mouse_world_y_translation = InputManager::mouse_world_y - ((GameData::inputManager->mouse_y / GameData::currentCamera->getZoom()) - CameraYScaled);
+
+	InputManager::mouse_world_x = (GameData::inputManager->mouse_x / GameData::currentCamera->getZoom()) - CameraXScaled;
+	InputManager::mouse_world_y = (GameData::inputManager->mouse_y / GameData::currentCamera->getZoom()) - CameraYScaled;
+
+	
 
 	#ifdef DEBUG
-	std::cout << "Mouse X: " << mouse_x << std::endl;
-	std::cout << "Mouse Y: " << mouse_y << std::endl;
-	std::cout << "Mouse X Change: " << mouse_x_translation << std::endl;
-	std::cout << "Mouse Y Change: " << mouse_y_translation << std::endl;
+	std::cout << "Mouse world X: " << InputManager::mouse_world_x <<  "    Mouse world Y: " << InputManager::mouse_world_y << std::endl;
 	#endif
 	#pragma endregion
 }
-
 #pragma endregion

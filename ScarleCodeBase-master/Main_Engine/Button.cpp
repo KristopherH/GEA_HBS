@@ -13,15 +13,22 @@ Button::Button(Sprite* sprite, std::string _name, std::string _tag, string _text
 {
 	buttonText = _text;
 }
+Button::Button(Sprite* sprite, std::string _name, std::string _tag, char _text)
+	: GameObject(sprite, _name, _tag)
+{
+	buttonText = _text;
+}
 
 bool Button::Update(float dt)
 {
 	GameObject::Update(dt);
 	Vec2 newPos = Vec2(0.0f, 0.0f);
-	newPos -= GameData::currentCamera->getCameraSize() / 2;
+	newPos -= (GameData::currentCamera->getCameraSize() / 2) / GameData::currentCamera->getZoom();
 	newPos -= GameData::currentCamera->getPosition();
-	newPos += sprite->getPosition();
+	newPos += sprite->getPosition() / GameData::currentCamera->getZoom();
+	sprite->setScale((sprite->getScale() / GameData::currentCamera->getZoom()));
 	sprite->setPosition(newPos);
+
 	if (box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y)))
 	{
 		hovering = true;
@@ -34,7 +41,6 @@ bool Button::Update(float dt)
 	{
 		hovering = false;
 	}
-	
 	return true;
 }
 
@@ -51,12 +57,16 @@ bool Button::Draw()
 
 	GameObject::Draw();
 
-	GameData::renderer->renderText(buttonText, Vec2((getPosition().x - buttonText.size()) - 780.0f, (getPosition().y - buttonText.size()) - 420),
-		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), ((getSize().x / 2) / (buttonText.size()/2)) / 40/*((getSize().x + getSize().y) / 100) / 6*/);
+	GameData::renderer->renderText(buttonText, getSprite()->getPosition() /*+ ((sprite->getSize() * sprite->getScale()))*/,
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f,
+		Vec2(0.0f, 0.0f),
+		sprite->getSize() * sprite->getScale() /** 0.8f*/);
 
 	float newy;
+	float newx;
 
-	newy = ((getSize().x / 2) / (buttonText.size() / 2)) / 100;
+	newx = getSprite()->getPosition().x;
+	newy = getSprite()->getPosition().y;
 	
 	return true;
 }
