@@ -25,6 +25,6 @@ public:
 private:
 
 	BulletDirecton _BD;
-	float speed = 0.05;
+	float speed = 0.05f;
 	float timer = 0;
 };

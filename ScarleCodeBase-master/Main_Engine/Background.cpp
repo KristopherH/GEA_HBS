@@ -91,7 +91,7 @@ bool Background::Update(float dt)
 			}
 			if (!found)
 			{
-				//GameData::player->kill();
+				//GameData::player->();
 			}
 		}
 	}

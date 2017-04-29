@@ -273,6 +273,7 @@ LevelEditorScene::LevelEditorScene()
 			delete obj_selected;
 			obj_selected = nullptr;
 		}
+		return false;
 	});
 	erase->setPosition(new Vec2(0.0f, y));
 	erase->setSize(new Vec2(100.0f, 100.0f));
@@ -318,7 +319,7 @@ void LevelEditorScene::Update(float dt)
 		cam->Update(dt);
 		if (GameData::inputManager->getMouseRight() && !obj_selected)
 		{
-			cam->movePosition(new Vec2(-GameData::inputManager->mouse_x_translation, -GameData::inputManager->mouse_y_translation));
+			cam->movePosition(new Vec2((float)(-GameData::inputManager->mouse_x_translation), (float)(-GameData::inputManager->mouse_y_translation)));
 		}
 	}
 	else

@@ -41,8 +41,6 @@ bool Button::Update(float dt)
 	{
 		hovering = false;
 	}
-	
-	//return GameObject::Update(dt);
 	return true;
 }
 
@@ -59,10 +57,10 @@ bool Button::Draw()
 
 	GameObject::Draw();
 
-	GameData::renderer->renderText(buttonText, Vec2(getSprite()->getPosition().x + 10, getSprite()->getPosition().y + 10),
+	GameData::renderer->renderText(buttonText, getSprite()->getPosition() /*+ ((sprite->getSize() * sprite->getScale()))*/,
 		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f,
 		Vec2(0.0f, 0.0f),
-		((getSize().x / 2) / (buttonText.size() / 2)) / 40);
+		sprite->getSize() * sprite->getScale() /** 0.8f*/);
 
 	float newy;
 	float newx;
