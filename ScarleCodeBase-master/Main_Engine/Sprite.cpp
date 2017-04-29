@@ -30,6 +30,11 @@ void Sprite::Update()
 {
 }
 
+Texture * Sprite::GetTexture()
+{
+	return texture;
+}
+
 Vec2 Sprite::getSize()
 {
 	return texture->getSize();

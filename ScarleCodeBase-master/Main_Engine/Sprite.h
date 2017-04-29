@@ -25,7 +25,7 @@ public:
 
 	virtual void Update();
 
-	Texture* GetTexture() { return texture; }
+	Texture* GetTexture();
 	Vec4 getColour() { return colour; }
 	Vec2 getOrigin() { return origin; }
 	Vec2 getSize();

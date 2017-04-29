@@ -153,6 +153,9 @@
     <ImageContentTask Include="Idle.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Rope.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Attack.png">

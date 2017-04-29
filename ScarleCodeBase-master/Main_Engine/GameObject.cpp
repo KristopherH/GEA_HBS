@@ -68,7 +68,7 @@ bool GameObject::getSolid()
 
 bool GameObject::Update(float dt)
 {
-	if (this->getSprite())
+	if (this->getSprite()->GetTexture())
 	{
 		sprite->Update();
 		int width = this->size.x / this->getSprite()->getSpritesAcross();
