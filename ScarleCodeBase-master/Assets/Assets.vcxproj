@@ -283,7 +283,12 @@
     <ImageContentTask Include="Idle.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Attack.png" />
+    <ImageContentTask Include="Attack.png" />
+    <ImageContentTask Include="Death.png" />
+    <ImageContentTask Include="Jump.png" />
+    <ImageContentTask Include="JumpAttack.png" />
+    <ImageContentTask Include="Run.png" />
+    <ImageContentTask Include="Walk.png" />
     <ImageContentTask Include="Rope.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

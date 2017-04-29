@@ -14,6 +14,7 @@
 Player::Player(Sprite* _sprite, std::string _name, std::string _tag, int width, int height)
 	:GameObject(_sprite, _name, _tag, width, height)
 {
+	playerrr = true;
 	setScale(new Vec2(0.5f, 1.5f));
 	jumpStrength = -0.08f;
 	speed = 0.02f;

@@ -153,10 +153,23 @@
     <ImageContentTask Include="Rope.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Attack.png">
+    <ImageContentTask Include="Attack.png">
       <Filter>Textures</Filter>
-    </Image>
+    </ImageContentTask>
+    <ImageContentTask Include="Death.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Jump.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="JumpAttack.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Run.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Walk.png">
+      <Filter>Textures</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
