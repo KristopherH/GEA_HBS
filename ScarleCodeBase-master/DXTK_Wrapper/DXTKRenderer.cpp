@@ -91,7 +91,6 @@ float Renderer::getAspectRatio()
 	UINT width = rc.right - rc.left;
 	UINT height = rc.bottom - rc.top;
 	return (float)width / (float)height;
-
 }
 
 float Renderer::getWindowWidth()

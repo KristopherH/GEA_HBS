@@ -41,7 +41,7 @@ Input Inputs::UP = DIK_W;
 Input Inputs::DOWN = DIK_S;
 Input Inputs::LEFT = DIK_A;
 Input Inputs::RIGHT = DIK_D;
-Input Inputs::PAUSE = DIK_P;
+Input Inputs::PAUSE = DIK_ESCAPE;
 Input Inputs::JUMP = DIK_SPACE;
 Input Inputs::USE = DIK_RETURN;
 Input Inputs::CTRL = DIK_LCONTROL;
@@ -55,13 +55,49 @@ InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 	SetCursorPos((int)GameData::screen.min.x, (int)GameData::screen.min.y);
 }
 
-
-
 InputManager::~InputManager()
 {
 	if (user_direct_input)	user_direct_input->Release();
 	if (user_keyboard)		user_keyboard->Release();
 	if (user_mouse)         user_mouse->Release();
+}
+
+void InputManager::newUpKey(Input _Key)
+{
+	up_key = _Key;
+	Inputs::UP = _Key;
+
+	
+}
+
+void InputManager::newDownKey(Input _Key)
+{
+	down_key = _Key;
+	Inputs::DOWN = _Key;
+}
+
+void InputManager::newLeftKey(Input _Key)
+{
+	left_key = _Key;
+	Inputs::LEFT = _Key;
+}
+
+void InputManager::newRightKey(Input _Key)
+{
+	right_key = _Key;
+	Inputs::RIGHT = _Key;
+}
+
+void InputManager::newJumpKey(Input _Key)
+{
+	jump_key = _Key;
+	Inputs::JUMP = _Key;
+}
+
+void InputManager::newPauseKey(Input _Key)
+{
+	pause_key = _Key;
+	Inputs::PAUSE = _Key;
 }
 
 #pragma region Mouse
@@ -74,8 +110,6 @@ bool InputManager::getMouseRight()
 	return false;
 }
 
-
-
 bool InputManager::getMouseLeft()
 {
 	if (mouse_state.rgbButtons[0] & 0x80)
@@ -83,8 +117,6 @@ bool InputManager::getMouseLeft()
 
 	return false;
 }
-
-
 
 bool InputManager::getMouseMiddle()
 {
@@ -140,8 +172,6 @@ bool InputManager::getKeyDown(Input _key)
 	return false;
 }
 
-
-
 bool InputManager::getKeyUp(Input _key)
 {
 	if (_key == 0)
@@ -155,8 +185,6 @@ bool InputManager::getKeyUp(Input _key)
 
 	return false;
 }
-
-
 
 bool InputManager::getKeyHeld(Input _key)
 {
@@ -181,14 +209,10 @@ bool InputManager::gamePadButtonDown(unsigned int button)
 	return false;
 }
 
-
-
 bool InputManager::gamePadButtonUp(unsigned int button)
 {
 	return false;
 }
-
-
 
 bool InputManager::gamePadButtonHeld(unsigned int button)
 {
@@ -257,8 +281,6 @@ bool InputManager::init()
 	return true;
 }
 
-
-
 bool InputManager::readKeyboard()
 {
 	memcpy(previous_keyboard_state, keyboard_state, sizeof(unsigned char) * 256);
@@ -284,8 +306,6 @@ bool InputManager::readKeyboard()
 
 	return true;
 }
-
-
 
 bool InputManager::readMouse()
 {
@@ -319,8 +339,6 @@ bool InputManager::readMouse()
 
 	return true;
 }
-
-
 
 void InputManager::update()
 {
@@ -379,5 +397,4 @@ void InputManager::update()
 	#endif
 	#pragma endregion
 }
-
 #pragma endregion

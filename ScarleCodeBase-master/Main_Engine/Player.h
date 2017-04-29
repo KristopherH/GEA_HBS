@@ -31,7 +31,7 @@ public:
 
 	int getScore() { return score; };
 	int getLives() { return lives; };
-	void setLives();
+	void killPlayer();
 	void setScore();
 	void setLastCheckpoint(Vec2* _lastCheckpoint) { lastCheckpoint = _lastCheckpoint; };
 	void setClimbing(bool _climb) { climbing = _climb; }
