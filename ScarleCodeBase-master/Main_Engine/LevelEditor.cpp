@@ -5,6 +5,9 @@
 #include "Player.h"
 #include "Background.h"
 #include "Collision_Manager.h"
+#include "MainMenu.h"
+#include "SoundManager.h"
+#include "SceneManager.h" 
 #include "Button.h"
 #include <string>
 #include "Object_Factory.h"
@@ -55,11 +58,38 @@ LevelEditorScene::LevelEditorScene()
 
 	float y = 0;
 	
+	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Play");
+	Playbtn->setSize(new Vec2(300.0f, 150.0f));
+	Playbtn->setPosition(new Vec2(GameData::screen.Center().x - 800.0f, 700.0f));
+	Playbtn->setOrigin(new Vec2(0.0f, 0.0f));
+	Playbtn->setCallbackFunction([]() {
+	});
+
 	for (auto type : ObjectFactory::create_object)
 	{
-		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
-		Button* btn = new Button(sprite, "Button", "Button", "Something");
+		string name;
+		
+		if (UINum == 0)
+		{
+			name = "Platforms";
+		}
+		else if (UINum == 1)
+		{
+			name = "Enemies";
+		}
+		else if (UINum == 2)
+		{
+			name = "Ladders";
+		}
+		else if (UINum == 3)
+		{
+			name = "Coin";
+		}
 
+		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
+
+		Button* btn = new Button(sprite, "Button", "Button", name);;
+		
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setCallbackFunction([this, type, y]() {
 			//bowties are cool
@@ -80,10 +110,12 @@ LevelEditorScene::LevelEditorScene()
 				obj_selected = go;
 			}
 		});
-		btn->setPosition(new Vec2(0.0f, y));
 		btn->setSize(new Vec2(100.0f, 100.0f));
+		btn->setPosition(new Vec2(0.0f, y));
+		btn->setOrigin(new Vec2(0.0f, 0.0f));
 		y += 100.0f;
 		ui_elements.push_back(btn);
+		UINum++;
 	}
 	Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
 	save->setCallbackFunction([this]() {
@@ -137,8 +169,9 @@ LevelEditorScene::LevelEditorScene()
 			}
 		}
 	});
-	save->setPosition(new Vec2(0.0f, y));
 	save->setSize(new Vec2(100.0f, 100.0f));
+	save->setPosition(new Vec2(0.0f, y));
+	save->setOrigin(new Vec2(0.0f, 0.0f));
 	y += 100.0f;
 	ui_elements.push_back(save);
 
@@ -217,11 +250,24 @@ LevelEditorScene::LevelEditorScene()
 			}
 		}
 	});
-	load->setPosition(new Vec2(0.0f, y));
 	load->setSize(new Vec2(100.0f, 100.0f));
+	load->setPosition(new Vec2(0.0f, y));
+	load->setOrigin(new Vec2(0.0f, 0.0f));
 	y += 100.0f;
 	ui_elements.push_back(load);
 
+	Button* MainMenuBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Main Menu");
+	MainMenuBtn->setSize(new Vec2(100.0f, 100.0f));
+	MainMenuBtn->setPosition(new Vec2(1530.0f, 0.0f));
+	MainMenuBtn->setOrigin(new Vec2(0.0f, 0.0f));
+	MainMenuBtn->setCallbackFunction([]() {
+		//GameData::scene_manager->addScene("MainMenuScene", new MainMenuScene());
+		GameData::scene_manager->setCurrentScene("pojiohjoj");
+		GameData::sound_manager->stopSound();
+		GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
+	});
+
+	ui_elements.push_back(MainMenuBtn);
 #pragma endregion
 }
 

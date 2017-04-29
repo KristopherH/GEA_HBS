@@ -1,6 +1,6 @@
 PlayerPos: (-1570.23 1531.03)
 BackgroundPos: (0 0)
-Objects: (22)
+Objects: (23)
 0:
 Type: (Platform)
 Name: (Platform)
@@ -124,6 +124,13 @@ Size: (100 300)
 Rotation: (0)
 (END)
 16:
+Type: (Checkpoint)
+Name: (Checkpoint1)
+Position: (-1370.23 1531.03)
+Size: (150 150)
+Rotation: (0)
+(END)
+17:
 Type: (Rope)
 Name: (GameObject)
 Position: (-945.238 175.89)
@@ -131,7 +138,7 @@ Size: (20 100)
 Rotation: (0)
 Length:(3)
 (END)
-17:
+18:
 Type: (Platform)
 Name: (Platform)
 Position: (550.01 1663.97)
@@ -139,7 +146,7 @@ Size: (661.999 100)
 Rotation: (0)
 PlatformType: (StandardPlatform)
 (END)
-18:
+19:
 Type: (Platform)
 Name: (Platform)
 Position: (-498.999 1663.97)
@@ -147,7 +154,7 @@ Size: (552 100)
 Rotation: (0)
 PlatformType: (StandardPlatform)
 (END)
-19:
+20:
 Type: (Platform)
 Name: (Platform)
 Position: (-1590 1664.97)
@@ -155,7 +162,7 @@ Size: (554 100)
 Rotation: (0)
 PlatformType: (StandardPlatform)
 (END)
-20:
+21:
 Type: (Platform)
 Name: (Platform)
 Position: (1211.01 1511.97)
@@ -163,7 +170,7 @@ Size: (919 506)
 Rotation: (0)
 PlatformType: (StandardPlatform)
 (END)
-21:
+22:
 Type: (Platform)
 Name: (Platform)
 Position: (2130.01 1715.97)

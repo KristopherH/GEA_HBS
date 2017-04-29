@@ -43,9 +43,14 @@ bool UI::Update(float dt)
 
 bool UI::Draw()
 {
-	UIElements[0]->setPosition(GameData::player->getPosition() + Vec2(680.0f, 350.0f));
-	/*UIElements[1]->setPosition(GameData::player->getPosition() + Vec2(680.0f, 350.0f));
-	UIElements[2]->setPosition(GameData::player->getPosition() + Vec2(-600.0f, 300.0f));*/
+	UIElements[0]->setPosition(Vec2(GameData::player->getPosition().x + 700.0f, GameData::player->getPosition().y + 320));
+
+	float x;
+	float y;
+
+	x = GameData::player->getPosition().x + 700.0f;
+	y = GameData::player->getPosition().y + 320;
+
 	for (unsigned int i = 0; i < UIElements.size(); i++)
 	{
 		GameData::renderer->Draw(UIElements[i]);	

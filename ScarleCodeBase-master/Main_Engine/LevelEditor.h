@@ -62,4 +62,5 @@ protected:
 	ObjectSelectType obj_select_type = ObjectSelectType::NONE;
 
 	std::map <ObjectEdge, bool> obj_edges_selected;
+	int UINum = 0;
 };

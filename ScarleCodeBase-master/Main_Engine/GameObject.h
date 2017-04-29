@@ -19,6 +19,7 @@ public:
 	GameObject();
 	GameObject(Sprite* sprite, std::string _name, std::string _tag);
 	GameObject(Sprite* _sprite);
+	GameObject(std::vector<Sprite*> _sprite);
 	~GameObject();
 
 	//Updates
@@ -92,4 +93,5 @@ protected:
 	std::vector<std::string> gravity_trigger_tags;
 
 	Sprite* sprite = nullptr;
+	std::vector<Sprite*> vectorSprites;
 };

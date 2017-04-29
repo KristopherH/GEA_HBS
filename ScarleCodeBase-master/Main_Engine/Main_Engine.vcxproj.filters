@@ -1,204 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Collision_Manager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Game_Controller.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="GameData.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Object_Factory.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>Source\Basics</Filter>
-    </ClCompile>
-    <ClCompile Include="Background.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="ballistics.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseCamera.cpp">
-      <Filter>Source\Basics</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Collectible.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelEditor.cpp">
-      <Filter>Source\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelEditorCamera.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="OptionsMenu.cpp">
-      <Filter>Source\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Rope.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source\Basics</Filter>
-    </ClCompile>
-    <ClCompile Include="RopeNode.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source\Basics</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Source\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>Source\Basics</Filter>
-    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="ballistics.cpp" />
+    <ClCompile Include="BaseCamera.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Collectible.cpp" />
+    <ClCompile Include="Collision_Manager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Game_Controller.cpp" />
+    <ClCompile Include="LevelEditor.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Object_Factory.cpp" />
+    <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="Platforms.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="OptionsMenu.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Checkpoint.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
+    <ClCompile Include="PauseOptions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collision_Manager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Enum_container.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game_Controller.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameData.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Object_Factory.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Background.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="ballistics.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Collectible.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelEditor.h">
-      <Filter>Headers\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Headers\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="RopeNode.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Rope.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Headers\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Headers\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionsMenu.h">
-      <Filter>Headers\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Headers\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseCamera.h">
-      <Filter>Headers\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Headers\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedSprite.h">
-      <Filter>Headers\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Headers\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>Headers\Basics</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelEditorCamera.h">
-      <Filter>Headers\Basics</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{f64125f2-fa33-4021-bf10-3a10a24802fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source">
-      <UniqueIdentifier>{dace06b4-a261-4446-ab32-16339ccc934a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\GameObjects">
-      <UniqueIdentifier>{3be8a89a-8482-4f6d-877d-b7c6fce56021}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Scenes">
-      <UniqueIdentifier>{3a68c3b3-eb4e-4c53-a8d6-c7ab9a83399b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\UI">
-      <UniqueIdentifier>{0500a888-9e40-44e0-abc6-95d53205309d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\GameObjects">
-      <UniqueIdentifier>{3ede1de7-fd47-4621-aced-2739a6e735ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Basics">
-      <UniqueIdentifier>{77901d5e-89e8-4b43-bd2c-e17c4f252ca5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Scenes">
-      <UniqueIdentifier>{184926c9-e50c-4553-a3ed-00449118ec33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\UI">
-      <UniqueIdentifier>{23c81855-2d26-4bb5-ae6d-bdddd02f33ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Basics">
-      <UniqueIdentifier>{8b2072b0-3b4d-48c9-801f-d31302437e14}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="Background.h" />
+    <ClInclude Include="ballistics.h" />
+    <ClInclude Include="BaseCamera.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Collectible.h" />
+    <ClInclude Include="Collision_Manager.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="Enum_container.h" />
+    <ClInclude Include="GameData.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Game_Controller.h" />
+    <ClInclude Include="LevelEditor.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Object_Factory.h" />
+    <ClInclude Include="Platform.h" />
+    <ClInclude Include="Platforms.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="OptionsMenu.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="Checkpoint.h" />
+    <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="PauseOptions.h" />
   </ItemGroup>
 </Project>

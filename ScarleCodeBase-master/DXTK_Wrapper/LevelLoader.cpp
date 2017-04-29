@@ -10,6 +10,7 @@
 #include "Platform.h"
 #include "Enemy.h"
 #include "Collectible.h"
+#include "Checkpoint.h"
 #include "Rope.h"
 #include "Texture.h"
 
@@ -109,6 +110,17 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 			else
 			{
 				//ERROR READING FILE
+				return nullptr;
+			}
+		}
+		else if (type == "Checkpoint")
+		{
+			if (getStringFromFile(fileStream) == "END")
+			{
+				go = new Checkpoint(pos, size, rotation, name);
+			}
+			else
+			{
 				return nullptr;
 			}
 		}

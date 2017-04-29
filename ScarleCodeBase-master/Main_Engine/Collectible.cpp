@@ -9,9 +9,7 @@
 #include "GameData.h"
 #include "DXTKRenderer.h"
 #include "Collision_Manager.h"
-#include "Game_Controller.h"
-#include "SceneManager.h"
-#include "Scene.h"
+#include "SoundManager.h"
 #include "Texture.h"
 #include "Player.h"
 
@@ -34,10 +32,6 @@ Collectible::Collectible(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotat
 	setName(_name);
 }
 
-Collectible::~Collectible()
-{
-}
-
 bool Collectible::Update(float dt)
 {
 	GameObject::Update(dt);
@@ -45,6 +39,7 @@ bool Collectible::Update(float dt)
 	{
 		alive = false;
 		GameData::player->setScore();
+		GameData::sound_manager->playSound("Collectible-SoundEffect.wav");
 	}
 	return false;
 }

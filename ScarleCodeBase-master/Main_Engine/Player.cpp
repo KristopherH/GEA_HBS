@@ -8,6 +8,8 @@
 #include "Input_Manager.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
+#include "SceneManager.h"
+#include "PauseMenu.h"
 
 Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObject(_sprite, _name, _tag)
@@ -30,6 +32,7 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	KeyBindsHold[Inputs::RIGHT] = std::bind(&Player::OnMove, this, Vec2(speed, 0.0f));
 	KeyBindsHold[Inputs::UP] = std::bind(&Player::OnMove, this, Vec2(0.0f, -speed));
 	KeyBindsHold[Inputs::DOWN] = std::bind(&Player::OnMove, this, Vec2(0.0f, speed));
+	KeyBindsHold[Inputs::PAUSE] = std::bind(&Player::PauseGame, this);
 }
 
 Player::~Player()
@@ -134,12 +137,11 @@ void Player::OnJump()
 	{
 		//and you are on the ground...
 		if (grounded)
-		{
-			
+		{			
 			//position += Vec2(0.0f, jumpStrength);
 			acceleration += Vec2(0.0f, jumpStrength);
 			stoppedJumping = false;
-			GameData::sound_manager->playSound("jump.wav");
+			GameData::sound_manager->playSound("Jump-SoundEffect.wav");
 		}
 	
 		//if you keep holding down the mouse button...
@@ -269,6 +271,18 @@ float Player::getSpeed()
 	return speed;
 }
 
+void Player::PauseGame()
+{
+	if (pauseSetUp == false)
+	{
+		GameData::scene_manager->addScene("PauseMenuScene", new PauseMenu());
+		pauseSetUp = true;
+	}
+	GameData::scene_manager->setCurrentScene("PauseMenuScene");
+	GameData::sound_manager->stopSound();
+	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
+}
+
 //void Player::oneWayPlatformMove()
 //{
 //	for (auto go : GameData::go_list)
@@ -308,6 +322,7 @@ void Player::conveyor(bool _left)
 void Player::setLives()
 {
 	lives -= 1;
+	setPosition(lastCheckpoint);
 }
 
 void Player::setScore()
