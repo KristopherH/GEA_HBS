@@ -129,6 +129,7 @@ Name: (Checkpoint1)
 Position: (-1370.23 1531.03)
 Size: (150 150)
 Rotation: (0)
+(END)
 17:
 Type: (Rope)
 Name: (GameObject)

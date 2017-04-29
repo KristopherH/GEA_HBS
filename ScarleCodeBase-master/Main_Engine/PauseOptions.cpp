@@ -29,7 +29,7 @@ PauseOptions::PauseOptions()
 	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
-	Background* bg = new Background(BGs, cam);
+	Background* bg = new Background(BGs, cam, new Vec2());
 
 	Button* Backbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
 	Backbtn->setSize(new Vec2(200.0f, 100.0f));

@@ -22,11 +22,7 @@
 
 GameScene::GameScene()
 {
-
 	std::vector<Texture*> textures;
-
-	/*textures.push_back(new Texture("SlowPlatform", GameData::renderer));
-	textures.push_back(new Texture("SpeedPlatform", GameData::renderer));*/
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
