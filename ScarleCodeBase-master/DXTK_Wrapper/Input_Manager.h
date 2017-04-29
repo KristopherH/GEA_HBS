@@ -28,6 +28,19 @@ public:
 	InputManager(HWND _window, HINSTANCE _h_instance);
 	~InputManager();
 
+	void newUpKey(Input _Key);
+	void newDownKey(Input _Key);
+	void newLeftKey(Input _Key);
+	void newRightKey(Input _Key);
+	void newJumpKey(Input _Key);
+	void newPauseKey(Input _Key);
+	
+	Input getUpKey() { return up_key; };
+	Input getDownKey() { return down_key; };
+	Input getLeftKey() { return left_key; };
+	Input getRightKey() { return right_key; };
+	Input getJumpKey() { return jump_key; };
+	Input getPausepKey() { return pause_key; };
 
 #pragma region Mouse Input
 	bool getMouseRight();
@@ -83,4 +96,10 @@ private:
 	HWND window;
 	HINSTANCE h_instance;
 
+	Input up_key = (int)DIK_W;
+	Input down_key = DIK_S;
+	Input left_key = DIK_A;
+	Input right_key = DIK_D;
+	Input jump_key = DIK_SPACE;
+	Input pause_key = DIK_P;
 };

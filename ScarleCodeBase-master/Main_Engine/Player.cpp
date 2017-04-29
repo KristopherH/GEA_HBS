@@ -319,7 +319,7 @@ void Player::conveyor(bool _left)
 
 }
 
-void Player::setLives()
+void Player::killPlayer()
 {
 	lives -= 1;
 	setPosition(lastCheckpoint);

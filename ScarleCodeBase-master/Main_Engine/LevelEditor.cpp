@@ -19,7 +19,6 @@
 
 LevelEditorScene::LevelEditorScene()
 {
-
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
@@ -285,8 +284,7 @@ LevelEditorScene::LevelEditorScene()
 	MainMenuBtn->setPosition(new Vec2(1530.0f, 0.0f));
 	MainMenuBtn->setOrigin(new Vec2(0.0f, 0.0f));
 	MainMenuBtn->setCallbackFunction([]() {
-		//GameData::scene_manager->addScene("MainMenuScene", new MainMenuScene());
-		GameData::scene_manager->setCurrentScene("pojiohjoj");
+		GameData::scene_manager->setCurrentScene("MainMenuScene");
 		GameData::sound_manager->stopSound();
 		GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
 	});
