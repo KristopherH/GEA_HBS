@@ -16,7 +16,7 @@ class Player : public GameObject
 {
 public:
 	Player() = default;
-	Player(Sprite* _sprite, std::string _name, std::string _tag, int _sprites_across = 1, int _sprites_down = 1);
+	Player(Sprite* _sprite, std::string _name, std::string _tag, int width = 32, int height = 32);
 	~Player();
 
 	bool Update(float dt) override;

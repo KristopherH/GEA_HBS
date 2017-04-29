@@ -27,8 +27,8 @@ class GameObject
 public:
 	//Init
 	GameObject();
-	GameObject(Sprite* sprite, std::string _name, std::string _tag, int _sprites_across = 1, int _sprites_down = 1);
-	//GameObject(Sprite* sprite, std::string _name, std::string _tag);
+	GameObject(Sprite* sprite, std::string _name, std::string _tag, int width, int height);
+	GameObject(Sprite* sprite, std::string _name, std::string _tag);
 	GameObject(Sprite* _sprite);
 	GameObject(std::vector<Sprite*> _sprite);
 	virtual ~GameObject();
@@ -89,7 +89,7 @@ protected:
 
 
 	Vec2 size;
-	Vec2 scale = Vec2(1.0f, 1.0f);
+	Vec2 scale;
 	Vec2 origin;
 	float rotation;
 	Rect bottomCollider;

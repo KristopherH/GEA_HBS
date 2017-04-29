@@ -18,9 +18,9 @@ std::map<Type, Texture*> ObjectFactory::texture_pool;
 
 GameObject* ObjectFactory::createPlayer()
 {
-	Sprite* sprite1 = new Sprite("Idle", GameData::renderer);
-	Player* player = new Player(sprite1, "Player", "Player", 10, 1);
-	player->setSize(new Vec2(100.0f, 120.0f));
+	Sprite* sprite1 = new Sprite("SpriteRunning", GameData::renderer);
+	Player* player = new Player(sprite1, "Player", "Player", 256, 256);
+	player->setSize(new Vec2(100.0f * 5, 120.0f * 5));
 	player->setPosition(new Vec2(-475.0f, 350.0f));
 	player->setGravity(true);
 

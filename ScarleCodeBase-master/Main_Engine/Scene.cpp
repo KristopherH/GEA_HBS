@@ -1,7 +1,6 @@
 #include "Scene.h"
 #include "BaseCamera.h"
 #include "GameData.h"
-#include "Player.h"
 
 Scene::Scene()
 {
@@ -33,15 +32,6 @@ void Scene::Update(float dt)
 		{
 			go->gravityUpdate();
 			go->Update(dt);
-			if (go->getName() == "Player")
-			{
-				Vec2 pos = GameData::player->getPosition();
-				Vec2 min = GameData::player->getBox().min;
-				Vec2 max = GameData::player->getBox().max;
-				float width = GameData::player->getSprite()->getFrameWidth();
-				float height = GameData::player->getSprite()->getFrameHeight();
-				int i = 0;
-			}
 		}
 	}
 }

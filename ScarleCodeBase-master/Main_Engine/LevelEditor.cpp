@@ -22,8 +22,8 @@ LevelEditorScene::LevelEditorScene()
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
-	int spr_ac = player->getSprite()->getSpritesAcross();
-	player->setSize(new Vec2(100.0f * spr_ac, 120.0f));
+
+	player->setSize(new Vec2(100.0f * 5, 120.0f));
 	player->setPosition(level1->playerStartingPosition);
 	player->setGravity(true);
 
