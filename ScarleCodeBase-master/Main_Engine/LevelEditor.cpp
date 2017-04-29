@@ -317,9 +317,10 @@ void LevelEditorScene::Update(float dt)
 			}
 		}
 		cam->Update(dt);
-		if (GameData::inputManager->getMouseRight() && !obj_selected)
+		if (GameData::inputManager->getMouseRight())
 		{
-			cam->movePosition(new Vec2((float)(-GameData::inputManager->mouse_x_translation), (float)(-GameData::inputManager->mouse_y_translation)));
+			cam->movePosition(new Vec2((float)(-GameData::inputManager->mouse_x_translation / cam->getZoom()),
+				(float)(-GameData::inputManager->mouse_y_translation / cam->getZoom())));
 		}
 	}
 	else
@@ -579,10 +580,10 @@ void LevelEditorScene::scaleObject()
 	GameData::inputManager->readMouse();
 	if (obj_select_type == ObjectSelectType::TOP_LEFT)
 	{
-		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_x_translation,
-							obj_selected->getPosition().y - InputManager::mouse_y_translation);
-		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_x_translation,
-							 obj_selected->getSize().y + InputManager::mouse_y_translation);
+		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_world_x_translation,
+							obj_selected->getPosition().y - InputManager::mouse_world_y_translation);
+		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_world_x_translation,
+							 obj_selected->getSize().y + InputManager::mouse_world_y_translation);
 
 		obj_selected->setPosition(&new_pos);
 		obj_selected->setSize(&new_size);
@@ -591,9 +592,9 @@ void LevelEditorScene::scaleObject()
 	if (obj_select_type == ObjectSelectType::TOP)
 	{
 		Vec2 new_pos = Vec2(obj_selected->getPosition().x,
-							obj_selected->getPosition().y - InputManager::mouse_y_translation);
+							obj_selected->getPosition().y - InputManager::mouse_world_y_translation);
 		Vec2 new_size = Vec2(obj_selected->getSize().x,
-							 obj_selected->getSize().y + InputManager::mouse_y_translation);
+							 obj_selected->getSize().y + InputManager::mouse_world_y_translation);
 
 		obj_selected->setPosition(&new_pos);
 		obj_selected->setSize(&new_size);
@@ -602,9 +603,9 @@ void LevelEditorScene::scaleObject()
 	if (obj_select_type == ObjectSelectType::TOP_RIGHT)
 	{
 		Vec2 new_pos = Vec2(obj_selected->getPosition().x,
-							obj_selected->getPosition().y - InputManager::mouse_y_translation);
-		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_x_translation,
-							 obj_selected->getSize().y + InputManager::mouse_y_translation);
+							obj_selected->getPosition().y - InputManager::mouse_world_y_translation);
+		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_world_x_translation,
+							 obj_selected->getSize().y + InputManager::mouse_world_y_translation);
 
 		obj_selected->setPosition(&new_pos);
 		obj_selected->setSize(&new_size);
@@ -612,15 +613,15 @@ void LevelEditorScene::scaleObject()
 
 	if (obj_select_type == ObjectSelectType::RIGHT)
 	{
-		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_x_translation,
+		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_world_x_translation,
 							 obj_selected->getSize().y);
 		obj_selected->setSize(&new_size);
 	}
 
 	if (obj_select_type == ObjectSelectType::BOTTOM_RIGHT)
 	{
-		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_x_translation,
-							 obj_selected->getSize().y - InputManager::mouse_y_translation);
+		Vec2 new_size = Vec2(obj_selected->getSize().x - InputManager::mouse_world_x_translation,
+							 obj_selected->getSize().y - InputManager::mouse_world_y_translation);
 
 		obj_selected->setSize(&new_size);
 	}
@@ -628,17 +629,17 @@ void LevelEditorScene::scaleObject()
 	if (obj_select_type == ObjectSelectType::BOTTOM)
 	{
 		Vec2 new_size = Vec2(obj_selected->getSize().x,
-							 obj_selected->getSize().y - InputManager::mouse_y_translation);
+							 obj_selected->getSize().y - InputManager::mouse_world_y_translation);
 
 		obj_selected->setSize(&new_size);
 	}
 
 	if (obj_select_type == ObjectSelectType::BOTTOM_LEFT)
 	{
-		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_x_translation,
+		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_world_x_translation,
 							obj_selected->getPosition().y);
-		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_x_translation,
-							 obj_selected->getSize().y - InputManager::mouse_y_translation);
+		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_world_x_translation,
+							 obj_selected->getSize().y - InputManager::mouse_world_y_translation);
 
 		obj_selected->setPosition(&new_pos);
 		obj_selected->setSize(&new_size);
@@ -646,9 +647,9 @@ void LevelEditorScene::scaleObject()
 
 	if (obj_select_type == ObjectSelectType::LEFT)
 	{
-		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_x_translation,
+		Vec2 new_pos = Vec2(obj_selected->getPosition().x - InputManager::mouse_world_x_translation,
 							obj_selected->getPosition().y);
-		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_x_translation,
+		Vec2 new_size = Vec2(obj_selected->getSize().x + InputManager::mouse_world_x_translation,
 							 obj_selected->getSize().y);
 
 		obj_selected->setPosition(&new_pos);

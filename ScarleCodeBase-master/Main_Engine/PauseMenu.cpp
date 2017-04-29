@@ -54,6 +54,7 @@ void PauseMenu::Update(float dt)
 
 void PauseMenu::Draw()
 {
+
 	GameData::scene_manager->getScene("GameScene")->Draw();
 
 	Scene::Draw();

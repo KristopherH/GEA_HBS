@@ -35,7 +35,7 @@ bool LevelEditorCamera::Update(float dt)
 		position += Vec2(-2.0f, 0.0f);
 
 	}
-	zoom += GameData::inputManager->mouse_scroll/500.0f;
+	zoom += GameData::inputManager->mouse_scroll/1000.0f;
 	
 	if (zoom <= 0.0f)
 	{
