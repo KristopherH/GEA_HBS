@@ -36,6 +36,23 @@ Rope::Rope(Vec2 _pos, Texture * _texture, int _numOfNodes, float _springConst, f
 
 Rope::~Rope()
 {
+	GameData::go_list->erase(std::remove_if(GameData::go_list->begin(), GameData::go_list->end(), [this](GameObject* go) {
+				for (auto& node : ropeNodes)
+				{
+					if (node == go)
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+		), GameData::go_list->end());
+	for (auto& node : ropeNodes)
+	{
+		delete node;
+	}
+	ropeNodes.clear();
+
 }
 
 bool Rope::Update(float dt)

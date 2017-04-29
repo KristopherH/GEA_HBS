@@ -10,6 +10,8 @@ BaseCamera::BaseCamera(float _width, float _height, float _nearPlane, float _far
 {
 	width = _width;
 	height = _height;
+	viewWidth = _width;
+	viewHeight = _height;
 	nearPlane = _nearPlane;
 	farPlane = _farPlane;
 	position = Vec2(0.0f, 0.0f);

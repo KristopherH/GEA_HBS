@@ -95,12 +95,16 @@ LevelEditorScene::LevelEditorScene()
 			if (!obj_selected)
 			{
 				//create the gameobject
-				float pos_x = (float)0.0f -
-					((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
-				float pos_y = (float)y -
-					((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
-				//float pos_x = GameData::inputManager->mouse_world_x;
-				//float pos_y = GameData::inputManager->mouse_world_x;
+				//float pos_x = (float)0.0f -
+				//	((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
+				//float pos_y = (float)y -
+				//	((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
+
+				float CameraXScaled = GameData::currentCamera->getPosition().x + (((float)GameData::currentCamera->getCameraSize().x) / 2) / GameData::currentCamera->getZoom();
+				float CameraYScaled = GameData::currentCamera->getPosition().y + (((float)GameData::currentCamera->getCameraSize().y) / 2) / GameData::currentCamera->getZoom();
+
+				float pos_x = (0.0f / GameData::currentCamera->getZoom()) - CameraXScaled;
+				float pos_y = (y / GameData::currentCamera->getZoom()) - CameraYScaled;
 
 				GameObject* go = type.second();
 				go->setPosition(new Vec2(pos_x, pos_y));
@@ -255,6 +259,26 @@ LevelEditorScene::LevelEditorScene()
 	y += 100.0f;
 	ui_elements.push_back(load);
 
+  Button* erase = new Button(new Sprite("TrashCan", GameData::renderer), "DeleteButton", "Button", "Delete");
+	erase->setCallbackFunction([this]() {
+		if (obj_selected)
+		{
+			if (obj_selected == GameData::player)
+			{
+				return false;
+			}
+			go_list.erase(std::remove_if(go_list.begin(), go_list.end(), [this](GameObject* go) {
+				return obj_selected == go;
+			}), go_list.end());
+			delete obj_selected;
+			obj_selected = nullptr;
+		}
+	});
+	erase->setPosition(new Vec2(0.0f, y));
+	erase->setSize(new Vec2(100.0f, 100.0f));
+	y += 100.0f;
+	ui_elements.push_back(erase);
+
 	Button* MainMenuBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Main Menu");
 	MainMenuBtn->setSize(new Vec2(100.0f, 100.0f));
 	MainMenuBtn->setPosition(new Vec2(1530.0f, 0.0f));
@@ -292,6 +316,10 @@ void LevelEditorScene::Update(float dt)
 			}
 		}
 		cam->Update(dt);
+		if (GameData::inputManager->getMouseRight() && !obj_selected)
+		{
+			cam->movePosition(new Vec2(-GameData::inputManager->mouse_x_translation, -GameData::inputManager->mouse_y_translation));
+		}
 	}
 	else
 	{
@@ -425,8 +453,8 @@ void LevelEditorScene::moveObject()
 {
 	if (obj_selected && obj_select_type == ObjectSelectType::BODY)
 	{
-		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_x_translation,
-								   -GameData::inputManager->mouse_y_translation));
+		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_world_x_translation,
+								   -GameData::inputManager->mouse_world_y_translation));
 		for (auto& go : go_list)
 		{
 			if (go != obj_selected)

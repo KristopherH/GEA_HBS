@@ -35,13 +35,15 @@ bool LevelEditorCamera::Update(float dt)
 		position += Vec2(-2.0f, 0.0f);
 
 	}
-	viewWidth += GameData::inputManager->mouse_scroll;
-	viewHeight += GameData::inputManager->mouse_scroll;
-	zoom = viewWidth / width;
-	if (zoom < 0.0f)
+	zoom += GameData::inputManager->mouse_scroll/500.0f;
+	
+	if (zoom <= 0.0f)
 	{
 		zoom = 0.01f;
 	}
+	viewWidth = zoom * width;
+	viewHeight = zoom * height;
+
 	Vec3 pos3d(position.x, position.y);
 
 	m_projMat = OurMatrix::CreateOrthographic(viewWidth, viewHeight, nearPlane, farPlane);
