@@ -280,9 +280,6 @@
     <ImageContentTask Include="sign-3.png" />
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="SpriteRunning.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ImageContentTask Include="Idle.png" />
   </ItemGroup>
   <ItemGroup>

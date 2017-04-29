@@ -68,24 +68,33 @@ bool GameObject::getSolid()
 
 bool GameObject::Update(float dt)
 {
-	if (this->getSprite()->GetTexture())
+	if (this->getSprite())
 	{
-		sprite->Update();
-		int width = this->size.x / this->getSprite()->getSpritesAcross();
-		int height = this->size.y / this->getSprite()->getSpritesDown();
-
- 		box.min.x = position.x;
-		box.min.y = position.y;
- 		box.max.x = position.x + width;
-		box.max.y = position.y + height;
-
-		sprite->setPosition(position);
-		sprite->setRotation(rotation);
-		sprite->setScale(scale);
-
-		animation(dt);
+		if (!this->getSprite()->GetTexture())
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
 	}
 
+	sprite->Update();
+	int width = this->size.x / this->getSprite()->getSpritesAcross();
+	int height = this->size.y / this->getSprite()->getSpritesDown();
+
+ 	box.min.x = position.x;
+	box.min.y = position.y;
+ 	box.max.x = position.x + width;
+	box.max.y = position.y + height;
+
+	sprite->setPosition(position);
+	sprite->setRotation(rotation);
+	sprite->setScale(scale);
+
+	animation(dt);
+	
 	if (physics)
 	{
 		velocity += acceleration * dt * speed;
@@ -95,7 +104,8 @@ bool GameObject::Update(float dt)
 		velocity *= 0.99f;
 		position += velocity;
 	}
-	return false;
+
+	return true;
 }
 
 bool GameObject::Draw()
@@ -106,7 +116,7 @@ bool GameObject::Draw()
 void GameObject::setPosition(Vec2 * _position)
 {
 	position.x = _position->x; position.y = _position->y;
-	if (sprite->GetTexture())
+	if (sprite)
 	{
 		bottomCollider = Rect(Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
 		bottomCollider.max += sprite->getSize();

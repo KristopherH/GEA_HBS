@@ -147,9 +147,6 @@
     <ImageContentTask Include="sign-3.png">
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="SpriteRunning.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Idle.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
