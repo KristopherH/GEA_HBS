@@ -18,7 +18,6 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Object_Factory.cpp" />
     <ClCompile Include="Platform.cpp" />
-    <ClCompile Include="Platforms.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -28,6 +27,10 @@
     <ClCompile Include="Checkpoint.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="PauseOptions.cpp" />
+    <ClCompile Include="LevelEditorCamera.cpp" />
+    <ClCompile Include="Rope.cpp" />
+    <ClCompile Include="RopeNode.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
@@ -48,7 +51,6 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Object_Factory.h" />
     <ClInclude Include="Platform.h" />
-    <ClInclude Include="Platforms.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -58,5 +60,9 @@
     <ClInclude Include="Checkpoint.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="PauseOptions.h" />
+    <ClInclude Include="LevelEditorCamera.h" />
+    <ClInclude Include="Rope.h" />
+    <ClInclude Include="RopeNode.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
 </Project>

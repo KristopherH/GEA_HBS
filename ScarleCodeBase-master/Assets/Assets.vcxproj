@@ -202,53 +202,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="italic.spritefont" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Fonts\italic.spritefont" />
+    <None Include="Fonts\yoster.spritefont" />
     <None Include="shader.fx">
       <FileType>Document</FileType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <MeshContentTask Include="Bird\BirdModelV1.fbx" />
-    <MeshContentTask Include="Table\table.FBX" />
-    <MeshContentTask Include="Vase\JEMINA vase -up.fbx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="baseline.txt" />
-    <Text Include="cube.txt" />
-    <Text Include="terrainTex.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="grass.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="white.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="logo_small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="coin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="ConveyorPlatform.png" />
-    <ImageContentTask Include="SlowPlatform.png" />
-    <ImageContentTask Include="SpeedPlatform.png" />
-    <ImageContentTask Include="StickyPlatform.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="player_sprite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Ladder.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="JumpPlatform.png" />
-    <ImageContentTask Include="StandardPlatform.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="enemy_sprite.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="BG\01_ground.png" />
@@ -264,26 +222,31 @@
     <ImageContentTask Include="BG\11_background.png" />
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="yoster.ttf">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="bullet.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="sign-1.png" />
-    <ImageContentTask Include="sign-2.png" />
-    <ImageContentTask Include="sign-3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Rope.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="TrashCan.png" />
+    <ImageContentTask Include="Characters\enemy_sprite.png" />
+    <ImageContentTask Include="Characters\player_sprite.png" />
+    <ImageContentTask Include="GameObjects\bullet.png" />
+    <ImageContentTask Include="GameObjects\coin sprite shee.jpg" />
+    <ImageContentTask Include="GameObjects\coin.png" />
+    <ImageContentTask Include="GameObjects\Ladder.png" />
+    <ImageContentTask Include="GameObjects\Rope.png" />
+    <ImageContentTask Include="Platforms\ConveyorPlatform.png" />
+    <ImageContentTask Include="Platforms\JumpPlatform.png" />
+    <ImageContentTask Include="Platforms\platform.png" />
+    <ImageContentTask Include="Platforms\SlowPlatform.png" />
+    <ImageContentTask Include="Platforms\SpeedPlatform.png" />
+    <ImageContentTask Include="Platforms\StandardPlatform.png" />
+    <ImageContentTask Include="Platforms\StandardPlatformShort.png" />
+    <ImageContentTask Include="Platforms\StickyPlatform.png" />
+    <Image Include="UI\Button.png" />
+    <ImageContentTask Include="UI\logo_small.png" />
+    <ImageContentTask Include="UI\minus-icon.png" />
+    <ImageContentTask Include="UI\mute-icon.png" />
+    <ImageContentTask Include="UI\plus-icon.png" />
+    <ImageContentTask Include="UI\sign-1.png" />
+    <ImageContentTask Include="UI\sign-2.png" />
+    <ImageContentTask Include="UI\sign-3.png" />
+    <ImageContentTask Include="UI\TrashCan.png" />
+    <ImageContentTask Include="UI\Unmute-icon.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

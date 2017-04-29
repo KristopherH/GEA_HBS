@@ -30,6 +30,13 @@ float InputManager::mouse_world_y_translation = 0;
 int InputManager::mouse_scroll = 0;
 int InputManager::mouse_scroll_translation = 0;
 
+Input up_key = DIK_W;
+Input down_key = DIK_S;
+Input left_key = DIK_A;
+Input right_key = DIK_D;
+Input jump_key = DIK_SPACE;
+Input pause_key = DIK_P;
+
 #ifdef ARCADE
 Input Inputs::UP = DIK_R;
 Input Inputs::DOWN = DIK_F;
@@ -39,12 +46,12 @@ Input Inputs::JUMP = DIK_LSHIFT;
 Input Inputs::USE = DIK_1;
 Input Inputs::CTRL = DIK_LCONTROL;
 #else
-Input Inputs::UP = DIK_W;
-Input Inputs::DOWN = DIK_S;
-Input Inputs::LEFT = DIK_A;
-Input Inputs::RIGHT = DIK_D;
-Input Inputs::PAUSE = DIK_ESCAPE;
-Input Inputs::JUMP = DIK_SPACE;
+Input Inputs::UP = up_key;
+Input Inputs::DOWN = down_key;
+Input Inputs::LEFT = left_key;
+Input Inputs::RIGHT = right_key;
+Input Inputs::PAUSE = pause_key;
+Input Inputs::JUMP = jump_key;
 Input Inputs::USE = DIK_RETURN;
 Input Inputs::CTRL = DIK_LCONTROL;
 #endif
@@ -67,9 +74,18 @@ InputManager::~InputManager()
 void InputManager::newUpKey(Input _Key)
 {
 	up_key = _Key;
-	Inputs::UP = _Key;
+	Inputs::UP = _Key;	
+}
 
-	
+int InputManager::ConvertToASCII(DWORD _key)
+{
+	static HKL layout = GetKeyboardLayout(0);
+	static unsigned char State[256];
+
+	if (GetKeyboardState(State) == FALSE)
+		return 0;
+	UINT vk = MapVirtualKeyEx(_key, 1, layout);
+	return vk;
 }
 
 void InputManager::newDownKey(Input _Key)
@@ -100,6 +116,36 @@ void InputManager::newPauseKey(Input _Key)
 {
 	pause_key = _Key;
 	Inputs::PAUSE = _Key;
+}
+
+Input InputManager::getUpKey()
+{
+	return up_key;
+}
+
+Input InputManager::getDownKey()
+{
+	return down_key;
+}
+
+Input InputManager::getLeftKey()
+{
+	return left_key;
+}
+
+Input InputManager::getRightKey()
+{
+	return right_key;
+}
+
+Input InputManager::getJumpKey()
+{
+	return jump_key;
+}
+
+Input InputManager::getPauseKey()
+{
+	return pause_key;
 }
 
 #pragma region Mouse
@@ -170,7 +216,6 @@ bool InputManager::getKeyDown(Input _key)
 
 	if (keyboard_state[_key] && !previous_keyboard_state[_key]) 
 		return true;
-
 	return false;
 }
 

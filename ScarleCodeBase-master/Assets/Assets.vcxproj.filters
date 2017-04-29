@@ -7,12 +7,6 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8e595723-add9-42f2-8215-4fcf74f338ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Models">
-      <UniqueIdentifier>{64fc769d-bad4-4c24-bf49-281a0d86541d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="VBGO Files">
-      <UniqueIdentifier>{3a8825a5-02bb-4758-9e25-9d85f225fd2b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Textures">
       <UniqueIdentifier>{d0ca2129-2972-476d-82a9-1f0a9000b117}</UniqueIdentifier>
     </Filter>
@@ -20,82 +14,33 @@
       <UniqueIdentifier>{7933e860-9705-4bf6-9ec6-a0dba96bbb9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Textures\UI">
-      <UniqueIdentifier>{37599edf-0441-4512-a841-710aa03815a2}</UniqueIdentifier>
+      <UniqueIdentifier>{d01b4e8c-8250-4542-bced-8714292ce2c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures\Platforms">
+      <UniqueIdentifier>{213f106a-49bf-418d-98e8-dc41a4da9094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sounds">
+      <UniqueIdentifier>{6fd71c95-d70d-4317-a469-6a5c8b0cf62f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures\GameObjects">
+      <UniqueIdentifier>{b617949f-8465-4b07-9792-95b3989b6286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures\Characters">
+      <UniqueIdentifier>{64e51108-9aaa-445b-bb28-998ea1797db7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="italic.spritefont">
-      <Filter>Fonts</Filter>
-    </None>
     <None Include="shader.fx">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="yoster.ttf">
+    <None Include="Fonts\italic.spritefont">
+      <Filter>Fonts</Filter>
+    </None>
+    <None Include="Fonts\yoster.spritefont">
       <Filter>Fonts</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Bird\BirdModelV1.fbx">
-      <Filter>Models</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Table\table.FBX">
-      <Filter>Models</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Vase\JEMINA vase -up.fbx">
-      <Filter>Models</Filter>
-    </MeshContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="baseline.txt">
-      <Filter>VBGO Files</Filter>
-    </Text>
-    <Text Include="cube.txt">
-      <Filter>VBGO Files</Filter>
-    </Text>
-    <Text Include="terrainTex.txt">
-      <Filter>VBGO Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="grass.jpg">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="white.jpg">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="logo_small.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="coin.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="SlowPlatform.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="SpeedPlatform.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="StickyPlatform.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="ConveyorPlatform.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="player_sprite.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Ladder.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="JumpPlatform.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="StandardPlatform.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="enemy_sprite.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="BG\01_ground.png">
       <Filter>Textures\BG</Filter>
     </ImageContentTask>
@@ -129,26 +74,82 @@
     <ImageContentTask Include="BG\11_background.png">
       <Filter>Textures\BG</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Button.png">
-      <Filter>Textures</Filter>
+    <ImageContentTask Include="Characters\enemy_sprite.png">
+      <Filter>Textures\Characters</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="bullet.png">
-      <Filter>Textures</Filter>
+    <ImageContentTask Include="Characters\player_sprite.png">
+      <Filter>Textures\Characters</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="sign-1.png">
+    <ImageContentTask Include="GameObjects\bullet.png">
+      <Filter>Textures\GameObjects</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="GameObjects\coin sprite shee.jpg">
+      <Filter>Textures\GameObjects</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="GameObjects\coin.png">
+      <Filter>Textures\GameObjects</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="GameObjects\Ladder.png">
+      <Filter>Textures\GameObjects</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="GameObjects\Rope.png">
+      <Filter>Textures\GameObjects</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\ConveyorPlatform.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\JumpPlatform.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\platform.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\SlowPlatform.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\SpeedPlatform.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\StandardPlatform.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\StandardPlatformShort.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\StickyPlatform.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="UI\logo_small.png">
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="sign-2.png">
+    <ImageContentTask Include="UI\minus-icon.png">
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="sign-3.png">
+    <ImageContentTask Include="UI\mute-icon.png">
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Rope.png">
-      <Filter>Textures</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="TrashCan.png">
+    <ImageContentTask Include="UI\plus-icon.png">
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="UI\sign-1.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="UI\sign-2.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="UI\sign-3.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="UI\TrashCan.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="UI\Unmute-icon.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="UI\Button.png">
+      <Filter>Textures\UI</Filter>
+    </Image>
   </ItemGroup>
 </Project>
