@@ -83,6 +83,25 @@ void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotatio
 	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
 }
 
+void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotation, Vec2 origin, Vec2 containingRectSize)
+{
+	if (spriteFont)
+	{
+		// calculate required rect
+		SimpleMath::Vector2 size = spriteFont->MeasureString(Helper::charToWChar(text.c_str()));
+		float scale = containingRectSize.x / size.x ;
+		// To outline text set desired colour value to 250 and other two values to 1 e.g for green outline - (1.0f, 250.0f, 1.0f)
+		Vec2 newPos = position;
+		newPos += containingRectSize / 2;
+		scale *= 0.8f;
+		newPos.x -= ((size.x* scale) / 2);
+		newPos.y -= ((size.y* scale) / 2);
+
+		
+		spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), newPos, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
+	}
+}
+
 float Renderer::getAspectRatio()
 {
 	//find how big my window is to correctly calculate my aspect ratio

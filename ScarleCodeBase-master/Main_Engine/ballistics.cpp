@@ -39,7 +39,7 @@ bool Ballistics::Update(float dt)
 	case BD_DOWN:
 
 			acceleration += Vec2(0, speed);
-			setRotation(3.14f*1.5);
+			setRotation(3.14f*1.5f);
 			break;
 
 	case BD_RIGHT:
@@ -64,7 +64,7 @@ bool Ballistics::Update(float dt)
 			velocity.x += BullDR.x;
 			velocity.y += BullDR.y;
 			rotation = atan2(-BullDR.x, BullDR.y);
-			rotation -= 3.14 / 2;
+			rotation -= 3.14f / 2.0f;
 			break;
 	}
 	GameObject::Update(dt);
