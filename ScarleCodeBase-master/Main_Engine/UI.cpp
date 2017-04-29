@@ -26,7 +26,7 @@ UI::UI(std::vector<Sprite*> UI_Sprites, BaseCamera * camera)
 	for (unsigned int i = 0; i < UIElements.size(); i++)
 	{
 		Vec2 screenSize(GameData::screen.max);
-		Vec2 scaleFactor(0.2, 0.2);
+		Vec2 scaleFactor(0.2f, 0.2f);
 		
 		UIElements[i]->setScale(scaleFactor);
 	}

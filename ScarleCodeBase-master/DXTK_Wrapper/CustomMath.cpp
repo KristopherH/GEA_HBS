@@ -69,6 +69,16 @@ float Vec2::DistanceSqrd(const Vec2 & V1, const Vec2 & V2)
 	return ((V1.x - V2.x)*(V1.x - V2.x)) + ((V1.y - V2.y)*(V1.y - V2.y));
 }
 
+float Vec2::dot(const Vec2 & V1, const Vec2 & V2)
+{
+	return ((V1.x * V2.x) + (V1.y * V2.y));
+}
+
+float Vec2::dot(const Vec2 & V2)
+{
+	return ((x * V2.x) + (y * V2.y));
+}
+
 #pragma endregion
 
 //-----------------------
@@ -251,7 +261,7 @@ Rect operator+(const Rect& original, const Vec2 displacement)
 	return Rect(a,b);
 }
 
-Rect Rect::operator=(Rect other)
+Rect Rect::operator=(Rect& other)
 {
 	this->min.x = other.min.x;
 	this->min.y = other.min.y;

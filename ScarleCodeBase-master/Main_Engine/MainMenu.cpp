@@ -60,7 +60,7 @@ MainMenuScene::MainMenuScene()
 	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
-	Background* bg = new Background(BGs, cam);
+	Background* bg = new Background(BGs, cam, new Vec2());
 
 	go_list.push_back(bg);
 	go_list.push_back(Playbtn);

@@ -34,6 +34,8 @@ public:
 	void setLives();
 	void setScore();
 	void setLastCheckpoint(Vec2* _lastCheckpoint) { lastCheckpoint = _lastCheckpoint; };
+	void setClimbing(bool _climb) { climbing = _climb; }
+	void setGrounded(bool _grounded) { grounded = _grounded; }
 
 	float getSpeed();
 	void PauseGame();

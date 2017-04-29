@@ -11,6 +11,8 @@
 #include "Enemy.h"
 #include "Collectible.h"
 #include "Checkpoint.h"
+#include "Rope.h"
+#include "Texture.h"
 
 Level* LevelLoader::loadLevel(std::string LevelPath)
 {
@@ -25,6 +27,7 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 	}
 
 	tmpLevel->playerStartingPosition = getVectorFromFile(fileStream);
+	tmpLevel->backgroundStartingPos = getVectorFromFile(fileStream);
 	int ObjNumber = getIntFromFile(fileStream);
 
 
@@ -147,6 +150,19 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 				return nullptr;
 			}
 		}
+		else if (type == "Rope")
+		{
+			int numOfNodes = getIntFromFile(fileStream);
+			if (getStringFromFile(fileStream) == "END")
+			{
+				 Rope* rope = new Rope(*pos, new Texture("Rope", GameData::renderer), numOfNodes, 20.0f, 80.0f, 1.5f, *size, &tmpLevel->go_list);
+				 go = rope;
+			}
+			else
+			{
+				return nullptr;
+			}
+		}
 		else
 		{
 			go = new GameObject();
@@ -171,6 +187,7 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 	}
 
 	saveVectorToFile(fileStream, "PlayerPos: ", level->playerStartingPosition);
+	saveVectorToFile(fileStream, "BackgroundPos: ", level->backgroundStartingPos);
 	int ObjNumber = level->go_list.size();
 	int validObjects = 0;
 
@@ -205,6 +222,12 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 				tag.erase(remove_if(tag.begin(), tag.end(), isspace), tag.end());
 				saveStringToFile(fileStream, "PlatformType: ", tag);
 			}
+			if (type == "Rope")
+			{
+				Rope* rope = static_cast<Rope*>(level->go_list[i]);
+				saveIntToFile(fileStream, "Length:", rope->getLength());
+			}
+
 			saveStringToFile(fileStream, "", "END");
 		}
 	}
@@ -212,10 +235,11 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 	saveStringToFile(fileStream, "", "END");
 }
 
-Level * LevelLoader::createLevel(std::vector<GameObject*> level, Vec2* playerPos)
+Level * LevelLoader::createLevel(std::vector<GameObject*> level, Vec2* playerPos, Vec2* backgoundPos)
 {
 	Level* tmp = new Level();
 	tmp->playerStartingPosition = playerPos;
+	tmp->backgroundStartingPos = backgoundPos;
 	for (auto go : level)
 	{
 		tmp->go_list.push_back(go);

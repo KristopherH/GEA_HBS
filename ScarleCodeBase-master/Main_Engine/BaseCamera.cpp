@@ -60,7 +60,7 @@ bool BaseCamera::Update(float dt)
 		//movePosition(new Vec2(-player->getSpeed(), 0.0f));
 		break;
 	}
-
+	zoom = 1.0f;
 	Vec3 pos3d(position.x, position.y);
 
 	m_projMat = OurMatrix::CreateOrthographic(width, height, nearPlane, farPlane);

@@ -18,6 +18,7 @@ struct Inputs
 	static Input JUMP;
 	static Input USE;
 	static Input PAUSE;
+	static Input CTRL;
 };
 
 class InputManager
@@ -63,6 +64,8 @@ public:
 	static int mouse_y_translation;
 	static float mouse_world_x;
 	static float mouse_world_y;
+	static int mouse_scroll;
+	static int mouse_scroll_translation;
 
 private:
 	//int convertCharToDinput(char _input);
