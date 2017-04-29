@@ -467,7 +467,8 @@ void LevelEditorScene::moveObject()
 			}
 		}
 	}
-	if (obj_selected && obj_select_type != ObjectSelectType::BODY)
+
+	else if (GameData::inputManager->getMouseLeft())
 	{
 		scaleObject();
 	}
