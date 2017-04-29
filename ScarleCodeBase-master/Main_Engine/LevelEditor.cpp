@@ -53,11 +53,6 @@ LevelEditorScene::LevelEditorScene()
 	delete level1;
 	go_list.push_back(player);
 
-	Sprite* spr = new Sprite("grass");
-	GameObject* go = new GameObject(spr, "TEST", "TEST");
-	go->setPosition(new Vec2(player->getBox().max));
-	go_list.push_back(go);
-
 #pragma region UI
 
 	float y = 0;
