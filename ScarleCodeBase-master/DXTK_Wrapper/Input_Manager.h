@@ -64,6 +64,8 @@ public:
 	static int mouse_y_translation;
 	static float mouse_world_x;
 	static float mouse_world_y;
+	static float mouse_world_x_translation;
+	static float mouse_world_y_translation;
 	static int mouse_scroll;
 	static int mouse_scroll_translation;
 

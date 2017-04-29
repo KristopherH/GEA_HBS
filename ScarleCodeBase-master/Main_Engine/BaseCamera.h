@@ -40,6 +40,7 @@ public:
 	void setPlayerTracker(Player* _player) { player = _player; }
 
 	Vec2 getCameraSize() { return Vec2(width, height); }
+	Vec2 getViewSize() { return Vec2(viewWidth, viewHeight); }
 	float getZoom() { return zoom; }
 
 	Vec2 getPreviousPosition() { return previousPosition; }

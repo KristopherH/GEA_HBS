@@ -282,6 +282,9 @@
   <ItemGroup>
     <ImageContentTask Include="Rope.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="TrashCan.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

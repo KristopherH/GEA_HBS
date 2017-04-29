@@ -13,7 +13,7 @@ public:
 		float springFrictionConst,
 		Vec2 ropeSize,
 		vector<GameObject*>* go_list);
-	~Rope();
+	~Rope() override;
 
 	bool Update(float dt) override;
 	bool Draw() override;

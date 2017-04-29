@@ -147,5 +147,8 @@
     <ImageContentTask Include="Rope.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="TrashCan.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

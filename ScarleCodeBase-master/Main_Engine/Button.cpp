@@ -18,9 +18,10 @@ bool Button::Update(float dt)
 {
 	GameObject::Update(dt);
 	Vec2 newPos = Vec2(0.0f, 0.0f);
-	newPos -= GameData::currentCamera->getCameraSize() / 2;
+	newPos -= (GameData::currentCamera->getCameraSize() / 2) / GameData::currentCamera->getZoom();
 	newPos -= GameData::currentCamera->getPosition();
-	newPos += sprite->getPosition();
+	newPos += sprite->getPosition() / GameData::currentCamera->getZoom();
+	sprite->setScale((sprite->getScale() / GameData::currentCamera->getZoom()));
 	sprite->setPosition(newPos);
 	if (box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y)))
 	{
@@ -35,6 +36,7 @@ bool Button::Update(float dt)
 		hovering = false;
 	}
 	
+	//return GameObject::Update(dt);
 	return true;
 }
 

@@ -1,16 +1,17 @@
-PlayerPos: (-1570.23 1531.03)
+PlayerPos: (-1220.23 565.646)
 BackgroundPos: (0 0)
-Objects: (23)
+Objects: (1)
 0:
 Type: (Platform)
 Name: (Platform)
-Position: (-285 969)
-Size: (800 109)
+Position: (-1426.54 734.201)
+Size: (554 100)
 Rotation: (0)
 PlatformType: (StandardPlatform)
 (END)
-1:
-Type: (Platform)
+(END)
+(END)
+
 Name: (Platform)
 Position: (326 1229)
 Size: (300 100)

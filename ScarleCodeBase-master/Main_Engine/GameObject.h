@@ -20,8 +20,8 @@ public:
 	GameObject(Sprite* sprite, std::string _name, std::string _tag);
 	GameObject(Sprite* _sprite);
 	GameObject(std::vector<Sprite*> _sprite);
-	~GameObject();
-
+	virtual ~GameObject();
+  
 	//Updates
 	virtual bool Update(float dt);
 	virtual bool Draw();
