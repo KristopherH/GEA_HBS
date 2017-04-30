@@ -91,6 +91,13 @@
     <ClCompile Include="Background.cpp">
       <Filter>Source\Game Objects\Background</Filter>
     </ClCompile>
+    <ClCompile Include="GameFileCreation.cpp">
+      <Filter>Source\Level Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyWaypoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelEditor.h">
@@ -185,6 +192,15 @@
     </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>Headers\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFileCreation.h">
+      <Filter>Headers\Level Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Headers\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyWaypoint.h">
+      <Filter>Headers\Game Objects\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

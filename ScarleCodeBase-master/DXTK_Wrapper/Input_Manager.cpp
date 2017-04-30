@@ -185,6 +185,7 @@ bool InputManager::getMouseRightPress()
 
 bool InputManager::getMouseLeftPress()
 {
+	readMouse();
 	if (mouse_state.rgbButtons[0] & 0x80
 		&& !(previous_mouse_state.rgbButtons[0] & 0x80))
 		return true;

@@ -89,7 +89,9 @@ void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotatio
 	{
 		// calculate required rect
 		SimpleMath::Vector2 size = spriteFont->MeasureString(Helper::charToWChar(text.c_str()));
-		float scale = containingRectSize.x / size.x ;
+		float scaleX = containingRectSize.x / size.x;
+		float scaleY = containingRectSize.y / size.y;
+		float scale = min(scaleX, scaleY);
 		// To outline text set desired colour value to 250 and other two values to 1 e.g for green outline - (1.0f, 250.0f, 1.0f)
 		Vec2 newPos = position;
 		newPos += containingRectSize / 2;
