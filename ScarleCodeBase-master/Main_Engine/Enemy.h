@@ -5,10 +5,10 @@
 //DXTK
 
 //OURS
-#include "GameObject.h"
+#include "EditableGameObject.h"
 #include "CustomMath.h"
 
-class Enemy : public GameObject
+class Enemy : public EditableGameObject
 {
 	friend class EnemyWaypoint;
 	friend class LevelLoader;
@@ -22,7 +22,7 @@ public:
 	bool Update(float dt) override;
 	bool Draw() override;
 
-	void toggleWaypoints();
+	virtual void toggleEditing() override;
 
 	void addWaypoint();
 	void removeWaypoint();
@@ -30,6 +30,4 @@ public:
 private:
 	std::vector<Vec2> waypoints;
 	int current_waypoint;
-	std::vector<EnemyWaypoint*> waypointsGOs;
-	bool displayWaypoints = false;
 };

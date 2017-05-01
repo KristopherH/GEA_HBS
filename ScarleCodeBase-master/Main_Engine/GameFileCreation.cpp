@@ -78,7 +78,7 @@ void GameFileCreation::initButtons()
 
 	Button* save = new Button(new Sprite(buttonTexture), "Title", "Button", "Save GameFile");
 	save->setSize(new Vec2(300.0f, 100.0f));
-	save->setPosition(&(GameData::screen.max - save->getSize()));
+	save->setPosition(&(GameData::screen.maxCorner - save->getSize()));
 	save->setCallbackFunction([this]()
 	{
 		//save file in default position
@@ -98,12 +98,12 @@ void GameFileCreation::initButtons()
 		Button* btn = new Button(new Sprite(buttonTexture), "levelButton", "Button", btnName);
 		btn->setSize(new Vec2(400.0f, 50.0f));
 		btn->setPosition(&pos);
-		std::string levelPath = level.path;
-		btn->setCallbackFunction([levelPath]()
+		GameFile* tmpGameFile = gameFile;
+		btn->setCallbackFunction([tmpGameFile, levelNumber]()
 		{
 			//go to levelEditor scene with this level
-			GameData::scene_manager->addScene("LevelEditor", new LevelEditorScene(levelPath));
-			GameData::scene_manager->setCurrentScene("LevelEditor", false);
+			GameData::scene_manager->addScene("LevelEditor", new LevelEditorScene(tmpGameFile, levelNumber));
+			GameData::scene_manager->setCurrentScene("LevelEditor");
 		});
 		go_list.push_back(btn);
 

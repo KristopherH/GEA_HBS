@@ -19,6 +19,7 @@
 #include "Checkpoint.h"
 #include "Rope.h"
 #include "Timer.h"
+#include "LevelSwitcher.h"
 
 GameScene::GameScene()
 {
@@ -38,6 +39,18 @@ GameScene::GameScene()
 
 void GameScene::Update(float dt)
 {
+	for (auto& go : go_list)
+	{
+		if (go->getType() == "LevelSwitcher")
+		{
+			LevelSwitcher* lvlSwitch = static_cast<LevelSwitcher*>(go);
+			int newLevel = lvlSwitch->switchToNextLevel();
+			if (newLevel != -1)
+			{
+				new_level_number = newLevel;
+			}
+		}
+	}
 	if (new_level_number != level_number)
 	{
 		changeLevel();
@@ -59,14 +72,14 @@ void GameScene::Draw()
 void GameScene::changeLevel()
 {
 	level_number = new_level_number;
-	for (auto& go : go_list)
-	{
-		if (go->getTag() != "Player" &&
-			go->getTag() != "Camera")
-		{
-			delete go;
-		}
-	}
+	//for (auto& go : go_list)
+	//{
+	//	if (go->getTag() != "Player" &&
+	//		go->getTag() != "Camera")
+	//	{
+	//		//delete go;
+	//	}
+	//}
 	go_list.clear();
 	Level* level1 = &gameFile->levels[level_number];
 	std::vector<Sprite*> BGs;
