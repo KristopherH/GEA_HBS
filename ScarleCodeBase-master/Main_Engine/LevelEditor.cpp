@@ -239,7 +239,6 @@ LevelEditorScene::LevelEditorScene(std::string _fileName)
 
 	Button* BackBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
 	BackBtn->setSize(new Vec2(100.0f, 100.0f));
-	//BackBtn->setPosition(new Vec2(1530.0f, y));//TODO REMOVE FUCKING MAGIC NUMBERS DAAAAAAAAAAAAANNNNNNN!!!!!!
 	BackBtn->setPosition(new Vec2(GameData::screen.max.x - BackBtn->getSize().x, GameData::screen.min.y));
 	BackBtn->setOrigin(new Vec2(0.0f, 0.0f));
 	BackBtn->setCallbackFunction([]() {
