@@ -9,15 +9,15 @@
 #include "CustomMath.h"
 #include "Sprite.h"
 #include "Enum_container.h"
-
-enum Animation
-{
-	IDLE,
-	WALK,
-	RUN,
-	JUMPING,
-	FALLING
-};
+//
+//enum Animation
+//{
+//	IDLE,
+//	WALK,
+//	RUN,
+//	JUMPING,
+//	FALLING
+//};
 
 class InputManager;
 class Renderer;
@@ -108,7 +108,4 @@ protected:
 	int frame_tick = 0;
 
 	void animation(float _dt);
-
-	Animation animation_state = Animation::IDLE;
-	std::map<Animation, std::vector<Rect>> animations;
 };

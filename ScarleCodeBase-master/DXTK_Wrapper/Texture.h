@@ -22,3 +22,10 @@ public:
 protected:
 	ID3D11ShaderResourceView* m_pTextureRV;
 };
+
+struct TextureData
+{
+	int frame_count_width = 1;
+	int frame_count_height = 1;
+	Texture* texture;
+};

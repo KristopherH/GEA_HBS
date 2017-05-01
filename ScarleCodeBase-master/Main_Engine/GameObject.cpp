@@ -142,6 +142,7 @@ void GameObject::animation(float _dt)
 		frame_tick++;
 		if (frame_tick >= this->getSprite()->getSpritesAcross())
 			frame_tick = 0;
+		    //bump height 
 	}
 }
 
