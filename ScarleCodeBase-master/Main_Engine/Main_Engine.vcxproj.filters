@@ -97,7 +97,9 @@
     <ClCompile Include="TextBox.cpp">
       <Filter>Source\UI</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyWaypoint.cpp" />
+    <ClCompile Include="EnemyWaypoint.cpp">
+      <Filter>Source\Game Objects\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelEditor.h">

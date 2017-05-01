@@ -5,6 +5,7 @@
 #include "GameData.h"
 #include "DXTKRenderer.h"
 #include <Windows.h>
+#include <mutex>
 
 class TextBox : public GameObject
 {
@@ -16,6 +17,8 @@ public:
 	bool Draw() override;
 
 private:
+	std::mutex mtx;
+	std::thread* handle;
 	std::string text;
 	bool selected;
 };

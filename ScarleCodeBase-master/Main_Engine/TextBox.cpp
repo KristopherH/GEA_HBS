@@ -1,6 +1,9 @@
 #include "TextBox.h"
 #include "BaseCamera.h"
 #include "Input_Manager.h"
+#include <future>
+#include <sstream>
+#include <string>
 
 TextBox::TextBox(Sprite* sprite, std::string _name, std::string _tag, std::string _text)
 	:GameObject(sprite, _name, _tag)
@@ -10,6 +13,7 @@ TextBox::TextBox(Sprite* sprite, std::string _name, std::string _tag, std::strin
 
 TextBox::~TextBox()
 {
+	delete handle;
 }
 
 bool TextBox::Update(float dt)
@@ -24,31 +28,50 @@ bool TextBox::Update(float dt)
 
 	if (box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y)))
 	{
-		if (GameData::inputManager->getMouseLeftPress())
+		if (GameData::inputManager->getMouseLeftPress() && !selected)
 		{
 			selected = true;
-		}
-	}
-	else
-	{
-		if (GameData::inputManager->getMouseLeftPress())
-		{
-			selected = false;
+			handle = new std::thread([this]()
+			{
+				GameData::inputManager->startReading();
+				char ch;
+				do
+				{
+					ch = GameData::inputManager->getLatestInput();
+					if (ch >= 0)
+					{
+						mtx.lock();
+						if (text.size() < 30)
+						{
+
+							stringstream ss;
+							string s;
+							ss << ch;
+							ss >> s;
+							text.append(s);
+						}
+						mtx.unlock();
+					}
+					else if (ch == -1)
+					{
+						mtx.lock();
+						if (text.size() > 0)
+						{
+							text.pop_back();
+						}
+						mtx.unlock();
+					}
+				} while (ch != -2);
+				GameData::inputManager->stopReading();
+				selected = false;
+				return;
+			});
 		}
 	}
 
-	if (selected)
+	if (!selected)
 	{
-		//char szInput[100];
-		//for (int i = 0; i < text.length(); i++)
-		//{
-		//	szInput[i] = text.at(i);
-		//}
-		////TODO: change something to something better
-		//CreateWindow(TEXT("Something"), szInput, WS_VISIBLE,
-		//	10, 10, 100, 20, NULL, NULL, NULL, NULL);
-		////text = szInput;
-		//selected = false;
+
 	}
 	return true;
 }
@@ -57,11 +80,12 @@ bool TextBox::Draw()
 {
 	GameObject::Draw();
 
+	mtx.lock();
 	GameData::renderer->renderText(text, getSprite()->getPosition() /*+ ((sprite->getSize() * sprite->getScale()))*/,
 		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f,
 		Vec2(0.0f, 0.0f),
 		sprite->getSize() * sprite->getScale() /** 0.8f*/);
-
+	mtx.unlock();
 	float newy;
 	float newx;
 

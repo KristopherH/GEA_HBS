@@ -447,4 +447,77 @@ void InputManager::update()
 	#endif
 	#pragma endregion
 }
+
+#pragma endregion
+
+#pragma region Gual
+
+void InputManager::stringInputBackspace()
+{
+	if (readingInputStream)
+	{
+		backspace = true;
+	}
+}
+
+void InputManager::stringInputReturn()
+{
+	if (readingInputStream)
+	{
+		enter = true;
+	}
+}
+
+void InputManager::stringInputAddKey(char ch)
+{
+	if (readingInputStream)
+	{
+		mtx.lock();
+		inputStream.push(ch);
+		mtx.unlock();
+	}
+}
+
+void InputManager::startReading()
+{
+	readingInputStream = true;
+
+}
+
+char InputManager::getLatestInput()
+{
+	if (readingInputStream)
+	{
+		if (backspace)
+		{
+			backspace = false;
+			return -1;
+		}
+		if (enter)
+		{
+			enter = false;
+			return -2;
+		}
+		mtx.lock();
+		char ch;
+		if (inputStream.size() > 0)
+		{
+			ch = inputStream.front();
+			inputStream.pop();
+		}
+		else
+		{
+			ch = -3;
+		}
+		mtx.unlock();
+		return ch;
+
+	}
+}
+
+void InputManager::stopReading()
+{
+	readingInputStream = false;
+}
+
 #pragma endregion

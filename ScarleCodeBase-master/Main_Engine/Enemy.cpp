@@ -72,15 +72,15 @@ bool Enemy::Update(float dt)
 	if (GameData::collsion_manager->boxCollision(name, "Player"))
 	{
  		GameData::player->killPlayer();
-		alive = false;
+		//alive = false; //Enemies don't die in the original game;
 	}
 	if (waypoints.size() > 0)
 	{
 		acceleration.x = 0; acceleration.y = 0;
-		Vec2 movement((((waypoints[current_waypoint]) - position)));
-		movement.Normalize();
-		acceleration +=  movement * 0.1f;
-		acceleration.Limit(max_speed);
+		Vec2 movement(waypoints[current_waypoint] - position);
+		movement.Limit(max_speed);
+		velocity.x = movement.x;
+		velocity.y = movement.y;
 		if (Vec2::DistanceSqrd(position, (waypoints[current_waypoint])) < 10.0f)
 		{
 			velocity.x = 0; velocity.y = 0;
