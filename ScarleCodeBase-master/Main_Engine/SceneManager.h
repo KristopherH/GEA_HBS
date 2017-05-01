@@ -6,7 +6,6 @@
 
 //OURS
 
-
 class Scene;
 
 class SceneManager

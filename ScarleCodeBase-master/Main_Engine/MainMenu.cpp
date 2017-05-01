@@ -11,6 +11,7 @@
 #include "DXTKRenderer.h"
 #include "Sprite.h"
 #include "CustomMath.h"
+#include "GameFileCreation.h"
 
 MainMenuScene::MainMenuScene()
 {
@@ -29,8 +30,8 @@ MainMenuScene::MainMenuScene()
 	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));/*&GameData::screen.Center());*/	
 	LevelEdbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	LevelEdbtn->setCallbackFunction([]() {
-		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
-		GameData::scene_manager->setCurrentScene("LevelEditorScene");
+		GameData::scene_manager->addScene("GameFileCreation", new GameFileCreation());
+		GameData::scene_manager->setCurrentScene("GameFileCreation", false);
 	});
 
 	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), "button3", "Button", "Options");

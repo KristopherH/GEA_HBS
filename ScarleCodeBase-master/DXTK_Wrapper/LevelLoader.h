@@ -11,18 +11,23 @@
 
 struct Level
 {
+	std::string name = "NULL";
+	std::string path;
 	Vec2* playerStartingPosition;
 	std::vector<GameObject*> go_list;
+
+	int findCollectibles();
 };
 
 static const std::vector<std::string> acceptedTypes = { "Platform", "Collectible", "Enemy", "Ladder" };
 
 class LevelLoader
 {
+	friend class GameFileLoader;
 public:
 	static Level* loadLevel(std::string LevelPath);
 	static void saveLevel(Level* level, std::string LevelPath);
-	static Level* createLevel(std::vector<GameObject*>, Vec2*);
+	static Level* createLevel(std::vector<GameObject*>, Vec2*, Vec2*, std::string name);
 
 protected:
 	static std::string getStringFromFile(std::fstream& _file);

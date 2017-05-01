@@ -33,16 +33,15 @@ Background::Background(std::vector<Sprite*> _sprites, BaseCamera * camera)
 	for (unsigned int i = 0; i < backgrounds.size(); i+=3)
 	{
 		Vec2 screenSize(GameData::screen.max);
-		Vec2 scaleFactor(2, 2);/*screenSize.x / backgrounds[i]->getSize().x,
-						 screenSize.y / backgrounds[i]->getSize().y);*/
-		backgrounds[i]->setScale(scaleFactor /* (backgrounds.size() - i)*/);
-		backgrounds[i + 1]->setScale(Vec2(scaleFactor.x, scaleFactor.y) /* (backgrounds.size() - i)*/);
-		backgrounds[i + 2]->setScale(Vec2(scaleFactor.x, scaleFactor.y) /* (backgrounds.size() - i)*/);
+		Vec2 scaleFactor(2, 2);
+		backgrounds[i]->setScale(scaleFactor);
+		backgrounds[i + 1]->setScale(scaleFactor);
+		backgrounds[i + 2]->setScale(scaleFactor);
 
 		Vec2 centerPosition;
-		//centerPosition += GameData::player->getPosition();
-		backgrounds[i]->setPosition(centerPosition);
-		backgrounds[i+1]->setPosition(Vec2(centerPosition.x - (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
+		centerPosition += *position;
+		backgrounds[i]->setPosition(Vec2(centerPosition.x - (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
+		backgrounds[i+1]->setPosition(centerPosition);
 		backgrounds[i+2]->setPosition(Vec2(centerPosition.x + (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
 		parallaxScales.push_back(-1.0f * i);
 	}
@@ -67,7 +66,7 @@ bool Background::Update(float dt)
 			Vec2 movement;
 			movement += backgroundTargetPosition;
 			movement -= backgrounds[i]->getPosition();
-			movement.Limit(i/100.0f);
+			movement.Limit(i/400.0f);
 			backgrounds[i]->setPosition(backgrounds[i]->getPosition() + movement);
 			backgrounds[i+1]->setPosition(backgrounds[i+1]->getPosition() + movement); 
 			backgrounds[i+2]->setPosition(backgrounds[i+2]->getPosition() + movement);
@@ -75,6 +74,76 @@ bool Background::Update(float dt)
 		previousCamPosition.x = 0.0f;
 		previousCamPosition.y = 0.0f;
 		previousCamPosition += main_camera->getPosition();
+		if (GameData::player)
+		{
+			for (int i = 0; i < backgrounds.size(); i++)
+			{
+				Rect* box = new Rect(backgrounds[i]->getPosition(), backgrounds[i]->getPosition() + (backgrounds[i]->getSize() * backgrounds[i]->getScale()));
+				*box = (*box + ((backgrounds[i]->getSize() * backgrounds[i]->getScale()) * -0.5f));
+				if (GameData::collsion_manager->boxCollision(GameData::player->getBox(), *box))
+				{
+					if (i % 3 == 0)
+					{
+						backgrounds[i]->setPosition(Vec2(backgrounds[i]->getPosition().x - (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x),
+														 backgrounds[i]->getPosition().y));
+
+						backgrounds[i + 1]->setPosition(Vec2(backgrounds[i+1]->getPosition().x - (backgrounds[i+1]->getSize().x* backgrounds[i]->getScale().x),
+															 backgrounds[i+1]->getPosition().y));
+
+						backgrounds[i + 2]->setPosition(Vec2(backgrounds[i+2]->getPosition().x - (backgrounds[i+2]->getSize().x* backgrounds[i]->getScale().x),
+														 	 backgrounds[i+2]->getPosition().y));
+					}
+					else if (i % 3 == 1)
+					{
+						/*backgrounds[i - 1]->setPosition(Vec2(backgrounds[i]->getPosition().x - (backgrounds[i]->getSize().x),
+															 backgrounds[i]->getPosition().y));
+
+						backgrounds[i + 1]->setPosition(Vec2(backgrounds[i]->getPosition().x + (backgrounds[i]->getSize().x),
+															 backgrounds[i]->getPosition().y));*/
+					}
+					else if (i % 3 == 2)
+					{
+						backgrounds[i]->setPosition(Vec2(backgrounds[i]->getPosition().x + (backgrounds[i]->getSize().x* backgrounds[i]->getScale().x),
+							backgrounds[i]->getPosition().y));
+
+						backgrounds[i - 1]->setPosition(Vec2(backgrounds[i - 1]->getPosition().x + (backgrounds[i - 1]->getSize().x* backgrounds[i]->getScale().x),
+							backgrounds[i - 1]->getPosition().y));
+
+						backgrounds[i - 2]->setPosition(Vec2(backgrounds[i - 2]->getPosition().x + (backgrounds[i - 2]->getSize().x* backgrounds[i]->getScale().x),
+							backgrounds[i - 2]->getPosition().y));
+					}
+				}
+				delete box;
+			}
+		}
+		if (GameData::player)
+		{	
+			bool found = false;
+			for (int i = 0; i < backgrounds.size(); i++)
+			{
+				Rect* box = new Rect(backgrounds[i]->getPosition(), backgrounds[i]->getPosition() + (backgrounds[i]->getSize() * backgrounds[i]->getScale()));
+				*box = *box + (backgrounds[i]->getSize() * backgrounds[i]->getScale()) * -0.5f;
+				if(GameData::collsion_manager->boxCollision(GameData::player->getBox(), *box))
+				{
+					found = true;
+					break;
+				}
+				delete box;
+			}
+			if (!found)
+			{
+				
+				GameData::player->killPlayer();
+				for (unsigned int i = 0; i < backgrounds.size(); i += 3)
+				{
+					Vec2 centerPosition;
+					centerPosition += GameData::player->getPosition();
+					backgrounds[i]->setPosition(Vec2(centerPosition.x - (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
+					backgrounds[i + 1]->setPosition(centerPosition);
+					backgrounds[i + 2]->setPosition(Vec2(centerPosition.x + (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
+				}
+			}
+		}
 	}
 	else
 	{

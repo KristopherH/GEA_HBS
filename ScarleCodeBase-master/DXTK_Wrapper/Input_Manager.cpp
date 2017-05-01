@@ -27,6 +27,13 @@ int InputManager::mouse_y_translation = 0;
 float InputManager::mouse_world_x = 0.0f;
 float InputManager::mouse_world_y = 0.0f;
 
+Input up_key = DIK_W;
+Input down_key = DIK_S;
+Input left_key = DIK_A;
+Input right_key = DIK_D;
+Input jump_key = DIK_SPACE;
+Input pause_key = DIK_P;
+
 #ifdef ARCADE
 Input Inputs::UP = DIK_R;
 Input Inputs::DOWN = DIK_F;
@@ -35,11 +42,20 @@ Input Inputs::RIGHT = DIK_G;
 Input Inputs::JUMP = DIK_LSHIFT;
 Input Inputs::USE = DIK_1;
 #else
+<<<<<<< HEAD
 Input Inputs::UP = DIK_W;
 Input Inputs::DOWN = DIK_S;
 Input Inputs::LEFT = DIK_A;
 Input Inputs::RIGHT = DIK_D;
 Input Inputs::JUMP = DIK_SPACE;
+=======
+Input Inputs::UP = up_key;
+Input Inputs::DOWN = down_key;
+Input Inputs::LEFT = left_key;
+Input Inputs::RIGHT = right_key;
+Input Inputs::PAUSE = pause_key;
+Input Inputs::JUMP = jump_key;
+>>>>>>> origin/master
 Input Inputs::USE = DIK_RETURN;
 #endif
 
@@ -47,8 +63,6 @@ InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 {
 	window = _window;
 	h_instance = _h_instance;
-	
-	SetCursorPos((int)GameData::screen.min.x, (int)GameData::screen.min.y);
 }
 
 
@@ -58,6 +72,82 @@ InputManager::~InputManager()
 	if (user_direct_input)	user_direct_input->Release();
 	if (user_keyboard)		user_keyboard->Release();
 	if (user_mouse)         user_mouse->Release();
+}
+void InputManager::newUpKey(Input _Key)
+{
+	up_key = _Key;
+	Inputs::UP = _Key;	
+}
+
+int InputManager::ConvertToASCII(DWORD _key)
+{
+	static HKL layout = GetKeyboardLayout(0);
+	static unsigned char State[256];
+
+	if (GetKeyboardState(State) == FALSE)
+		return 0;
+	UINT vk = MapVirtualKeyEx(_key, 1, layout);
+	return vk;
+}
+
+void InputManager::newDownKey(Input _Key)
+{
+	down_key = _Key;
+	Inputs::DOWN = _Key;
+}
+
+void InputManager::newLeftKey(Input _Key)
+{
+	left_key = _Key;
+	Inputs::LEFT = _Key;
+}
+
+void InputManager::newRightKey(Input _Key)
+{
+	right_key = _Key;
+	Inputs::RIGHT = _Key;
+}
+
+void InputManager::newJumpKey(Input _Key)
+{
+	jump_key = _Key;
+	Inputs::JUMP = _Key;
+}
+
+void InputManager::newPauseKey(Input _Key)
+{
+	pause_key = _Key;
+	Inputs::PAUSE = _Key;
+}
+
+Input InputManager::getUpKey()
+{
+	return up_key;
+}
+
+Input InputManager::getDownKey()
+{
+	return down_key;
+}
+
+Input InputManager::getLeftKey()
+{
+	return left_key;
+}
+
+Input InputManager::getRightKey()
+{
+	return right_key;
+}
+
+Input InputManager::getJumpKey()
+{
+	return jump_key;
+}
+
+Input InputManager::getPauseKey()
+{
+	return pause_key;
 }
 
 #pragma region Mouse
@@ -101,6 +191,7 @@ bool InputManager::getMouseRightPress()
 
 bool InputManager::getMouseLeftPress()
 {
+	readMouse();
 	if (mouse_state.rgbButtons[0] & 0x80
 		&& !(previous_mouse_state.rgbButtons[0] & 0x80))
 		return true;
@@ -132,7 +223,6 @@ bool InputManager::getKeyDown(Input _key)
 
 	if (keyboard_state[_key] && !previous_keyboard_state[_key]) 
 		return true;
-
 	return false;
 }
 
@@ -334,6 +424,7 @@ void InputManager::update()
 	mouse_x = mouse_pos.x;
 	mouse_y = mouse_pos.y;
 
+//Need to add something to update object position or mouse world position based on how the camera is moving
 	if (mouse_x < 0)
 	{
 		mouse_x = 0;

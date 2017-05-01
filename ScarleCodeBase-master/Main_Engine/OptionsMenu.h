@@ -10,6 +10,9 @@ public:
 
 	virtual void Update(float dt) override;
 	virtual void Draw() override;
+	void optionsText();
+	void keyBindings();
+	void volumeButtons();
 
 protected:
 };
