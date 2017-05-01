@@ -251,6 +251,10 @@ LevelEditorScene::LevelEditorScene(std::string _fileName)
 	rename->setSize(new Vec2(300.0f, 60.0f));
 	rename->setPosition(new Vec2(GameData::screen.max.x/ 2 - rename->getSize().x/2, GameData::screen.min.y));
 	rename->setOrigin(new Vec2(0.0f, 0.0f));
+	rename->setOnEnterCallback([this, rename]()
+	{
+		levelName = rename->getText();
+	});
 
 	ui_elements.push_back(rename);
 #pragma endregion
