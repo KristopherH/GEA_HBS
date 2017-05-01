@@ -30,7 +30,45 @@ GameScene::GameScene()
 	player->setPosition(new Vec2(-475.0f, 350.0f));
 	player->setGravity(true);
 
-	Level* level1 = LevelLoader::loadLevel("Level.txt");
+	go_list.push_back(player);
+
+	gameFile = GameFileLoader::loadGame();
+	changeLevel();
+}
+
+void GameScene::Update(float dt)
+{
+	if (new_level_number != level_number)
+	{
+		changeLevel();
+	}
+	Scene::Update(dt);
+}
+
+void GameScene::Draw()
+{
+	Scene::Draw();
+
+	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(620.0f, 230.0f),
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
+
+	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(620.0f, 270.0f),
+		Vec4(0.0f, 0.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
+}
+
+void GameScene::changeLevel()
+{
+	level_number = new_level_number;
+	for (auto& go : go_list)
+	{
+		if (go->getTag() != "Player" &&
+			go->getTag() != "Camera")
+		{
+			delete go;
+		}
+	}
+	go_list.clear();
+	Level* level1 = &gameFile->levels[level_number];
 	std::vector<Sprite*> BGs;
 	BGs.push_back(new Sprite("11_background", GameData::renderer));
 	BGs.push_back(new Sprite("10_distant_clouds", GameData::renderer));
@@ -48,19 +86,20 @@ GameScene::GameScene()
 	go_list.push_back(bg);
 
 	player->setPosition(level1->playerStartingPosition);
+	//copy level
 	for (auto go : level1->go_list)
 	{
 		go_list.push_back(go);
 		go = nullptr;
 	}
-	delete level1;
 
 	cam->setPlayerTracker(player);
 
 	go_list.push_back(player);
+	go_list.push_back(cam);
 
 	std::vector<Sprite*> UI_objects;
-	UI_objects.push_back(new Sprite("sign-3", GameData::renderer));	
+	UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
 
 	Timer* timer = new Timer();
 	go_list.push_back(timer);
@@ -68,20 +107,4 @@ GameScene::GameScene()
 	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);
 	return;
-}
-
-void GameScene::Update(float dt)
-{
-	Scene::Update(dt);
-}
-
-void GameScene::Draw()
-{
-	Scene::Draw();
-
-	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(620.0f, 230.0f),
-		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
-
-	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(620.0f, 270.0f),
-		Vec4(0.0f, 0.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
 }

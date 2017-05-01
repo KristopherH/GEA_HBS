@@ -8,6 +8,7 @@
 
 class Scene;
 
+//TBDeleted
 enum class GameState {
 
 	GS_NULL = 0,

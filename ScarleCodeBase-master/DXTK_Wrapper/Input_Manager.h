@@ -3,6 +3,8 @@
 
 //DXTK
 #include <dinput.h>
+#include <queue>
+#include <mutex>
 
 //OURS
 
@@ -71,6 +73,23 @@ public:
 	bool readMouse();
 	void update();
 #pragma endregion
+
+#pragma region Gual
+
+	std::mutex mtx;
+	void stringInputBackspace();
+	void stringInputReturn();
+	void stringInputAddKey(char ch);
+	void startReading();
+	char getLatestInput();
+	void stopReading();
+
+	bool readingInputStream;
+	std::queue<char> inputStream;
+	bool enter = false;
+	bool backspace = false;
+#pragma endregion
+
 
 	static int mouse_x;
 	static int mouse_y;

@@ -16,11 +16,15 @@
 #include "Rope.h"
 #include "LevelEditorCamera.h"
 #include <algorithm>
+#include "TextBox.h"
+#include "Enemy.h"
+#include "EnemyWaypoint.h"
 
-LevelEditorScene::LevelEditorScene()
+LevelEditorScene::LevelEditorScene(std::string _fileName)
+	:fileName(_fileName)
 {
-	Level* level1 = LevelLoader::loadLevel("Level.txt");
-
+	Level* level1 = LevelLoader::loadLevel(fileName);
+	levelName = level1->name;
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
 	player->setSize(new Vec2(100.0f, 120.0f));
@@ -87,19 +91,12 @@ LevelEditorScene::LevelEditorScene()
 
 		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
 
-		Button* btn = new Button(sprite, "Button", "Button", name);;
-		
+		Button* btn = new Button(sprite, "Button", "Button", name, false);
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setCallbackFunction([this, type, y]() {
-			//bowties are cool
+			//bowties are cool, very coool TODO: remove stupid comments like this one
 			if (!obj_selected)
 			{
-				//create the gameobject
-				//float pos_x = (float)0.0f -
-				//	((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
-				//float pos_y = (float)y -
-				//	((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
-
 				float CameraXScaled = GameData::currentCamera->getPosition().x + (((float)GameData::currentCamera->getCameraSize().x) / 2) / GameData::currentCamera->getZoom();
 				float CameraYScaled = GameData::currentCamera->getPosition().y + (((float)GameData::currentCamera->getCameraSize().y) / 2) / GameData::currentCamera->getZoom();
 
@@ -122,55 +119,15 @@ LevelEditorScene::LevelEditorScene()
 	}
 	Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
 	save->setCallbackFunction([this]() {
-		char filename[MAX_PATH];
-
-		OPENFILENAME ofn;
-		ZeroMemory(&filename, sizeof(filename));
-		ZeroMemory(&ofn, sizeof(ofn));
-		ofn.lStructSize = sizeof(ofn);
-		ofn.hwndOwner = NULL;  // If you have a window to center over, put its HANDLE here
-		ofn.lpstrFilter = "Text Files\0*.txt\0Any File\0*.*\0";
-		ofn.lpstrFile = filename;
-		ofn.nMaxFile = MAX_PATH;
-		ofn.lpstrTitle = "Save File";
-		ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
-
-		if (GetOpenFileNameA(&ofn))
+		auto go = std::find_if(go_list.begin(), go_list.end(), [](GameObject* go)
 		{
-			auto go = std::find_if(go_list.begin(), go_list.end(), [](GameObject* go)
-			{
-				return go->getType() == "BG";
-			});
+			return go->getType() == "BG";
+		});
 
-			Level* level = LevelLoader::createLevel(go_list, &player->getPosition(), &(*go)->getPosition());
-			LevelLoader::saveLevel(level, std::string(filename));
-			delete level;
-			level = nullptr;
-		}
-		else
-		{
-			// All this stuff below is to tell you exactly how you messed up above. 
-			// Once you've got that fixed, you can often (not always!) reduce it to a 'user cancelled' assumption.
-			switch (CommDlgExtendedError())
-			{
-			case CDERR_DIALOGFAILURE: break;
-			case CDERR_FINDRESFAILURE: break;
-			case CDERR_INITIALIZATION: break;
-			case CDERR_LOADRESFAILURE:  break;
-			case CDERR_LOADSTRFAILURE: break;
-			case CDERR_LOCKRESFAILURE: break;
-			case CDERR_MEMALLOCFAILURE: break;
-			case CDERR_MEMLOCKFAILURE: break;
-			case CDERR_NOHINSTANCE: break;
-			case CDERR_NOHOOK: break;
-			case CDERR_NOTEMPLATE: break;
-			case CDERR_STRUCTSIZE: break;
-			case FNERR_BUFFERTOOSMALL: break;
-			case FNERR_INVALIDFILENAME: break;
-			case FNERR_SUBCLASSFAILURE: break;
-			default: break;
-			}
-		}
+		Level* level = LevelLoader::createLevel(go_list, &player->getPosition(), &(*go)->getPosition(), levelName);
+		LevelLoader::saveLevel(level, std::string(fileName));
+		delete level;
+		level = nullptr;
 	});
 	save->setSize(new Vec2(100.0f, 100.0f));
 	save->setPosition(new Vec2(0.0f, y));
@@ -178,7 +135,7 @@ LevelEditorScene::LevelEditorScene()
 	y += 100.0f;
 	ui_elements.push_back(save);
 
-	Button* load = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Load");
+	Button* load = new Button(new Sprite("Button", GameData::renderer), "LoadButon", "Button", "Copy From");
 	load->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -187,11 +144,11 @@ LevelEditorScene::LevelEditorScene()
 		ZeroMemory(&ofn, sizeof(ofn));
 		ofn.lStructSize = sizeof(ofn);
 		ofn.hwndOwner = NULL;  // If you have a window to center over, put its HANDLE here
-		ofn.lpstrFilter = "Text Files\0*.txt\0Any File\0*.*\0";
+		ofn.lpstrFilter = "Level Files\0*.lvl";
 		ofn.lpstrFile = filename;
 		ofn.nMaxFile = MAX_PATH;
-		ofn.lpstrTitle = "Load FIle";
-		ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
+		ofn.lpstrTitle = "Copy from FIle";
+		ofn.Flags = OFN_DONTADDTORECENT | OFN_CREATEPROMPT | OFN_NOCHANGEDIR;
 
 		if (GetOpenFileNameA(&ofn))
 		{
@@ -205,7 +162,7 @@ LevelEditorScene::LevelEditorScene()
 			}
 			go_list.clear();
 
-			Level* level1 = LevelLoader::loadLevel("Level.txt");
+			Level* level1 = LevelLoader::loadLevel(filename);
 
 			player = static_cast<Player*>(ObjectFactory::createPlayer());
 
@@ -259,7 +216,7 @@ LevelEditorScene::LevelEditorScene()
 	y += 100.0f;
 	ui_elements.push_back(load);
 
-  Button* erase = new Button(new Sprite("TrashCan", GameData::renderer), "DeleteButton", "Button", "Delete");
+	Button* erase = new Button(new Sprite("TrashCan", GameData::renderer), "DeleteButton", "Button", "Delete", false);
 	erase->setCallbackFunction([this]() {
 		if (obj_selected)
 		{
@@ -280,17 +237,22 @@ LevelEditorScene::LevelEditorScene()
 	y += 100.0f;
 	ui_elements.push_back(erase);
 
-	Button* MainMenuBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Main Menu");
-	MainMenuBtn->setSize(new Vec2(100.0f, 100.0f));
-	MainMenuBtn->setPosition(new Vec2(1530.0f, 0.0f));
-	MainMenuBtn->setOrigin(new Vec2(0.0f, 0.0f));
-	MainMenuBtn->setCallbackFunction([]() {
-		GameData::scene_manager->setCurrentScene("MainMenuScene");
-		GameData::sound_manager->stopSound();
-		GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
+	Button* BackBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
+	BackBtn->setSize(new Vec2(100.0f, 100.0f));
+	BackBtn->setPosition(new Vec2(1530.0f, 0.0f));//TODO REMOVE FUCKING MAGIC NUMBERS DAAAAAAAAAAAAANNNNNNN!!!!!!
+	BackBtn->setOrigin(new Vec2(0.0f, 0.0f));
+	BackBtn->setCallbackFunction([]() {
+		GameData::scene_manager->setCurrentScene("GameFileCreation", true);
 	});
 
-	ui_elements.push_back(MainMenuBtn);
+	ui_elements.push_back(BackBtn);
+
+	TextBox* rename = new TextBox(new Sprite("Button", GameData::renderer), "button1", "Button", levelName);
+	rename->setSize(new Vec2(300.0f, 60.0f));
+	rename->setPosition(new Vec2(GameData::screen.max.x/ 2 - rename->getSize().x/2, GameData::screen.min.y));
+	rename->setOrigin(new Vec2(0.0f, 0.0f));
+
+	ui_elements.push_back(rename);
 #pragma endregion
 }
 
@@ -538,12 +500,12 @@ void LevelEditorScene::snap(GameObject* other, GameObject* obj)
 
 void LevelEditorScene::toggleMode(GameObject * _go)
 {
-	if (_go->getName() == "Platform")
+	if (_go->getName() == "Platform") //TODO Change this to hae a consistent way of finding objects
 	{
 		Platform* platform = static_cast<Platform*>(_go);
 		platform->changeType((PLATFORM_TYPE)(((int)(platform->getPlatformType()))+1));
 	}
-	if (_go->getType() == "RopeNode")
+	else if (_go->getType() == "RopeNode")
 	{
 		RopeNode* rope = static_cast<RopeNode*>(_go);
 		if (GameData::inputManager->getKeyHeld(Inputs::CTRL))
@@ -553,6 +515,22 @@ void LevelEditorScene::toggleMode(GameObject * _go)
 		else
 		{
 			rope->parent->addNode();
+		}
+	}
+	else if (_go->getType() == "Enemy")
+	{
+		static_cast<Enemy*>(_go)->toggleWaypoints();
+	}
+	else if (_go->getTag() == "EnemyWaypoint")
+	{
+		EnemyWaypoint* wp = static_cast<EnemyWaypoint*>(_go);
+		if (GameData::inputManager->getKeyHeld(Inputs::CTRL))
+		{
+			wp->parent->removeWaypoint();
+		}
+		else
+		{
+			wp->parent->addWaypoint();
 		}
 	}
 	else if (obj_selected && obj_select_type != ObjectSelectType::NONE)

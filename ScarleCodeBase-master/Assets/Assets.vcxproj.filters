@@ -146,6 +146,9 @@
     <ImageContentTask Include="UI\Unmute-icon.png">
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Characters\Waypoint.png">
+      <Filter>Textures\Characters</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="UI\Button.png">

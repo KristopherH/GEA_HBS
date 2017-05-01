@@ -71,7 +71,7 @@ protected:
 
 	Vec2 drag;
 	float speed = 400;
-	float max_speed = 1.0f;
+	float max_speed = 0.1f;
 	bool grounded = false;
 	bool gravity_on = false;
 	bool solid = true;
