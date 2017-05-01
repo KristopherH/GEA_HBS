@@ -73,8 +73,6 @@ bool Engine::Update()
 
 	GameData::scene_manager->getCurrentScene()->Update(elapsed_seconds.count());
 
-	GameData::scene_manager->clearOldScenes();
-
 	return true;
 }
 

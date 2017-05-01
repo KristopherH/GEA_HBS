@@ -26,20 +26,6 @@ public:
 	InputManager(HWND _window, HINSTANCE _h_instance);
 	~InputManager();
 
-	void newUpKey(Input _Key);
-	int ConvertToASCII(DWORD _key);
-	void newDownKey(Input _Key);
-	void newLeftKey(Input _Key);
-	void newRightKey(Input _Key);
-	void newJumpKey(Input _Key);
-	void newPauseKey(Input _Key);
-	
-	Input getUpKey();
-	Input getDownKey();
-	Input getLeftKey();
-	Input getRightKey();
-	Input getJumpKey();
-	Input getPauseKey();
 
 #pragma region Mouse Input
 	bool getMouseRight();

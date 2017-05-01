@@ -20,12 +20,9 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 
 	if (!fileStream.is_open())
 	{
-		tmpLevel->playerStartingPosition = new Vec2(0.0f, 0.0f);
-		tmpLevel->backgroundStartingPos = new Vec2(0.0f, 0.0f);
-		return tmpLevel;
+		return nullptr;
 	}
 
-	tmpLevel->name = getStringFromFile(fileStream);
 	tmpLevel->playerStartingPosition = getVectorFromFile(fileStream);
 	int ObjNumber = getIntFromFile(fileStream);
 
@@ -94,16 +91,17 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 		else if (type == "Enemy")
 		{
 			//get positions and give them
-			int wpNumber = getIntFromFile(fileStream);
-			std::vector<Vec2> waypoints;
-			for (int i = 0; i < wpNumber; i++)
-			{
-				waypoints.push_back(*getVectorFromFile(fileStream));
-			}
+			// PLACEHOLDER
 
+			std::vector<Vec2> foo;
+			foo.push_back(Vec2(0.0f, 10.0f));
+			foo.push_back(Vec2(100.0f, 10.0f));
+			foo.push_back(Vec2(200.0f, 300.0f));
+
+			// END PLACEHOLDER
 			if (getStringFromFile(fileStream) == "END")
 			{
-				go = new Enemy(pos, size, rotation, name, waypoints);
+				go = new Enemy(pos, size, rotation, name, foo);
 			}
 			else
 			{
@@ -153,14 +151,13 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 {
 	std::fstream fileStream;
-	fileStream.open(LevelPath, fstream::out);
+	fileStream.open(LevelPath);
 
 	if (!fileStream.is_open())
 	{
 		return;
 	}
 
-	saveStringToFile(fileStream, "Name: ", level->name);
 	saveVectorToFile(fileStream, "PlayerPos: ", level->playerStartingPosition);
 	int ObjNumber = level->go_list.size();
 	int validObjects = 0;
@@ -196,20 +193,6 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 				tag.erase(remove_if(tag.begin(), tag.end(), isspace), tag.end());
 				saveStringToFile(fileStream, "PlatformType: ", tag);
 			}
-			if (type == "Rope")
-			{
-				Rope* rope = static_cast<Rope*>(level->go_list[i]);
-				saveIntToFile(fileStream, "Length:", rope->getLength());
-			}
-			if (type == "Enemy")
-			{
-				Enemy* enemy = static_cast<Enemy*>(level->go_list[i]);
-				saveIntToFile(fileStream, "Waypoints", enemy->waypoints.size());
-				for (int i = 0; i < enemy->waypoints.size(); i++)
-				{
-					saveVectorToFile(fileStream, to_string(i), &enemy->waypoints[i]);
-				}
-			}
 			saveStringToFile(fileStream, "", "END");
 		}
 	}
@@ -217,13 +200,10 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 	saveStringToFile(fileStream, "", "END");
 }
 
-Level * LevelLoader::createLevel(std::vector<GameObject*> level, Vec2* playerPos, Vec2* backgoundPos, std::string name)
+Level * LevelLoader::createLevel(std::vector<GameObject*> level, Vec2* playerPos)
 {
 	Level* tmp = new Level();
 	tmp->playerStartingPosition = playerPos;
-	tmp->backgroundStartingPos = backgoundPos;
-	tmp->name = name;
-
 	for (auto go : level)
 	{
 		tmp->go_list.push_back(go);
@@ -298,17 +278,4 @@ void LevelLoader::saveFloatToFile(std::fstream & _file, std::string label, float
 void LevelLoader::saveIntToFile(std::fstream & _file, std::string label, int data)
 {
 	_file << label << "(" << data << ")\n";
-}
-
-int Level::findCollectibles()
-{
-	int collectibles = 0;
-	for (auto& go : go_list)
-	{
-		if (go->getType() == "Collectible")
-		{
-			collectibles++;
-		}
-	}
-	return collectibles;
 }

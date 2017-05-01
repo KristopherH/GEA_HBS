@@ -21,9 +21,9 @@ Sprite::Sprite(std::string _fileName, Renderer * _renderer)
 
 Sprite::~Sprite()
 {
-	/*if (texture)
+	if (texture)
 		delete texture;
-	texture = nullptr;*/
+	texture = nullptr;
 }
 
 void Sprite::Update()

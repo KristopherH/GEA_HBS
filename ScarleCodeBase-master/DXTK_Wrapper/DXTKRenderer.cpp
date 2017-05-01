@@ -18,7 +18,7 @@ Renderer::Renderer(ID3D11Device * _pd3dDevice, HWND _hWnd)
 	ID3D11DeviceContext* pd3dImmediateContext;
 	_pd3dDevice->GetImmediateContext(&pd3dImmediateContext);
 	spriteBatch.reset(new SpriteBatch(pd3dImmediateContext));
-	spriteFont.reset(new SpriteFont(_pd3dDevice, L"../Assets/Fonts/yoster.spritefont"));
+	spriteFont.reset(new SpriteFont(_pd3dDevice, L"../Assets/yoster.spritefont"));
 	//m_DD2D->m_Font.reset(new SpriteFont(_pd3dDevice, L"..\\Assets\\italic.spritefont"));
 
 	////set up DirectXTK Effects system
@@ -145,31 +145,10 @@ bool Renderer::EndDraw()
 	return true;
 }
 
-//void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotation, Vec2 origin, float scale)
-//{
-	// To outline text set desired colour value to 250 and other two values to 1 e.g for green outline - (1.0f, 250.0f, 1.0f)
-//	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
-//}
-
-void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotation, Vec2 origin, Vec2 containingRectSize)
+void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotation, Vec2 origin, float scale)
 {
-	if (spriteFont)
-	{
-		// calculate required rect
-		SimpleMath::Vector2 size = spriteFont->MeasureString(Helper::charToWChar(text.c_str()));
-		float scaleX = containingRectSize.x / size.x;
-		float scaleY = containingRectSize.y / size.y;
-		float scale = min(scaleX, scaleY);
-		// To outline text set desired colour value to 250 and other two values to 1 e.g for green outline - (1.0f, 250.0f, 1.0f)
-		Vec2 newPos = position;
-		newPos += containingRectSize / 2;
-		scale *= 0.8f;
-		newPos.x -= ((size.x* scale) / 2);
-		newPos.y -= ((size.y* scale) / 2);
-
-		
-		spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), newPos, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
-	}
+	// To outline text set desired colour value to 250 and other two values to 1 e.g for green outline - (1.0f, 250.0f, 1.0f)
+	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
 }
 
 float Renderer::getAspectRatio()

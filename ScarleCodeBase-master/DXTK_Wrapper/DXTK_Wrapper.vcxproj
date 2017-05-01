@@ -166,7 +166,6 @@
   <ItemGroup>
     <ClInclude Include="CustomMath.h" />
     <ClInclude Include="DXTKRenderer.h" />
-    <ClInclude Include="GameFileLoader.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Input_Manager.h" />
     <ClInclude Include="LevelLoader.h" />
@@ -176,7 +175,6 @@
   <ItemGroup>
     <ClCompile Include="CustomMath.cpp" />
     <ClCompile Include="DXTKRenderer.cpp" />
-    <ClCompile Include="GameFileLoader.cpp" />
     <ClCompile Include="Input_Manager.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="SoundManager.cpp" />
