@@ -198,5 +198,5 @@ void OptionsMenu::volumeButtons()
 		//GameData::inputManager->newPauseKey();
 	});
 
-	go_list.pushback();
+	//go_list.pushback();
 }
