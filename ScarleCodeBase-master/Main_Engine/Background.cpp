@@ -7,7 +7,6 @@
 #include "GameData.h"
 #include "Player.h"
 #include "Texture.h"
-#include "Collision_Manager.h"
 
 Background::Background(Sprite * _sprite, BaseCamera * camera)
 	:main_camera(camera)
@@ -20,10 +19,9 @@ Background::Background(Sprite * _sprite, BaseCamera * camera)
 	sprite->setScale(scaleFactor);
 }
 
-Background::Background(std::vector<Sprite*> _sprites, BaseCamera * camera, Vec2* position)
+Background::Background(std::vector<Sprite*> _sprites, BaseCamera * camera)
 	: main_camera(camera)
 {
-	type = "BG";
 	for (unsigned int i = 0; i < _sprites.size(); i++)
 	{
 		_sprites[i]->setOrigin(_sprites[i]->GetTexture()->getSize() * 0.5f);
@@ -42,7 +40,7 @@ Background::Background(std::vector<Sprite*> _sprites, BaseCamera * camera, Vec2*
 		backgrounds[i + 2]->setScale(Vec2(scaleFactor.x, scaleFactor.y) /* (backgrounds.size() - i)*/);
 
 		Vec2 centerPosition;
-		centerPosition += *position;
+		//centerPosition += GameData::player->getPosition();
 		backgrounds[i]->setPosition(centerPosition);
 		backgrounds[i+1]->setPosition(Vec2(centerPosition.x - (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
 		backgrounds[i+2]->setPosition(Vec2(centerPosition.x + (backgrounds[i]->getSize().x * backgrounds[i]->getScale().x), centerPosition.y));
@@ -77,23 +75,6 @@ bool Background::Update(float dt)
 		previousCamPosition.x = 0.0f;
 		previousCamPosition.y = 0.0f;
 		previousCamPosition += main_camera->getPosition();
-		if (GameData::player)
-		{	
-			bool found = false;
-			for (auto bg : backgrounds)
-			{
-				Rect* box = new Rect(bg->getPosition(), bg->getScale());
-				if(GameData::collsion_manager->boxCollision(GameData::player->getBox(), *box))
-				{
-					found = true;
-					break;
-				}
-			}
-			if (!found)
-			{
-				//GameData::player->();
-			}
-		}
 	}
 	else
 	{

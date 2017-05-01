@@ -14,7 +14,6 @@ public:
 	~SoundManager();
 
 	void playSound(std::string name, bool BG = false, bool loop = false);
-	void stopSound();
 
 	void Update();
 

@@ -168,7 +168,6 @@
     <ClInclude Include="ballistics.h" />
     <ClInclude Include="BaseCamera.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="Checkpoint.h" />
     <ClInclude Include="Collectible.h" />
     <ClInclude Include="Collision_Manager.h" />
     <ClInclude Include="Enemy.h" />
@@ -179,20 +178,15 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Game_Controller.h" />
     <ClInclude Include="LevelEditor.h" />
-    <ClInclude Include="LevelEditorCamera.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Object_Factory.h" />
     <ClInclude Include="OptionsMenu.h" />
-    <ClInclude Include="PauseMenu.h" />
-    <ClInclude Include="PauseOptions.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="Platforms.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Rope.h" />
-    <ClInclude Include="RopeNode.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Timer.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +195,6 @@
     <ClCompile Include="ballistics.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Checkpoint.cpp" />
     <ClCompile Include="Collectible.cpp" />
     <ClCompile Include="Collision_Manager.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -211,20 +204,15 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Game_Controller.cpp" />
     <ClCompile Include="LevelEditor.cpp" />
-    <ClCompile Include="LevelEditorCamera.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Object_Factory.cpp" />
     <ClCompile Include="OptionsMenu.cpp" />
-    <ClCompile Include="PauseMenu.cpp" />
-    <ClCompile Include="PauseOptions.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="Platforms.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Rope.cpp" />
-    <ClCompile Include="RopeNode.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

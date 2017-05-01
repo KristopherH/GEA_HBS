@@ -45,14 +45,6 @@ void SoundManager::playSound(std::string name, bool BG, bool loop)
 	}
 }
 
-void SoundManager::stopSound()
-{
-	for (int i = 0; i < playingSounds.size(); i++)
-	{
-		playingSounds[i].get()->Stop();
-	}
-}
-
 void SoundManager::Update()
 {
 	if (!audioEngine->Update())

@@ -43,7 +43,7 @@ Engine::Engine(Renderer* _renderer, InputManager* _inputManager)
 	Platform::init();
 
 	GameData::scene_manager = new SceneManager();
-	GameData::scene_manager->addScene("MainMenuScene", new MainMenuScene());
+	GameData::scene_manager->addScene("MainMenu", new MainMenuScene());
 }
 
 Engine::~Engine()

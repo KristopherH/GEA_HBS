@@ -5,45 +5,30 @@
 #include "Player.h"
 #include "Background.h"
 #include "Collision_Manager.h"
-#include "MainMenu.h"
-#include "SoundManager.h"
-#include "SceneManager.h" 
 #include "Button.h"
 #include <string>
 #include "Object_Factory.h"
 #include "ballistics.h"
 #include "Platform.h"
-#include "Rope.h"
-#include "LevelEditorCamera.h"
-#include <algorithm>
 
 LevelEditorScene::LevelEditorScene()
 {
 	Level* level1 = LevelLoader::loadLevel("Level.txt");
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
-
-	player->setSize(new Vec2(100.0f * 5, 120.0f));
+	int spr_ac = player->getSprite()->getSpritesAcross();
+	player->setSize(new Vec2(100.0f * spr_ac, 120.0f));
 	player->setPosition(level1->playerStartingPosition);
 	player->setGravity(true);
 
-	cam = new LevelEditorCamera(GameData::screen.max.x, GameData::screen.max.y, -1.0f, 10000.0f);
-	Vec2 camPosition;
-	camPosition += *level1->playerStartingPosition;
-	camPosition *= -1;
-	cam->setPosition(&camPosition);
-	cam->setName("Camera");
-	cam->setTag("Camera");
-	cam->setSolid(false);
 	cam->setPlayerTracker(player);
 	cam->setPosition(&player->getPosition());
-	
-	GameObject* bg = ObjectFactory::createBackground(level1->backgroundStartingPos);
-	go_list.push_back(bg);
+
+	go_list.push_back(ObjectFactory::createBackground());
 
 	Ballistics* bullet = new Ballistics();
 	go_list.push_back(bullet);
-	bullet->setPosition(new Vec2(0.0f ,0.0f));
+	bullet->setPosition(&player->getPosition());
 	bullet->setSize(new Vec2(100.0f, 120.0f));
 	for (auto go : level1->go_list)
 	{
@@ -51,6 +36,7 @@ LevelEditorScene::LevelEditorScene()
 		go = nullptr;
 	}
 	delete level1;
+
 	go_list.push_back(player);
 
 	Sprite* spr = new Sprite("grass");
@@ -62,54 +48,21 @@ LevelEditorScene::LevelEditorScene()
 
 	float y = 0;
 	
-	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Play");
-	Playbtn->setSize(new Vec2(300.0f, 150.0f));
-	Playbtn->setPosition(new Vec2(GameData::screen.Center().x - 800.0f, 700.0f));
-	Playbtn->setOrigin(new Vec2(0.0f, 0.0f));
-	Playbtn->setCallbackFunction([]() {
-	});
-
 	for (auto type : ObjectFactory::create_object)
 	{
-		string name;
-		
-		if (UINum == 0)
-		{
-			name = "Platforms";
-		}
-		else if (UINum == 1)
-		{
-			name = "Enemies";
-		}
-		else if (UINum == 2)
-		{
-			name = "Ladders";
-		}
-		else if (UINum == 3)
-		{
-			name = "Coin";
-		}
-
 		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
+		Button* btn = new Button(sprite, "Button", "Button", "Something");
 
-		Button* btn = new Button(sprite, "Button", "Button", name);;
-		
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setCallbackFunction([this, type, y]() {
 			//bowties are cool
 			if (!obj_selected)
 			{
 				//create the gameobject
-				//float pos_x = (float)0.0f -
-				//	((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
-				//float pos_y = (float)y -
-				//	((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
-
-				float CameraXScaled = GameData::currentCamera->getPosition().x + (((float)GameData::currentCamera->getCameraSize().x) / 2) / GameData::currentCamera->getZoom();
-				float CameraYScaled = GameData::currentCamera->getPosition().y + (((float)GameData::currentCamera->getCameraSize().y) / 2) / GameData::currentCamera->getZoom();
-
-				float pos_x = (0.0f / GameData::currentCamera->getZoom()) - CameraXScaled;
-				float pos_y = (y / GameData::currentCamera->getZoom()) - CameraYScaled;
+				float pos_x = (float)0.0f - 
+					((float)GameData::currentCamera->getPosition().x + ((float)GameData::currentCamera->getCameraSize().x / 2));
+				float pos_y = (float)y - 
+					((float)GameData::currentCamera->getPosition().y + ((float)GameData::currentCamera->getCameraSize().y / 2));
 
 				GameObject* go = type.second();
 				go->setPosition(new Vec2(pos_x, pos_y));
@@ -118,14 +71,12 @@ LevelEditorScene::LevelEditorScene()
 				obj_selected = go;
 			}
 		});
-		btn->setSize(new Vec2(100.0f, 100.0f));
 		btn->setPosition(new Vec2(0.0f, y));
-		btn->setOrigin(new Vec2(0.0f, 0.0f));
+		btn->setSize(new Vec2(100.0f, 100.0f));
 		y += 100.0f;
 		ui_elements.push_back(btn);
-		UINum++;
 	}
-	Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
+ Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
 	save->setCallbackFunction([this]() {
 		char filename[MAX_PATH];
 
@@ -142,12 +93,7 @@ LevelEditorScene::LevelEditorScene()
 
 		if (GetOpenFileNameA(&ofn))
 		{
-			auto go = std::find_if(go_list.begin(), go_list.end(), [](GameObject* go)
-			{
-				return go->getType() == "BG";
-			});
-
-			Level* level = LevelLoader::createLevel(go_list, &player->getPosition(), &(*go)->getPosition());
+			Level* level = LevelLoader::createLevel(go_list, &player->getPosition());
 			LevelLoader::saveLevel(level, std::string(filename));
 			delete level;
 			level = nullptr;
@@ -177,9 +123,8 @@ LevelEditorScene::LevelEditorScene()
 			}
 		}
 	});
-	save->setSize(new Vec2(100.0f, 100.0f));
 	save->setPosition(new Vec2(0.0f, y));
-	save->setOrigin(new Vec2(0.0f, 0.0f));
+	save->setSize(new Vec2(100.0f, 100.0f));
 	y += 100.0f;
 	ui_elements.push_back(save);
 
@@ -221,7 +166,7 @@ LevelEditorScene::LevelEditorScene()
 			cam->setPlayerTracker(player);
 			cam->setPosition(&player->getPosition());
 
-			go_list.push_back(ObjectFactory::createBackground(level1->backgroundStartingPos));
+			go_list.push_back(ObjectFactory::createBackground());
 
 			for (auto go : level1->go_list)
 			{
@@ -258,44 +203,11 @@ LevelEditorScene::LevelEditorScene()
 			}
 		}
 	});
-	load->setSize(new Vec2(100.0f, 100.0f));
 	load->setPosition(new Vec2(0.0f, y));
-	load->setOrigin(new Vec2(0.0f, 0.0f));
+	load->setSize(new Vec2(100.0f, 100.0f));
 	y += 100.0f;
 	ui_elements.push_back(load);
 
-  Button* erase = new Button(new Sprite("TrashCan", GameData::renderer), "DeleteButton", "Button", "Delete");
-	erase->setCallbackFunction([this]() {
-		if (obj_selected)
-		{
-			if (obj_selected == GameData::player)
-			{
-				return false;
-			}
-			go_list.erase(std::remove_if(go_list.begin(), go_list.end(), [this](GameObject* go) {
-				return obj_selected == go;
-			}), go_list.end());
-			delete obj_selected;
-			obj_selected = nullptr;
-		}
-		return false;
-	});
-	erase->setPosition(new Vec2(0.0f, y));
-	erase->setSize(new Vec2(100.0f, 100.0f));
-	y += 100.0f;
-	ui_elements.push_back(erase);
-
-	Button* MainMenuBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Main Menu");
-	MainMenuBtn->setSize(new Vec2(100.0f, 100.0f));
-	MainMenuBtn->setPosition(new Vec2(1530.0f, 0.0f));
-	MainMenuBtn->setOrigin(new Vec2(0.0f, 0.0f));
-	MainMenuBtn->setCallbackFunction([]() {
-		GameData::scene_manager->setCurrentScene("MainMenuScene");
-		GameData::sound_manager->stopSound();
-		GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
-	});
-
-	ui_elements.push_back(MainMenuBtn);
 #pragma endregion
 }
 
@@ -310,28 +222,7 @@ LevelEditorScene::~LevelEditorScene()
 
 void LevelEditorScene::Update(float dt)
 {
-	if (GameData::inputManager->getKeyDown(Inputs::USE))
-		editing = !editing;
-	if (editing)
-	{
-		for (auto go : go_list)
-		{
-			if (go->getAlive())
-			{
-				go->GameObject::Update(dt);
-			}
-		}
-		cam->Update(dt);
-		if (GameData::inputManager->getMouseRight() && !obj_selected)
-		{
-			cam->movePosition(new Vec2((float)(-GameData::inputManager->mouse_x_translation), (float)(-GameData::inputManager->mouse_y_translation)));
-		}
-	}
-	else
-	{
-		Scene::Update(dt);
-		cam->BaseCamera::Update(dt);
-	}
+	Scene::Update(dt);
 	selectObject();
 	moveObject();
 	for (auto element : ui_elements)
@@ -361,16 +252,8 @@ void LevelEditorScene::selectObject()
 			{
 				if (GameData::collsion_manager->mouseCollision(go->getBox()))
 				{
-					if (go->getType() == "RopeNode")
-					{
-						obj_selected = ((RopeNode*)(go))->parent;
-						obj_select_type = ObjectSelectType::BODY;
-					}
-					else
-					{
-						obj_selected = go;
-						obj_select_type = getSelectType();
-					}
+					obj_selected = go;
+					obj_select_type = getSelectType();
 					break;
 				}
 			}
@@ -384,7 +267,6 @@ void LevelEditorScene::selectObject()
 			if (GameData::collsion_manager->mouseCollision(go->getBox()))
 			{
 				toggleMode(go);
-				break;
 			}
 		}
 	}
@@ -459,8 +341,8 @@ void LevelEditorScene::moveObject()
 {
 	if (obj_selected && obj_select_type == ObjectSelectType::BODY)
 	{
-		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_world_x_translation,
-								   -GameData::inputManager->mouse_world_y_translation));
+		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_x_translation,
+								   -GameData::inputManager->mouse_y_translation));
 		for (auto& go : go_list)
 		{
 			if (go != obj_selected)
@@ -472,8 +354,7 @@ void LevelEditorScene::moveObject()
 			}
 		}
 	}
-
-	else if (GameData::inputManager->getMouseLeft())
+	if (obj_selected && obj_select_type != ObjectSelectType::BODY)
 	{
 		scaleObject();
 	}
@@ -546,18 +427,6 @@ void LevelEditorScene::toggleMode(GameObject * _go)
 	{
 		Platform* platform = static_cast<Platform*>(_go);
 		platform->changeType((PLATFORM_TYPE)(((int)(platform->getPlatformType()))+1));
-	}
-	if (_go->getType() == "RopeNode")
-	{
-		RopeNode* rope = static_cast<RopeNode*>(_go);
-		if (GameData::inputManager->getKeyHeld(Inputs::CTRL))
-		{
-			rope->parent->removeNode();
-		}
-		else
-		{
-			rope->parent->addNode();
-		}
 	}
 	else if (obj_selected && obj_select_type != ObjectSelectType::NONE)
 	{

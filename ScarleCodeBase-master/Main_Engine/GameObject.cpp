@@ -42,11 +42,6 @@ GameObject::GameObject(Sprite* _sprite)
 {
 }
 
-GameObject::GameObject(std::vector<Sprite*> _sprite)
-	: vectorSprites(_sprite)
-{
-}
-
 GameObject::~GameObject()
 {
 	if (sprite)
@@ -70,42 +65,30 @@ bool GameObject::Update(float dt)
 {
 	if (this->getSprite())
 	{
-		if (!this->getSprite()->GetTexture())
-		{
-			return false;
-		}
-	}
-	else
-	{
-		return false;
-	}
+		sprite->Update();
+		int width = this->size.x / this->getSprite()->getSpritesAcross();
+		int height = this->size.y / this->getSprite()->getSpritesDown();
 
-	sprite->Update();
-	int width = this->size.x / this->getSprite()->getSpritesAcross();
-	int height = this->size.y / this->getSprite()->getSpritesDown();
+ 		box.min.x = position.x;
+		box.min.y = position.y;
+ 		box.max.x = position.x + width;
+		box.max.y = position.y + height;
 
- 	box.min.x = position.x;
-	box.min.y = position.y;
- 	box.max.x = position.x + width;
-	box.max.y = position.y + height;
+		sprite->setPosition(position);
+		sprite->setRotation(rotation);
+		sprite->setScale(scale);
 
-	sprite->setPosition(position);
-	sprite->setRotation(rotation);
-	sprite->setScale(scale);
-
-	animation(dt);
-	
-	if (physics)
-	{
-		velocity += acceleration * dt * speed;
-		// apply Drag;
-		acceleration.y *= 0.0f;
-		acceleration.x *= 0.0f;
-		velocity *= 0.99f;
-		position += velocity;
+		animation(dt);
 	}
 
-	return true;
+	velocity += acceleration;
+	// apply Drag;
+	acceleration.y *= 0.99f;
+	acceleration.x *= 0.95f;
+	velocity *= 0.9f;
+	position += velocity * dt * speed;
+
+	return false;
 }
 
 bool GameObject::Draw()
@@ -116,7 +99,7 @@ bool GameObject::Draw()
 void GameObject::setPosition(Vec2 * _position)
 {
 	position.x = _position->x; position.y = _position->y;
-	if (sprite)
+	if (sprite != nullptr)
 	{
 		bottomCollider = Rect(Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
 		bottomCollider.max += sprite->getSize();
@@ -188,24 +171,6 @@ void GameObject::gravityUpdate()
 					if (GameData::collsion_manager->boxCollision(
 						this->box, current_object->getBox()))
 					{
-						//if (GameData::collsion_manager->boxCollision(box, current_object->getBox()))
-						//{
-						//	Vec2 centToSide = box.Center();
-						//	centToSide -= current_object->getBox().Center();
-						//	if (Vec2::dot(centToSide, velocity) < 0.0f)
-						//	{
-						//		if (!grounded) // If not previously grounded
-						//		{
-						//			position -= velocity;
-						//			acceleration.x = 0.0f;
-						//			acceleration.y = 0.0f;
-						//			velocity.x = 0.0f;
-						//			velocity.y = 0.0f;
-						//		}
-						//		new_grounded = true;
-						//		break;
-						//	}
-						//}
 						Rect top_of_the_platform(current_object->getBox()/* + current_object->getPosition()*/);
 						top_of_the_platform.max.y = top_of_the_platform.min.y + 60.0f;
 						if (GameData::collsion_manager->boxCollision(

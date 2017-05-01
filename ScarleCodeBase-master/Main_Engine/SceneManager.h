@@ -6,18 +6,8 @@
 
 //OURS
 
+
 class Scene;
-
-enum class GameState {
-
-	GS_NULL = 0,
-	GS_PLAY,
-	GS_MAIN_MENU,
-	GS_PAUSE,
-	GS_GAME_OVER,
-	GS_EXIT
-};
-extern GameState _GS;
 
 class SceneManager
 {
@@ -30,12 +20,25 @@ public:
 
 	Scene* getScene(std::string sceneName);
 	Scene* getCurrentScene();
-
 	std::string getCurrentSceneName();
 
 	void clearOldScenes();
 
 private:
+
 	std::map<std::string, Scene*> scenes;
 	std::string currentScene;
 };
+
+
+enum class GameState {
+
+	GS_NULL = 0,
+	GS_PLAY,
+	GS_MAIN_MENU,
+	GS_PAUSE,
+	GS_GAME_OVER,
+	GS_EXIT
+};
+
+extern GameState _GS;

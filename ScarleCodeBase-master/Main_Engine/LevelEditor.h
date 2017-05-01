@@ -53,8 +53,6 @@ public:
 protected:
 	void resetSelectedEdges();
 
-	bool editing = true;
-
 	std::vector<GameObject*> ui_elements;
 
 	Player* player = nullptr;
@@ -62,5 +60,4 @@ protected:
 	ObjectSelectType obj_select_type = ObjectSelectType::NONE;
 
 	std::map <ObjectEdge, bool> obj_edges_selected;
-	int UINum = 0;
 };

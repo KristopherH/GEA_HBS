@@ -73,8 +73,8 @@ bool Renderer::Draw(Sprite* _sprite)
 
 bool Renderer::Draw(Sprite * _sprite, int index)
 {
-	int width = _sprite->getFrameWidth();
-	int height = _sprite->getFrameHeight();
+	int width = _sprite->getFrameWidth() / _sprite->getSpritesAcross();
+	int height = _sprite->getFrameHeight() / _sprite->getSpritesDown();
 	int x = _sprite->getPosition().x;
 	int y = _sprite->getPosition().y;
 	int sprites_across = _sprite->getSpritesAcross();
@@ -89,10 +89,10 @@ bool Renderer::Draw(Sprite * _sprite, int index)
 
 	if (_sprite->getSpritesAcross() > 1)
 	{
-		float min_x = (float)((index % 5) * width);
-		float min_y = (float)((index / 5) * height);
-		float max_x = (float)(((index % 5) * width) + width);
-		float max_y = (float)(((index / 5) * height) + height);
+		float min_x = (float)((index % sprites_across) * width);
+		float min_y = (float)((index / sprites_across) * height);
+		float max_x = (float)(((index % sprites_across) * width) + width);
+		float max_y = (float)(((index / sprites_across) * height) + height);
 
 		Vec2 min = Vec2(min_x, min_y);
 		Vec2 max = Vec2(max_x, max_y);
@@ -151,25 +151,6 @@ void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotatio
 	spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), position, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
 }
 
-void Renderer::renderText(string text, Vec2 position, Vec4 colour, float rotation, Vec2 origin, Vec2 containingRectSize)
-{
-	if (spriteFont)
-	{
-		// calculate required rect
-		SimpleMath::Vector2 size = spriteFont->MeasureString(Helper::charToWChar(text.c_str()));
-		float scale = containingRectSize.x / size.x ;
-		// To outline text set desired colour value to 250 and other two values to 1 e.g for green outline - (1.0f, 250.0f, 1.0f)
-		Vec2 newPos = position;
-		newPos += containingRectSize / 2;
-		scale *= 0.8f;
-		newPos.x -= ((size.x* scale) / 2);
-		newPos.y -= ((size.y* scale) / 2);
-
-		
-		spriteFont->DrawString(spriteBatch.get(), Helper::charToWChar(text.c_str()), newPos, (DirectX::SimpleMath::Vector4)colour, rotation, origin, scale);
-	}
-}
-
 float Renderer::getAspectRatio()
 {
 	//find how big my window is to correctly calculate my aspect ratio
@@ -178,6 +159,7 @@ float Renderer::getAspectRatio()
 	UINT width = rc.right - rc.left;
 	UINT height = rc.bottom - rc.top;
 	return (float)width / (float)height;
+
 }
 
 float Renderer::getWindowWidth()

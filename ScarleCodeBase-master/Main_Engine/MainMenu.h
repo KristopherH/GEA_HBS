@@ -11,7 +11,7 @@ class MainMenuScene : public Scene
 {
 public:
 	MainMenuScene();
-	~MainMenuScene() = default;
+	virtual ~MainMenuScene() = default;
 
 	virtual void Update(float dt) override;
 	virtual void Draw() override;

@@ -54,7 +54,7 @@ bool Enemy::Update(float dt)
 {
 	if (GameData::collsion_manager->boxCollision(name, "Player"))
 	{
- 		GameData::player->killPlayer();
+ 		GameData::player->setLives();
 		alive = false;
 	}
 	if (waypoints.size() > 1)

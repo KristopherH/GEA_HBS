@@ -7,7 +7,6 @@
 #include "Platform.h"
 #include "Player.h"
 #include "Collectible.h"
-#include "Rope.h"
 //#ifdef _DXTK_
 #include "Texture.h"
 //#endif
@@ -18,9 +17,9 @@ std::map<Type, Texture*> ObjectFactory::texture_pool;
 
 GameObject* ObjectFactory::createPlayer()
 {
-	Sprite* sprite1 = new Sprite("SpriteRunning", GameData::renderer);
-	Player* player = new Player(sprite1, "Player", "Player", 256, 256);
-	player->setSize(new Vec2(100.0f * 5, 120.0f * 5));
+	Sprite* sprite1 = new Sprite("Idle", GameData::renderer);
+	Player* player = new Player(sprite1, "Player", "Player", 10, 1);
+	player->setSize(new Vec2(100.0f, 120.0f));
 	player->setPosition(new Vec2(-475.0f, 350.0f));
 	player->setGravity(true);
 
@@ -52,7 +51,6 @@ GameObject* ObjectFactory::createPlatform()
 {
 	GameObject* platform = Platform::create(STANDARD);
 
-	platform->setType("Platform");
 	platform->setSize(new Vec2(100.0f, 100.0f));
 	platform->setPosition(new Vec2(0, 0));
 
@@ -97,7 +95,7 @@ GameObject* ObjectFactory::createCollectable()
 
 
 
-GameObject* ObjectFactory::createBackground(Vec2* position)
+GameObject* ObjectFactory::createBackground()
 {
 	std::vector<Sprite*> BGs;
 	BGs.push_back(new Sprite("11_background", GameData::renderer));
@@ -112,14 +110,9 @@ GameObject* ObjectFactory::createBackground(Vec2* position)
 	BGs.push_back(new Sprite("02_trees and bushes", GameData::renderer));
 	BGs.push_back(new Sprite("01_ground", GameData::renderer));
 
-	Background* bg = new Background(BGs, GameData::currentCamera, position);
+	Background* bg = new Background(BGs, GameData::currentCamera);
 
 	return bg;
-}
-
-GameObject * ObjectFactory::createRope()
-{
-	return new Rope(Vec2(0.0f, 0.0f), ObjectFactory::texture_pool[ROPE], 10, 20.0f, 80.0f, 1.5f, Vec2(20, 100), GameData::go_list);
 }
 
 void ObjectFactory::init()
@@ -129,12 +122,10 @@ void ObjectFactory::init()
 	//create_object[PLAYER] = createPlayer;
 	ObjectFactory::create_object[LADDER] = createLadder;
 	ObjectFactory::create_object[COLLECTIBLE] = createCollectable;
-	ObjectFactory::create_object[ROPE] = createRope;
 	//create_object[BACKGROUND] = createBackground;
 
 	ObjectFactory::texture_pool[PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
 	ObjectFactory::texture_pool[ENEMY] = new Texture("enemy_sprite", GameData::renderer);
 	ObjectFactory::texture_pool[LADDER] = new Texture("Ladder", GameData::renderer);
 	ObjectFactory::texture_pool[COLLECTIBLE] = new Texture("coin", GameData::renderer);
-	ObjectFactory::texture_pool[ROPE] = new Texture("Rope", GameData::renderer);;
 }

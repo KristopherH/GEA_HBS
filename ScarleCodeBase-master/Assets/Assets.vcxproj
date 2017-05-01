@@ -280,16 +280,13 @@
     <ImageContentTask Include="sign-3.png" />
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="SpriteRunning.png" />
+  </ItemGroup>
+  <ItemGroup>
     <ImageContentTask Include="Idle.png" />
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Attack.png" />
-    <ImageContentTask Include="Death.png" />
-    <ImageContentTask Include="Jump.png" />
-    <ImageContentTask Include="JumpAttack.png" />
-    <ImageContentTask Include="Run.png" />
-    <ImageContentTask Include="Walk.png" />
-    <ImageContentTask Include="Rope.png" />
+    <Image Include="Attack.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

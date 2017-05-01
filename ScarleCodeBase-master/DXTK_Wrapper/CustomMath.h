@@ -29,7 +29,6 @@ struct Vec2
 	friend Vec2 operator+(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x + V2.x, V1.y + V2.y); }
 	friend Vec2 operator-(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x - V2.x, V1.y - V2.y); }
 	friend Vec2 operator*(const Vec2& V1, const float& V2) { return Vec2(V1.x * V2, V1.y * V2); }
-	friend Vec2 operator*(const Vec2& V1, const Vec2& V2) { return Vec2(V1.x * V2.x, V1.y * V2.y); }
 	friend Vec2 operator/(const Vec2& V1, const float& V2) { return Vec2(V1.x / V2, V1.y / V2); }
 
 	// Useful Functions
@@ -39,9 +38,6 @@ struct Vec2
 	float LengthSqrd();
 	static float Distance(const Vec2& V1, const Vec2& V2);
 	static float DistanceSqrd(const Vec2& V1, const Vec2& V2);
-
-	static float dot(const Vec2& V1, const Vec2& V2);
-	float dot(const Vec2& V2);
 };
 
 struct Rect
@@ -52,7 +48,7 @@ struct Rect
 	Rect(Vec2 = Vec2(0.0f, 0.0f), Vec2 = Vec2(0.0f, 0.0f));
 
 	friend Rect operator+(const Rect& original, const Vec2 displacement);
-	Rect operator=(Rect& other);
+	Rect operator=(Rect other);
 
 	bool Contains(Vec2 oth);
 	Vec2 Center();

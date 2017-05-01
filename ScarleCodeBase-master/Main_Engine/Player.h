@@ -16,13 +16,12 @@ class Player : public GameObject
 {
 public:
 	Player() = default;
-	Player(Sprite* _sprite, std::string _name, std::string _tag, int width = 32, int height = 32);
+	Player(Sprite* _sprite, std::string _name, std::string _tag, int _sprites_across = 1, int _sprites_down = 1);
 	~Player();
 
 	bool Update(float dt) override;
 
 	void ProcessInput();
-	//void processPauseInput();
 
 	void OnJump();
 	void OnMove(Vec2);
@@ -31,14 +30,10 @@ public:
 
 	int getScore() { return score; };
 	int getLives() { return lives; };
-	void killPlayer();
+	void setLives();
 	void setScore();
-	void setLastCheckpoint(Vec2* _lastCheckpoint) { lastCheckpoint = _lastCheckpoint; };
-	void setClimbing(bool _climb) { climbing = _climb; }
-	void setGrounded(bool _grounded) { grounded = _grounded; }
 
 	float getSpeed();
-	void PauseGame();
 
 protected:
 
@@ -55,11 +50,11 @@ protected:
 	GameObject* climbable_obj = nullptr;
 	bool climbing = false;
 	bool key_down = false;
-	bool pauseSetUp = false;
+	//bool one_way_plat_move = false;
+
+	//void oneWayPlatformMove(); 
 	Inputs input;
 	//Input component
 	std::map<int, std::function<void()>> KeyBindsHold;
 	std::map<int, std::function<void()>> KeyBindsPress;
-
-	Vec2* lastCheckpoint = new Vec2(0.0f, 0.0f);
 };

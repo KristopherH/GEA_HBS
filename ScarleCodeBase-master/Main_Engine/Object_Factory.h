@@ -2,7 +2,6 @@
 #include <string>
 #include <map>
 #include <functional>
-#include "CustomMath.h"
 class GameObject;
 class Texture;
 
@@ -13,8 +12,7 @@ enum Type
 	PLAYER,
 	LADDER,
 	COLLECTIBLE,
-	BACKGROUND,
-	ROPE
+	BACKGROUND
 };
 
 class ObjectFactory
@@ -25,8 +23,7 @@ public:
 	static GameObject* createPlatform();
 	static GameObject* createLadder();
 	static GameObject* createCollectable();
-	static GameObject* createBackground(Vec2* pos);
-	static GameObject* createRope();
+	static GameObject* createBackground();
 
 	static void init();
 

@@ -30,11 +30,6 @@ void Sprite::Update()
 {
 }
 
-Texture * Sprite::GetTexture()
-{
-	return texture;
-}
-
 Vec2 Sprite::getSize()
 {
 	return texture->getSize();
@@ -42,7 +37,7 @@ Vec2 Sprite::getSize()
 
 Vec2 Sprite::getScale()
 {
-	return scale; //HERE
+	return scale;
 }
 
 float Sprite::getRotation()
@@ -126,21 +121,25 @@ void Sprite::setSpritesDown(int _sprites_down)
 void Sprite::setFrameWidth(int _frame_width)
 {
 	frame_width = _frame_width;
-	scale.x *= frame_width;
 }
 
 int Sprite::getFrameWidth()
 {
-	return frame_width;
+	if (frame_width != 0)
+		return frame_width;
+
+	return texture->getSize().x;
 }
 
 void Sprite::setFrameHeight(int _frame_height)
 {
 	frame_height = _frame_height;
-	scale.y *= frame_height;
 }
 
 int Sprite::getFrameHeight()
 {
-	return frame_height;
+	if (frame_height != 0)
+		return frame_height;
+
+	return texture->getSize().y;
 }
