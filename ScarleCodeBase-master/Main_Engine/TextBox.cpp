@@ -61,17 +61,30 @@ bool TextBox::Update(float dt)
 						}
 						mtx.unlock();
 					}
-				} while (ch != -2);
+				} while (ch != -2 && selected);
 				GameData::inputManager->stopReading();
+				entered = false;
 				selected = false;
 				return;
 			});
 		}
 	}
-
-	if (!selected)
+	else
 	{
+		if (GameData::inputManager->getMouseLeftPress() && selected)
+		{
+			selected = false;
+			entered = false;
+		}
+	}
 
+	if (!selected && !entered)
+	{
+		if (onEnter)
+		{
+			onEnter();
+		}
+		entered = true;
 	}
 	return true;
 }
@@ -81,10 +94,10 @@ bool TextBox::Draw()
 	GameObject::Draw();
 
 	mtx.lock();
-	GameData::renderer->renderText(text, getSprite()->getPosition() /*+ ((sprite->getSize() * sprite->getScale()))*/,
+	GameData::renderer->renderText(text, getSprite()->getPosition(),
 		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f,
 		Vec2(0.0f, 0.0f),
-		sprite->getSize() * sprite->getScale() /** 0.8f*/);
+		sprite->getSize() * sprite->getScale());
 	mtx.unlock();
 	float newy;
 	float newx;
@@ -93,4 +106,17 @@ bool TextBox::Draw()
 	newy = getSprite()->getPosition().y;
 
 	return true;
+}
+
+void TextBox::setOnEnterCallback(std::function<void()> funct)
+{
+	onEnter = funct;
+}
+
+std::string TextBox::getText()
+{
+	mtx.lock();
+	std::string tmp = text;
+	mtx.unlock();
+	return tmp;
 }

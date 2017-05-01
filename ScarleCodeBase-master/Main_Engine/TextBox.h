@@ -16,9 +16,16 @@ public:
 	bool Update(float dt) override;
 	bool Draw() override;
 
+	void setOnEnterCallback(std::function<void()> funct);
+
+	std::string getText();
+
 private:
 	std::mutex mtx;
 	std::thread* handle;
 	std::string text;
 	bool selected;
+	bool entered = true;
+
+	std::function<void()> onEnter;
 };

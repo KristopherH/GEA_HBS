@@ -1,6 +1,9 @@
 Lives:(3)
 Collectibles:(0)
-Levels:(1)
+Levels:(2)
 1:
-Name:(Intro)
+Name:(Hello)
 Path:(.\GameFiles\level.lvl)
+2:
+Name:(Level2)
+Path:(.\GameFiles\level1.lvl)
