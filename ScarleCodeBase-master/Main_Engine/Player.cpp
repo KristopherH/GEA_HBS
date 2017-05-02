@@ -279,7 +279,7 @@ void Player::PauseGame()
 		GameData::scene_manager->addScene("PauseMenuScene", new PauseMenu());
 		pauseSetUp = true;
 	}
-	GameData::scene_manager->setCurrentScene("PauseMenuScene");
+	GameData::scene_manager->setCurrentScene("PauseMenuScene", false);
 	GameData::sound_manager->stopSound();
 	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
 }

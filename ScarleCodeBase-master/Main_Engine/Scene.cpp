@@ -12,6 +12,7 @@ Scene::Scene()
 	cam->setTag("Camera");
 	cam->setSolid(false);
 	go_list.push_back(cam);
+	GameData::currentCamera = cam;
 }
 
 Scene::~Scene()

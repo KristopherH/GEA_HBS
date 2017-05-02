@@ -285,7 +285,7 @@ bool Rect::Contains(Vec2 oth)
 
 Vec2 Rect::Center()
 {
-	return Vec2(minCorner.x + (maxCorner.x/2), minCorner.y + (maxCorner.y / 2));
+	return Vec2(minCorner.x + ((maxCorner.x - minCorner.x )/2), minCorner.y + ((maxCorner.y - minCorner.y) / 2));
 }
 
 #pragma endregion

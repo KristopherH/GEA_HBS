@@ -118,6 +118,12 @@
     <ClCompile Include="Gun.cpp">
       <Filter>Source\Game Objects\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelEditor.h">
@@ -239,6 +245,12 @@
     </ClInclude>
     <ClInclude Include="Gun.h">
       <Filter>Headers\Game Objects\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScene.h">
+      <Filter>Headers\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Headers\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

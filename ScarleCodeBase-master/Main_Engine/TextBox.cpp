@@ -110,12 +110,6 @@ bool TextBox::Draw()
 		Vec2(0.0f, 0.0f),
 		sprite->getSize() * sprite->getScale());
 	mtx.unlock();
-	float newy;
-	float newx;
-
-	newx = getSprite()->getPosition().x;
-	newy = getSprite()->getPosition().y;
-
 	return true;
 }
 

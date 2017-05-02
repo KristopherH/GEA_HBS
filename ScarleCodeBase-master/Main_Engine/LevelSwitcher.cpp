@@ -11,6 +11,7 @@ LevelSwitcher::LevelSwitcher( Sprite* _sprite, GameFile* _gameFile)
 	activated = false;
 	setSize(new Vec2(100, 100));
 	setType("LevelSwitcher");
+	setName("LevelSwitcher");
 }
 
 LevelSwitcher::~LevelSwitcher()
@@ -56,8 +57,9 @@ void LevelSwitcher::toggleEditing()
 	EditableGameObject::toggleEditing();
 	if (editing)
 	{
+		std::string levelString = nextLevel != -2 ? "Level:" + gameFile->levels[nextLevel].name : "Game End";
 		Button* newLevelNumber = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
-			"NameChanger", "NULL", "Level:" + gameFile->levels[nextLevel].name);
+			"", "NULL", levelString);
 		newLevelNumber->setSize(new Vec2(max(size.x, 100), 50));
 		newLevelNumber->setPosition(new Vec2(position.x, position.y + size.y));
 		newLevelNumber->setCallbackFunction([this, newLevelNumber]()
@@ -68,34 +70,45 @@ void LevelSwitcher::toggleEditing()
 		ui_elements.push_back(newLevelNumber);
 
 		Button* plusLevel = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_PLUS]),
-			"NameChanger", "NULL", "");
+			"", "NULL", "");
 		plusLevel->setSize(new Vec2(50, 50));
 		plusLevel->setPosition(new Vec2(position.x + newLevelNumber->getSize().x, position.y + size.y));
 		plusLevel->setCallbackFunction([this, newLevelNumber]()
 		{
 			nextLevel++;
-			if (nextLevel > gameFile->levels.size()-1)
+			if (nextLevel == -1)
 			{
 				nextLevel = 0;
 			}
-			newLevelNumber->setText("Level:" + gameFile->levels[nextLevel].name);
+			else if (nextLevel > gameFile->levels.size()-1)
+			{
+				nextLevel = -2;
+			}
+			std::string levelString = nextLevel != -2 ? "Level:" + gameFile->levels[nextLevel].name : "Game End";
+			newLevelNumber->setText(levelString);
 			return;
 		});
 		plusLevel->setScreenSpace(false);
 		ui_elements.push_back(plusLevel);
 
 		Button* minusLevel = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_MINUS]),
-			"NameChanger", "NULL", "");
+			"", "NULL", "");
 		minusLevel->setSize(new Vec2(50, 50));
 		minusLevel->setPosition(new Vec2(position.x - minusLevel->getSize().x, position.y + size.y));
 		minusLevel->setCallbackFunction([this, newLevelNumber]()
 		{
 			nextLevel--;
-			if (nextLevel < 0)
+			if (nextLevel <= -2)
 			{
 				nextLevel = gameFile->levels.size() - 1;
 			}
-			newLevelNumber->setText("Level:" + gameFile->levels[nextLevel].name);
+			else if (nextLevel < 0)
+			{
+				nextLevel = -2;
+			}
+			
+			std::string levelString = nextLevel != -2 ? "Level:" + gameFile->levels[nextLevel].name : "Game End";
+			newLevelNumber->setText(levelString);
 			return;
 		});
 		minusLevel->setScreenSpace(false);

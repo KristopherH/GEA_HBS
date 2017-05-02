@@ -20,10 +20,13 @@
 #include "Rope.h"
 #include "Timer.h"
 #include "LevelSwitcher.h"
+#include "WinScene.h"
 
 GameScene::GameScene()
 {
 	std::vector<Texture*> textures;
+
+	timer = new Timer();
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
@@ -47,7 +50,15 @@ void GameScene::Update(float dt)
 			int newLevel = lvlSwitch->switchToNextLevel();
 			if (newLevel != -1)
 			{
-				new_level_number = newLevel;
+				if (newLevel == -2)
+				{
+					GameData::scene_manager->addScene("WinScene", new WinScene(timer->getTime()));
+					GameData::scene_manager->setCurrentScene("WinScene");
+				}
+				else
+				{
+					new_level_number = newLevel;
+				}
 			}
 		}
 	}
@@ -107,15 +118,13 @@ void GameScene::changeLevel()
 	}
 
 	cam->setPlayerTracker(player);
-
+	
+	go_list.push_back(timer);
 	go_list.push_back(player);
 	go_list.push_back(cam);
 
 	std::vector<Sprite*> UI_objects;
 	UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
-
-	Timer* timer = new Timer();
-	go_list.push_back(timer);
 
 	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);

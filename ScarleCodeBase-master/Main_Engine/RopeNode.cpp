@@ -42,7 +42,7 @@ bool RopeNode::Update(float dt)
 		}
 	}
 	GameObject::Update(dt);
-	velocity += acceleration * dt;
+	velocity += acceleration * min(dt, 0.1f);
 	position += velocity;
 	acceleration.x = 0; 
 	acceleration.y = 0;

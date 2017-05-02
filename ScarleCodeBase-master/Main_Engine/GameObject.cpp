@@ -201,7 +201,14 @@ Vec2 GameObject::getPosition()
 
 Vec2 GameObject::getSize()
 {
-	return Vec2(sprite->getSize().x * scale.x, sprite->getSize().y * scale.y);
+	if (sprite)
+	{
+		return Vec2(sprite->getSize().x * scale.x, sprite->getSize().y * scale.y);
+	}
+	else
+	{
+		return size;
+	}
 }
 
 Vec2 GameObject::getScale()
