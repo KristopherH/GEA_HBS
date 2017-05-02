@@ -28,6 +28,9 @@
     <Filter Include="Textures\Characters">
       <UniqueIdentifier>{64e51108-9aaa-445b-bb28-998ea1797db7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Textures\GameOver">
+      <UniqueIdentifier>{517dfbbc-9a5c-4b3c-bddd-6b47b6b765ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader.fx">
@@ -154,9 +157,12 @@
     </ImageContentTask>
     <ImageContentTask Include="UI\Button.png">
       <Filter>Textures\UI</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="GameObjects\Door.png">
       <Filter>Textures\GameObjects</Filter>
     </ImageContentTask>
+    </Image>
+    <Image Include="GameOver\GameOverBackGround.png">
+      <Filter>Textures\GameOver</Filter>
+    </Image>
   </ItemGroup>
 </Project>
