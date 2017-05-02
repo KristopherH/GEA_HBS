@@ -1,6 +1,7 @@
 #include "Input_Manager.h"
 //C++
 #include <string>
+#include <sstream>
 #ifdef DEBUG
 #include <iostream>
 #endif
@@ -52,6 +53,17 @@ std::map<InputLabel, Input> InputManager::key_inputs =
 	{ InputLabel::USE, (Input)DIK_RETURN },
 	{ InputLabel::PAUSE, (Input)DIK_ESCAPE }
 };
+
+std::map<InputLabel, std::string> InputManager::key_effect_names =
+{
+	{ InputLabel::UP, "Up" },
+	{ InputLabel::DOWN, "Down" },
+	{ InputLabel::LEFT, "Left" },
+	{ InputLabel::RIGHT,"Right" },
+	{ InputLabel::JUMP, "Jump" },
+	{ InputLabel::USE, "Use" },
+	{ InputLabel::PAUSE, "Pause" }
+};
 #endif
 
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
@@ -80,7 +92,7 @@ void InputManager::changeInput(InputLabel _input, Input _key)
 	InputManager::key_inputs[_input] = _key;
 }
 
-int InputManager::ConvertToASCII(DWORD _key)
+std::string InputManager::ConvertToASCII(DWORD _key)
 {
 	static HKL layout = GetKeyboardLayout(0);
 	static unsigned char State[256];
@@ -88,7 +100,29 @@ int InputManager::ConvertToASCII(DWORD _key)
 	if (GetKeyboardState(State) == FALSE)
 		return 0;
 	UINT vk = MapVirtualKeyEx(_key, 1, layout);
-	return vk;
+	char character = (vk);
+	if (isalnum(character))
+	{
+		stringstream ss;
+		string s;
+		ss << character;
+		ss >> s;
+		return s;
+	}
+	if (character == ' ')
+	{
+		return "SPACE";
+	}
+	if (character == '\r')
+	{
+		return "ENTER";
+	}
+	if (character == '\x1b')
+	{
+		return "ESC";
+	}
+
+	return "Not_Supported";
 }
 
 //void InputManager::newDownKey(Input _Key)

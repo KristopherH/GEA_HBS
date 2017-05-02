@@ -33,9 +33,10 @@ public:
 	~InputManager();
 
 	static std::map<InputLabel, Input> key_inputs;
+	static std::map<InputLabel, std::string> key_effect_names;
 
 	void changeInput(InputLabel _input, Input _key);
-	int ConvertToASCII(DWORD _key);
+	std::string ConvertToASCII(DWORD _key);
 
 #pragma region Mouse Input
 	bool getMouseRight();
@@ -66,7 +67,7 @@ public:
 	void update();
 #pragma endregion
 
-#pragma region Gual, give this a proper name please...
+#pragma region String getting from VM
 
 	std::mutex mtx;
 	void stringInputBackspace();
