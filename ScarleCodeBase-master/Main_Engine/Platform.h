@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 #include <map>
-#include "GameObject.h"
+#include "EditableGameObject.h"
 
 enum PLATFORM_TYPE
 {
+	FIRST,
 	STANDARD,
 	SLOW,
 	STICKY,
@@ -15,7 +16,7 @@ enum PLATFORM_TYPE
 	END
 };
 
-class Platform : public GameObject
+class Platform : public EditableGameObject
 {
 public:
 	~Platform() = default;
@@ -26,13 +27,19 @@ public:
 	static Platform* create(PLATFORM_TYPE);
 	static void init();
 
-private: // functions
+	virtual void toggleEditing() override;
+
+	void nextType();
+	void prevType();
+
+protected: 
+	// functions
 	Platform(Sprite* sprite, std::string _name, std::string _tag);
 
 	void conveyorPlatform(bool leftOrRight);
 	static std::map<std::string, Texture*> platform_sprites;
 
-// vars
+	// vars
 	PLATFORM_TYPE platform_type;
 	
 };

@@ -99,10 +99,10 @@ bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
 bool CollisionManager::boxCollision(Rect a, Rect b)
 {
 
-	if (a.min.x < b.max.x &&
-		a.max.x > b.min.x &&
-		a.min.y < b.max.y &&
-		a.max.y > b.min.y)
+	if (a.minCorner.x < b.maxCorner.x &&
+		a.maxCorner.x > b.minCorner.x &&
+		a.minCorner.y < b.maxCorner.y &&
+		a.maxCorner.y > b.minCorner.y)
 	{
 		findCollisionDirection(&a, &b);
 		return true;
@@ -266,15 +266,15 @@ Direction CollisionManager::findCollisionDirection(Rect* a, Rect* b)
 	float bottom_collision = 0.0f;
 	float right_collision = 0.0f;
 
-	object_a_bot = a->max.y;
-	object_a_right = a->max.x;
-	object_b_bot = b->max.y;
-	object_b_right = b->max.x;
+	object_a_bot = a->maxCorner.y;
+	object_a_right = a->maxCorner.x;
+	object_b_bot = b->maxCorner.y;
+	object_b_right = b->maxCorner.x;
 
-	top_collision = object_a_bot - b->min.y;
-	left_collision = object_a_right - b->min.x;
-	bottom_collision = object_b_bot - a->min.y;
-	right_collision = object_b_right - a->min.x;
+	top_collision = object_a_bot - b->minCorner.y;
+	left_collision = object_a_right - b->minCorner.x;
+	bottom_collision = object_b_bot - a->minCorner.y;
+	right_collision = object_b_right - a->minCorner.x;
 
 	if (top_collision < bottom_collision && top_collision < left_collision && top_collision < right_collision)
 	{

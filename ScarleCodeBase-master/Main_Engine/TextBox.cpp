@@ -9,24 +9,35 @@ TextBox::TextBox(Sprite* sprite, std::string _name, std::string _tag, std::strin
 	:GameObject(sprite, _name, _tag)
 {
 	text = _text;
+	screenSpace = true;
 }
 
 TextBox::~TextBox()
 {
-	delete handle;
+	if (handle)
+	{
+		selected = false;
+		handle->join();
+		delete handle;
+	}
 }
 
 bool TextBox::Update(float dt)
 {
 	GameObject::Update(dt);
-	Vec2 newPos = Vec2(0.0f, 0.0f);
-	newPos -= (GameData::currentCamera->getCameraSize() / 2) / GameData::currentCamera->getZoom();
-	newPos -= GameData::currentCamera->getPosition();
-	newPos += sprite->getPosition() / GameData::currentCamera->getZoom();
-	sprite->setScale((sprite->getScale() / GameData::currentCamera->getZoom()));
-	sprite->setPosition(newPos);
-
-	if (box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y)))
+	bool collision = false;
+	if (screenSpace)
+	{
+		sprite->setScale((sprite->getScale() / GameData::currentCamera->getZoom()));
+		sprite->setPosition(GameData::renderer->WorldToScreen(sprite->getPosition()));
+		collision = box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y));
+	}
+	else
+	{
+		sprite->setPosition(position);
+		collision = box.Contains(Vec2((float)GameData::inputManager->mouse_world_x, (float)GameData::inputManager->mouse_world_y));
+	}
+	if (collision)
 	{
 		if (GameData::inputManager->getMouseLeftPress() && !selected)
 		{
@@ -61,17 +72,30 @@ bool TextBox::Update(float dt)
 						}
 						mtx.unlock();
 					}
-				} while (ch != -2);
+				} while (ch != -2 && selected);
 				GameData::inputManager->stopReading();
+				entered = false;
 				selected = false;
 				return;
 			});
 		}
 	}
-
-	if (!selected)
+	else
 	{
+		if (GameData::inputManager->getMouseLeftPress() && selected)
+		{
+			selected = false;
+			entered = false;
+		}
+	}
 
+	if (!selected && !entered)
+	{
+		if (onEnter)
+		{
+			onEnter();
+		}
+		entered = true;
 	}
 	return true;
 }
@@ -81,10 +105,10 @@ bool TextBox::Draw()
 	GameObject::Draw();
 
 	mtx.lock();
-	GameData::renderer->renderText(text, getSprite()->getPosition() /*+ ((sprite->getSize() * sprite->getScale()))*/,
-		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f,
+	GameData::renderer->renderText(text, getSprite()->getPosition(),
+		Vec4(0.3f, 0.7f, 0.2f, 1.0f), 0.0f,
 		Vec2(0.0f, 0.0f),
-		sprite->getSize() * sprite->getScale() /** 0.8f*/);
+		sprite->getSize() * sprite->getScale());
 	mtx.unlock();
 	float newy;
 	float newx;
@@ -93,4 +117,17 @@ bool TextBox::Draw()
 	newy = getSprite()->getPosition().y;
 
 	return true;
+}
+
+void TextBox::setOnEnterCallback(std::function<void()> funct)
+{
+	onEnter = funct;
+}
+
+std::string TextBox::getText()
+{
+	mtx.lock();
+	std::string tmp = text;
+	mtx.unlock();
+	return tmp;
 }

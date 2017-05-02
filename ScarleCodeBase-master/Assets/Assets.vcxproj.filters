@@ -113,12 +113,6 @@
     <ImageContentTask Include="Platforms\SpeedPlatform.png">
       <Filter>Textures\Platforms</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Platforms\StandardPlatform.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\StandardPlatformShort.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Platforms\StickyPlatform.png">
       <Filter>Textures\Platforms</Filter>
     </ImageContentTask>
@@ -152,10 +146,20 @@
     <ImageContentTask Include="Characters\Waypoint.png">
       <Filter>Textures\Characters</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="UI\Button.png">
+    <ImageContentTask Include="Platforms\StandardPlatform.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\StandardPlatformLong.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\PlatformWaypoint.png">
+      <Filter>Textures\Platforms</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="UI\Button.png">
       <Filter>Textures\UI</Filter>
+    <ImageContentTask Include="GameObjects\Door.png">
+      <Filter>Textures\GameObjects</Filter>
+    </ImageContentTask>
     </Image>
     <Image Include="GameOver\GameOverBackGround.png">
       <Filter>Textures\GameOver</Filter>

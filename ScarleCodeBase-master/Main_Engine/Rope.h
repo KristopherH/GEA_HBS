@@ -1,8 +1,8 @@
 #pragma once
-#include "GameObject.h"
+#include "EditableGameObject.h"
 #include "RopeNode.h"
 
-class Rope : public GameObject
+class Rope : public EditableGameObject
 {
 public:
 	Rope(Vec2 pos, 
@@ -21,6 +21,10 @@ public:
 	void updateParenting();
 
 	void playerGrabbed(RopeNode* nodeGrabbed, Vec2 playerPosRelativeToNode);
+
+	virtual void toggleEditing() override;
+
+	void redoNodes();
 
 	void addNode();
 	void removeNode();

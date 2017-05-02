@@ -16,9 +16,20 @@ public:
 	bool Update(float dt) override;
 	bool Draw() override;
 
+	void setOnEnterCallback(std::function<void()> funct);
+
+	void setScreenSpace(bool _screenSpace) { screenSpace = _screenSpace; }
+
+	std::string getText();
+
 private:
 	std::mutex mtx;
 	std::thread* handle;
 	std::string text;
 	bool selected;
+	bool entered = true;
+
+	bool screenSpace = true;
+
+	std::function<void()> onEnter;
 };

@@ -40,8 +40,8 @@ public:
 	float getWindowWidth();
 	float getWindowHeight();
 
-	//void DrawString (wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const;
-
+	Vec2 WorldToScreen(Vec2);
+	Vec2 ScreenToWorld(Vec2);
 private:
 	ID3D11Device* pd3dDevice;
 	HWND hWnd;

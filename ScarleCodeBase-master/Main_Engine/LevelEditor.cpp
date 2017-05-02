@@ -1,29 +1,40 @@
+#include "GameFileLoader.h"
 #include "LevelEditor.h"
-#include "GameData.h"
+//C++
+#include <string>
+#include <algorithm>
+
+//Wrapper
 #include "Input_Manager.h"
 #include "LevelLoader.h"
+#include "Collision_Manager.h"
+
+//OURS
+#include "GameData.h"
 #include "Player.h"
 #include "Background.h"
-#include "Collision_Manager.h"
 #include "MainMenu.h"
 #include "SoundManager.h"
 #include "SceneManager.h" 
 #include "Button.h"
-#include <string>
 #include "Object_Factory.h"
 #include "ballistics.h"
 #include "Platform.h"
 #include "Rope.h"
 #include "LevelEditorCamera.h"
-#include <algorithm>
 #include "TextBox.h"
 #include "Enemy.h"
 #include "EnemyWaypoint.h"
+#include "PlatformWaypoint.h"
+#include "EditableGameObject.h"
+#include "LevelSwitcher.h"
+#include "GameFileCreation.h"
 
-LevelEditorScene::LevelEditorScene(std::string _fileName)
-	:fileName(_fileName)
+
+LevelEditorScene::LevelEditorScene(GameFile* _gameFile, int lvlNumber)
+	:gameFile(_gameFile), levelNumber(lvlNumber)
 {
-	Level* level1 = LevelLoader::loadLevel(fileName);
+	Level* level1 = &gameFile->levels[levelNumber];
 	levelName = level1->name;
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
@@ -31,7 +42,7 @@ LevelEditorScene::LevelEditorScene(std::string _fileName)
 	player->setPosition(level1->playerStartingPosition);
 	player->setGravity(true);
 
-	cam = new LevelEditorCamera(GameData::screen.max.x, GameData::screen.max.y, -1.0f, 10000.0f);
+	cam = new LevelEditorCamera(GameData::screen.maxCorner.x, GameData::screen.maxCorner.y, -1.0f, 10000.0f);
 	Vec2 camPosition;
 	camPosition += *level1->playerStartingPosition;
 	camPosition *= -1;
@@ -41,57 +52,51 @@ LevelEditorScene::LevelEditorScene(std::string _fileName)
 	cam->setSolid(false);
 	cam->setPlayerTracker(player);
 	cam->setPosition(&player->getPosition());
-	
+
 	GameObject* bg = ObjectFactory::createBackground(level1->backgroundStartingPos);
 	go_list.push_back(bg);
 
 	Ballistics* bullet = new Ballistics();
 	go_list.push_back(bullet);
-	bullet->setPosition(new Vec2(0.0f ,0.0f));
+	bullet->setPosition(new Vec2(0.0f, 0.0f));
 	bullet->setSize(new Vec2(100.0f, 120.0f));
 	for (auto go : level1->go_list)
 	{
 		go_list.push_back(go);
 		go = nullptr;
 	}
-	delete level1;
+	//delete level1;
 	go_list.push_back(player);
 
 #pragma region UI
 
-	float y = 0;
-	
-	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Play");
-	Playbtn->setSize(new Vec2(300.0f, 150.0f));
-	Playbtn->setPosition(new Vec2(GameData::screen.Center().x - 800.0f, 700.0f));
-	Playbtn->setOrigin(new Vec2(0.0f, 0.0f));
-	Playbtn->setCallbackFunction([]() {
+	TextBox* rename = new TextBox(new Sprite("Button", GameData::renderer), "button1", "Button", levelName);
+	rename->setSize(new Vec2(300.0f, 60.0f));
+	rename->setPosition(new Vec2(GameData::screen.maxCorner.x / 2 - rename->getSize().x / 2, 0.0f));
+	rename->setOrigin(new Vec2(0.0f, 0.0f));
+	rename->setOnEnterCallback([this, rename]()
+	{
+		levelName = rename->getText();
 	});
+	ui_elements.push_back(rename);
 
+	Button* BackBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
+	BackBtn->setSize(new Vec2(100.0f, 100.0f));
+	BackBtn->setPosition(new Vec2(GameData::screen.maxCorner.x - BackBtn->getSize().x, 0.0f));
+	BackBtn->setOrigin(new Vec2(0.0f, 0.0f));
+	BackBtn->setCallbackFunction([]() {
+		GameData::scene_manager->addScene("GameFileCreation", new GameFileCreation());
+		GameData::scene_manager->setCurrentScene("GameFileCreation");
+	});
+	ui_elements.push_back(BackBtn);
+
+	float y = 0;
 	for (auto type : ObjectFactory::create_object)
 	{
-		string name;
-		
-		if (UINum == 0)
-		{
-			name = "Platforms";
-		}
-		else if (UINum == 1)
-		{
-			name = "Enemies";
-		}
-		else if (UINum == 2)
-		{
-			name = "Ladders";
-		}
-		else if (UINum == 3)
-		{
-			name = "Coin";
-		}
-
+		float buttonSize = GameData::screen.maxCorner.y / ObjectFactory::texture_pool.size();
 		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
 
-		Button* btn = new Button(sprite, "Button", "Button", name, false);
+		Button* btn = new Button(sprite, "Button", "Button", ObjectFactory::names[type.first], false);
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setCallbackFunction([this, type, y]() {
 			//bowties are cool, very coool TODO: remove stupid comments like this one
@@ -104,19 +109,49 @@ LevelEditorScene::LevelEditorScene(std::string _fileName)
 				float pos_y = (y / GameData::currentCamera->getZoom()) - CameraYScaled;
 
 				GameObject* go = type.second();
+				if (go->getType() == "LevelSwitcher")
+				{
+					LevelSwitcher* lvlSwitch = static_cast<LevelSwitcher*>(go);
+					lvlSwitch->setGameFile(gameFile);
+					go = lvlSwitch;
+				}
 				go->setPosition(new Vec2(pos_x, pos_y));
 				go_list.push_back(go);
 				//set the selected object to the new object created
 				obj_selected = go;
 			}
 		});
-		btn->setSize(new Vec2(100.0f, 100.0f));
+		btn->setSize(new Vec2(buttonSize, buttonSize));
 		btn->setPosition(new Vec2(0.0f, y));
 		btn->setOrigin(new Vec2(0.0f, 0.0f));
-		y += 100.0f;
+		y += buttonSize;
 		ui_elements.push_back(btn);
 		UINum++;
 	}
+
+	y = 0.0f;
+	Button* erase = new Button(new Sprite("TrashCan", GameData::renderer), "DeleteButton", "Button", "Delete", false);
+	erase->setCallbackFunction([this]() {
+		if (obj_selected)
+		{
+			if (obj_selected == GameData::player)
+			{
+				return false;
+			}
+			go_list.erase(std::remove_if(go_list.begin(), go_list.end(), [this](GameObject* go) {
+				return obj_selected == go;
+			}), go_list.end());
+			delete obj_selected;
+			obj_selected = nullptr;
+		}
+		return false;
+	});
+	erase->setSize(new Vec2(100.0f, 100.0f));
+	y += erase->getSize().y;
+	erase->setPosition(new Vec2(GameData::screen.maxCorner.x - erase->getSize().x, GameData::screen.maxCorner.y - y));
+	erase->setOrigin(new Vec2(0.0f, 0.0f));
+	ui_elements.push_back(erase);
+
 	Button* save = new Button(new Sprite("Button", GameData::renderer), "SaveButon", "Button", "Save");
 	save->setCallbackFunction([this]() {
 		auto go = std::find_if(go_list.begin(), go_list.end(), [](GameObject* go)
@@ -125,14 +160,15 @@ LevelEditorScene::LevelEditorScene(std::string _fileName)
 		});
 
 		Level* level = LevelLoader::createLevel(go_list, &player->getPosition(), &(*go)->getPosition(), levelName);
-		LevelLoader::saveLevel(level, std::string(fileName));
+		LevelLoader::saveLevel(level, std::string(gameFile->levels[levelNumber].path));
+		GameFileLoader::saveGameFile(gameFile);
 		delete level;
 		level = nullptr;
 	});
 	save->setSize(new Vec2(100.0f, 100.0f));
-	save->setPosition(new Vec2(0.0f, y));
+	y += save->getSize().y;
+	save->setPosition(new Vec2(GameData::screen.maxCorner.x - save->getSize().x, GameData::screen.maxCorner.y - y));
 	save->setOrigin(new Vec2(0.0f, 0.0f));
-	y += 100.0f;
 	ui_elements.push_back(save);
 
 	Button* load = new Button(new Sprite("Button", GameData::renderer), "LoadButon", "Button", "Copy From");
@@ -211,48 +247,11 @@ LevelEditorScene::LevelEditorScene(std::string _fileName)
 		}
 	});
 	load->setSize(new Vec2(100.0f, 100.0f));
-	load->setPosition(new Vec2(0.0f, y));
+	y += load->getSize().y;
+	load->setPosition(new Vec2(GameData::screen.maxCorner.x - load->getSize().x, GameData::screen.maxCorner.y - y));
 	load->setOrigin(new Vec2(0.0f, 0.0f));
-	y += 100.0f;
 	ui_elements.push_back(load);
 
-	Button* erase = new Button(new Sprite("TrashCan", GameData::renderer), "DeleteButton", "Button", "Delete", false);
-	erase->setCallbackFunction([this]() {
-		if (obj_selected)
-		{
-			if (obj_selected == GameData::player)
-			{
-				return false;
-			}
-			go_list.erase(std::remove_if(go_list.begin(), go_list.end(), [this](GameObject* go) {
-				return obj_selected == go;
-			}), go_list.end());
-			delete obj_selected;
-			obj_selected = nullptr;
-		}
-		return false;
-	});
-	erase->setPosition(new Vec2(0.0f, y));
-	erase->setSize(new Vec2(100.0f, 100.0f));
-	y += 100.0f;
-	ui_elements.push_back(erase);
-
-	Button* BackBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Back");
-	BackBtn->setSize(new Vec2(100.0f, 100.0f));
-	BackBtn->setPosition(new Vec2(1530.0f, 0.0f));//TODO REMOVE FUCKING MAGIC NUMBERS DAAAAAAAAAAAAANNNNNNN!!!!!!
-	BackBtn->setOrigin(new Vec2(0.0f, 0.0f));
-	BackBtn->setCallbackFunction([]() {
-		GameData::scene_manager->setCurrentScene("GameFileCreation", true);
-	});
-
-	ui_elements.push_back(BackBtn);
-
-	TextBox* rename = new TextBox(new Sprite("Button", GameData::renderer), "button1", "Button", levelName);
-	rename->setSize(new Vec2(300.0f, 60.0f));
-	rename->setPosition(new Vec2(GameData::screen.max.x/ 2 - rename->getSize().x/2, GameData::screen.min.y));
-	rename->setOrigin(new Vec2(0.0f, 0.0f));
-
-	ui_elements.push_back(rename);
 #pragma endregion
 }
 
@@ -271,11 +270,19 @@ void LevelEditorScene::Update(float dt)
 		editing = !editing;
 	if (editing)
 	{
-		for (auto go : go_list)
+		for (int i = 0; i < go_list.size(); i ++)
 		{
-			if (go->getAlive())
+			if (go_list[i]->getAlive())
 			{
-				go->GameObject::Update(dt);
+				EditableGameObject* ed_go = dynamic_cast<EditableGameObject*>(go_list[i]);
+				if (ed_go)
+				{
+					ed_go->EditableGameObject::Update(dt);
+				}
+				else
+				{
+					go_list[i]->GameObject::Update(dt);
+				}
 			}
 		}
 		cam->Update(dt);
@@ -314,7 +321,9 @@ void LevelEditorScene::selectObject()
 	{
 		if (!obj_selected)
 		{
+#ifdef ARCADE
 			GameData::inputManager->update();
+#endif
 			for (auto go : *GameData::go_list)
 			{
 				if (GameData::collsion_manager->mouseCollision(go->getBox()))
@@ -331,12 +340,29 @@ void LevelEditorScene::selectObject()
 					}
 					break;
 				}
+				EditableGameObject* ed_go = dynamic_cast<EditableGameObject*>(go);
+				if (ed_go)
+				{
+					for (auto& sub_go : ed_go->ui_elements)
+					{
+						if (GameData::collsion_manager->mouseCollision(sub_go->getBox()))
+						{
+							if (sub_go->getType() == "Waypoint")
+							{
+								obj_selected = sub_go;
+								obj_select_type = ObjectSelectType::BODY;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
 	else if (GameData::inputManager->getMouseRightPress())
 	{
+#ifdef ARCADE
 		GameData::inputManager->update();
+#endif
 		for (auto go : *GameData::go_list)
 		{
 			if (GameData::collsion_manager->mouseCollision(go->getBox()))
@@ -362,25 +388,25 @@ ObjectSelectType LevelEditorScene::getSelectType()
 	Rect edge_box = obj_selected->getBox();
 
 	//Edge A (Left Edge)
-	edge_box.max.x -= obj_selected->getSize().x - edge_size;
+	edge_box.maxCorner.x -= obj_selected->getSize().x - edge_size;
 	if (CollisionManager::mouseCollision(edge_box))
 		obj_edges_selected[ObjectEdge::A] = true;
 
 	//Edge B (Top Edge)
 	edge_box = obj_selected->getBox();
-	edge_box.max.y -= obj_selected->getSize().y - edge_size;
+	edge_box.maxCorner.y -= obj_selected->getSize().y - edge_size;
 	if (CollisionManager::mouseCollision(edge_box))
 		obj_edges_selected[ObjectEdge::B] = true;
 
 	//Edge C (Right Edge)
 	edge_box = obj_selected->getBox();
-	edge_box.min.x += obj_selected->getSize().x - edge_size;
+	edge_box.minCorner.x += obj_selected->getSize().x - edge_size;
 	if (CollisionManager::mouseCollision(edge_box))
 		obj_edges_selected[ObjectEdge::C] = true;
 
 	//Edge D (Bottom Edge)
 	edge_box = obj_selected->getBox();
-	edge_box.min.y += obj_selected->getSize().y - edge_size;
+	edge_box.minCorner.y += obj_selected->getSize().y - edge_size;
 	if (CollisionManager::mouseCollision(edge_box))
 		obj_edges_selected[ObjectEdge::D] = true;
 
@@ -418,7 +444,7 @@ void LevelEditorScene::moveObject()
 	if (obj_selected && obj_select_type == ObjectSelectType::BODY)
 	{
 		obj_selected->movePosition(new Vec2(-GameData::inputManager->mouse_world_x_translation,
-								   -GameData::inputManager->mouse_world_y_translation));
+			-GameData::inputManager->mouse_world_y_translation));
 		for (auto& go : go_list)
 		{
 			if (go != obj_selected)
@@ -439,103 +465,80 @@ void LevelEditorScene::moveObject()
 
 void LevelEditorScene::snap(GameObject* other, GameObject* obj)
 {
-	if (abs(other->getBox().min.x - obj->getBox().min.x) < 10
-		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
-		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	if (abs(other->getBox().minCorner.x - obj->getBox().minCorner.x) < 10
+		&& obj->getBox().minCorner.y > other->getBox().minCorner.y - obj->getSize().y
+		&& obj->getBox().maxCorner.y < other->getBox().maxCorner.y + obj->getSize().y)
 	{
-		obj->setPosition(new Vec2(other->getBox().min.x, obj->getPosition().y));
+		obj->setPosition(new Vec2(other->getBox().minCorner.x, obj->getPosition().y));
 	}
 
-	if (abs(other->getBox().min.y - obj->getBox().min.y) < 10
-		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
-		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	if (abs(other->getBox().minCorner.y - obj->getBox().minCorner.y) < 10
+		&& obj->getBox().minCorner.x > other->getBox().minCorner.x - obj->getSize().x
+		&& obj->getBox().maxCorner.x < other->getBox().maxCorner.x + obj->getSize().x)
 	{
-		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().min.y));
-	}
-
-
-	if (abs(other->getBox().max.x - obj->getBox().min.x) < 10
-		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
-		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
-	{
-		obj->setPosition(new Vec2(other->getBox().max.x, obj->getPosition().y));
-	}
-
-	if (abs(other->getBox().max.y - obj->getBox().min.y) < 10
-		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
-		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
-	{
-		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().max.y));
-	}
-
-	if (abs(other->getBox().min.x - obj->getBox().max.x) < 10
-		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
-		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
-	{
-		obj->setPosition(new Vec2(other->getBox().min.x - obj->getSize().x, obj->getPosition().y));
-	}
-
-	if (abs(other->getBox().min.y - obj->getBox().max.y) < 10
-		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
-		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
-	{
-		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().min.y - obj->getSize().y));
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().minCorner.y));
 	}
 
 
-	if (abs(other->getBox().max.x - obj->getBox().max.x) < 10
-		&& obj->getBox().min.y > other->getBox().min.y - obj->getSize().y
-		&& obj->getBox().max.y < other->getBox().max.y + obj->getSize().y)
+	if (abs(other->getBox().maxCorner.x - obj->getBox().minCorner.x) < 10
+		&& obj->getBox().minCorner.y > other->getBox().minCorner.y - obj->getSize().y
+		&& obj->getBox().maxCorner.y < other->getBox().maxCorner.y + obj->getSize().y)
 	{
-		obj->setPosition(new Vec2(other->getBox().max.x - obj->getSize().x, obj->getPosition().y));
+		obj->setPosition(new Vec2(other->getBox().maxCorner.x, obj->getPosition().y));
 	}
 
-	if (abs(other->getBox().max.y - obj->getBox().max.y) < 10
-		&& obj->getBox().min.x > other->getBox().min.x - obj->getSize().x
-		&& obj->getBox().max.x < other->getBox().max.x + obj->getSize().x)
+	if (abs(other->getBox().maxCorner.y - obj->getBox().minCorner.y) < 10
+		&& obj->getBox().minCorner.x > other->getBox().minCorner.x - obj->getSize().x
+		&& obj->getBox().maxCorner.x < other->getBox().maxCorner.x + obj->getSize().x)
 	{
-		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().max.y - obj->getSize().y));
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().maxCorner.y));
+	}
+
+	if (abs(other->getBox().minCorner.x - obj->getBox().maxCorner.x) < 10
+		&& obj->getBox().minCorner.y > other->getBox().minCorner.y - obj->getSize().y
+		&& obj->getBox().maxCorner.y < other->getBox().maxCorner.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().minCorner.x - obj->getSize().x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().minCorner.y - obj->getBox().maxCorner.y) < 10
+		&& obj->getBox().minCorner.x > other->getBox().minCorner.x - obj->getSize().x
+		&& obj->getBox().maxCorner.x < other->getBox().maxCorner.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().minCorner.y - obj->getSize().y));
+	}
+
+
+	if (abs(other->getBox().maxCorner.x - obj->getBox().maxCorner.x) < 10
+		&& obj->getBox().minCorner.y > other->getBox().minCorner.y - obj->getSize().y
+		&& obj->getBox().maxCorner.y < other->getBox().maxCorner.y + obj->getSize().y)
+	{
+		obj->setPosition(new Vec2(other->getBox().maxCorner.x - obj->getSize().x, obj->getPosition().y));
+	}
+
+	if (abs(other->getBox().maxCorner.y - obj->getBox().maxCorner.y) < 10
+		&& obj->getBox().minCorner.x > other->getBox().minCorner.x - obj->getSize().x
+		&& obj->getBox().maxCorner.x < other->getBox().maxCorner.x + obj->getSize().x)
+	{
+		obj->setPosition(new Vec2(obj->getPosition().x, other->getBox().maxCorner.y - obj->getSize().y));
 	}
 }
 
 void LevelEditorScene::toggleMode(GameObject * _go)
 {
-	if (_go->getName() == "Platform") //TODO Change this to hae a consistent way of finding objects
-	{
-		Platform* platform = static_cast<Platform*>(_go);
-		platform->changeType((PLATFORM_TYPE)(((int)(platform->getPlatformType()))+1));
-	}
-	else if (_go->getType() == "RopeNode")
+	EditableGameObject* go;
+	if (_go->getType() == "RopeNode")
 	{
 		RopeNode* rope = static_cast<RopeNode*>(_go);
-		if (GameData::inputManager->getKeyHeld(Inputs::CTRL))
-		{
-			rope->parent->removeNode();
-		}
-		else
-		{
-			rope->parent->addNode();
-		}
+		go = dynamic_cast<EditableGameObject*>(rope->parent);
 	}
-	else if (_go->getType() == "Enemy")
+	else
 	{
-		static_cast<Enemy*>(_go)->toggleWaypoints();
+		go = dynamic_cast<EditableGameObject*>(_go);
 	}
-	else if (_go->getTag() == "EnemyWaypoint")
+	if (go)
 	{
-		EnemyWaypoint* wp = static_cast<EnemyWaypoint*>(_go);
-		if (GameData::inputManager->getKeyHeld(Inputs::CTRL))
-		{
-			wp->parent->removeWaypoint();
-		}
-		else
-		{
-			wp->parent->addWaypoint();
-		}
-	}
-	else if (obj_selected && obj_select_type != ObjectSelectType::NONE)
-	{
-		scaleObject();
+		go->toggleEditing();
 	}
 }
 
@@ -545,15 +548,6 @@ void LevelEditorScene::scaleObject()
 {
 	if (!obj_selected || obj_select_type == ObjectSelectType::BODY)
 		return;
-
-	/*
-		Left: obj_selected->getPosition().x + InputManager::mouse_x_translation
-				obj_selected->getPosition().x + InputManager::mouse_x_translation
-		Top:  obj_selected->getPosition().y + InputManager::mouse_y_translation
-				obj_selected->getSize().y - InputManager::mouse_y_translation
-		Right:  obj_selected->getSize().x + InputManager::mouse_x_translation;
-		Bottom: obj_selected->getSize().y + InputManager::mouse_y_translation
-	*/
 
 	GameData::inputManager->readMouse();
 	if (obj_select_type == ObjectSelectType::TOP_LEFT)

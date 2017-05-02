@@ -9,7 +9,7 @@ UI::UI(Sprite * _sprite, BaseCamera * camera)
 {
 	sprite = _sprite;
 	sprite->setPosition(main_camera->getPosition() * -1);
-	Vec2 screenSize(GameData::screen.max);
+	Vec2 screenSize(GameData::screen.maxCorner);
 	Vec2 scaleFactor(screenSize.x / sprite->getSize().x, screenSize.y / sprite->getSize().y);
 	sprite->setScale(scaleFactor);
 }
@@ -25,7 +25,7 @@ UI::UI(std::vector<Sprite*> UI_Sprites, BaseCamera * camera)
 
 	for (unsigned int i = 0; i < UIElements.size(); i++)
 	{
-		Vec2 screenSize(GameData::screen.max);
+		Vec2 screenSize(GameData::screen.maxCorner);
 		Vec2 scaleFactor(0.2f, 0.2f);
 		
 		UIElements[i]->setScale(scaleFactor);
