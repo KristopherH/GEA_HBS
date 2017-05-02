@@ -115,6 +115,9 @@
     <ClCompile Include="GameOver.cpp">
       <Filter>Source\UI\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>Source\Game Objects\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelEditor.h">
@@ -233,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="GameOver.h">
       <Filter>Headers\UI\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>Headers\Game Objects\Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

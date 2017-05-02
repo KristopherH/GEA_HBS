@@ -257,6 +257,9 @@
   <ItemGroup>
     <ImageContentTask Include="GameObjects\Door.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Characters\Cannon.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

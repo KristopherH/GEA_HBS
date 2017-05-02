@@ -56,10 +56,6 @@ LevelEditorScene::LevelEditorScene(GameFile* _gameFile, int lvlNumber)
 	GameObject* bg = ObjectFactory::createBackground(level1->backgroundStartingPos);
 	go_list.push_back(bg);
 
-	Ballistics* bullet = new Ballistics();
-	go_list.push_back(bullet);
-	bullet->setPosition(new Vec2(0.0f, 0.0f));
-	bullet->setSize(new Vec2(100.0f, 120.0f));
 	for (auto go : level1->go_list)
 	{
 		go_list.push_back(go);

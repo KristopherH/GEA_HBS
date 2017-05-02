@@ -11,6 +11,7 @@
 #include "Checkpoint.h"
 #include "MovingPlatform.h"
 #include "LevelSwitcher.h"
+#include "Gun.h"
 //#ifdef _DXTK_
 #include "Texture.h"
 //#endif
@@ -135,11 +136,16 @@ GameObject * ObjectFactory::createCheckpoint()
 {
 	return new Checkpoint(new Sprite(texture_pool[CHECKPOINT]));
 }
+GameObject * ObjectFactory::createGun()
+{
+	return new Gun();
+}
 
 GameObject * ObjectFactory::createLevelSwitcher()
 {
 	return new LevelSwitcher(new Sprite(texture_pool[LEVEL_SWITCHER]), nullptr);
 }
+
 
 void ObjectFactory::init()
 {
@@ -151,6 +157,8 @@ void ObjectFactory::init()
 	ObjectFactory::create_object[ROPE] = createRope;
 	ObjectFactory::create_object[CHECKPOINT] = createCheckpoint;
 	ObjectFactory::create_object[LEVEL_SWITCHER] = createLevelSwitcher;
+	ObjectFactory::create_object[GUN] = createGun;
+
 
 	ObjectFactory::texture_pool[PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
 	ObjectFactory::texture_pool[MOVING_PLATFORM] = new Texture("SpeedPlatform", GameData::renderer);
@@ -163,6 +171,7 @@ void ObjectFactory::init()
 	ObjectFactory::texture_pool[BUTTON_MINUS] = new Texture("minus-icon", GameData::renderer);
 	ObjectFactory::texture_pool[BUTTON_PLUS] = new Texture("plus-icon", GameData::renderer);
 	ObjectFactory::texture_pool[LEVEL_SWITCHER] = new Texture("Door", GameData::renderer);
+	ObjectFactory::texture_pool[GUN] = new Texture("Cannon", GameData::renderer);
 
 	ObjectFactory::names[PLATFORM] = "Platform";
 	ObjectFactory::names[MOVING_PLATFORM] = "Moving\nPlatform";
@@ -172,4 +181,6 @@ void ObjectFactory::init()
 	ObjectFactory::names[ROPE] = "Rope";
 	ObjectFactory::names[CHECKPOINT] = "Checkpoint";
 	ObjectFactory::names[LEVEL_SWITCHER] = "Level\nSwitcher";
+	ObjectFactory::names[GUN] = "Cannon";
+
 }
