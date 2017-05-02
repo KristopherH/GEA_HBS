@@ -158,5 +158,8 @@
     <ImageContentTask Include="GameObjects\Door.png">
       <Filter>Textures\GameObjects</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="BG\GameOverBackGround.png">
+      <Filter>Textures\BG</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

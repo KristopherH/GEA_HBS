@@ -10,6 +10,7 @@
 #include "Game_Controller.h"
 #include "SceneManager.h"
 #include "PauseMenu.h"
+#include "GameOver.h"
 
 Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObject(_sprite, _name, _tag)
@@ -325,7 +326,8 @@ void Player::killPlayer()
 	setPosition(lastCheckpoint);
 	if (lives <= 0)
 	{
-		GameData::scene_manager->addScene("GameOver", new PauseMenu());
+		GameData::scene_manager->addScene("GameOver", new GameOver());
+		GameData::scene_manager->setCurrentScene("GameOver");
 	}
 }
 
