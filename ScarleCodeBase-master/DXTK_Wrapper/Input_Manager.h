@@ -35,7 +35,6 @@ public:
 	static std::map<InputLabel, Input> key_inputs;
 	static std::map<InputLabel, std::string> key_effect_names;
 
-	void changeInput(InputLabel _input, Input _key);
 	std::string ConvertToASCII(DWORD _key);
 
 #pragma region Mouse Input
@@ -52,13 +51,18 @@ public:
 	bool getKeyDown(Input _key);
 	bool getKeyUp(Input _key);
 	bool getKeyHeld(Input _key);
+
+	std::thread change_key;
+
+	void inputChangeHandler(InputLabel _input);
+	void changeInput(InputLabel _input);
 #pragma endregion
 
 #pragma region GamePad Input
 	bool gamePadButtonDown(unsigned int button);
 	bool gamePadButtonUp(unsigned int button);
 	bool gamePadButtonHeld(unsigned int button);
-#pragma endregion going to have to look more into this (pre-processor shit)
+#pragma endregion Not implementing this
 
 #pragma region Couple of checkers (need to double check what these would be)
 	bool init();
