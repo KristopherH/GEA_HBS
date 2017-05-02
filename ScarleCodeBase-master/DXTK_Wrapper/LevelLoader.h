@@ -9,18 +9,24 @@
 #include "GameObject.h"
 #include "CustomMath.h"
 
+class GameFile;
+
 struct Level
 {
+	
 	std::string name = "NULL";
 	std::string path;
 	Vec2* playerStartingPosition;
 	Vec2* backgroundStartingPos;
 	std::vector<GameObject*> go_list;
 
+	GameFile* gameFile;
+
 	int findCollectibles();
 };
 
-static const std::vector<std::string> acceptedTypes = { "Platform", "Collectible", "Enemy", "Ladder", "Rope" };
+static const std::vector<std::string> acceptedTypes = { "Platform",
+"Collectible", "Enemy", "Ladder", "Rope", "Checkpoint", "MovingPlatform", "LevelSwitcher" };
 
 class LevelLoader
 {

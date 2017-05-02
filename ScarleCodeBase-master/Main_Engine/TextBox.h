@@ -18,6 +18,8 @@ public:
 
 	void setOnEnterCallback(std::function<void()> funct);
 
+	void setScreenSpace(bool _screenSpace) { screenSpace = _screenSpace; }
+
 	std::string getText();
 
 private:
@@ -26,6 +28,8 @@ private:
 	std::string text;
 	bool selected;
 	bool entered = true;
+
+	bool screenSpace = true;
 
 	std::function<void()> onEnter;
 };

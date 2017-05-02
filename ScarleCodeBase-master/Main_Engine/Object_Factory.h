@@ -14,7 +14,13 @@ enum Type
 	LADDER,
 	COLLECTIBLE,
 	BACKGROUND,
-	ROPE
+	ROPE,
+	CHECKPOINT,
+	MOVING_PLATFORM,
+	LEVEL_SWITCHER,
+	BUTTON,
+	BUTTON_PLUS,
+	BUTTON_MINUS
 };
 
 class ObjectFactory
@@ -23,15 +29,19 @@ public:
 	static GameObject* createPlayer();
 	static GameObject* createEnemy();
 	static GameObject* createPlatform();
+	static GameObject* createMovingPlatform();
 	static GameObject* createLadder();
 	static GameObject* createCollectable();
 	static GameObject* createBackground(Vec2* pos);
 	static GameObject* createRope();
+	static GameObject* createCheckpoint();
+	static GameObject* createLevelSwitcher();
 
 	static void init();
 
 	static std::map<Type, std::function<GameObject*()>> create_object;
 	static std::map<Type, Texture*> texture_pool;
+	static std::map<Type, std::string> names;
 
 	//static std::map<Type, std::string> objects_sprite_names;
 };

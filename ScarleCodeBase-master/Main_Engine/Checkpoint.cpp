@@ -5,30 +5,21 @@
 #include "GameData.h"
 #include "Player.h"
 
-Checkpoint::Checkpoint(Vec2 * _pos, Vec2 * _size, float _rotation, std::string _name)
+Checkpoint::Checkpoint(Sprite * _sprite, Vec2 _pos, Vec2 _size, float _rotation, std::string _name)
+	:EditableGameObject(_sprite)
 {
-	setSprite(new Sprite("sign-2", GameData::renderer));
-	setPosition(_pos);
-	setSize(_size);
+	setSize(&_size);
+	setPosition(&_pos);
 	setRotation(_rotation);
 	setName(_name);
+	setType("Checkpoint");
 	setSolid(false);
-	active = true;
-}
-
-Checkpoint::Checkpoint(Sprite * _sprite, Vec2 * _pos, Vec2 * _size, float _rotation, std::string _name)
-	:GameObject(_sprite)
-{
-	setPosition(_pos);
-	setSize(_size);
-	setRotation(_rotation);
-	setName(_name);
 	active = true;
 }
 
 bool Checkpoint::Update(float dt)
 {
-	GameObject::Update(dt);
+	EditableGameObject::Update(dt);
 
 	if (active == true)
 	{
@@ -37,7 +28,7 @@ bool Checkpoint::Update(float dt)
 			//newCheckpoint = true;
 			GameData::player->setLastCheckpoint(new Vec2(getPosition()));
 			GameData::sound_manager->playSound("Checkpoint-SoundEffect.wav");
-			active = false;
+			//active = false;
 		}
 	}
 	return false;

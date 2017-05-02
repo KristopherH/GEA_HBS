@@ -1,11 +1,18 @@
 #include "Rope.h"
+#include "Rope.h"
+#include "Rope.h"
 #include "Texture.h"
 #include "Player.h"
 #include <algorithm> //remove and remove_if
+#include "Button.h"
+#include "GameData.h"
+#include "Object_Factory.h"
 
 Rope::Rope(Vec2 _pos, Texture * _texture, int _numOfNodes, float _springConst, float _springLength, float _springFrictionConst, Vec2 _ropeSize, vector<GameObject*>* go_list)
 	:numOfNodes(_numOfNodes), springConst(_springConst), springLength(_springLength), springFrictionConst(_springFrictionConst), ropeSize(_ropeSize)
 {
+	size.x = ropeSize.x;
+	size.y = ropeSize.y;
 	type = "Rope";
 	solid = false;
 	Vec2 pos = _pos;
@@ -118,7 +125,7 @@ bool Rope::Update(float dt)
 			}
 		}
 	}
-	GameObject::Update(dt);
+	EditableGameObject::Update(dt);
 	return false;
 }
 
@@ -128,7 +135,7 @@ bool Rope::Draw()
 	{
 		rope->Draw();
 	}
-	return true;
+	return EditableGameObject::Draw();
 }
 
 void Rope::updateParenting()
@@ -150,14 +157,123 @@ void Rope::playerGrabbed(RopeNode* nodeGrabbed, Vec2 playerPosRelativeToNode)
 	}
 }
 
+void Rope::toggleEditing()
+{
+	EditableGameObject::toggleEditing();
+	if (editing)
+	{
+		Button* ropeSegments = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
+			"NameChanger", "NULL", "Segments:" + to_string(ropeNodes.size()));
+		ropeSegments->setSize(new Vec2(max(size.x, 100), 50));
+		ropeSegments->setCallbackFunction([]()
+		{
+			return;
+		});
+		ropeSegments->setScreenSpace(false);
+		ui_elements.push_back(ropeSegments);
+
+		Button* plusSegments = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_PLUS]),
+			"NameChanger", "NULL", "");
+		plusSegments->setSize(new Vec2(50, 50));
+		plusSegments->setCallbackFunction([this, ropeSegments]()
+		{
+			addNode();
+			ropeSegments->setText("Segments:" + to_string(ropeNodes.size()));
+			return;
+		});
+		plusSegments->setScreenSpace(false);
+		ui_elements.push_back(plusSegments);
+
+		Button* minusSegment = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_MINUS]),
+			"NameChanger", "NULL", "");
+		minusSegment->setSize(new Vec2(50, 50));
+		minusSegment->setCallbackFunction([this, ropeSegments]()
+		{
+			removeNode();
+			ropeSegments->setText("Segments:" + to_string(ropeNodes.size()));
+			return;
+		});
+		minusSegment->setScreenSpace(false);
+		ui_elements.push_back(minusSegment);
+
+		minusSegment->setPosition(new Vec2(position.x + size.x, position.y));
+		ropeSegments->setPosition(new Vec2(position.x + size.x + minusSegment->getSize().x, position.y));
+		plusSegments->setPosition(new Vec2(position.x + size.x + minusSegment->getSize().x + ropeSegments->getSize().x, position.y));
+
+
+		Button* segmentLength = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
+			"NameChanger", "NULL", "Segment Length:" + to_string(size.y));
+		segmentLength->setSize(new Vec2(max(size.x, 100), 50));
+		
+		segmentLength->setCallbackFunction([]()
+		{
+			return;
+		});
+		segmentLength->setScreenSpace(false);
+		ui_elements.push_back(segmentLength);
+
+		Button* plusLength= new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_PLUS]),
+			"NameChanger", "NULL", "");
+		plusLength->setSize(new Vec2(50, 50));
+		plusLength->setCallbackFunction([this, segmentLength]()
+		{
+			setSize(new Vec2(getSize().x, getSize().y + 1.0f));
+			springLength = getSize().y;
+			redoNodes();
+			segmentLength->setText("Segment Length:" + to_string(size.y));
+			return;
+		});
+		plusLength->setScreenSpace(false);
+		ui_elements.push_back(plusLength);
+
+		Button* minusLength = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_MINUS]),
+			"NameChanger", "NULL", "");
+		minusLength->setSize(new Vec2(50, 50));
+		
+		minusLength->setCallbackFunction([this, segmentLength]()
+		{
+			setSize(new Vec2(getSize().x, getSize().y - 1.0f));
+			springLength = getSize().y;
+			redoNodes();
+			segmentLength->setText("Segment Length:" + to_string(size.y));
+			return;
+		});
+		minusLength->setScreenSpace(false);
+		ui_elements.push_back(minusLength);
+		
+
+		minusLength->setPosition(new Vec2(position.x + size.x,
+			position.y + ropeSegments->getSize().y));
+		segmentLength->setPosition(new Vec2(position.x + size.x + minusLength->getSize().x,
+			position.y + ropeSegments->getSize().y));
+		plusLength->setPosition(new Vec2(position.x + size.x + minusLength->getSize().x + segmentLength->getSize().x,
+			position.y + ropeSegments->getSize().y));
+
+	}
+}
+
+void Rope::redoNodes()
+{
+	int nodes = 0;
+	for (int i = 0; i < ropeNodes.size(); i++)
+	{
+		removeNode();
+		nodes++;
+	}
+	for (int i = 0; i < nodes; i++)
+	{
+		addNode();
+	}
+}
+
 void Rope::addNode()
 {
 	RopeNode* rope1 = new RopeNode(new Sprite(ropeNodes[0]->getSprite()->GetTexture()),
 		springConst, springLength, springFrictionConst);
-	rope1->setSize(&ropeSize);
+	rope1->setSize(&getSize());
 	Vec2 pos;
 	pos += ropeNodes[ropeNodes.size() - 1]->getPosition();
-	pos.y += ropeSize.y;
+	pos.y += getSize().y;
 	rope1->setPosition(&pos);
 	ropeNodes[ropeNodes.size() - 1]->setNextNode(rope1);
 	rope1->setPrevNode(ropeNodes[ropeNodes.size() - 1]);
@@ -209,6 +325,7 @@ void Rope::setSize(Vec2 * _size)
 	{
 		node->setSize(_size);
 	}
+	GameObject::setSize(_size);
 }
 
 void Rope::setScale(Vec2 * _scale)
@@ -225,7 +342,7 @@ void Rope::setPosition(Vec2 * _pos)
 	translation -= ropeNodes[0]->getPosition();
 	translation += *_pos;
 	movePosition(&translation);
-	GameObject::setPosition(_pos);
+	EditableGameObject::setPosition(_pos);
 }
 
 void Rope::movePosition(Vec2 * _translation)
@@ -234,7 +351,7 @@ void Rope::movePosition(Vec2 * _translation)
 	{
 		node->setPosition(&(node->getPosition() + *_translation));
 	}
-	GameObject::movePosition(_translation);
+	EditableGameObject::movePosition(_translation);
 }
 
 Vec2 Rope::getPosition()

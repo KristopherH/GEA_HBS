@@ -32,7 +32,7 @@ GameObject::GameObject(std::vector<Sprite*> _sprite)
 
 GameObject::~GameObject()
 {
-	if (sprite == nullptr)
+	if (sprite != nullptr)
 	{
 		delete sprite;
 		sprite = nullptr;
@@ -55,10 +55,10 @@ bool GameObject::Update(float dt)
 	{
 		sprite->Update();
 
-		box.min.x = position.x;
-		box.min.y = position.y;
-		box.max.x = position.x + this->getSize().x;
-		box.max.y = position.y + this->getSize().y;
+		box.minCorner.x = position.x;
+		box.minCorner.y = position.y;
+		box.maxCorner.x = position.x + this->getSize().x;
+		box.maxCorner.y = position.y + this->getSize().y;
 
 		sprite->setPosition(position);
 		sprite->setRotation(rotation);
@@ -79,7 +79,11 @@ bool GameObject::Update(float dt)
 
 bool GameObject::Draw()
 {
-	return GameData::renderer->Draw(sprite);
+	if (sprite)
+	{
+		return GameData::renderer->Draw(sprite);
+	}
+	return false;
 }
 
 void GameObject::setPosition(Vec2 * _position)
@@ -88,10 +92,10 @@ void GameObject::setPosition(Vec2 * _position)
 	if (sprite != nullptr)
 	{
 		bottomCollider = Rect(Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
-		bottomCollider.max += sprite->getSize();
-		bottomCollider.min += Vec2(0.0f, sprite->getSize().y);
-		bottomCollider.max *= scale;
-		bottomCollider.min *= scale;
+		bottomCollider.maxCorner += sprite->getSize();
+		bottomCollider.minCorner += Vec2(0.0f, sprite->getSize().y);
+		bottomCollider.maxCorner *= scale;
+		bottomCollider.minCorner *= scale;
 	}
 }
 
@@ -99,9 +103,12 @@ void GameObject::setSize(Vec2 * _size)
 {
 	size.x = _size->x;
 	size.y = _size->y;
-	Vec2 textureSize = sprite->getSize();
-	scale.x = _size->x / textureSize.x;
-	scale.y = _size->y / textureSize.y;
+	if (sprite)
+	{
+		Vec2 textureSize = sprite->getSize();
+		scale.x = _size->x / textureSize.x;
+		scale.y = _size->y / textureSize.y;
+	}
 	return;
 }
 
@@ -127,10 +134,6 @@ void GameObject::movePosition(Vec2* _translation)
 
 void GameObject::gravityUpdate()
 {
-	/*if (!gravity_on)
-	{
-		return;
-	}*/
 	//Very messy Needs tidying up after alpha submission
 	bool new_grounded = false;
 	for (const auto& current_object : *GameData::go_list)
@@ -145,26 +148,8 @@ void GameObject::gravityUpdate()
 					if (GameData::collsion_manager->boxCollision(
 						this->box, current_object->getBox()))
 					{
-						//if (GameData::collsion_manager->boxCollision(box, current_object->getBox()))
-						//{
-						//	Vec2 centToSide = box.Center();
-						//	centToSide -= current_object->getBox().Center();
-						//	if (Vec2::dot(centToSide, velocity) < 0.0f)
-						//	{
-						//		if (!grounded) // If not previously grounded
-						//		{
-						//			position -= velocity;
-						//			acceleration.x = 0.0f;
-						//			acceleration.y = 0.0f;
-						//			velocity.x = 0.0f;
-						//			velocity.y = 0.0f;
-						//		}
-						//		new_grounded = true;
-						//		break;
-						//	}
-						//}
 						Rect top_of_the_platform(current_object->getBox()/* + current_object->getPosition()*/);
-						top_of_the_platform.max.y = top_of_the_platform.min.y + 60.0f;
+						top_of_the_platform.maxCorner.y = top_of_the_platform.minCorner.y + 60.0f;
 						if (GameData::collsion_manager->boxCollision(
 							bottomCollider + position , top_of_the_platform))
 						{

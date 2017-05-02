@@ -61,7 +61,7 @@ InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 	window = _window;
 	h_instance = _h_instance;
 	
-	SetCursorPos((int)GameData::screen.min.x, (int)GameData::screen.min.y);
+	SetCursorPos((int)GameData::screen.minCorner.x, (int)GameData::screen.minCorner.y);
 }
 
 InputManager::~InputManager()
@@ -185,9 +185,9 @@ bool InputManager::getMouseRightPress()
 
 bool InputManager::getMouseLeftPress()
 {
-	readMouse();
-	if (mouse_state.rgbButtons[0] & 0x80
-		&& !(previous_mouse_state.rgbButtons[0] & 0x80))
+	//readMouse();
+	if (mouse_state.rgbButtons[0]
+		&& !(previous_mouse_state.rgbButtons[0]))
 		return true;
 
 	return false;
@@ -419,15 +419,15 @@ void InputManager::update()
 		mouse_y_translation = 0;
 	}
 
-	if (mouse_x > (int)(GameData::screen.max.x))
+	if (mouse_x > (int)(GameData::screen.maxCorner.x))
 	{
-		mouse_x = (int)GameData::screen.max.x;
+		mouse_x = (int)GameData::screen.maxCorner.x;
 		mouse_x_translation = 0;
 	}
 
-	if (mouse_y > (int)(GameData::screen.max.y))
+	if (mouse_y > (int)(GameData::screen.maxCorner.y))
 	{
-		mouse_y = (int)GameData::screen.max.y;
+		mouse_y = (int)GameData::screen.maxCorner.y;
 		mouse_y_translation = 0;
 	}
 
