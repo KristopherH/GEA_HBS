@@ -178,7 +178,6 @@
     <ClInclude Include="GameData.h" />
     <ClInclude Include="GameFileCreation.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameOver.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Game_Controller.h" />
     <ClInclude Include="LevelEditor.h" />
@@ -219,7 +218,6 @@
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GameFileCreation.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Game_Controller.cpp" />
     <ClCompile Include="LevelEditor.cpp" />

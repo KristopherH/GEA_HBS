@@ -236,9 +236,8 @@
     <ImageContentTask Include="Platforms\SpeedPlatform.png" />
     <ImageContentTask Include="Platforms\StickyPlatform.png" />
     <ImageContentTask Include="Characters\Waypoint.png" />
+    <ImageContentTask Include="Platforms\StandardPlatform.png" />
     <ImageContentTask Include="Platforms\StandardPlatformLong.png" />
-    <Image Include="GameOver\GameOverBackGround.png" />
-    <Image Include="UI\Button.png" />
     <ImageContentTask Include="UI\logo_small.png" />
     <ImageContentTask Include="UI\minus-icon.png" />
     <ImageContentTask Include="UI\mute-icon.png" />
