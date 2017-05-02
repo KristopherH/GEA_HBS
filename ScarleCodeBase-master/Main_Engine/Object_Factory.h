@@ -20,7 +20,8 @@ enum Type
 	LEVEL_SWITCHER,
 	BUTTON,
 	BUTTON_PLUS,
-	BUTTON_MINUS
+	BUTTON_MINUS,
+	GUN
 };
 
 class ObjectFactory
@@ -36,6 +37,7 @@ public:
 	static GameObject* createRope();
 	static GameObject* createCheckpoint();
 	static GameObject* createLevelSwitcher();
+	static GameObject* createGun();
 
 	static void init();
 
