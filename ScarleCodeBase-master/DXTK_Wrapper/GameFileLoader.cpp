@@ -41,7 +41,6 @@ GameFile * GameFileLoader::loadGame(std::string LevelPath)
 			}
 		}
 	}
-
 	return game;
 }
 
