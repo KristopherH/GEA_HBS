@@ -82,12 +82,12 @@ void OptionsMenu::optionsText()
 
 void OptionsMenu::keyBindings()
 {
-	char up = GameData::inputManager->ConvertToASCII(GameData::inputManager->getUpKey());
-	char down = GameData::inputManager->ConvertToASCII(GameData::inputManager->getDownKey());
-	char left = GameData::inputManager->ConvertToASCII(GameData::inputManager->getLeftKey());
-	char right = GameData::inputManager->ConvertToASCII(GameData::inputManager->getRightKey());
-	char jump = GameData::inputManager->ConvertToASCII(GameData::inputManager->getJumpKey());
-	char pause = GameData::inputManager->ConvertToASCII(GameData::inputManager->getPauseKey());
+	char up = GameData::inputManager->ConvertToASCII(InputManager::key_inputs[InputLabel::UP]);
+	char down = GameData::inputManager->ConvertToASCII(InputManager::key_inputs[InputLabel::DOWN]);
+	char left = GameData::inputManager->ConvertToASCII(InputManager::key_inputs[InputLabel::LEFT]);
+	char right = GameData::inputManager->ConvertToASCII(InputManager::key_inputs[InputLabel::RIGHT]);
+	char jump = GameData::inputManager->ConvertToASCII(InputManager::key_inputs[InputLabel::JUMP]);
+	char pause = GameData::inputManager->ConvertToASCII(InputManager::key_inputs[InputLabel::PAUSE]);
 
 	std::string UpString;
 	UpString = up;

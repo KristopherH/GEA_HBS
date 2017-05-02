@@ -28,12 +28,12 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	std::cout << "Arcade not defined" << std::endl;
 	#endif
 
-	KeyBindsHold[Inputs::JUMP] = std::bind(&Player::OnJump, this);
-	KeyBindsHold[Inputs::LEFT] = std::bind(&Player::OnMove, this, Vec2(-speed, 0.0f));
-	KeyBindsHold[Inputs::RIGHT] = std::bind(&Player::OnMove, this, Vec2(speed, 0.0f));
-	KeyBindsHold[Inputs::UP] = std::bind(&Player::OnMove, this, Vec2(0.0f, -speed));
-	KeyBindsHold[Inputs::DOWN] = std::bind(&Player::OnMove, this, Vec2(0.0f, speed));
-	KeyBindsHold[Inputs::PAUSE] = std::bind(&Player::PauseGame, this);
+	KeyBindsHold[InputManager::key_inputs[InputLabel::JUMP]] = std::bind(&Player::OnJump, this);
+	KeyBindsHold[InputManager::key_inputs[InputLabel::LEFT]] = std::bind(&Player::OnMove, this, Vec2(-speed, 0.0f));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::RIGHT]] = std::bind(&Player::OnMove, this, Vec2(speed, 0.0f));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::UP]] = std::bind(&Player::OnMove, this, Vec2(0.0f, -speed));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::DOWN]] = std::bind(&Player::OnMove, this, Vec2(0.0f, speed));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::PAUSE]] = std::bind(&Player::PauseGame, this);
 }
 
 Player::~Player()

@@ -5,22 +5,24 @@
 #include <dinput.h>
 #include <queue>
 #include <mutex>
+#include <map>
 
 //OURS
 
 
 using Input = int;
 
-struct Inputs
+enum class InputLabel
 {
-	static Input UP;
-	static Input DOWN;
-	static Input LEFT;
-	static Input RIGHT;
-	static Input JUMP;
-	static Input USE;
-	static Input PAUSE;
-	static Input CTRL;
+	NONE,
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	JUMP,
+	USE,
+	PAUSE,
+	CTRL
 };
 
 class InputManager
@@ -30,20 +32,10 @@ public:
 	InputManager(HWND _window, HINSTANCE _h_instance);
 	~InputManager();
 
-	void newUpKey(Input _Key);
+	static std::map<InputLabel, Input> key_inputs;
+
+	void changeInput(InputLabel _input, Input _key);
 	int ConvertToASCII(DWORD _key);
-	void newDownKey(Input _Key);
-	void newLeftKey(Input _Key);
-	void newRightKey(Input _Key);
-	void newJumpKey(Input _Key);
-	void newPauseKey(Input _Key);
-	
-	Input getUpKey();
-	Input getDownKey();
-	Input getLeftKey();
-	Input getRightKey();
-	Input getJumpKey();
-	Input getPauseKey();
 
 #pragma region Mouse Input
 	bool getMouseRight();
@@ -74,7 +66,7 @@ public:
 	void update();
 #pragma endregion
 
-#pragma region Gual
+#pragma region Gual, give this a proper name please...
 
 	std::mutex mtx;
 	void stringInputBackspace();

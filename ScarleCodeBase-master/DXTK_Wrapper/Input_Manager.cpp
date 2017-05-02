@@ -30,30 +30,28 @@ float InputManager::mouse_world_y_translation = 0;
 int InputManager::mouse_scroll = 0;
 int InputManager::mouse_scroll_translation = 0;
 
-Input up_key = DIK_W;
-Input down_key = DIK_S;
-Input left_key = DIK_A;
-Input right_key = DIK_D;
-Input jump_key = DIK_SPACE;
-Input pause_key = DIK_P;
-
 #ifdef ARCADE
-Input Inputs::UP = DIK_R;
-Input Inputs::DOWN = DIK_F;
-Input Inputs::LEFT = DIK_D;
-Input Inputs::RIGHT = DIK_G;
-Input Inputs::JUMP = DIK_LSHIFT;
-Input Inputs::USE = DIK_1;
-Input Inputs::CTRL = DIK_LCONTROL;
+std::map<InputLabel, Input> InputManager::key_inputs =
+{
+	{ InputLabel::UP, (Input)DIK_R },
+	{ InputLabel::DOWN, (Input)DIK_F },
+	{ InputLabel::LEFT, (Input)DIK_D },
+	{ InputLabel::RIGHT, (Input)DIK_G },
+	{ InputLabel::JUMP, (Input)DIK_LSHIFT },
+	{ InputLabel::USE, (Input)DIK_1 },
+	{ InputLabel::PAUSE, (Input)DIK_LCONTROL }
+};
 #else
-Input Inputs::UP = up_key;
-Input Inputs::DOWN = down_key;
-Input Inputs::LEFT = left_key;
-Input Inputs::RIGHT = right_key;
-Input Inputs::PAUSE = pause_key;
-Input Inputs::JUMP = jump_key;
-Input Inputs::USE = DIK_RETURN;
-Input Inputs::CTRL = DIK_LCONTROL;
+std::map<InputLabel, Input> InputManager::key_inputs =
+{
+	{ InputLabel::UP, (Input)DIK_W },
+	{ InputLabel::DOWN, (Input)DIK_S },
+	{ InputLabel::LEFT, (Input)DIK_A },
+	{ InputLabel::RIGHT, (Input)DIK_D },
+	{ InputLabel::JUMP, (Input)DIK_SPACE },
+	{ InputLabel::USE, (Input)DIK_RETURN },
+	{ InputLabel::PAUSE, (Input)DIK_ESCAPE }
+};
 #endif
 
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
@@ -70,11 +68,16 @@ InputManager::~InputManager()
 	if (user_keyboard)		user_keyboard->Release();
 	if (user_mouse)         user_mouse->Release();
 }
+//
+//void InputManager::newUpKey(Input _Key)
+//{
+//	up_key = _Key;
+//	Inputs::UP = _Key;	
+//}
 
-void InputManager::newUpKey(Input _Key)
+void InputManager::changeInput(InputLabel _input, Input _key)
 {
-	up_key = _Key;
-	Inputs::UP = _Key;	
+	InputManager::key_inputs[_input] = _key;
 }
 
 int InputManager::ConvertToASCII(DWORD _key)
@@ -88,65 +91,65 @@ int InputManager::ConvertToASCII(DWORD _key)
 	return vk;
 }
 
-void InputManager::newDownKey(Input _Key)
-{
-	down_key = _Key;
-	Inputs::DOWN = _Key;
-}
-
-void InputManager::newLeftKey(Input _Key)
-{
-	left_key = _Key;
-	Inputs::LEFT = _Key;
-}
-
-void InputManager::newRightKey(Input _Key)
-{
-	right_key = _Key;
-	Inputs::RIGHT = _Key;
-}
-
-void InputManager::newJumpKey(Input _Key)
-{
-	jump_key = _Key;
-	Inputs::JUMP = _Key;
-}
-
-void InputManager::newPauseKey(Input _Key)
-{
-	pause_key = _Key;
-	Inputs::PAUSE = _Key;
-}
-
-Input InputManager::getUpKey()
-{
-	return up_key;
-}
-
-Input InputManager::getDownKey()
-{
-	return down_key;
-}
-
-Input InputManager::getLeftKey()
-{
-	return left_key;
-}
-
-Input InputManager::getRightKey()
-{
-	return right_key;
-}
-
-Input InputManager::getJumpKey()
-{
-	return jump_key;
-}
-
-Input InputManager::getPauseKey()
-{
-	return pause_key;
-}
+//void InputManager::newDownKey(Input _Key)
+//{
+//	down_key = _Key;
+//	Inputs::DOWN = _Key;
+//}
+//
+//void InputManager::newLeftKey(Input _Key)
+//{
+//	left_key = _Key;
+//	Inputs::LEFT = _Key;
+//}
+//
+//void InputManager::newRightKey(Input _Key)
+//{
+//	right_key = _Key;
+//	Inputs::RIGHT = _Key;
+//}
+//
+//void InputManager::newJumpKey(Input _Key)
+//{
+//	jump_key = _Key;
+//	Inputs::JUMP = _Key;
+//}
+//
+//void InputManager::newPauseKey(Input _Key)
+//{
+//	pause_key = _Key;
+//	Inputs::PAUSE = _Key;
+//}
+//
+//Input InputManager::getUpKey()
+//{
+//	return up_key;
+//}
+//
+//Input InputManager::getDownKey()
+//{
+//	return down_key;
+//}
+//
+//Input InputManager::getLeftKey()
+//{
+//	return left_key;
+//}
+//
+//Input InputManager::getRightKey()
+//{
+//	return right_key;
+//}
+//
+//Input InputManager::getJumpKey()
+//{
+//	return jump_key;
+//}
+//
+//Input InputManager::getPauseKey()
+//{
+//	return pause_key;
+//}
 
 #pragma region Mouse
 
