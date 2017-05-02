@@ -395,11 +395,11 @@ Level * LevelLoader::createLevel(std::vector<GameObject*> level, Vec2* playerPos
 	tmp->playerStartingPosition = playerPos;
 	tmp->backgroundStartingPos = backgoundPos;
 	tmp->name = name;
+
 	for (auto go : level)
 	{
 		tmp->go_list.push_back(go);
 	}
-
 	return tmp;
 }
 
@@ -409,7 +409,7 @@ std::string LevelLoader::getStringFromFile(std::fstream& _file)
 	getline(_file, tmp);
 	std::string start = "(";
 	std::string end = ")";
-	std::string token = tmp.substr(tmp.find(start) + 1, tmp.find(end) - tmp.find(start) - 1); // token is whatever is inbetween ()
+	std::string token = tmp.substr(tmp.find(start) + 1, tmp.find(end) - tmp.find(start) - 1);
 	return token;
 }
 

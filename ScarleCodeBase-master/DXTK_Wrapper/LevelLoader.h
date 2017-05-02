@@ -13,7 +13,6 @@ class GameFile;
 
 struct Level
 {
-	
 	std::string name = "NULL";
 	std::string path;
 	Vec2* playerStartingPosition;

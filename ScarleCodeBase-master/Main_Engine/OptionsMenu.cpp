@@ -167,14 +167,14 @@ void OptionsMenu::keyBindings()
 
 void OptionsMenu::volumeButtons()
 {
-	Button* MasterPlus = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "NULL");
+	Button* MasterPlus = new Button(new Sprite("minus-icon", GameData::renderer), "button1", "Button", "NULL");
 	MasterPlus->setSize(new Vec2(50.0f, 50.0f));
 	MasterPlus->setPosition(new Vec2(GameData::screen.Center().x - 330.0f, 520.0f));
 	MasterPlus->setOrigin(new Vec2(0.0f, 0.0f));
 	MasterPlus->setCallbackFunction([]() {
 		//GameData::inputManager->newPauseKey();
 	});
-	Button* MasterMinus = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "NULL");
+	Button* MasterMinus = new Button(new Sprite("plus-icon", GameData::renderer), "button1", "Button", "NULL");
 	MasterMinus->setSize(new Vec2(50.0f, 50.0f));
 	MasterMinus->setPosition(new Vec2(GameData::screen.Center().x - 330.0f, 520.0f));
 	MasterMinus->setOrigin(new Vec2(0.0f, 0.0f));
@@ -196,4 +196,6 @@ void OptionsMenu::volumeButtons()
 	SFXMinus->setCallbackFunction([]() {
 		//GameData::inputManager->newPauseKey();
 	});
+
+	//go_list.pushback();
 }

@@ -68,14 +68,6 @@ void GameFileCreation::initButtons()
 	});
 	go_list.push_back(title);
 
-	//Button* load = new Button(new Sprite(buttonTexture), "Title", "Button", "Load GameFile");
-	//load->setPosition(new Vec2(0.0f, 0.0f));
-	//load->setCallbackFunction([]()
-	//{
-
-	//});
-	//go_list.push_back(load);
-
 	Button* save = new Button(new Sprite(buttonTexture), "Title", "Button", "Save GameFile");
 	save->setSize(new Vec2(300.0f, 100.0f));
 	save->setPosition(&(GameData::screen.maxCorner - save->getSize()));
