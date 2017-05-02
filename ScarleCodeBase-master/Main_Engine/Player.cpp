@@ -323,6 +323,10 @@ void Player::killPlayer()
 {
 	lives -= 1;
 	setPosition(lastCheckpoint);
+	if (lives <= 0)
+	{
+		GameData::scene_manager->addScene("GameOver", new PauseMenu());
+	}
 }
 
 void Player::setScore()
