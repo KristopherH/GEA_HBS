@@ -112,6 +112,11 @@
     <ClCompile Include="LevelSwitcher.cpp">
       <Filter>Source\Game Objects\Interactive</Filter>
     </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>Source\UI\Scenes\Menus</Filter>
     <ClCompile Include="GameOver.cpp">
       <Filter>Source\UI\Scenes</Filter>
     </ClCompile>
@@ -234,6 +239,11 @@
     <ClInclude Include="LevelSwitcher.h">
       <Filter>Headers\Game Objects\Interactive</Filter>
     </ClInclude>
+    <ClInclude Include="WinScene.h">
+      <Filter>Headers\UI\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Headers\UI</Filter>
     <ClInclude Include="GameOver.h">
       <Filter>Headers\UI\Scenes</Filter>
     </ClInclude>

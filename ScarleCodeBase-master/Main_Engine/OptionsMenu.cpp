@@ -39,7 +39,7 @@ OptionsMenu::OptionsMenu()
 		GameData::scene_manager->setCurrentScene("MainMenuScene", false);
 	});
 
-	GameObject* noticeBoard = new GameObject(new Sprite("sign-1", GameData::renderer), "button10", "Button");
+	GameObject* noticeBoard = new GameObject(new Sprite("sign-1", GameData::renderer), "button", "Button");
 	noticeBoard->setSize(new Vec2(1000.0f, 1000.0f));
 	noticeBoard->setPosition(new Vec2(((GameData::screen.Center().x/2) * -1), 
 		(GameData::screen.Center().y / 2) - (GameData::screen.Center().y * 2)));
@@ -76,7 +76,6 @@ void OptionsMenu::optionsText()
 		Vec4(0.0f, 1.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
 	GameData::renderer->renderText("Pause", GameData::screen.Center() * -1 + Vec2(660.0f, 570.0f),
 		Vec4(0.0f, 1.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
-
 	GameData::renderer->renderText("Options Menu", GameData::screen.Center() * -1 + Vec2(600.0f, 800.0f),
 		Vec4(0.0f, 1.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 2.5f);
 }

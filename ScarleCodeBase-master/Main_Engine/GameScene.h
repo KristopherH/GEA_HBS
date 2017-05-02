@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "GameFileLoader.h"
 
+class Timer;
 class Player;
 
 class GameScene : public Scene
@@ -23,6 +24,7 @@ protected:
 
 	Player* player;
 	GameFile* gameFile;
+	Timer* timer;
 	int level_number = 0;
 	int new_level_number = 0;
 };

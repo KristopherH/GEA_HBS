@@ -29,12 +29,14 @@ bool Button::Update(float dt)
 	{
 		sprite->setScale((sprite->getScale() / GameData::currentCamera->getZoom()));
 		sprite->setPosition(GameData::renderer->WorldToScreen(sprite->getPosition()));
-		collision = box.Contains(Vec2((float)GameData::inputManager->mouse_x, (float)GameData::inputManager->mouse_y));
+		collision = box.Contains(Vec2((float)GameData::inputManager->mouse_x,
+								(float)GameData::inputManager->mouse_y));
 	}
 	else
 	{
 		sprite->setPosition(position);
-		collision = box.Contains(Vec2((float)GameData::inputManager->mouse_world_x, (float)GameData::inputManager->mouse_world_y));
+		collision = box.Contains(Vec2((float)GameData::inputManager->mouse_world_x,
+								(float)GameData::inputManager->mouse_world_y));
 	}
 	if (collision)
 	{
@@ -74,7 +76,7 @@ bool Button::Draw()
 
 	GameObject::Draw();
 
-	GameData::renderer->renderText(buttonText, getSprite()->getPosition() /*+ ((sprite->getSize() * sprite->getScale()))*/,
+	GameData::renderer->renderText(buttonText, getSprite()->getPosition(),
 		Vec4(0.3f, 0.7f, 0.2f, 1.0f), 0.0f,
 		Vec2(0.0f, 0.0f),
 		sprite->getSize() * sprite->getScale() /** 0.8f*/);

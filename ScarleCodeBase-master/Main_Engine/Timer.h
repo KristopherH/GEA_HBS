@@ -1,7 +1,7 @@
 #pragma once
-#include "../Main_Engine/GameObject.h"
+#include "Text.h"
 
-class Timer : public GameObject
+class Timer : public Text
 {
 
 public:
