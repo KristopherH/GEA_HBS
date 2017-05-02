@@ -181,6 +181,7 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Game_Controller.h" />
+    <ClInclude Include="Gun.h" />
     <ClInclude Include="LevelEditor.h" />
     <ClInclude Include="LevelEditorCamera.h" />
     <ClInclude Include="LevelSwitcher.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Game_Controller.cpp" />
+    <ClCompile Include="Gun.cpp" />
     <ClCompile Include="LevelEditor.cpp" />
     <ClCompile Include="LevelEditorCamera.cpp" />
     <ClCompile Include="LevelSwitcher.cpp" />

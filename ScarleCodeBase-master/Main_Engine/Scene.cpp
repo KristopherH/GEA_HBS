@@ -26,12 +26,12 @@ Scene::~Scene()
 
 void Scene::Update(float dt)
 {
-	for (auto go : go_list)
+	for (int i = 0; i < go_list.size(); i++)
 	{
-		if (go->getAlive())
+		if (go_list[i]->getAlive())
 		{
-			go->gravityUpdate();
-			go->Update(dt);
+			go_list[i]->gravityUpdate();
+			go_list[i]->Update(dt);
 		}
 	}
 }

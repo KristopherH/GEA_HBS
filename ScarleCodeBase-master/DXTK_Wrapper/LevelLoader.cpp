@@ -9,6 +9,8 @@
 //OURS
 #include "Platform.h"
 #include "MovingPlatform.h"
+#include "ballistics.h"
+#include "Gun.h"
 #include "Enemy.h"
 #include "Collectible.h"
 #include "Checkpoint.h"
@@ -130,6 +132,33 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 				go->setRotation(rotation);
 				go->setSolid(false);
 
+			}
+			else
+			{
+				return nullptr;
+			}
+		}
+		else if (type == "Gun")
+		{
+			float tempTime = getFloatFromFile(fileStream);
+			float tempSpeed = getFloatFromFile(fileStream);
+			int bulletType = getIntFromFile(fileStream);// BulletDirecton::BD_NONE;
+
+			if (getStringFromFile(fileStream) == "END")
+			{
+				Gun* gunOb = new Gun();
+
+				gunOb->setPosition(pos);
+				gunOb->setSize(size);
+				gunOb->setRotation(rotation);
+				gunOb->setSolid(false);
+
+				gunOb->setBulletSpeed(tempSpeed);				
+				gunOb->setShootTime(tempTime);
+				gunOb->setBD((BulletDirecton)bulletType);
+
+				go = gunOb;
+				
 			}
 			else
 			{
@@ -345,6 +374,13 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 			{
 				LevelSwitcher* lvlSwitch = static_cast<LevelSwitcher*>(level->go_list[i]);
 				saveIntToFile(fileStream, "PointingTo: ", lvlSwitch->nextLevel);
+			}
+			if (type == "Gun")
+			{
+				Gun* gun = static_cast<Gun*>(level->go_list[i]);
+				saveFloatToFile(fileStream, "TimeBetweenBullets: ", gun->ShootTime);
+				saveFloatToFile(fileStream, "RateOfFire: ", gun->bulletSpeed);
+				saveIntToFile(fileStream, "Direction", (int)gun->wanted_BD);
 			}
 			saveStringToFile(fileStream, "", "END");
 		}
