@@ -35,8 +35,8 @@ GameOver::GameOver()
 		Playbtn->setPosition(new Vec2(GameData::screen.Center().x - 800.0f, 700.0f));
 		Playbtn->setOrigin(new Vec2(0.0f, 0.0f));
 		Playbtn->setCallbackFunction([]() {
-			GameData::scene_manager->addScene("GameScene", new GameScene());
-			GameData::scene_manager->setCurrentScene("GameScene", false);
+			GameData::scene_manager->addScene("GameOver", new GameScene());
+			GameData::scene_manager->setCurrentScene("GameOver", false);
 			GameData::sound_manager->stopSound();
 			//GameData::sound_manager->playSound("Level1-Music.wav", false, true);
 
