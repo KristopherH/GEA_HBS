@@ -1,11 +1,12 @@
 #pragma once
-#include "GameObject.h"
+
 //C++
 
 //DXTK
 
 //OURS
 #include "Scene.h"
+#include "Background.h"
 
 class GameOver : public Scene
 {
