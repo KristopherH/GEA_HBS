@@ -68,17 +68,6 @@ InputManager::~InputManager()
 	if (user_keyboard)		user_keyboard->Release();
 	if (user_mouse)         user_mouse->Release();
 }
-//
-//void InputManager::newUpKey(Input _Key)
-//{
-//	up_key = _Key;
-//	Inputs::UP = _Key;	
-//}
-
-void InputManager::changeInput(InputLabel _input, Input _key)
-{
-	InputManager::key_inputs[_input] = _key;
-}
 
 int InputManager::ConvertToASCII(DWORD _key)
 {
@@ -90,72 +79,11 @@ int InputManager::ConvertToASCII(DWORD _key)
 	UINT vk = MapVirtualKeyEx(_key, 1, layout);
 	return vk;
 }
-
-//void InputManager::newDownKey(Input _Key)
-//{
-//	down_key = _Key;
-//	Inputs::DOWN = _Key;
-//}
-//
-//void InputManager::newLeftKey(Input _Key)
-//{
-//	left_key = _Key;
-//	Inputs::LEFT = _Key;
-//}
-//
-//void InputManager::newRightKey(Input _Key)
-//{
-//	right_key = _Key;
-//	Inputs::RIGHT = _Key;
-//}
-//
-//void InputManager::newJumpKey(Input _Key)
-//{
-//	jump_key = _Key;
-//	Inputs::JUMP = _Key;
-//}
-//
-//void InputManager::newPauseKey(Input _Key)
-//{
-//	pause_key = _Key;
-//	Inputs::PAUSE = _Key;
-//}
-//
-//Input InputManager::getUpKey()
-//{
-//	return up_key;
-//}
-//
-//Input InputManager::getDownKey()
-//{
-//	return down_key;
-//}
-//
-//Input InputManager::getLeftKey()
-//{
-//	return left_key;
-//}
-//
-//Input InputManager::getRightKey()
-//{
-//	return right_key;
-//}
-//
-//Input InputManager::getJumpKey()
-//{
-//	return jump_key;
-//}
-//
-//Input InputManager::getPauseKey()
-//{
-//	return pause_key;
-//}
-
 #pragma region Mouse
 
 bool InputManager::getMouseRight()
 {
-	if (mouse_state.rgbButtons[1] & 0x80)
+	if (mouse_state.rgbButtons[1])
 		return true;
 
 	return false;
@@ -163,7 +91,7 @@ bool InputManager::getMouseRight()
 
 bool InputManager::getMouseLeft()
 {
-	if (mouse_state.rgbButtons[0] & 0x80)
+	if (mouse_state.rgbButtons[0])
 		return true;
 
 	return false;
@@ -171,7 +99,7 @@ bool InputManager::getMouseLeft()
 
 bool InputManager::getMouseMiddle()
 {
-		if (mouse_state.rgbButtons[2] & 0x80)
+		if (mouse_state.rgbButtons[2])
 			return true;
 
 	return false;
@@ -179,8 +107,8 @@ bool InputManager::getMouseMiddle()
 
 bool InputManager::getMouseRightPress()
 {
-	if (mouse_state.rgbButtons[1] & 0x80
-		&& !(previous_mouse_state.rgbButtons[1] & 0x80))
+	if (mouse_state.rgbButtons[1]
+		&& !(previous_mouse_state.rgbButtons[1]))
 		return true;
 
 	return false;
@@ -188,7 +116,6 @@ bool InputManager::getMouseRightPress()
 
 bool InputManager::getMouseLeftPress()
 {
-	//readMouse();
 	if (mouse_state.rgbButtons[0]
 		&& !(previous_mouse_state.rgbButtons[0]))
 		return true;
@@ -198,8 +125,8 @@ bool InputManager::getMouseLeftPress()
 
 bool InputManager::getMouseMiddlePress()
 {
-	if (mouse_state.rgbButtons[2] & 0x80
-		&& !(previous_mouse_state.rgbButtons[2] & 0x80))
+	if (mouse_state.rgbButtons[2]
+		&& !(previous_mouse_state.rgbButtons[2]))
 		return true;
 
 	return false;
@@ -250,6 +177,38 @@ bool InputManager::getKeyHeld(Input _key)
 	return false;
 }
 
+
+
+void InputManager::inputChangeHandler(InputLabel _input)
+{
+	if (change_key.joinable())
+		change_key.join();
+
+	//change_key = std::thread(&InputManager::changeInput, _input);
+	change_key.swap(std::thread(&InputManager::changeInput, this, _input));
+}
+
+
+
+void InputManager::changeInput(InputLabel _input)
+{
+	while (true)
+	{
+		for (int key = 0; key < sizeof(keyboard_state); key++)
+		{
+			if (getKeyDown(key))
+			{
+				key_inputs[_input] = key;
+				return;
+			}
+		}
+
+		if (getMouseMiddlePress() || getMouseLeftPress() || getMouseRightPress())
+		{
+			return;
+		}
+	}
+}
 #pragma endregion
 
 
