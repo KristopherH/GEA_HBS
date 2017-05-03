@@ -5,22 +5,24 @@
 #include <dinput.h>
 #include <queue>
 #include <mutex>
+#include <map>
 
 //OURS
-
+class Button;
 
 using Input = int;
 
-struct Inputs
+enum class InputLabel
 {
-	static Input UP;
-	static Input DOWN;
-	static Input LEFT;
-	static Input RIGHT;
-	static Input JUMP;
-	static Input USE;
-	static Input PAUSE;
-	static Input CTRL;
+	NONE,
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	JUMP,
+	USE,
+	PAUSE,
+	CTRL
 };
 
 class InputManager
@@ -30,20 +32,10 @@ public:
 	InputManager(HWND _window, HINSTANCE _h_instance);
 	~InputManager();
 
-	void newUpKey(Input _Key);
-	int ConvertToASCII(DWORD _key);
-	void newDownKey(Input _Key);
-	void newLeftKey(Input _Key);
-	void newRightKey(Input _Key);
-	void newJumpKey(Input _Key);
-	void newPauseKey(Input _Key);
-	
-	Input getUpKey();
-	Input getDownKey();
-	Input getLeftKey();
-	Input getRightKey();
-	Input getJumpKey();
-	Input getPauseKey();
+	static std::map<InputLabel, Input> key_inputs;
+	static std::map<InputLabel, std::string> key_effect_names;
+
+	std::string ConvertToASCII(DWORD _key);
 
 #pragma region Mouse Input
 	bool getMouseRight();
@@ -59,13 +51,18 @@ public:
 	bool getKeyDown(Input _key);
 	bool getKeyUp(Input _key);
 	bool getKeyHeld(Input _key);
+
+	std::thread change_key;
+
+	void inputChangeHandler(InputLabel _input, Button* btn = nullptr);
+	void changeInput(InputLabel _input, Button* btn = nullptr);
 #pragma endregion
 
 #pragma region GamePad Input
 	bool gamePadButtonDown(unsigned int button);
 	bool gamePadButtonUp(unsigned int button);
 	bool gamePadButtonHeld(unsigned int button);
-#pragma endregion going to have to look more into this (pre-processor shit)
+#pragma endregion Not implementing this
 
 #pragma region Couple of checkers (need to double check what these would be)
 	bool init();
@@ -74,7 +71,7 @@ public:
 	void update();
 #pragma endregion
 
-#pragma region Gual
+#pragma region String getting from VM
 
 	std::mutex mtx;
 	void stringInputBackspace();

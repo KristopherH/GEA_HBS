@@ -1,6 +1,7 @@
 #include "Input_Manager.h"
 //C++
 #include <string>
+#include <sstream>
 #ifdef DEBUG
 #include <iostream>
 #endif
@@ -10,6 +11,7 @@
 //OURS
 #include <GameData.h>
 #include <BaseCamera.h>
+#include "Button.h"
 
 unsigned char InputManager::keyboard_state[256];
 unsigned char InputManager::previous_keyboard_state[256];
@@ -30,30 +32,39 @@ float InputManager::mouse_world_y_translation = 0;
 int InputManager::mouse_scroll = 0;
 int InputManager::mouse_scroll_translation = 0;
 
-Input up_key = DIK_W;
-Input down_key = DIK_S;
-Input left_key = DIK_A;
-Input right_key = DIK_D;
-Input jump_key = DIK_SPACE;
-Input pause_key = DIK_P;
-
 #ifdef ARCADE
-Input Inputs::UP = DIK_R;
-Input Inputs::DOWN = DIK_F;
-Input Inputs::LEFT = DIK_D;
-Input Inputs::RIGHT = DIK_G;
-Input Inputs::JUMP = DIK_LSHIFT;
-Input Inputs::USE = DIK_1;
-Input Inputs::CTRL = DIK_LCONTROL;
+std::map<InputLabel, Input> InputManager::key_inputs =
+{
+	{ InputLabel::UP, (Input)DIK_R },
+	{ InputLabel::DOWN, (Input)DIK_F },
+	{ InputLabel::LEFT, (Input)DIK_D },
+	{ InputLabel::RIGHT, (Input)DIK_G },
+	{ InputLabel::JUMP, (Input)DIK_LSHIFT },
+	{ InputLabel::USE, (Input)DIK_1 },
+	{ InputLabel::PAUSE, (Input)DIK_LCONTROL }
+};
 #else
-Input Inputs::UP = up_key;
-Input Inputs::DOWN = down_key;
-Input Inputs::LEFT = left_key;
-Input Inputs::RIGHT = right_key;
-Input Inputs::PAUSE = pause_key;
-Input Inputs::JUMP = jump_key;
-Input Inputs::USE = DIK_RETURN;
-Input Inputs::CTRL = DIK_LCONTROL;
+std::map<InputLabel, Input> InputManager::key_inputs =
+{
+	{ InputLabel::UP, (Input)DIK_W },
+	{ InputLabel::DOWN, (Input)DIK_S },
+	{ InputLabel::LEFT, (Input)DIK_A },
+	{ InputLabel::RIGHT, (Input)DIK_D },
+	{ InputLabel::JUMP, (Input)DIK_SPACE },
+	{ InputLabel::USE, (Input)DIK_RETURN },
+	{ InputLabel::PAUSE, (Input)DIK_ESCAPE }
+};
+
+std::map<InputLabel, std::string> InputManager::key_effect_names =
+{
+	{ InputLabel::UP, "Up" },
+	{ InputLabel::DOWN, "Down" },
+	{ InputLabel::LEFT, "Left" },
+	{ InputLabel::RIGHT,"Right" },
+	{ InputLabel::JUMP, "Jump" },
+	{ InputLabel::USE, "Use" },
+	{ InputLabel::PAUSE, "Pause" }
+};
 #endif
 
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
@@ -69,15 +80,12 @@ InputManager::~InputManager()
 	if (user_direct_input)	user_direct_input->Release();
 	if (user_keyboard)		user_keyboard->Release();
 	if (user_mouse)         user_mouse->Release();
+
+	if (change_key.joinable())
+		change_key.join();
 }
 
-void InputManager::newUpKey(Input _Key)
-{
-	up_key = _Key;
-	Inputs::UP = _Key;	
-}
-
-int InputManager::ConvertToASCII(DWORD _key)
+std::string InputManager::ConvertToASCII(DWORD _key)
 {
 	static HKL layout = GetKeyboardLayout(0);
 	static unsigned char State[256];
@@ -85,74 +93,35 @@ int InputManager::ConvertToASCII(DWORD _key)
 	if (GetKeyboardState(State) == FALSE)
 		return 0;
 	UINT vk = MapVirtualKeyEx(_key, 1, layout);
-	return vk;
-}
+	char character = (vk);
+	if (isalnum(character))
+	{
+		stringstream ss;
+		string s;
+		ss << character;
+		ss >> s;
+		return s;
+	}
+	if (character == ' ')
+	{
+		return "SPACE";
+	}
+	if (character == '\r')
+	{
+		return "ENTER";
+	}
+	if (character == '\x1b')
+	{
+		return "ESC";
+	}
 
-void InputManager::newDownKey(Input _Key)
-{
-	down_key = _Key;
-	Inputs::DOWN = _Key;
+	return "Unknown";
 }
-
-void InputManager::newLeftKey(Input _Key)
-{
-	left_key = _Key;
-	Inputs::LEFT = _Key;
-}
-
-void InputManager::newRightKey(Input _Key)
-{
-	right_key = _Key;
-	Inputs::RIGHT = _Key;
-}
-
-void InputManager::newJumpKey(Input _Key)
-{
-	jump_key = _Key;
-	Inputs::JUMP = _Key;
-}
-
-void InputManager::newPauseKey(Input _Key)
-{
-	pause_key = _Key;
-	Inputs::PAUSE = _Key;
-}
-
-Input InputManager::getUpKey()
-{
-	return up_key;
-}
-
-Input InputManager::getDownKey()
-{
-	return down_key;
-}
-
-Input InputManager::getLeftKey()
-{
-	return left_key;
-}
-
-Input InputManager::getRightKey()
-{
-	return right_key;
-}
-
-Input InputManager::getJumpKey()
-{
-	return jump_key;
-}
-
-Input InputManager::getPauseKey()
-{
-	return pause_key;
-}
-
 #pragma region Mouse
 
 bool InputManager::getMouseRight()
 {
-	if (mouse_state.rgbButtons[1] & 0x80)
+	if (mouse_state.rgbButtons[1])
 		return true;
 
 	return false;
@@ -160,7 +129,7 @@ bool InputManager::getMouseRight()
 
 bool InputManager::getMouseLeft()
 {
-	if (mouse_state.rgbButtons[0] & 0x80)
+	if (mouse_state.rgbButtons[0])
 		return true;
 
 	return false;
@@ -168,7 +137,7 @@ bool InputManager::getMouseLeft()
 
 bool InputManager::getMouseMiddle()
 {
-		if (mouse_state.rgbButtons[2] & 0x80)
+		if (mouse_state.rgbButtons[2])
 			return true;
 
 	return false;
@@ -176,8 +145,8 @@ bool InputManager::getMouseMiddle()
 
 bool InputManager::getMouseRightPress()
 {
-	if (mouse_state.rgbButtons[1] & 0x80
-		&& !(previous_mouse_state.rgbButtons[1] & 0x80))
+	if (mouse_state.rgbButtons[1]
+		&& !(previous_mouse_state.rgbButtons[1]))
 		return true;
 
 	return false;
@@ -185,7 +154,6 @@ bool InputManager::getMouseRightPress()
 
 bool InputManager::getMouseLeftPress()
 {
-	//readMouse();
 	if (mouse_state.rgbButtons[0]
 		&& !(previous_mouse_state.rgbButtons[0]))
 		return true;
@@ -195,8 +163,8 @@ bool InputManager::getMouseLeftPress()
 
 bool InputManager::getMouseMiddlePress()
 {
-	if (mouse_state.rgbButtons[2] & 0x80
-		&& !(previous_mouse_state.rgbButtons[2] & 0x80))
+	if (mouse_state.rgbButtons[2]
+		&& !(previous_mouse_state.rgbButtons[2]))
 		return true;
 
 	return false;
@@ -247,6 +215,42 @@ bool InputManager::getKeyHeld(Input _key)
 	return false;
 }
 
+
+
+void InputManager::inputChangeHandler(InputLabel _input, Button* btn)
+{
+	if (change_key.joinable())
+		change_key.join();
+
+	//change_key = std::thread(&InputManager::changeInput, _input);
+	change_key = (std::thread(&InputManager::changeInput, this, _input, btn));
+}
+
+
+
+void InputManager::changeInput(InputLabel _input, Button* btn)
+{
+	while (true)
+	{
+		for (int key = 0; key < sizeof(keyboard_state); key++)
+		{
+			if (getKeyDown(key))
+			{
+				key_inputs[_input] = key;
+				if (btn)
+				{
+					btn->setText(GameData::inputManager->ConvertToASCII(key));
+				}
+				return;
+			}
+		}
+		readMouse();
+		if (getMouseMiddlePress() || getMouseLeftPress() || getMouseRightPress())
+		{
+			return;
+		}
+	}
+}
 #pragma endregion
 
 

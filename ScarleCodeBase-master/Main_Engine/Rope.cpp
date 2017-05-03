@@ -75,7 +75,7 @@ bool Rope::Update(float dt)
 	}
 	if (grabbedPlayer)
 	{
-		if (GameData::inputManager->getKeyDown(Inputs::JUMP))
+		if (GameData::inputManager->getKeyDown(InputManager::key_inputs[InputLabel::JUMP]))
 		{
 			grabbedPlayer = false;
 			GameData::player->velocity.x = playerNode->velocity.x * 3;
@@ -85,11 +85,11 @@ bool Rope::Update(float dt)
 		}
 		else
 		{
-			if (GameData::inputManager->getKeyHeld(Inputs::UP))
+			if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::UP]))
 			{
 				playerPos.y -= 1.0f;
 			}
-			if (GameData::inputManager->getKeyHeld(Inputs::DOWN))
+			if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::DOWN]))
 			{
 				playerPos.y += 1.0f;
 			}
@@ -148,7 +148,7 @@ void Rope::updateParenting()
 
 void Rope::playerGrabbed(RopeNode* nodeGrabbed, Vec2 playerPosRelativeToNode)
 {
-	if (!grabbedPlayer && !(GameData::inputManager->getKeyHeld(Inputs::JUMP)))
+	if (!grabbedPlayer && !(GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::JUMP])))
 	{
 		grabbedPlayer = true;
 		playerNode = nodeGrabbed;

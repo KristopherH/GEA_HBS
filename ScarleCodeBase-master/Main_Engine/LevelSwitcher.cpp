@@ -23,7 +23,7 @@ bool LevelSwitcher::Update(float dt)
 {
 	if (GameData::collsion_manager->boxCollision(box, GameData::player->getBox()))
 	{
-		if (GameData::inputManager->getKeyDown(Inputs::USE))
+		if (GameData::inputManager->getKeyDown(InputManager::key_inputs[InputLabel::USE]))
 		{
 			//switch to next level
 			activated = true;

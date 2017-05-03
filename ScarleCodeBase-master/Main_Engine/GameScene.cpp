@@ -92,6 +92,10 @@ void GameScene::changeLevel()
 	//	}
 	//}
 	go_list.clear();
+	
+	if (gameFile->levels.size() <= level_number) //Level doesn't exist
+		return;
+
 	Level* level1 = &gameFile->levels[level_number];
 	std::vector<Sprite*> BGs;
 	BGs.push_back(new Sprite("11_background", GameData::renderer));

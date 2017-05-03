@@ -262,7 +262,7 @@ LevelEditorScene::~LevelEditorScene()
 
 void LevelEditorScene::Update(float dt)
 {
-	if (GameData::inputManager->getKeyDown(Inputs::USE))
+	if (GameData::inputManager->getKeyDown(InputManager::key_inputs[InputLabel::USE]))
 		editing = !editing;
 	if (editing)
 	{

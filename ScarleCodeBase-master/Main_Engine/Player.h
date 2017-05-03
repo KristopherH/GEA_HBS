@@ -56,7 +56,7 @@ protected:
 	bool climbing = false;
 	bool key_down = false;
 	bool pauseSetUp = false;
-	Inputs input;
+	//Inputs input;
 	//Input component
 	std::map<int, std::function<void()>> KeyBindsHold;
 	std::map<int, std::function<void()>> KeyBindsPress;
