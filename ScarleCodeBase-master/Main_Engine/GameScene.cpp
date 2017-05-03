@@ -27,6 +27,9 @@ GameScene::GameScene()
 	std::vector<Texture*> textures;
 
 	timer = new Timer();
+	timer->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(260.0f, 290.0f)));
+	timer->setSize(new Vec2(280.0f, 100.0f));
+	timer->setColor(Vec4(1, 0, 0, 1));
 
 	player = static_cast<Player*>(ObjectFactory::createPlayer());
 
@@ -92,6 +95,10 @@ void GameScene::changeLevel()
 	//	}
 	//}
 	go_list.clear();
+	
+	if (gameFile->levels.size() <= level_number) //Level doesn't exist
+		return;
+
 	Level* level1 = &gameFile->levels[level_number];
 	std::vector<Sprite*> BGs;
 	BGs.push_back(new Sprite("11_background", GameData::renderer));
@@ -119,14 +126,15 @@ void GameScene::changeLevel()
 
 	cam->setPlayerTracker(player);
 	
-	go_list.push_back(timer);
 	go_list.push_back(player);
 	go_list.push_back(cam);
 
 	std::vector<Sprite*> UI_objects;
 	UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
 
+
 	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);
+	go_list.push_back(timer);
 	return;
 }

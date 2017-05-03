@@ -51,7 +51,7 @@ void GameOver::Draw()
 {
 	Scene::Draw();
 
-	GameData::renderer->renderText("Your Score: " + std::to_string(GameData::player->getScore()), Vec2(0.0f, 0.0f),
+	GameData::renderer->renderText("Your Score: " + to_string(GameData::player->getScore()), Vec2(0.0f, 0.0f),
 		Vec4(0.8f, 0.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
 	std::vector<Sprite*> GameOver;
 

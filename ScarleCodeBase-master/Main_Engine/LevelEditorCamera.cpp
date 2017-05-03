@@ -16,21 +16,21 @@ bool LevelEditorCamera::Update(float dt)
 	previousPosition.x = position.x;
 	previousPosition.y = position.y;
 
-	if (GameData::inputManager->getKeyHeld(Inputs::UP))
+	if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::UP]))
 	{
 		position += Vec2(0.0f, 2.0f);
 	}
-	if (GameData::inputManager->getKeyHeld(Inputs::DOWN))
+	if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::DOWN]))
 	{
 		position += Vec2(0.0f, -2.0f);
 
 	}
-	if (GameData::inputManager->getKeyHeld(Inputs::LEFT))
+	if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::LEFT]))
 	{
 		position += Vec2(2.0f, 0.0f);
 
 	}
-	if (GameData::inputManager->getKeyHeld(Inputs::RIGHT))
+	if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::RIGHT]))
 	{
 		position += Vec2(-2.0f, 0.0f);
 

@@ -7,6 +7,7 @@
 #include "Button.h"
 #include "GameData.h"
 #include "Object_Factory.h"
+#include "Helper.h"
 
 Rope::Rope(Vec2 _pos, Texture * _texture, int _numOfNodes, float _springConst, float _springLength, float _springFrictionConst, Vec2 _ropeSize, vector<GameObject*>* go_list)
 	:numOfNodes(_numOfNodes), springConst(_springConst), springLength(_springLength), springFrictionConst(_springFrictionConst), ropeSize(_ropeSize)
@@ -75,7 +76,7 @@ bool Rope::Update(float dt)
 	}
 	if (grabbedPlayer)
 	{
-		if (GameData::inputManager->getKeyDown(Inputs::JUMP))
+		if (GameData::inputManager->getKeyDown(InputManager::key_inputs[InputLabel::JUMP]))
 		{
 			grabbedPlayer = false;
 			GameData::player->velocity.x = playerNode->velocity.x * 3;
@@ -85,11 +86,11 @@ bool Rope::Update(float dt)
 		}
 		else
 		{
-			if (GameData::inputManager->getKeyHeld(Inputs::UP))
+			if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::UP]))
 			{
 				playerPos.y -= 1.0f;
 			}
-			if (GameData::inputManager->getKeyHeld(Inputs::DOWN))
+			if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::DOWN]))
 			{
 				playerPos.y += 1.0f;
 			}
@@ -148,7 +149,7 @@ void Rope::updateParenting()
 
 void Rope::playerGrabbed(RopeNode* nodeGrabbed, Vec2 playerPosRelativeToNode)
 {
-	if (!grabbedPlayer && !(GameData::inputManager->getKeyHeld(Inputs::JUMP)))
+	if (!grabbedPlayer && !(GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::JUMP])))
 	{
 		grabbedPlayer = true;
 		playerNode = nodeGrabbed;
@@ -163,7 +164,7 @@ void Rope::toggleEditing()
 	if (editing)
 	{
 		Button* ropeSegments = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
-			"NameChanger", "NULL", "Segments:" + to_string(ropeNodes.size()));
+			"NameChanger", "NULL", "Segments:" + Helper::to_string_with_precision(ropeNodes.size()));
 		ropeSegments->setSize(new Vec2(max(size.x, 100), 50));
 		ropeSegments->setCallbackFunction([]()
 		{
@@ -178,7 +179,7 @@ void Rope::toggleEditing()
 		plusSegments->setCallbackFunction([this, ropeSegments]()
 		{
 			addNode();
-			ropeSegments->setText("Segments:" + to_string(ropeNodes.size()));
+			ropeSegments->setText("Segments:" + Helper::to_string_with_precision(ropeNodes.size()));
 			return;
 		});
 		plusSegments->setScreenSpace(false);
@@ -190,7 +191,7 @@ void Rope::toggleEditing()
 		minusSegment->setCallbackFunction([this, ropeSegments]()
 		{
 			removeNode();
-			ropeSegments->setText("Segments:" + to_string(ropeNodes.size()));
+			ropeSegments->setText("Segments:" + Helper::to_string_with_precision(ropeNodes.size()));
 			return;
 		});
 		minusSegment->setScreenSpace(false);
@@ -202,7 +203,7 @@ void Rope::toggleEditing()
 
 
 		Button* segmentLength = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
-			"NameChanger", "NULL", "Segment Length:" + to_string(size.y));
+			"NameChanger", "NULL", "Segment Length:" + Helper::to_string_with_precision(size.y));
 		segmentLength->setSize(new Vec2(max(size.x, 100), 50));
 		
 		segmentLength->setCallbackFunction([]()
@@ -220,7 +221,7 @@ void Rope::toggleEditing()
 			setSize(new Vec2(getSize().x, getSize().y + 1.0f));
 			springLength = getSize().y;
 			redoNodes();
-			segmentLength->setText("Segment Length:" + to_string(size.y));
+			segmentLength->setText("Segment Length:" + Helper::to_string_with_precision(size.y));
 			return;
 		});
 		plusLength->setScreenSpace(false);
@@ -235,7 +236,7 @@ void Rope::toggleEditing()
 			setSize(new Vec2(getSize().x, getSize().y - 1.0f));
 			springLength = getSize().y;
 			redoNodes();
-			segmentLength->setText("Segment Length:" + to_string(size.y));
+			segmentLength->setText("Segment Length:" + Helper::to_string_with_precision(size.y));
 			return;
 		});
 		minusLength->setScreenSpace(false);
