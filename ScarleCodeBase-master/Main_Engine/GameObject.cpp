@@ -7,6 +7,7 @@
 #include "GameData.h"
 #include "Collision_Manager.h"
 #include "DXTKRenderer.h"
+#include "Texture.h"
 
 
 GameObject::GameObject(Sprite* _sprite, std::string _name, std::string _tag)
@@ -124,6 +125,16 @@ bool GameObject::setGravityTag(std::string _gravity_tag)
 
 	this->gravity_trigger_tags.push_back(_gravity_tag);
 	return true;
+}
+
+bool GameObject::isTransparent(Vec2 _pixel_pos, Rect box)
+{
+	return this->getSprite()->GetTexture()->isTransparent(_pixel_pos, box);
+}
+
+bool GameObject::isTransparent(Vec2 _pixel_pos, int width)
+{
+	return this->getSprite()->GetTexture()->isTransparent(_pixel_pos, width);
 }
 
 void GameObject::movePosition(Vec2* _translation)

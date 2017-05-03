@@ -150,56 +150,57 @@ bool CollisionManager::mouseCollision(Rect box)
 
 bool CollisionManager::bitMapCollision(GameObject& a, GameObject& b)
 {
-
-	int low_top = 0;
-	int low_right = 0;
-	int high_bottom = 0;
-	int high_left = 0;
+	Rect box;
+	int y_min = 0;
+	int x_min = 0;
+	int y_max = 0;
+	int x_max = 0;
 
 #pragma region Instantiating area of collision
 	if (a.getBox().minCorner.y > b.getBox().minCorner.y)
-		low_top = b.getBox().minCorner.y;
+		y_min = a.getBox().minCorner.y;
 	else
-		low_top = a.getBox().minCorner.y;
+		y_min = b.getBox().minCorner.y;
 
 	if (a.getBox().minCorner.x > b.getBox().minCorner.x)
-		low_right = b.getBox().minCorner.x;
+		x_min = a.getBox().minCorner.x;
 	else
-		low_right = a.getBox().minCorner.x;
+		x_min = b.getBox().minCorner.x;
 
 	if (a.getBox().maxCorner.y < b.getBox().maxCorner.y)
-		high_bottom = b.getBox().maxCorner.y;
+		y_max = a.getBox().maxCorner.y;
 	else
-		high_bottom = a.getBox().maxCorner.y;
+		y_max = b.getBox().maxCorner.y;
 
 	if (a.getBox().maxCorner.x < b.getBox().maxCorner.x)
-		high_left = b.getBox().maxCorner.x;
+		x_max = a.getBox().maxCorner.x;
 	else
-		high_left = a.getBox().maxCorner.x;
-#pragma endregion
+		x_max = b.getBox().maxCorner.x;
+#pragma endregion DONE LEAVE IT ALONE!
 
-	//Time to loop through it all and do tests
+	box.minCorner.x = x_min;
+	box.minCorner.y = y_min;
+	box.maxCorner.x = x_max;
+	box.maxCorner.y = y_max;
 
-	for (int h = high_bottom; h <= low_top; h++)
+#pragma region checking each pixel
+	for (int h = y_max; h <= y_min; h++)
 	{
-		for (int w = high_left; w <= low_right; w++)
+		for (int w = x_max; w <= x_min; w++)
 		{
-			//Testing
-			/*
-				Need to adjust the position to the same ones within the objects
-
-				compare if both of the fudged position pixels are in the same place
-				if they both are then there's a collision
-			*/
+			Vec2 a_new = globalToLocalPos(&a, Vec2(h, w));
+			Vec2 b_new = globalToLocalPos(&b, Vec2(h, w));
+			int width = x_max - x_min;
+			if (!a.isTransparent(a_new, width) && !b.isTransparent(b_new, width))
+				return true;
 		}
 	}
 
 	return false;
+#pragma endregion
 
 }
-
-
-
+#pragma region in the way
 Direction CollisionManager::getCollisionDirection()
 {
 	return col_direction;
@@ -340,4 +341,16 @@ Direction CollisionManager::findCollisionDirection(Rect* a, Rect* b)
 	}
 
 	return Direction::NONE;
+}
+#pragma endregion
+Vec2 CollisionManager::globalToLocalPos(GameObject * obj, Vec2 global_pos)
+{
+	int x = obj->getSprite()->getPosition().x;
+	int y = obj->getSprite()->getPosition().y;
+
+	Vec2 local_pos;
+	local_pos.x = x - global_pos.x;
+	local_pos.y = global_pos.y - y;
+
+	return local_pos;
 }

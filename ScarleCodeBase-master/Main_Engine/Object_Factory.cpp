@@ -38,7 +38,7 @@ GameObject* ObjectFactory::createPlayer()
 	player->setGravityTag("ConveyorRight");
 	player->setGravityTag("JumpPlatform");
 	player->setGravityTag("StandardPlatform");
-
+	player->getSprite()->GetTexture()->LoadPixelMap();
 	GameData::player = player;
 
 	return player;
@@ -103,7 +103,6 @@ GameObject* ObjectFactory::createCollectable()
 	collectible = nullptr;
 
 	collectible = new Collectible(new Sprite(texture_pool[COLLECTIBLE]), new Vec2(0, 0), new Vec2(100.0f, 100.0f), 0, "Collectible");
-
 	return collectible;
 }
 
@@ -181,6 +180,8 @@ void ObjectFactory::init()
 	ObjectFactory::texture_pool[GUN] = new Texture("Cannon", GameData::renderer);
 	ObjectFactory::texture_pool[FALLING_PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
 
+	ObjectFactory::texture_pool[COLLECTIBLE]->LoadPixelMap();
+
 	ObjectFactory::names[PLATFORM] = "Platform";
 	ObjectFactory::names[MOVING_PLATFORM] = "Moving\nPlatform";
 	ObjectFactory::names[ENEMY] = "Enemy";
@@ -191,5 +192,4 @@ void ObjectFactory::init()
 	ObjectFactory::names[LEVEL_SWITCHER] = "Level\nSwitcher";
 	ObjectFactory::names[GUN] = "Cannon";
 	ObjectFactory::names[FALLING_PLATFORM] = "StandardPlatform";
-
 }

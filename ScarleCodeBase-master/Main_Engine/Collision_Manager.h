@@ -27,5 +27,6 @@ public:
 private:
 	static Direction findCollisionDirection(GameObject* a, GameObject* b);
 	static Direction findCollisionDirection(Rect * a, Rect * b);
+	static Vec2 globalToLocalPos(GameObject* obj, Vec2 global_pos);
 	static Direction col_direction;
 };

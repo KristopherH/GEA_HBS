@@ -1,7 +1,7 @@
 Name: (Intro)
 PlayerPos: (-1387.5 525.599)
 BackgroundPos: (0 0)
-Objects: (8)
+Objects: (7)
 0:
 Type: (Collectible)
 Name: (Collectible)
@@ -29,13 +29,6 @@ Waypoints(2)
 1(-608.807 558.456)
 (END)
 3:
-Type: (Checkpoint)
-Name: (Checkpoint)
-Position: (-1402.19 562.051)
-Size: (100 100)
-Rotation: (0)
-(END)
-4:
 Type: (LevelSwitcher)
 Name: (LevelSwitcher)
 Position: (-9.0625 414.688)
@@ -43,7 +36,7 @@ Size: (246.875 276.563)
 Rotation: (0)
 PointingTo: (1)
 (END)
-5:
+4:
 Type: (Rope)
 Name: (GameObject)
 Position: (649.071 -106.248)
@@ -51,7 +44,7 @@ Size: (20 70)
 Rotation: (0)
 Length:(12)
 (END)
-6:
+5:
 Type: (LevelSwitcher)
 Name: (LevelSwitcher)
 Position: (-1212.3 456.452)
@@ -59,7 +52,7 @@ Size: (157.895 235.526)
 Rotation: (0)
 PointingTo: (-2)
 (END)
-7:
+6:
 Type: (FallingPlatform)
 Name: (StandardPlatform)
 Position: (-1802 519.439)

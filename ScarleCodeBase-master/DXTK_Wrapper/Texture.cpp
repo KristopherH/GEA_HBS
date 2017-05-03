@@ -125,6 +125,12 @@ void Texture::LoadPixelMap()
 			int g = (int)G;
 			int b = (int)B;
 			int a = (int)A;
+			
+			if (a != 0)
+			{
+				int i = 0;
+			}
+
 			pixelMap[row * Desc.Width + col].x = r;
 			pixelMap[row * Desc.Width + col].y = g;
 			pixelMap[row * Desc.Width + col].z = b;
@@ -135,4 +141,30 @@ void Texture::LoadPixelMap()
 
 	// Unmap the texture & clean up
 	pd3dImmediateContext->Unmap(captureTexture, 0);
+}
+
+bool Texture::isTransparent(Vec2 _pixel_pos, Rect box)
+{
+	int pos = (_pixel_pos.y * getSize().x) + _pixel_pos.x;
+
+	if (pixelMap[pos].w <= 0)
+		return true;
+
+	return false;
+}
+
+bool Texture::isTransparent(Vec2 _pixel_pos, int width)
+{
+	int pos = (_pixel_pos.y * width) + _pixel_pos.x;
+	int sizey = getSize().y;
+	int sizex = getSize().x;
+	int size = getSize().x * getSize().y;
+
+	if (pos < 0 || pos > size)
+		return false;
+
+	if (pixelMap[pos].w <= collision_opacity)
+		return true;
+
+	return false;
 }
