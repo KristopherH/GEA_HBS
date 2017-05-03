@@ -26,7 +26,7 @@ struct Level
 
 static const std::vector<std::string> acceptedTypes = { "Platform",
 "Collectible", "Enemy", "Ladder", "Rope", "Checkpoint", "MovingPlatform", "LevelSwitcher",
-"Gun"};
+"Gun","FallingPlatform"};
 
 class LevelLoader
 {

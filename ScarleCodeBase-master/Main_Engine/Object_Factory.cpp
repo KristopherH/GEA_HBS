@@ -12,6 +12,8 @@
 #include "MovingPlatform.h"
 #include "LevelSwitcher.h"
 #include "Gun.h"
+#include "FallingPlatform.h"
+
 //#ifdef _DXTK_
 #include "Texture.h"
 //#endif
@@ -140,6 +142,10 @@ GameObject * ObjectFactory::createGun()
 {
 	return new Gun();
 }
+GameObject * ObjectFactory::createFallingPlatform()
+{
+	return new FallingPlatform();
+}
 
 GameObject * ObjectFactory::createLevelSwitcher()
 {
@@ -158,6 +164,7 @@ void ObjectFactory::init()
 	ObjectFactory::create_object[CHECKPOINT] = createCheckpoint;
 	ObjectFactory::create_object[LEVEL_SWITCHER] = createLevelSwitcher;
 	ObjectFactory::create_object[GUN] = createGun;
+	ObjectFactory::create_object[FALLING_PLATFORM] = createFallingPlatform;
 
 
 	ObjectFactory::texture_pool[PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
@@ -172,6 +179,7 @@ void ObjectFactory::init()
 	ObjectFactory::texture_pool[BUTTON_PLUS] = new Texture("plus-icon", GameData::renderer);
 	ObjectFactory::texture_pool[LEVEL_SWITCHER] = new Texture("Door", GameData::renderer);
 	ObjectFactory::texture_pool[GUN] = new Texture("Cannon", GameData::renderer);
+	ObjectFactory::texture_pool[FALLING_PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
 
 	ObjectFactory::names[PLATFORM] = "Platform";
 	ObjectFactory::names[MOVING_PLATFORM] = "Moving\nPlatform";
@@ -182,5 +190,6 @@ void ObjectFactory::init()
 	ObjectFactory::names[CHECKPOINT] = "Checkpoint";
 	ObjectFactory::names[LEVEL_SWITCHER] = "Level\nSwitcher";
 	ObjectFactory::names[GUN] = "Cannon";
+	ObjectFactory::names[FALLING_PLATFORM] = "StandardPlatform";
 
 }

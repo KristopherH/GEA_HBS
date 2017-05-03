@@ -175,6 +175,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Enum_container.h" />
+    <ClInclude Include="FallingPlatform.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="GameFileCreation.h" />
     <ClInclude Include="GameObject.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyWaypoint.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="FallingPlatform.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GameFileCreation.cpp" />
     <ClCompile Include="GameObject.cpp" />
