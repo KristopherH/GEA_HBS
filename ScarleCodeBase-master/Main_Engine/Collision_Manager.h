@@ -20,8 +20,7 @@ public:
 	static bool boxCollision(Rect a, Rect b);
 	static bool mouseCollision(std::string name);
 	static bool mouseCollision(Rect box);
-	static bool circleCollision(std::string a_name, std::string b_name);
-	static bool bitMapCollision(std::string a_name, std::string b_name); //GET TO IT
+	static bool bitMapCollision(GameObject& a, GameObject& b); //GET TO IT
 	static Direction getCollisionDirection();
 	static bool oneWayPlatform(std::string a_name);
 

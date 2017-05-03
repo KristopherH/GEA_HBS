@@ -21,6 +21,7 @@ Texture::Texture(std::string _fileName, Renderer * _renderer)
 		"../Release/"
 #endif
 		+ _fileName + ".dds";
+
 	HRESULT hr = CreateDDSTextureFromFile(_renderer->GetDevice(), Helper::charToWChar(fullfilename.c_str()), nullptr, &m_pTextureRV);
 
 	if (hr != S_OK)

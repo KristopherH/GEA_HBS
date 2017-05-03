@@ -1,6 +1,7 @@
 #pragma once
 //C++
 #include <string>
+#include <vector>
 
 //DXTK
 #include <d3d11_1.h>
@@ -21,4 +22,5 @@ public:
 
 protected:
 	ID3D11ShaderResourceView* m_pTextureRV;
+
 };

@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "BaseCamera.h"
 #include "GameData.h"
+#include "Texture.h"
 Direction CollisionManager::col_direction = Direction::NONE;
 
 bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
@@ -147,9 +148,54 @@ bool CollisionManager::mouseCollision(Rect box)
 
 
 
-bool CollisionManager::circleCollision(std::string a, std::string b)
+bool CollisionManager::bitMapCollision(GameObject& a, GameObject& b)
 {
+
+	int low_top = 0;
+	int low_right = 0;
+	int high_bottom = 0;
+	int high_left = 0;
+
+#pragma region Instantiating area of collision
+	if (a.getBox().minCorner.y > b.getBox().minCorner.y)
+		low_top = b.getBox().minCorner.y;
+	else
+		low_top = a.getBox().minCorner.y;
+
+	if (a.getBox().minCorner.x > b.getBox().minCorner.x)
+		low_right = b.getBox().minCorner.x;
+	else
+		low_right = a.getBox().minCorner.x;
+
+	if (a.getBox().maxCorner.y < b.getBox().maxCorner.y)
+		high_bottom = b.getBox().maxCorner.y;
+	else
+		high_bottom = a.getBox().maxCorner.y;
+
+	if (a.getBox().maxCorner.x < b.getBox().maxCorner.x)
+		high_left = b.getBox().maxCorner.x;
+	else
+		high_left = a.getBox().maxCorner.x;
+#pragma endregion
+
+	//Time to loop through it all and do tests
+
+	for (int h = high_bottom; h <= low_top; h++)
+	{
+		for (int w = high_left; w <= low_right; w++)
+		{
+			//Testing
+			/*
+				Need to adjust the position to the same ones within the objects
+
+				compare if both of the fudged position pixels are in the same place
+				if they both are then there's a collision
+			*/
+		}
+	}
+
 	return false;
+
 }
 
 
