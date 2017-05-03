@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Button.h"
 #include "Object_Factory.h"
-
+#include "Helper.h"
 
 Gun::Gun()
 	:EditableGameObject(new Sprite("Cannon", GameData::renderer), "Cannon", "Cannon")
@@ -47,7 +47,7 @@ void Gun::toggleEditing()
 	{
 		//chnage bullet speed
 		Button* speedBtn = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
-			"NameChanger", "NULL", "Speed:" + to_string(bulletSpeed));
+			"NameChanger", "NULL", "Speed:" + Helper::to_string_with_precision(bulletSpeed));
 		speedBtn->setSize(new Vec2(max(size.x, 100), 50));
 		speedBtn->setPosition(new Vec2(position.x,
 			position.y + size.y));
@@ -71,7 +71,7 @@ void Gun::toggleEditing()
 			{
 				bulletSpeed = 0.0002;
 			}
-			speedBtn->setText("Speed:" + to_string(bulletSpeed));
+			speedBtn->setText("Speed:" + Helper::to_string_with_precision(bulletSpeed));
 			return;
 		});
 		plusSpeed->setScreenSpace(false);
@@ -90,7 +90,7 @@ void Gun::toggleEditing()
 			{
 				bulletSpeed = 0.0002;
 			}
-			speedBtn->setText("Speed:" + to_string(bulletSpeed));
+			speedBtn->setText("Speed:" + Helper::to_string_with_precision(bulletSpeed));
 			return;
 		});
 		minusSpeed->setScreenSpace(false);
@@ -98,7 +98,7 @@ void Gun::toggleEditing()
 
 		//change shoot time
 		Button* timeBtn = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
-			"NameChanger", "NULL", "Rate of fire:" + to_string(ShootTime));
+			"NameChanger", "NULL", "Rate of fire:" + Helper::to_string_with_precision(ShootTime));
 		timeBtn->setSize(new Vec2(max(size.x, 100), 50));
 		timeBtn->setPosition(new Vec2(position.x,
 			position.y + size.y + speedBtn->getSize().y));
@@ -122,7 +122,7 @@ void Gun::toggleEditing()
 			{
 				ShootTime = 1.00;
 			}
-			timeBtn->setText("Rate of fire:" + to_string(ShootTime));
+			timeBtn->setText("Rate of fire:" + Helper::to_string_with_precision(ShootTime));
 			return;
 		});
 		plustime->setScreenSpace(false);
@@ -143,7 +143,7 @@ void Gun::toggleEditing()
 			{
 				ShootTime = 1.00;
 			}
-			timeBtn->setText("Rate of fire:" + to_string(ShootTime));
+			timeBtn->setText("Rate of fire:" + Helper::to_string_with_precision(ShootTime));
 		});
 		minustime->setScreenSpace(false);
 		ui_elements.push_back(minustime);

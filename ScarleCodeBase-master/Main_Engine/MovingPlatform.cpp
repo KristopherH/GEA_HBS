@@ -5,6 +5,7 @@
 #include "Collision_Manager.h"
 #include "Button.h"
 #include "Object_Factory.h"
+#include "Helper.h"
 
 MovingPlatform::~MovingPlatform()
 {
@@ -83,7 +84,7 @@ void MovingPlatform::toggleEditing()
 		}
 
 		Button* waypointsNumber = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
-			"NameChanger", "NULL", "Waypoints:" + to_string(waypoints.size()));
+			"NameChanger", "NULL", "Waypoints:" + Helper::to_string_with_precision(waypoints.size()));
 		waypointsNumber->setSize(new Vec2(max(size.x, 100), 50));
 		waypointsNumber->setPosition(new Vec2(position.x, position.y + size.y + waypointsNumber->getSize().y));
 		waypointsNumber->setCallbackFunction([this, waypointsNumber]()
@@ -100,7 +101,7 @@ void MovingPlatform::toggleEditing()
 		plusType->setCallbackFunction([this, waypointsNumber]()
 		{
 			addWaypoint();
-			waypointsNumber->setText("Waypoints:" + to_string(waypoints.size()));
+			waypointsNumber->setText("Waypoints:" + Helper::to_string_with_precision(waypoints.size()));
 			return;
 		});
 		plusType->setScreenSpace(false);
@@ -113,7 +114,7 @@ void MovingPlatform::toggleEditing()
 		minusType->setCallbackFunction([this, waypointsNumber]()
 		{
 			removeWaypoint();
-			waypointsNumber->setText("Waypoints:" + to_string(waypoints.size()));
+			waypointsNumber->setText("Waypoints:" + Helper::to_string_with_precision(waypoints.size()));
 			return;
 		});
 		minusType->setScreenSpace(false);
@@ -122,7 +123,7 @@ void MovingPlatform::toggleEditing()
 
 
 		Button* speedBtn = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
-			"NameChanger", "NULL", "Speed:" + to_string(max_speed));
+			"NameChanger", "NULL", "Speed:" + Helper::to_string_with_precision(max_speed));
 		speedBtn->setSize(new Vec2(max(size.x, 100), 50));
 		speedBtn->setPosition(new Vec2(position.x,
 			position.y + size.y + waypointsNumber->getSize().y + waypointsNumber->getSize().y));
@@ -141,7 +142,7 @@ void MovingPlatform::toggleEditing()
 		plusSpeed->setCallbackFunction([this, speedBtn]()
 		{
 			max_speed += 0.2f;
-			speedBtn->setText("Speed:" + to_string(max_speed));
+			speedBtn->setText("Speed:" + Helper::to_string_with_precision(max_speed));
 			return;
 		});
 		plusSpeed->setScreenSpace(false);
@@ -155,7 +156,7 @@ void MovingPlatform::toggleEditing()
 		minusSpeed->setCallbackFunction([this, speedBtn]()
 		{
 			max_speed -= 0.2f;
-			speedBtn->setText("Speed:" + to_string(max_speed));
+			speedBtn->setText("Speed:" + Helper::to_string_with_precision(max_speed));
 			return;
 		});
 		minusSpeed->setScreenSpace(false);

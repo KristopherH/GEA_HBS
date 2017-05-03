@@ -84,7 +84,7 @@ void GameFileCreation::initButtons()
 	int levelNumber = 0;
 	for (auto& level : gameFile->levels)
 	{
-		std::string btnName = std::to_string(levelNumber);
+		std::string btnName = to_string(levelNumber);
 		btnName.append(": ");
 		btnName.append(level.name);
 		Button* btn = new Button(new Sprite(buttonTexture), "levelButton", "Button", btnName);
