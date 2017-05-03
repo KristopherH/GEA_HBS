@@ -59,6 +59,9 @@ public:
 	bool setGravityTag(std::string _gravity_tag);
 	void setSpeed(float _speed) { max_speed = _speed; }
 
+	bool isTransparent(Vec2 _pixel_pos, Rect box);
+	bool isTransparent(Vec2 boxPos);
+
 	//TODO: add getters/setters
 	Vec2 velocity;
 	Vec2 acceleration;
