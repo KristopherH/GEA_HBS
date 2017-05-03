@@ -31,6 +31,7 @@ static const std::vector<std::string> acceptedTypes = { "Platform",
 class LevelLoader
 {
 	friend class GameFileLoader;
+	friend class SettingsLoader;
 public:
 	static Level* loadLevel(std::string LevelPath);
 	static void saveLevel(Level* level, std::string LevelPath);
