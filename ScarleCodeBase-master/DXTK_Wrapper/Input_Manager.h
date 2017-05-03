@@ -8,7 +8,7 @@
 #include <map>
 
 //OURS
-
+class Button;
 
 using Input = int;
 
@@ -54,8 +54,8 @@ public:
 
 	std::thread change_key;
 
-	void inputChangeHandler(InputLabel _input);
-	void changeInput(InputLabel _input);
+	void inputChangeHandler(InputLabel _input, Button* btn = nullptr);
+	void changeInput(InputLabel _input, Button* btn = nullptr);
 #pragma endregion
 
 #pragma region GamePad Input

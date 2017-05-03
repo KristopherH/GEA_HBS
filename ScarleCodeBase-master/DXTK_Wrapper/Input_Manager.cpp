@@ -11,6 +11,7 @@
 //OURS
 #include <GameData.h>
 #include <BaseCamera.h>
+#include "Button.h"
 
 unsigned char InputManager::keyboard_state[256];
 unsigned char InputManager::previous_keyboard_state[256];
@@ -79,6 +80,9 @@ InputManager::~InputManager()
 	if (user_direct_input)	user_direct_input->Release();
 	if (user_keyboard)		user_keyboard->Release();
 	if (user_mouse)         user_mouse->Release();
+
+	if (change_key.joinable())
+		change_key.join();
 }
 
 std::string InputManager::ConvertToASCII(DWORD _key)
@@ -111,7 +115,7 @@ std::string InputManager::ConvertToASCII(DWORD _key)
 		return "ESC";
 	}
 
-	return "Not_Supported";
+	return "Unknown";
 }
 #pragma region Mouse
 
@@ -213,18 +217,18 @@ bool InputManager::getKeyHeld(Input _key)
 
 
 
-void InputManager::inputChangeHandler(InputLabel _input)
+void InputManager::inputChangeHandler(InputLabel _input, Button* btn)
 {
 	if (change_key.joinable())
 		change_key.join();
 
 	//change_key = std::thread(&InputManager::changeInput, _input);
-	change_key.swap(std::thread(&InputManager::changeInput, this, _input));
+	change_key = (std::thread(&InputManager::changeInput, this, _input, btn));
 }
 
 
 
-void InputManager::changeInput(InputLabel _input)
+void InputManager::changeInput(InputLabel _input, Button* btn)
 {
 	while (true)
 	{
@@ -233,10 +237,14 @@ void InputManager::changeInput(InputLabel _input)
 			if (getKeyDown(key))
 			{
 				key_inputs[_input] = key;
+				if (btn)
+				{
+					btn->setText(GameData::inputManager->ConvertToASCII(key));
+				}
 				return;
 			}
 		}
-
+		readMouse();
 		if (getMouseMiddlePress() || getMouseLeftPress() || getMouseRightPress())
 		{
 			return;

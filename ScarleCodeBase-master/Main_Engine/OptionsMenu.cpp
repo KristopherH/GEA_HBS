@@ -61,35 +61,35 @@ void OptionsMenu::Draw()
 void OptionsMenu::keyBindings()
 {
 	GameObject* noticeBoard = new GameObject(new Sprite("sign-1", GameData::renderer), "button", "Button");
-	noticeBoard->setSize(new Vec2(1000.0f, 1000.0f));
-	noticeBoard->setPosition(new Vec2(((GameData::screen.Center().x / 2) * -1),
-		(GameData::screen.Center().y / 2) - (GameData::screen.Center().y * 2)));
-	//go_list.push_back(noticeBoard);
+	noticeBoard->setSize(new Vec2(GameData::currentCamera->getCameraSize().x,
+								  GameData::currentCamera->getCameraSize().y));
+	noticeBoard->setPosition(new Vec2(-GameData::currentCamera->getCameraSize().x / 2,
+									  -GameData::currentCamera->getCameraSize().y / 2));
+	go_list.push_back(noticeBoard);
 
-	Vec2 pos(noticeBoard->getPosition());
-	Vec2 size(noticeBoard->getSize().y / InputManager::key_inputs.size(),
-			  noticeBoard->getSize().y / InputManager::key_inputs.size());
+	Vec2 pos(GameData::currentCamera->getCameraSize().x / 100 * 20,
+			 GameData::currentCamera->getCameraSize().y / 100 * 30);
+	Vec2 size((GameData::currentCamera->getCameraSize().x / 100 * 60) / InputManager::key_inputs.size(),
+			  (GameData::currentCamera->getCameraSize().y / 100 * 60) / InputManager::key_inputs.size());
 
 	for (auto input : InputManager::key_inputs)
 	{
 		std::string up = GameData::inputManager->ConvertToASCII(input.second);
 
-		Button* upBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", up);
-		upBtn->setSize(&size);
-		upBtn->setPosition(&pos);
-		upBtn->setOrigin(new Vec2(0.0f, 0.0f));
-		upBtn->setCallbackFunction([]() {
-
-			//GameData::scene_manager->setCurrentScene("MainMenuScene", false);
-			//GameData::inputManager->newUpKey();
-		});
-
 		Text* txt = new Text(nullptr, "", "", InputManager::key_effect_names[input.first]);
 		txt->setSize(new Vec2(200, size.y));
-		txt->setPosition(&(pos + txt->getSize()));
+		txt->setPosition(&pos);
+
+		Button* btn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", up);
+		btn->setSize(&size);
+		btn->setPosition(new Vec2(pos.x + txt->getSize().x, pos.y));
+		btn->setOrigin(new Vec2(0.0f, 0.0f));
+		btn->setCallbackFunction([btn, input]() {
+			GameData::inputManager->inputChangeHandler(input.first, btn);
+		});
 
 		pos.y += size.y;
-		go_list.push_back(upBtn);
+		go_list.push_back(btn);
 		go_list.push_back(txt);
 
 
