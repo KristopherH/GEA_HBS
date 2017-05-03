@@ -151,48 +151,54 @@ bool CollisionManager::mouseCollision(Rect box)
 bool CollisionManager::bitMapCollision(GameObject& a, GameObject& b)
 {
 	Rect box;
-	int y_min = 0;
-	int x_min = 0;
-	int y_max = 0;
-	int x_max = 0;
+//	int y_min = 0;
+//	int x_min = 0;
+//	int y_max = 0;
+//	int x_max = 0;
+//
+//#pragma region Instantiating area of collision
+//
+//	/*if (a.getBox().minCorner.y > b.getBox().minCorner.y)
+//		y_min = a.getBox().minCorner.y;
+//	else
+//		y_min = b.getBox().minCorner.y;
+//
+//	if (a.getBox().minCorner.x > b.getBox().minCorner.x)
+//		x_min = a.getBox().minCorner.x;
+//	else
+//		x_min = b.getBox().minCorner.x;
+//
+//	if (a.getBox().maxCorner.y < b.getBox().maxCorner.y)
+//		y_max = a.getBox().maxCorner.y;
+//	else
+//		y_max = b.getBox().maxCorner.y;
+//
+//	if (a.getBox().maxCorner.x < b.getBox().maxCorner.x)
+//		x_max = a.getBox().maxCorner.x;
+//	else
+//		x_max = b.getBox().maxCorner.x;*/
+//#pragma endregion DONE LEAVE IT ALONE!
 
-#pragma region Instantiating area of collision
-	if (a.getBox().minCorner.y > b.getBox().minCorner.y)
-		y_min = a.getBox().minCorner.y;
-	else
-		y_min = b.getBox().minCorner.y;
-
-	if (a.getBox().minCorner.x > b.getBox().minCorner.x)
-		x_min = a.getBox().minCorner.x;
-	else
-		x_min = b.getBox().minCorner.x;
-
-	if (a.getBox().maxCorner.y < b.getBox().maxCorner.y)
-		y_max = a.getBox().maxCorner.y;
-	else
-		y_max = b.getBox().maxCorner.y;
-
-	if (a.getBox().maxCorner.x < b.getBox().maxCorner.x)
-		x_max = a.getBox().maxCorner.x;
-	else
-		x_max = b.getBox().maxCorner.x;
-#pragma endregion DONE LEAVE IT ALONE!
-
-	box.minCorner.x = x_min;
-	box.minCorner.y = y_min;
-	box.maxCorner.x = x_max;
-	box.maxCorner.y = y_max;
-
-#pragma region checking each pixel
-	for (int h = y_max; h <= y_min; h++)
+	box.minCorner.x = max(a.getBox().minCorner.x, b.getBox().minCorner.x);
+	box.minCorner.y = max(a.getBox().minCorner.y, b.getBox().minCorner.y);
+	box.maxCorner.x = min(a.getBox().maxCorner.x, b.getBox().maxCorner.x);
+	box.maxCorner.y = min(a.getBox().maxCorner.y, b.getBox().maxCorner.y);
+	if ((box.maxCorner.x < box.minCorner.x && box.maxCorner.y < box.minCorner.y))
 	{
-		for (int w = x_max; w <= x_min; w++)
+		return false;
+	}
+#pragma region checking each pixel
+
+	for (int h = box.minCorner.y; h <= box.maxCorner.y; h++)
+	{
+		for (int w = box.minCorner.x; w <= box.maxCorner.x; w++)
 		{
-			Vec2 a_new = globalToLocalPos(&a, Vec2(h, w));
-			Vec2 b_new = globalToLocalPos(&b, Vec2(h, w));
-			int width = x_max - x_min;
-			if (!a.isTransparent(a_new, width) && !b.isTransparent(b_new, width))
+			Vec2 a_new = globalToLocalPos(&a, Vec2(w, h));
+			Vec2 b_new = globalToLocalPos(&b, Vec2(w, h));
+			if (!a.isTransparent(a_new) && !b.isTransparent(b_new))
+			{
 				return true;
+			}
 		}
 	}
 
@@ -345,12 +351,17 @@ Direction CollisionManager::findCollisionDirection(Rect* a, Rect* b)
 #pragma endregion
 Vec2 CollisionManager::globalToLocalPos(GameObject * obj, Vec2 global_pos)
 {
-	int x = obj->getSprite()->getPosition().x;
-	int y = obj->getSprite()->getPosition().y;
+	int x = obj->getBox().minCorner.x;
+	int y = obj->getBox().minCorner.y;
 
 	Vec2 local_pos;
-	local_pos.x = x - global_pos.x;
+	local_pos.x = global_pos.x - x;
 	local_pos.y = global_pos.y - y;
 
-	return local_pos;
+	Vec2 pixelPos;
+	Vec2 boxSize(obj->getBox().maxCorner - obj->getBox().minCorner);
+	pixelPos.x = (int)((local_pos.x * (boxSize.x / obj->getScale().x)) / boxSize.x);
+	pixelPos.y = (int)((local_pos.y * (boxSize.y / obj->getScale().y)) / boxSize.y);
+
+	return pixelPos;
 }

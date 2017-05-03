@@ -138,7 +138,7 @@ void Texture::LoadPixelMap()
 			//outputBuffer[row + col] = A << 24 + R << 16 + G << 8 + B;
 		}
 	}
-
+	description = Desc;
 	// Unmap the texture & clean up
 	pd3dImmediateContext->Unmap(captureTexture, 0);
 }
@@ -153,17 +153,17 @@ bool Texture::isTransparent(Vec2 _pixel_pos, Rect box)
 	return false;
 }
 
-bool Texture::isTransparent(Vec2 _pixel_pos, int width)
+bool Texture::isTransparent(Vec2 _pixel_pos)
 {
-	int pos = (_pixel_pos.y * width) + _pixel_pos.x;
-	int sizey = getSize().y;
-	int sizex = getSize().x;
-	int size = getSize().x * getSize().y;
+	//int pos = (_pixel_pos.y) + _pixel_pos.x;
+	//int sizey = getSize().y;
+	//int sizex = getSize().x;
+	//int size = getSize().x * getSize().y;
 
-	if (pos < 0 || pos > size)
-		return false;
+	//if (pos < 0 || pos > size)
+	//	return false;
 
-	if (pixelMap[pos].w <= collision_opacity)
+	if (pixelMap[(int)(_pixel_pos.y) * description.Width + (int)(_pixel_pos.x)].w <= collision_opacity)
 		return true;
 
 	return false;

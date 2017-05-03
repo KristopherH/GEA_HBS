@@ -132,9 +132,9 @@ bool GameObject::isTransparent(Vec2 _pixel_pos, Rect box)
 	return this->getSprite()->GetTexture()->isTransparent(_pixel_pos, box);
 }
 
-bool GameObject::isTransparent(Vec2 _pixel_pos, int width)
+bool GameObject::isTransparent(Vec2 boxPos)
 {
-	return this->getSprite()->GetTexture()->isTransparent(_pixel_pos, width);
+	return this->getSprite()->GetTexture()->isTransparent(boxPos);
 }
 
 void GameObject::movePosition(Vec2* _translation)
