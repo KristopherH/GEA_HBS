@@ -36,6 +36,10 @@ int LevelSwitcher::switchToNextLevel()
 {
 	if (activated)
 	{
+		if (nextLevel > gameFile->levels.size()-1)
+		{
+			nextLevel = 0;
+		}
 		activated = false;
 		return nextLevel;
 	}
@@ -50,6 +54,10 @@ void LevelSwitcher::setNextLevel(int newLevel)
 void LevelSwitcher::setGameFile(GameFile* _gameFile)
 {
 	gameFile = _gameFile;
+	if (nextLevel > gameFile->levels.size()-1)
+	{
+		nextLevel = 0;
+	}
 }
 
 void LevelSwitcher::toggleEditing()
@@ -57,6 +65,10 @@ void LevelSwitcher::toggleEditing()
 	EditableGameObject::toggleEditing();
 	if (editing)
 	{
+		if (nextLevel > gameFile->levels.size()-1)
+		{
+			nextLevel = 0;
+		}
 		std::string levelString = nextLevel != -2 ? "Level:" + gameFile->levels[nextLevel].name : "Game End";
 		Button* newLevelNumber = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
 			"", "NULL", levelString);

@@ -5,7 +5,7 @@
 #include "Object_Factory.h"
 #include "Collision_Manager.h"
 #include "Player.h"
-
+#include "Helper.h"
 
 FallingPlatform::FallingPlatform()
 	:Platform(new Sprite("StandardPlatform", GameData::renderer), "StandardPlatform", "StandardPlatform")
@@ -63,7 +63,7 @@ void FallingPlatform::toggleEditing()
 	{
 		//chnage bullet speed
 		Button* falltimerbtn = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
-			"NameChanger", "NULL", "Fall Time:" + to_string(toFallTime));
+			"NameChanger", "NULL", "Fall Time:" + Helper::to_string_with_precision(toFallTime));
 		falltimerbtn->setSize(new Vec2(max(size.x, 100), 50));
 		falltimerbtn->setPosition(new Vec2(position.x,
 			position.y + size.y + falltimerbtn->getSize().y));
@@ -87,7 +87,7 @@ void FallingPlatform::toggleEditing()
 			{
 				toFallTime = 1.00;
 			}
-			falltimerbtn->setText("Fall Time:" + to_string(toFallTime));
+			falltimerbtn->setText("Fall Time:" + Helper::to_string_with_precision(toFallTime));
 			return;
 		});
 		plusFallTime->setScreenSpace(false);
@@ -106,7 +106,7 @@ void FallingPlatform::toggleEditing()
 			{
 				toFallTime = 1.0f;
 			}
-			falltimerbtn->setText("Fall Time:" + to_string(toFallTime));
+			falltimerbtn->setText("Fall Time:" + Helper::to_string_with_precision(toFallTime));
 			return;
 		});
 		minusFallTime->setScreenSpace(false);

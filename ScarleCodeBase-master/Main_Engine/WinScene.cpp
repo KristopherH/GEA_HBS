@@ -5,6 +5,7 @@
 #include "Object_Factory.h"
 #include "SceneManager.h"
 #include "MainMenu.h"
+#include "Helper.h"
 
 WinScene::WinScene(float _timeTaken)
 	:timeTaken(_timeTaken), Scene()
@@ -24,7 +25,7 @@ WinScene::WinScene(float _timeTaken)
 							  0.0f));
 	go_list.push_back(txt);
 
-	Text* txt2 = new Text(nullptr, "txt", "NULL", "Time: " + to_string(timeTaken));
+	Text* txt2 = new Text(nullptr, "txt", "NULL", "Time: " + Helper::to_string_with_precision(timeTaken));
 	txt2->setSize(new Vec2(GameData::currentCamera->getViewSize().x, 50));
 	txt2->setPosition(new Vec2(GameData::currentCamera->getViewSize().x / 2 - (txt2->getSize().x / 2),
 								GameData::currentCamera->getViewSize().y / 2 + (txt2->getSize().y)));
