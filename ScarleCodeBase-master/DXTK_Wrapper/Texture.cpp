@@ -22,6 +22,7 @@ Texture::Texture(std::string _fileName, Renderer * _renderer)
 		"../Release/"
 #endif
 		+ _fileName + ".dds";
+
 	HRESULT hr = CreateDDSTextureFromFile(_renderer->GetDevice(), Helper::charToWChar(fullfilename.c_str()), nullptr, &m_pTextureRV);
 
 	if (hr != S_OK)
@@ -107,7 +108,7 @@ void Texture::LoadPixelMap()
 	// Loop through all pixels in texture and copy to output buffer
 	int counter = 0;
 	int* outputBuffer = new int[Desc.Width * Desc.Height];
-	pixelMap.resize(Desc.Width * Desc.Height);
+	transparencyMap.resize(Desc.Width * Desc.Height);
 	for (UINT row = 0; row < Desc.Height; row++)
 	{
 		UINT rowStart = row * mapped.RowPitch;
@@ -120,18 +121,50 @@ void Texture::LoadPixelMap()
 			byte B = sptr[rowStart + colStart + 2];  // Blue
 			byte A = sptr[rowStart + colStart + 3];  // Alpha
 
-			int r = (int)R;
-			int g = (int)G;
-			int b = (int)B;
-			int a = (int)A;
-			pixelMap[row * Desc.Width + col].x = r;
-			pixelMap[row * Desc.Width + col].y = g;
-			pixelMap[row * Desc.Width + col].z = b;
-			pixelMap[row * Desc.Width + col].w = a;
+			//int r = (int)R;
+			//int g = (int)G;
+			//int b = (int)B;
+			//int a = (int)A;
+			
+			//if (a != 0)
+			//{
+			//	int i = 0;
+			//}
+
+			//pixelMap[row * Desc.Width + col].x = r;
+			//pixelMap[row * Desc.Width + col].y = g;
+			//pixelMap[row * Desc.Width + col].z = b;
+			transparencyMap[row * Desc.Width + col] = A;
 			//outputBuffer[row + col] = A << 24 + R << 16 + G << 8 + B;
 		}
 	}
-
+	description = Desc;
 	// Unmap the texture & clean up
 	pd3dImmediateContext->Unmap(captureTexture, 0);
+}
+
+bool Texture::isTransparent(Vec2 _pixel_pos, Rect box)
+{
+	int pos = (_pixel_pos.y * getSize().x) + _pixel_pos.x;
+
+	if (transparencyMap[pos] <= 0)
+		return true;
+
+	return false;
+}
+
+bool Texture::isTransparent(Vec2 _pixel_pos)
+{
+	//int pos = (_pixel_pos.y) + _pixel_pos.x;
+	//int sizey = getSize().y;
+	//int sizex = getSize().x;
+	//int size = getSize().x * getSize().y;
+
+	//if (pos < 0 || pos > size)
+	//	return false;
+
+	if (transparencyMap[(int)(_pixel_pos.y) * description.Width + (int)(_pixel_pos.x)] <= collision_opacity)
+		return true;
+
+	return false;
 }

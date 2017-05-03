@@ -30,9 +30,13 @@ bool Collectible::Update(float dt)
 	EditableGameObject::Update(dt);
 	if (GameData::collsion_manager->boxCollision(box, GameData::player->getBox()))
 	{
-		alive = false;
-		GameData::player->setScore();
-		GameData::sound_manager->playSound("Collectible-SoundEffect.wav");
+		if (GameData::collsion_manager->bitMapCollision(*GameData::player, *this))
+		{
+			alive = false;
+			GameData::player->setScore();
+			GameData::sound_manager->playSound("Collectible-SoundEffect.wav");
+		}
 	}
+
 	return false;
 }

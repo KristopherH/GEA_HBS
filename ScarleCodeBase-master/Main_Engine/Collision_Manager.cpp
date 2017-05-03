@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "BaseCamera.h"
 #include "GameData.h"
+#include "Texture.h"
 Direction CollisionManager::col_direction = Direction::NONE;
 
 bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
@@ -147,13 +148,65 @@ bool CollisionManager::mouseCollision(Rect box)
 
 
 
-bool CollisionManager::circleCollision(std::string a, std::string b)
+bool CollisionManager::bitMapCollision(GameObject& a, GameObject& b)
 {
+	Rect box;
+//	int y_min = 0;
+//	int x_min = 0;
+//	int y_max = 0;
+//	int x_max = 0;
+//
+//#pragma region Instantiating area of collision
+//
+//	/*if (a.getBox().minCorner.y > b.getBox().minCorner.y)
+//		y_min = a.getBox().minCorner.y;
+//	else
+//		y_min = b.getBox().minCorner.y;
+//
+//	if (a.getBox().minCorner.x > b.getBox().minCorner.x)
+//		x_min = a.getBox().minCorner.x;
+//	else
+//		x_min = b.getBox().minCorner.x;
+//
+//	if (a.getBox().maxCorner.y < b.getBox().maxCorner.y)
+//		y_max = a.getBox().maxCorner.y;
+//	else
+//		y_max = b.getBox().maxCorner.y;
+//
+//	if (a.getBox().maxCorner.x < b.getBox().maxCorner.x)
+//		x_max = a.getBox().maxCorner.x;
+//	else
+//		x_max = b.getBox().maxCorner.x;*/
+//#pragma endregion DONE LEAVE IT ALONE!
+
+	box.minCorner.x = max(a.getBox().minCorner.x, b.getBox().minCorner.x);
+	box.minCorner.y = max(a.getBox().minCorner.y, b.getBox().minCorner.y);
+	box.maxCorner.x = min(a.getBox().maxCorner.x, b.getBox().maxCorner.x);
+	box.maxCorner.y = min(a.getBox().maxCorner.y, b.getBox().maxCorner.y);
+	if ((box.maxCorner.x < box.minCorner.x && box.maxCorner.y < box.minCorner.y))
+	{
+		return false;
+	}
+#pragma region checking each pixel
+
+	for (int h = box.minCorner.y; h < box.maxCorner.y; h++)
+	{
+		for (int w = box.minCorner.x; w < box.maxCorner.x; w++)
+		{
+			Vec2 a_new = globalToLocalPos(&a, Vec2(w, h));
+			Vec2 b_new = globalToLocalPos(&b, Vec2(w, h));
+			if (!a.isTransparent(a_new) && !b.isTransparent(b_new))
+			{
+				return true;
+			}
+		}
+	}
+
 	return false;
+#pragma endregion
+
 }
-
-
-
+#pragma region in the way
 Direction CollisionManager::getCollisionDirection()
 {
 	return col_direction;
@@ -294,4 +347,21 @@ Direction CollisionManager::findCollisionDirection(Rect* a, Rect* b)
 	}
 
 	return Direction::NONE;
+}
+#pragma endregion
+Vec2 CollisionManager::globalToLocalPos(GameObject * obj, Vec2 global_pos)
+{
+	int x = obj->getBox().minCorner.x;
+	int y = obj->getBox().minCorner.y;
+
+	Vec2 local_pos;
+	local_pos.x = global_pos.x - x;
+	local_pos.y = global_pos.y - y;
+
+	Vec2 pixelPos;
+	Vec2 boxSize(obj->getBox().maxCorner - obj->getBox().minCorner);
+	pixelPos.x = (int)((local_pos.x * ((boxSize.x-1) / obj->getScale().x)) / boxSize.x);
+	pixelPos.y = (int)((local_pos.y * ((boxSize.y-1) / obj->getScale().y)) / boxSize.y);
+
+	return pixelPos;
 }
