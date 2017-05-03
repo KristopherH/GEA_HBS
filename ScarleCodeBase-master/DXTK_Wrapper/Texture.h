@@ -28,8 +28,8 @@ protected:
 
 	ID3D11Texture2D* captureTexture;
 
-	std::vector<Vec4> pixelMap;
-	unsigned int collision_opacity = 100;
+	std::vector<byte> transparencyMap;
+	byte collision_opacity = 100;
 
 	D3D11_TEXTURE2D_DESC description;
 };

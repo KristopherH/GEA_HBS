@@ -189,9 +189,9 @@ bool CollisionManager::bitMapCollision(GameObject& a, GameObject& b)
 	}
 #pragma region checking each pixel
 
-	for (int h = box.minCorner.y; h <= box.maxCorner.y; h++)
+	for (int h = box.minCorner.y; h < box.maxCorner.y; h++)
 	{
-		for (int w = box.minCorner.x; w <= box.maxCorner.x; w++)
+		for (int w = box.minCorner.x; w < box.maxCorner.x; w++)
 		{
 			Vec2 a_new = globalToLocalPos(&a, Vec2(w, h));
 			Vec2 b_new = globalToLocalPos(&b, Vec2(w, h));
@@ -360,8 +360,8 @@ Vec2 CollisionManager::globalToLocalPos(GameObject * obj, Vec2 global_pos)
 
 	Vec2 pixelPos;
 	Vec2 boxSize(obj->getBox().maxCorner - obj->getBox().minCorner);
-	pixelPos.x = (int)((local_pos.x * (boxSize.x / obj->getScale().x)) / boxSize.x);
-	pixelPos.y = (int)((local_pos.y * (boxSize.y / obj->getScale().y)) / boxSize.y);
+	pixelPos.x = (int)((local_pos.x * ((boxSize.x-1) / obj->getScale().x)) / boxSize.x);
+	pixelPos.y = (int)((local_pos.y * ((boxSize.y-1) / obj->getScale().y)) / boxSize.y);
 
 	return pixelPos;
 }
