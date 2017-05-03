@@ -18,6 +18,7 @@
 #include "Texture.h"
 #include "Object_Factory.h"
 #include "LevelSwitcher.h"
+#include "FallingPlatform.h"
 
 Level* LevelLoader::loadLevel(std::string LevelPath)
 {
@@ -87,6 +88,59 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 				else
 				{
 					platform = Platform::create(STANDARD);
+				}
+				platform->setPosition(pos);
+				platform->setSize(size);
+				go = platform;
+			}
+			else
+			{
+				//ERROR MESSAGE OUTPUT
+				return nullptr;
+			}
+			pos = nullptr;
+			size = nullptr;
+		}
+		else if (type == "FallingPlatform")
+		{
+			std::string platformType = getStringFromFile(fileStream);
+			float timer = getFloatFromFile(fileStream);
+			if (getStringFromFile(fileStream) == "END")
+			{
+
+				FallingPlatform* platform = new FallingPlatform();
+				platform->setTimer(timer);
+				if (platformType == "SlowPlatform")
+				{
+					platform->changeType(SLOW);
+				}
+				else if (platformType == "ConveyorLeft")
+				{
+					platform->changeType(CONVEYOR_LEFT);
+				}
+				else if (platformType == "ConveyorRight")
+				{
+					platform->changeType(CONVEYOR_RIGHT);
+				}
+				else if (platformType == "JumpPlatform")
+				{
+					platform->changeType(JUMP);
+				}
+				else if (platformType == "SpeedPlatform")
+				{
+					platform->changeType(SPEED);
+				}
+				else if (platformType == "StandardPlatform")
+				{
+					platform->changeType(STANDARD);
+				}
+				else if (platformType == "StickyPlatform")
+				{
+					platform->changeType(STICKY);
+				}
+				else
+				{
+					platform->changeType(STANDARD);
 				}
 				platform->setPosition(pos);
 				platform->setSize(size);
@@ -341,6 +395,15 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 				std::string tag = level->go_list[i]->getTag();
 				tag.erase(remove_if(tag.begin(), tag.end(), isspace), tag.end());
 				saveStringToFile(fileStream, "PlatformType: ", tag);
+			}
+			if (type == "FallingPlatform")
+			{
+				FallingPlatform* fallingPlat = static_cast<FallingPlatform*>(level->go_list[i]);
+				std::string tag = level->go_list[i]->getTag();
+				float timer = fallingPlat->getTimer();
+				tag.erase(remove_if(tag.begin(), tag.end(), isspace), tag.end());
+				saveStringToFile(fileStream, "PlatformType: ", tag);
+				saveFloatToFile(fileStream, "TimeToFall: ", timer);
 			}
 			if (type == "Rope")
 			{

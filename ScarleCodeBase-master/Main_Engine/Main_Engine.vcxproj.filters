@@ -124,6 +124,9 @@
     <ClCompile Include="Text.cpp">
       <Filter>Source\UI</Filter>
     </ClCompile>
+    <ClCompile Include="FallingPlatform.cpp">
+      <Filter>Source\Game Objects\Interactive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelEditor.h">
@@ -251,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Headers\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FallingPlatform.h">
+      <Filter>Headers\Game Objects\Interactive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
