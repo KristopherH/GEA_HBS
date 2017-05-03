@@ -20,6 +20,7 @@ using namespace DirectX;
 
 class Renderer
 {
+	friend class Texture;
 public:
 	Renderer(ID3D11Device* _pd3dDevice, HWND _hWnd);
 	~Renderer();
