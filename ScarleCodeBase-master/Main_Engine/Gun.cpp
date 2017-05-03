@@ -66,11 +66,12 @@ void Gun::toggleEditing()
 		plusSpeed->setCallbackFunction([this, speedBtn]()
 		{
 			bulletSpeed += 0.0002f;
-			speedBtn->setText("Speed:" + to_string(bulletSpeed));
+			
 			if (bulletSpeed <= 0.0002)
 			{
 				bulletSpeed = 0.0002;
 			}
+			speedBtn->setText("Speed:" + to_string(bulletSpeed));
 			return;
 		});
 		plusSpeed->setScreenSpace(false);
@@ -84,11 +85,12 @@ void Gun::toggleEditing()
 		minusSpeed->setCallbackFunction([this, speedBtn]()
 		{
 			bulletSpeed -= 0.0002f;
-			speedBtn->setText("Speed:" + to_string(bulletSpeed));
+			
 			if (bulletSpeed <= 0.0002)
 			{
 				bulletSpeed = 0.0002;
 			}
+			speedBtn->setText("Speed:" + to_string(bulletSpeed));
 			return;
 		});
 		minusSpeed->setScreenSpace(false);
@@ -115,11 +117,12 @@ void Gun::toggleEditing()
 		plustime->setCallbackFunction([this, timeBtn]()
 		{
 			ShootTime += 1.0f;
-			timeBtn->setText("Rate of fire:" + to_string(ShootTime));
+			
 			if (ShootTime <= 1.000)
 			{
 				ShootTime = 1.00;
 			}
+			timeBtn->setText("Rate of fire:" + to_string(ShootTime));
 			return;
 		});
 		plustime->setScreenSpace(false);
@@ -133,13 +136,14 @@ void Gun::toggleEditing()
 		minustime->setCallbackFunction([this, timeBtn]()
 		{
 			ShootTime -= 1.0f;
-			timeBtn->setText("Rate of fire:" + to_string(ShootTime));
+			
 			return;
 
 			if (ShootTime <= 1.000)
 			{
 				ShootTime = 1.00;
 			}
+			timeBtn->setText("Rate of fire:" + to_string(ShootTime));
 		});
 		minustime->setScreenSpace(false);
 		ui_elements.push_back(minustime);
