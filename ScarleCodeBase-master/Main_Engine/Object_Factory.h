@@ -21,7 +21,8 @@ enum Type
 	BUTTON,
 	BUTTON_PLUS,
 	BUTTON_MINUS,
-	GUN
+	GUN,
+	FALLING_PLATFORM
 };
 
 class ObjectFactory
@@ -38,6 +39,7 @@ public:
 	static GameObject* createCheckpoint();
 	static GameObject* createLevelSwitcher();
 	static GameObject* createGun();
+	static GameObject* createFallingPlatform();
 
 	static void init();
 
