@@ -7,6 +7,7 @@
 //OURS
 #include "Scene.h"
 #include "Background.h"
+#include "Button.h"
 
 class GameOver : public Scene
 {

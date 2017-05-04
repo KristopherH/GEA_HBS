@@ -263,6 +263,12 @@
   <ItemGroup>
     <ImageContentTask Include="BG\GameOverBackground.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="BG\GO_BG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="BG\GO_BG2.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
