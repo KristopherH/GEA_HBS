@@ -1,5 +1,5 @@
 #include "PauseMenu.h"
-#include "OptionsMenu.h"
+#include "PauseOptions.h"
 
 #include "SceneManager.h"
 #include "SoundManager.h"
@@ -17,7 +17,6 @@
 PauseMenu::PauseMenu()
 	:Scene()
 {
-
 	Text* PMtxt = new Text(nullptr, "txt", "NULL", "Pause Menu");
 	PMtxt->setSize(new Vec2(800, 800));
 	PMtxt->setPosition(new Vec2((GameData::currentCamera->getViewSize().x / 2) - (PMtxt->getSize().x / 2), -300.0f));
@@ -39,8 +38,8 @@ PauseMenu::PauseMenu()
 		ResumeBtn->getPosition().y + 150.0f));
 	OptnsBtn->setOrigin(new Vec2(0.0f, 0.0f));
 	OptnsBtn->setCallbackFunction([]() {
-		GameData::scene_manager->addScene("OptionsMenuScene", new OptionsMenu());
-		GameData::scene_manager->setCurrentScene("OptionsMenuScene", false);
+		GameData::scene_manager->addScene("PauseOptionsScene", new PauseOptions());
+		GameData::scene_manager->setCurrentScene("PauseOptionsScene", false);
 	});
 
 	ExitBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Exit");
@@ -67,8 +66,7 @@ void PauseMenu::Update(float dt)
 
 void PauseMenu::Draw()
 {
-
+	cam->setPosition(&GameData::scene_manager->getScene("GameScene")->getCamera()->getPosition());
 	GameData::scene_manager->getScene("GameScene")->Draw();
-
 	Scene::Draw();
 }

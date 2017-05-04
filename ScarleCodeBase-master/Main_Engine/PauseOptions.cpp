@@ -1,5 +1,5 @@
-#include "OptionsMenu.h"
-#include "MainMenu.h"
+#include "PauseOptions.h"
+#include "PauseMenu.h"
 #include "GameData.h"
 #include "Input_Manager.h"
 #include "SceneManager.h"
@@ -10,13 +10,14 @@
 #include "DXTKRenderer.h"
 #include "GameObject.h"
 #include "Sprite.h"
+#include "Background.h"
 #include "CustomMath.h"
 #include "UI.h"
 #include "Text.h"
 #include "Helper.h"
 #include "Object_Factory.h"
 
-OptionsMenu::OptionsMenu()
+PauseOptions::PauseOptions()
 {
 	std::vector<Sprite*> BGs;
 
@@ -42,25 +43,23 @@ OptionsMenu::OptionsMenu()
 		GameData::scene_manager->setCurrentScene("PauseMenuScene", false);
 	});
 
-
-
 	go_list.push_back(bg);
 	go_list.push_back(Backbtn);
 	keyBindings();
 	volumeButtons();
 }
 
-void OptionsMenu::Update(float dt)
+void PauseOptions::Update(float dt)
 {
 	Scene::Update(dt);
 }
 
-void OptionsMenu::Draw()
+void PauseOptions::Draw()
 {
 	Scene::Draw();
 }
 
-void OptionsMenu::keyBindings()
+void PauseOptions::keyBindings()
 {
 	GameObject* noticeBoard = new GameObject(new Sprite("sign-1", GameData::renderer), "button", "Button");
 	noticeBoard->setSize(new Vec2(GameData::currentCamera->getCameraSize().x,
@@ -93,12 +92,10 @@ void OptionsMenu::keyBindings()
 		pos.y += size.y;
 		go_list.push_back(btn);
 		go_list.push_back(txt);
-
-
 	}
 }
 
-void OptionsMenu::volumeButtons()
+void PauseOptions::volumeButtons()
 {
 
 	Vec2 pos(GameData::currentCamera->getCameraSize().x / 100 * 60,
@@ -175,5 +172,4 @@ void OptionsMenu::volumeButtons()
 		return;
 	});
 	go_list.push_back(minusSFX);
-
 }

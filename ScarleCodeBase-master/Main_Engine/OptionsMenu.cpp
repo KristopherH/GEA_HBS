@@ -42,8 +42,6 @@ OptionsMenu::OptionsMenu()
 		GameData::scene_manager->setCurrentScene("MainMenuScene", false);
 	});
 
-	
-
 	go_list.push_back(bg);
 	go_list.push_back(Backbtn);
 	keyBindings();
@@ -93,8 +91,6 @@ void OptionsMenu::keyBindings()
 		pos.y += size.y;
 		go_list.push_back(btn);
 		go_list.push_back(txt);
-
-
 	}
 }
 
