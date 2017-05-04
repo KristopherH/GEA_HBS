@@ -170,5 +170,8 @@
     <ImageContentTask Include="BG\GO_BG2.png">
       <Filter>Textures\BG</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="UI\Button3.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
