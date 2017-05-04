@@ -12,26 +12,20 @@ void SettingsLoader::saveSettings(std::string filePath)
 		return;
 	}
 	LevelLoader::saveIntToFile(fileStream, "Volume: ", GameData::sound_manager->getMasterVolume());
-	
 
 	LevelLoader::saveIntToFile(fileStream, "SFX: ", GameData::sound_manager->getSFXVolume());
 
-	int numberOfKeys = LevelLoader::getIntFromFile(fileStream);
-	if (GameData::inputManager->key_inputs.size() == numberOfKeys)
+	LevelLoader::saveIntToFile(fileStream, "KeyNumber: ", GameData::inputManager->key_inputs.size());
+	for (auto& key : GameData::inputManager->key_inputs)
 	{
-		for (auto& key : GameData::inputManager->key_inputs)
-		{
-			int newKey = LevelLoader::getIntFromFile(fileStream);
-			key.second = newKey;
-		}
+		LevelLoader::saveIntToFile(fileStream, GameData::inputManager->key_effect_names[key.first], key.second);
 	}
-
 }
 
 void SettingsLoader::loadSettings(std::string filePath)
 {
 	std::fstream fileStream;
-	fileStream.open(filePath, fstream::out);
+	fileStream.open(filePath);
 
 	if (!fileStream.is_open())
 	{

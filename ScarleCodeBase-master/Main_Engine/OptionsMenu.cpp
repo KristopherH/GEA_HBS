@@ -16,6 +16,7 @@
 #include <map>
 #include "Helper.h"
 #include "Object_Factory.h"
+#include "SettingsLoader.h"
 
 OptionsMenu::OptionsMenu()
 {
@@ -41,6 +42,7 @@ OptionsMenu::OptionsMenu()
 	Backbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Backbtn->setCallbackFunction([]() {
 		GameData::scene_manager->setCurrentScene("MainMenuScene", false);
+		SettingsLoader::saveSettings();
 	});
 
 	

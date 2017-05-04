@@ -219,17 +219,32 @@ Vec2* CollisionManager::getClosestSideBitmap(GameObject& a, GameObject& b)
 	//Vec2 direction(blob.Center() - Vec2(1.0f, 0.0f));
 	//Vec2 direction(blob.Center() - Vec2(-1.0f, 0.0f));
 	//
-	if (abs(blob.minCorner.x - blob.maxCorner.x) < abs(blob.minCorner.y - blob.maxCorner.y))
+	if (abs(blob.minCorner.x - blob.maxCorner.x) < abs(blob.minCorner.y - blob.maxCorner.y)
+		&& abs(blob.minCorner.x - blob.maxCorner.x) < abs(blob.maxCorner.y - blob.minCorner.y))
 	{
-		Vec2* sideDistance = new Vec2(blob.minCorner.x - blob.maxCorner.x, 0.0f);
-		sideDistance->Limit(abs(blob.minCorner.x - blob.maxCorner.x));
-		return sideDistance;
+		if (abs(blob.minCorner.x - blob.maxCorner.x) < abs(blob.maxCorner.x - blob.minCorner.x))
+		{
+			Vec2* sideDistance = new Vec2(blob.minCorner.x - blob.maxCorner.x, 0.0f);
+			return sideDistance;
+		}
+		else
+		{
+			Vec2* sideDistance = new Vec2(blob.maxCorner.x - blob.minCorner.x, 0.0f);
+			return sideDistance;
+		}
 	}
 	else
 	{
-		Vec2* sideDistance = new Vec2(0.0f, blob.minCorner.y - blob.maxCorner.y);
-		sideDistance->Limit(abs(blob.minCorner.y - blob.maxCorner.y));
-		return sideDistance;
+		if (abs(blob.minCorner.y - blob.maxCorner.y) < abs(blob.maxCorner.y - blob.minCorner.y))
+		{
+			Vec2* sideDistance = new Vec2(0.0f, -(blob.minCorner.y - blob.maxCorner.y));
+			return sideDistance;
+		}
+		else
+		{
+			Vec2* sideDistance = new Vec2(0.0f, -(blob.maxCorner.y - blob.minCorner.y));
+			return sideDistance;
+		}
 	}
 }
 

@@ -127,7 +127,9 @@
     <ClCompile Include="FallingPlatform.cpp">
       <Filter>Source\Game Objects\Interactive</Filter>
     </ClCompile>
-    <ClCompile Include="Stairs.cpp" />
+    <ClCompile Include="Stairs.cpp">
+      <Filter>Source\Game Objects\Interactive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelEditor.h">
@@ -260,7 +262,7 @@
       <Filter>Headers\Game Objects\Interactive</Filter>
     </ClInclude>
     <ClInclude Include="Stairs.h">
-      <Filter>Source\Game Objects\Interactive</Filter>
+      <Filter>Headers\Game Objects\Interactive</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

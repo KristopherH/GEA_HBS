@@ -89,7 +89,7 @@ LevelEditorScene::LevelEditorScene(GameFile* _gameFile, int lvlNumber)
 	float y = 0;
 	for (auto type : ObjectFactory::create_object)
 	{
-		float buttonSize = GameData::screen.maxCorner.y / ObjectFactory::texture_pool.size();
+		float buttonSize = GameData::screen.maxCorner.y / ObjectFactory::names.size();
 		Sprite* sprite = new Sprite(ObjectFactory::texture_pool[type.first]);
 
 		Button* btn = new Button(sprite, "Button", "Button", ObjectFactory::names[type.first], false);

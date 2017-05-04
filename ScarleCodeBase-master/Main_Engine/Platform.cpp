@@ -122,6 +122,53 @@ void Platform::toggleEditing()
 		});
 		minusType->setScreenSpace(false);
 		ui_elements.push_back(minusType);
+
+		/*std::string openBottomString = passThuBottom ? "Open Bottom" : "Closed Bottom";
+
+		Button* openBottom = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
+			"NameChanger", "NULL", openBottomString);
+		openBottom->setSize(new Vec2(100, 50));
+		openBottom->setCallbackFunction([]()
+		{
+			return;
+		});
+		openBottom->setScreenSpace(false);
+		ui_elements.push_back(openBottom);
+
+		Button* plusOpenBottom = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_PLUS]),
+			"NameChanger", "NULL", "");
+		plusOpenBottom->setSize(new Vec2(50, 50));
+		plusOpenBottom->setCallbackFunction([this, openBottom]()
+		{
+			passThuBottom = !passThuBottom;
+			std::string openBottomString = passThuBottom ? "Open Bottom" : "Closed Bottom";
+			openBottom->setText(openBottomString);
+			return;
+		});
+		plusOpenBottom->setScreenSpace(false);
+		ui_elements.push_back(plusOpenBottom);
+
+		Button* minusOpenBottom = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_MINUS]),
+			"NameChanger", "NULL", "");
+		minusOpenBottom->setSize(new Vec2(50, 50));
+
+		minusOpenBottom->setCallbackFunction([this, openBottom]()
+		{
+			passThuBottom = !passThuBottom;
+			std::string openBottomString = passThuBottom ? "Open Bottom" : "Closed Bottom";
+			openBottom->setText(openBottomString);
+			return;
+		});
+		minusOpenBottom->setScreenSpace(false);
+		ui_elements.push_back(minusOpenBottom);
+
+
+		minusOpenBottom->setPosition(new Vec2(position.x + size.x,
+			position.y));
+		openBottom->setPosition(new Vec2(position.x + size.x + minusOpenBottom->getSize().x,
+			position.y));
+		plusOpenBottom->setPosition(new Vec2(position.x + size.x + minusOpenBottom->getSize().x + openBottom->getSize().x,
+			position.y));*/
 	}
 
 }
