@@ -25,7 +25,7 @@ public:
 	//AnimatedSprite(Texture*, Vec2 size, int count);
 	virtual ~AnimatedSprite();
 
-	void Update() override;
+	//void Update() override;
 
 	void nextAnimation();
 

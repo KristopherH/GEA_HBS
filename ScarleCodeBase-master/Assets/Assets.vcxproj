@@ -261,6 +261,7 @@
     <ImageContentTask Include="Characters\Cannon.png" />
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="Characters\player_sprite_sheets.png" />
     <ImageContentTask Include="BG\GameOverBackground.png" />
   </ItemGroup>
   <ItemGroup>
@@ -274,7 +275,10 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Platforms\StairsLeft.png" />
+<<<<<<< HEAD
     <ImageContentTask Include="Platforms\StairsRight.png" />
+=======
+>>>>>>> refs/remotes/origin/master
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

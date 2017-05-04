@@ -84,7 +84,7 @@ void RopeNode::gravityUpdate()
 	{
 		if (go->getAlive() && go->getSolid())
 		{
-			if (GameData::collsion_manager->boxCollision(box, go->getBox()))
+			if (GameData::collsion_manager->boxCollision(sprite->getColliderBox(), go->getBox()))
 			{
 				if (go == (GameObject*)GameData::player)
 				{
