@@ -11,6 +11,10 @@ Sprite::Sprite(Texture* _texture)
 {
 	//origin += texture->getSize();//around which rotation and scaing is done
 	//origin *= 0.5f;
+	int w = GetTexture()->getSize().x / frames_wide;
+	int h = GetTexture()->getSize().y / frames_tall;
+	setSpriteFrameWidth(w);
+	setSpriteFrameHeight(h);
 }
 
 Sprite::Sprite(std::string _fileName, Renderer * _renderer)
@@ -26,7 +30,7 @@ Sprite::~Sprite()
 	texture = nullptr;*/
 }
 
-void Sprite::Update()
+void Sprite::Update(float _dt)
 {
 }
 
@@ -38,25 +42,42 @@ void Sprite::animation(float _dt)
 	{
 		current_frame++;
 		if (current_frame >= frames_per_animation)
-			current_frame = 1;
+			current_frame = 0;
 		
 		animation_tick = 0.0f;
 		//Set the draw box and collision box
 		int real_frame = current_frame * (int)animation_state;
-		int frame_w = current_frame / frames_wide;
-		int frame_h = current_frame % frames_wide;
+		int frame_w = real_frame % frames_wide;
+		int frame_h = real_frame / frames_wide;
 
-		draw_box.minCorner.x = sprite_frame_width * frame_w;
-		draw_box.minCorner.y = sprite_frame_height * frame_h;
-		draw_box.maxCorner.x = draw_box.minCorner.x + sprite_frame_width;
-		draw_box.maxCorner.y = draw_box.minCorner.y + sprite_frame_height;
+		int h = 0;
+		int w = 0;
 
+		if (frame_h <= 0)
+			h = 0;
+		else
+			h = getSize().y / frame_h;
+		
+		if (frame_w <= 0)
+			w = 0;
+		else
+			w = getSize().x / frame_w;
+
+		draw_box.minCorner.x = w * frame_w;
+		draw_box.minCorner.y = h * frame_h;
+		draw_box.maxCorner.x = draw_box.minCorner.x + w;
+		draw_box.maxCorner.y = draw_box.minCorner.y + h;
 	}
 
 
 }
 
 Vec2 Sprite::getSize()
+{
+	return Vec2((float)sprite_frame_width, (float)sprite_frame_height);
+}
+
+Vec2 Sprite::getTextureSize()
 {
 	return texture->getSize();
 }
@@ -74,6 +95,16 @@ float Sprite::getRotation()
 Vec2 Sprite::getPosition()
 {
 	return position;
+}
+
+float Sprite::getAnimationTick()
+{
+	return animation_tick;
+}
+
+float Sprite::getAnimationLength()
+{
+	return animation_length;
 }
 
 int Sprite::getSpriteFrameWidth()
@@ -106,9 +137,19 @@ int Sprite::getCurrentFrame()
 	return current_frame;
 }
 
+int Sprite::getRealFrame()
+{
+	return real_frame;
+}
+
 Rect Sprite::getDrawBox()
 {
 	return draw_box;
+}
+
+Rect Sprite::getColliderBox()
+{
+	return collider_box;
 }
 
 AnimationState Sprite::getAnimationState()
@@ -144,6 +185,21 @@ void Sprite::setOrigin(Vec2 _origin)
 	origin.y = _origin.y;
 }
 
+void Sprite::increaseAnimationTick(float _increase)
+{
+	animation_tick += _increase;
+}
+
+void Sprite::setAnimationTick(float _animation_tick)
+{
+	animation_tick = _animation_tick;
+}
+
+void Sprite::setAnimationLength(float _animation_length)
+{
+	animation_length = _animation_length;
+}
+
 void Sprite::setSpriteFrameWidth(int _sprite_frame_width)
 {
 	sprite_frame_width = _sprite_frame_width;
@@ -176,9 +232,19 @@ void Sprite::setCurrentFrame(int _frame)
 	current_frame = _frame;
 }
 
+void Sprite::setRealFrame(int _frame)
+{
+	real_frame = _frame;
+}
+
 void Sprite::setDrawBox(Rect _draw_box)
 {
 	draw_box = _draw_box;
+}
+
+void Sprite::setColliderBox(Rect _collider_box)
+{
+	collider_box = _collider_box;
 }
 
 void Sprite::setAnimationState(AnimationState _animation_state)

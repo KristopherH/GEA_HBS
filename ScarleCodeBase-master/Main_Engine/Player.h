@@ -20,6 +20,7 @@ public:
 	~Player();
 
 	bool Update(float dt) override;
+	bool Draw() override;
 
 	void ProcessInput();
 	//void processPauseInput();

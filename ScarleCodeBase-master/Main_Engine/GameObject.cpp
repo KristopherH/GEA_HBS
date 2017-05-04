@@ -13,7 +13,6 @@
 GameObject::GameObject(Sprite* _sprite, std::string _name, std::string _tag)
 	:sprite(_sprite), name(_name), tag(_tag)
 {
-
 }
 
 GameObject::GameObject()
@@ -54,13 +53,26 @@ bool GameObject::Update(float dt)
 {
 	if (this->getSprite())
 	{
-		sprite->Update();
+		sprite->Update(dt); 
+		if(animated)
+			animation(dt);
+		if(tag == "Button")
+		{
+			box.minCorner.x = getPosition().x;
+			box.minCorner.y = getPosition().y;
+			box.maxCorner.x = getPosition().x + getSize().x;
+			box.maxCorner.y = getPosition().y + getSize().y;
+		}
+		else
+			box = sprite->getColliderBox();
 
-		box.minCorner.x = position.x;
-		box.minCorner.y = position.y;
-		box.maxCorner.x = position.x + this->getSize().x;
-		box.maxCorner.y = position.y + this->getSize().y;
+		Rect col_box;
+		col_box.minCorner.x = position.x;
+		col_box.minCorner.y = position.y;
+		col_box.maxCorner.x = position.x + getSize().x;
+		col_box.maxCorner.y = position.y + getSize().y;
 
+		sprite->setColliderBox(col_box);
 		sprite->setPosition(position);
 		sprite->setRotation(rotation);
 		sprite->setScale(scale);
@@ -82,6 +94,9 @@ bool GameObject::Draw()
 {
 	if (sprite)
 	{
+		if (this->getTag() == "Player")
+			return GameData::renderer->Draw(this);
+
 		return GameData::renderer->Draw(sprite);
 	}
 	return false;
@@ -110,7 +125,6 @@ void GameObject::setSize(Vec2 * _size)
 		scale.x = _size->x / textureSize.x;
 		scale.y = _size->y / textureSize.y;
 	}
-	return;
 }
 
 bool GameObject::setGravityTag(std::string _gravity_tag)
@@ -157,7 +171,7 @@ void GameObject::gravityUpdate()
 				if (current_object->tag == current_gravity_tag)
 				{
 					if (GameData::collsion_manager->boxCollision(
-						this->box, current_object->getBox()))
+						this->sprite->getColliderBox(), current_object->getBox()))
 					{
 						Rect top_of_the_platform(current_object->getBox()/* + current_object->getPosition()*/);
 						top_of_the_platform.maxCorner.y = top_of_the_platform.minCorner.y + 60.0f;
@@ -191,6 +205,54 @@ void GameObject::gravityUpdate()
 	if (!grounded && gravity_on)
 	{
 		acceleration.y += gravity_constant;
+	}
+}
+
+void GameObject::animation(float _dt)
+{
+	sprite->increaseAnimationTick(_dt);
+	float ani_tick = sprite->getAnimationTick();
+	float ani_length = sprite->getAnimationLength();
+	int cur_frame = sprite->getCurrentFrame();
+	int frames_per_ani = sprite->getFramesPerAnimation();
+	int frames_col = sprite->getFramesWide();
+	AnimationState ani = sprite->getAnimationState();
+
+	if (ani_tick >= ani_length)
+	{
+		cur_frame++;
+		if (cur_frame >= frames_per_ani)
+			cur_frame = 1;
+
+		sprite->setCurrentFrame(cur_frame);
+		sprite->setAnimationTick(0.0f);
+		//Set the draw box and collision box
+		int real_frame = cur_frame * (int)ani;
+		int frame_w = real_frame % frames_col;
+		int frame_h = real_frame / frames_col;
+
+		int max_y = 0;
+		int max_x = 0;
+		int min_x = 0;
+		int min_y = 0;
+
+		if (frame_h <= 0)
+			min_y = 0;
+		else
+			min_y = sprite->getSpriteFrameHeight() * frame_h;
+
+		if (frame_w <= 0)
+			min_x = 0;
+		else
+			min_x = sprite->getSpriteFrameWidth() * frame_w;
+
+		Rect source;
+		source.minCorner.x = min_x;
+		source.minCorner.y = min_y;
+		source.maxCorner.x = min_x + sprite->getSpriteFrameWidth();
+		source.maxCorner.y = min_y + sprite->getSpriteFrameHeight();
+
+		sprite->setDrawBox(source);
 	}
 }
 

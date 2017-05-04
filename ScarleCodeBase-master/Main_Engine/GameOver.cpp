@@ -27,7 +27,7 @@
 GameOver::GameOver()
 	:Scene()
 {		
-		GameObject* go = new GameObject(new Sprite("GameOverBackGround", GameData::renderer));
+		GameObject* go = new GameObject(new Sprite("11_background", GameData::renderer));
 		go->setSize(&GameData::currentCamera->getCameraSize());
 		go->setPosition(&((GameData::currentCamera->getCameraSize()/2)*-1));
 		go_list.push_back(go);

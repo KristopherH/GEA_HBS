@@ -25,7 +25,7 @@ std::map<Type, std::string> ObjectFactory::names;
 
 GameObject* ObjectFactory::createPlayer()
 {
-	Sprite* sprite1 = new Sprite("player_sprite", GameData::renderer);
+	Sprite* sprite1 = new Sprite("player_sprite_sheets", GameData::renderer);
 	Player* player = new Player(sprite1, "Player", "Player");
 	player->setSize(new Vec2(100.0f, 120.0f));
 	player->setPosition(new Vec2(-475.0f, 350.0f));
@@ -39,6 +39,10 @@ GameObject* ObjectFactory::createPlayer()
 	player->setGravityTag("JumpPlatform");
 	player->setGravityTag("StandardPlatform");
 	player->getSprite()->GetTexture()->LoadPixelMap();
+	player->getSprite()->setAnimationState(AnimationState::IDLE);
+	player->getSprite()->setFramesPerAnimation(10);
+	player->getSprite()->setFramesWide(8);
+	player->getSprite()->setFramesTall(7);
 	GameData::player = player;
 
 	return player;

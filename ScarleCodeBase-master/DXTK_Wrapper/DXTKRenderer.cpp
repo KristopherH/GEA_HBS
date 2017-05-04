@@ -60,21 +60,73 @@ bool Renderer::BeginDraw(BaseCamera * mainCamera)
 
 bool Renderer::Draw(Sprite* _sprite)
 {
-	RECT source;
-	source.top = _sprite->getDrawBox().minCorner.y;
-	source.right = _sprite->getDrawBox().maxCorner.x;
-	source.left = _sprite->getDrawBox().minCorner.x;
-	source.bottom = _sprite->getDrawBox().maxCorner.y;
-
 	spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
-		_sprite->getPosition(),
-		&source,
-		/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
-		_sprite->getRotation(),
-		_sprite->getOrigin(),
-		_sprite->getScale(),
-		SpriteEffects_None);
+						_sprite->getPosition(),
+						nullptr,
+						/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+						_sprite->getRotation(),
+						_sprite->getOrigin(),
+						_sprite->getScale(),
+						SpriteEffects_None);
 	return true;
+}
+
+bool Renderer::Draw(GameObject* _obj)
+{
+	//Makes the DXTK source rect
+	RECT* source = new RECT();
+	Sprite* _sprite = _obj->getSprite();
+
+	source->top = _sprite->getDrawBox().minCorner.y;
+	source->right = _sprite->getDrawBox().maxCorner.x;
+	source->left = _sprite->getDrawBox().minCorner.x;
+	source->bottom = _sprite->getDrawBox().maxCorner.y;
+
+	if (_sprite->getFramesTall() > 1 && _sprite->getFramesWide() > 1)
+	{
+		/*int index = _sprite->getRealFrame();
+		float min_x = (float)((index % frames_wide) * width);
+		float min_y = (float)((index / frames_wide) * height);
+		float max_x = (float)(((index % frames_wide) * width) + width);
+		float max_y = (float)(((index / frames_wide) * height) + height);
+
+		Vec2 min = Vec2(min_x, min_y);
+		Vec2 max = Vec2(max_x, max_y);
+
+		src->left = min_x;
+		src->top = min_y;
+		src->right = max_x;
+		src->bottom = max_y;*/
+
+		//_sprite->setSource(source);
+
+		/*Vec2 scale = _sprite->getScale();
+
+		Vec2 size = Vec2(scale.x * max.x, scale.y * max.y);*/
+
+		spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
+						  _sprite->getPosition(),
+						  source,
+						  /*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+						  _sprite->getRotation(),
+						  _sprite->getOrigin(),
+						  _sprite->getScale(),
+						  SpriteEffects_None);
+
+		return true;
+	}
+	else
+	{
+		spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
+						  _sprite->getPosition(),
+						  nullptr,
+						  /*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
+						  _sprite->getRotation(),
+						  _sprite->getOrigin(),
+						  _sprite->getScale(),
+						  SpriteEffects_None);
+		return true;
+	}
 }
 
 bool Renderer::EndDraw()
