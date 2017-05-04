@@ -21,6 +21,7 @@
 #include "Timer.h"
 #include "LevelSwitcher.h"
 #include "WinScene.h"
+#include "Button.h"
 
 GameScene::GameScene()
 {
@@ -41,7 +42,7 @@ GameScene::GameScene()
 
 	Livestxt = new Text(nullptr, "txt", "NULL", "Lives: " + std::to_string(GameData::player->getLives()));
 	Livestxt->setSize(new Vec2(150, 100));
-	Livestxt->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(190.0f, 250.0f)));
+	Livestxt->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(200.0f, 250.0f)));
 	Livestxt->setColor(Vec4(0.0f, 0.0f, 0.40f, 1.0f));
 
 	Scoretxt = new Text(nullptr, "txt", "NULL", "Score: " + std::to_string(GameData::player->getScore()));
@@ -126,10 +127,12 @@ void GameScene::changeLevel()
 	go_list.push_back(player);
 	go_list.push_back(cam);
 
-	std::vector<Sprite*> UI_objects;
-	UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
+	Button* ui_scene = new Button(new Sprite("sign-3", GameData::renderer), "", "" , "");
+	ui_scene->setCallbackFunction([]() {});
+	ui_scene->setScale(new Vec2(0.2, 0.2));
+	ui_scene->setPosition(new Vec2(GameData::currentCamera->getCameraSize() - ui_scene->getSize()));
+	ui_scene->setScreenSpace(true);
 
-	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);
 	go_list.push_back(timer);
 	go_list.push_back(Scoretxt);

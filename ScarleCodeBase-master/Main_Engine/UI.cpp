@@ -43,11 +43,10 @@ bool UI::Update(float dt)
 
 bool UI::Draw()
 {
-	UIElements[0]->setPosition(Vec2(GameData::player->getPosition().x + 700.0f, GameData::player->getPosition().y + 320));
-
 	for (unsigned int i = 0; i < UIElements.size(); i++)
 	{
-		GameData::renderer->Draw(UIElements[i]);	
+		UIElements[i]->setPosition(GameData::renderer->ScreenToWorld((GameData::currentCamera->getCameraSize() * -1) - UIElements[i]->getSize()));
+		GameData::renderer->Draw(UIElements[i]);
 	}
 	
 	return false;
