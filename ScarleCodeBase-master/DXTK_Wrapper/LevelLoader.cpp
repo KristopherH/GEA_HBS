@@ -19,6 +19,7 @@
 #include "Object_Factory.h"
 #include "LevelSwitcher.h"
 #include "FallingPlatform.h"
+#include "Stairs.h"
 
 Level* LevelLoader::loadLevel(std::string LevelPath)
 {
@@ -167,8 +168,25 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 
 			if (getStringFromFile(fileStream) == "END")
 			{
-				go = new Enemy(pos, size, rotation, name, waypoints);
+				go = new Enemy(new Sprite(ObjectFactory::texture_pool[ENEMY])
+					, pos, size, rotation, name, waypoints);
 				go->setSpeed(speed);
+			}
+			else
+			{
+				//ERROR READING FILE
+				return nullptr;
+			}
+		}
+		else if (type == "Stairs")
+		{
+			//get positions and give the
+			bool direction = getIntFromFile(fileStream);
+			if (getStringFromFile(fileStream) == "END")
+			{
+				Stairs* stair = new Stairs(new Sprite(ObjectFactory::texture_pool[STAIRS_LEFT]));
+				stair->setDirectionLeft(direction);
+				go = stair;
 			}
 			else
 			{
@@ -395,6 +413,11 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 				std::string tag = level->go_list[i]->getTag();
 				tag.erase(remove_if(tag.begin(), tag.end(), isspace), tag.end());
 				saveStringToFile(fileStream, "PlatformType: ", tag);
+			}
+			if (type == "Stairs")
+			{
+				Stairs* stairs = static_cast<Stairs*>(level->go_list[i]);
+				saveIntToFile(fileStream, "Left Facing: ", stairs->left);
 			}
 			if (type == "FallingPlatform")
 			{

@@ -8,18 +8,6 @@
 
 class Scene;
 
-//TBDeleted
-enum class GameState {
-
-	GS_NULL = 0,
-	GS_PLAY,
-	GS_MAIN_MENU,
-	GS_PAUSE,
-	GS_GAME_OVER,
-	GS_EXIT
-};
-extern GameState _GS;
-
 class SceneManager
 {
 public:
@@ -28,6 +16,7 @@ public:
 
 	void addScene(std::string sceneName, Scene* newScene);
 	void setCurrentScene(std::string sceneName, bool deleteCurrent = true);
+	void removeScene(std::string sceneName);
 
 	Scene* getScene(std::string sceneName);
 	Scene* getCurrentScene();

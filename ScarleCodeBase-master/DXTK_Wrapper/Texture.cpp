@@ -159,11 +159,11 @@ bool Texture::isTransparent(Vec2 _pixel_pos)
 	//int sizey = getSize().y;
 	//int sizex = getSize().x;
 	//int size = getSize().x * getSize().y;
+	int pos = (int)(_pixel_pos.y) * description.Width + (int)(_pixel_pos.x);
+	if (pos < 0 || pos > transparencyMap.size())
+		return true;
 
-	//if (pos < 0 || pos > size)
-	//	return false;
-
-	if (transparencyMap[(int)(_pixel_pos.y) * description.Width + (int)(_pixel_pos.x)] <= collision_opacity)
+	if (transparencyMap[pos] <= collision_opacity)
 		return true;
 
 	return false;

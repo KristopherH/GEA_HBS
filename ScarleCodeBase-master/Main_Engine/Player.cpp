@@ -20,7 +20,7 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	speed = 0.02f;
 	lives = 3;
 	score = 0;
-	jumpTime = 0.8f;
+	jumpTime = 0.2f;
 	jumpTimeCounter = jumpTime;
 	//Load keybinds from file into list
 
@@ -28,7 +28,7 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	std::cout << "Arcade not defined" << std::endl;
 	#endif
 
-	KeyBindsHold[InputManager::key_inputs[InputLabel::JUMP]] = std::bind(&Player::OnJump, this);
+	//KeyBindsHold[] = std::bind(&Player::OnJump, this);
 	KeyBindsHold[InputManager::key_inputs[InputLabel::LEFT]] = std::bind(&Player::OnMove, this, Vec2(-speed, 0.0f));
 	KeyBindsHold[InputManager::key_inputs[InputLabel::RIGHT]] = std::bind(&Player::OnMove, this, Vec2(speed, 0.0f));
 	KeyBindsHold[InputManager::key_inputs[InputLabel::UP]] = std::bind(&Player::OnMove, this, Vec2(0.0f, -speed));
@@ -80,10 +80,13 @@ bool Player::Update(float dt)
 	}
 	if (jump_platform)
 	{
-		OnJump();
+		OnJump(dt);
+	}
+	if (GameData::inputManager->getKeyHeld(InputManager::key_inputs[InputLabel::JUMP]))
+	{
+		OnJump(dt);
 	}
 	ProcessInput();
-	//oneWayPlatformMove();
 	if (climbing && !stoppedJumping && velocity.y <= 0)
 	{
 		stoppedJumping = true;
@@ -94,10 +97,50 @@ bool Player::Update(float dt)
 	return false;
 }
 
+void Player::gravityUpdate()
+{
+	bool new_grounded = false;
+	for (auto other : *GameData::go_list)
+	{
+		if (this != other && other->getSolid())
+		{
+			if (GameData::collsion_manager->boxCollision(
+				this->box, other->getBox()))
+			{
+				if (velocity.y >= 0.0f || !(other->getPassThruBottom()))
+				{
+					if (GameData::collsion_manager->bitMapCollision(*this, *other))
+					{
+						position += *(GameData::collsion_manager->getClosestSideBitmap(*this, *other));
+						if (!grounded) // If not previously grounded
+						{
+							velocity.y = 0.0f;
+							acceleration.y = 0.0f;
+						}
+
+						new_grounded = true;
+						break;
+					}
+				}
+			}
+		}
+		if (new_grounded)
+		{
+			break;
+		}
+	}
+
+	grounded = new_grounded;
+
+	if (!grounded && gravity_on)
+	{
+		acceleration.y += gravity_constant;
+	}
+}
+
 void Player::ProcessInput()
 {
 	bool movement = false;
-
 	for (auto key : KeyBindsHold)
 	{
 		if (GameData::inputManager->getKeyHeld(key.first))
@@ -127,7 +170,7 @@ void Player::ProcessInput()
 	}
 }
 
-void Player::OnJump()
+void Player::OnJump(float dt)
 {
 	if (!can_jump)
 	{
@@ -153,7 +196,11 @@ void Player::OnJump()
 			{
 				//keep jumping!
 				acceleration += Vec2(0.0f, jumpStrength);
-           		jumpTimeCounter -= /*detaTime???*/0.01f;
+           		jumpTimeCounter -= dt;
+			}
+			else
+			{
+				int i = 0;
 			}
 		}
 	}

@@ -119,4 +119,7 @@ void SoundManager::setSFXVoume(unsigned short _volume)
 	SFX_Volume = _volume;
 }
 
+void SoundManager::stopSound()
+{
+}
 #endif

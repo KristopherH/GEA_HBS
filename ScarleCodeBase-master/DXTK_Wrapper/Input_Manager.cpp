@@ -54,6 +54,7 @@ std::map<InputLabel, Input> InputManager::key_inputs =
 	{ InputLabel::USE, (Input)DIK_RETURN },
 	{ InputLabel::PAUSE, (Input)DIK_ESCAPE }
 };
+#endif
 
 std::map<InputLabel, std::string> InputManager::key_effect_names =
 {
@@ -65,7 +66,6 @@ std::map<InputLabel, std::string> InputManager::key_effect_names =
 	{ InputLabel::USE, "Use" },
 	{ InputLabel::PAUSE, "Pause" }
 };
-#endif
 
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 {

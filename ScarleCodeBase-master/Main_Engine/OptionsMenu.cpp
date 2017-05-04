@@ -13,6 +13,7 @@
 #include "CustomMath.h"
 #include "UI.h"
 #include "Text.h"
+#include <map>
 
 OptionsMenu::OptionsMenu()
 {
