@@ -21,13 +21,14 @@
 #include "Timer.h"
 #include "LevelSwitcher.h"
 #include "WinScene.h"
+#include "Button.h"
 
 GameScene::GameScene()
 {
 	std::vector<Texture*> textures;
 
 	timer = new Timer();
-	timer->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(260.0f, 280.0f)));
+	timer->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(265.0f, 290.0f)));
 	timer->setSize(new Vec2(280.0f, 100.0f));
 	timer->setColor(Vec4(1, 0, 0, 1));
 
@@ -38,6 +39,16 @@ GameScene::GameScene()
 	player->setGravity(true);
 
 	go_list.push_back(player);
+
+	Livestxt = new Text(nullptr, "txt", "NULL", "Lives: " + std::to_string(GameData::player->getLives()));
+	Livestxt->setSize(new Vec2(150, 100));
+	Livestxt->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(200.0f, 250.0f)));
+	Livestxt->setColor(Vec4(0.0f, 0.0f, 0.40f, 1.0f));
+
+	Scoretxt = new Text(nullptr, "txt", "NULL", "Score: " + std::to_string(GameData::player->getScore()));
+	Scoretxt->setSize(new Vec2(150, 100));
+	Scoretxt->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(190.f, 215.0f)));
+	Scoretxt->setColor(Vec4(0.0f, 0.40f, 0.0f, 1.0f));
 
 	gameFile = GameFileLoader::loadGame();
 	changeLevel();
@@ -74,26 +85,16 @@ void GameScene::Update(float dt)
 
 void GameScene::Draw()
 {
+	Livestxt->setText("Lives: " + std::to_string(GameData::player->getLives()));
+	Scoretxt->setText("Lives: " + std::to_string(GameData::player->getScore()));
+	
 	Scene::Draw();
-
-	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(620.0f, 240.0f),
-		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
-
-	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(620.0f, 270.0f),
-		Vec4(0.0f, 0.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
 }
 
 void GameScene::changeLevel()
 {
 	level_number = new_level_number;
-	//for (auto& go : go_list)
-	//{
-	//	if (go->getTag() != "Player" &&
-	//		go->getTag() != "Camera")
-	//	{
-	//		//delete go;
-	//	}
-	//}
+
 	go_list.clear();
 	
 	if (gameFile->levels.size() <= level_number) //Level doesn't exist
@@ -129,11 +130,15 @@ void GameScene::changeLevel()
 	go_list.push_back(player);
 	go_list.push_back(cam);
 
-	std::vector<Sprite*> UI_objects;
-	UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
+	Button* ui_scene = new Button(new Sprite("sign-3", GameData::renderer), "", "" , "");
+	ui_scene->setCallbackFunction([]() {});
+	ui_scene->setScale(new Vec2(0.2, 0.2));
+	ui_scene->setPosition(new Vec2(GameData::currentCamera->getCameraSize() - ui_scene->getSize()));
+	ui_scene->setScreenSpace(true);
 
-	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);
 	go_list.push_back(timer);
+	go_list.push_back(Scoretxt);
+	go_list.push_back(Livestxt);
 	return;
 }
