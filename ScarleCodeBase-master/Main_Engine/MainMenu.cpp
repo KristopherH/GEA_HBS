@@ -14,10 +14,13 @@
 #include "CustomMath.h"
 #include "GameFileCreation.h"
 #include "Text.h"
+#include "SettingsLoader.h"
 
 MainMenuScene::MainMenuScene()
 	:Scene()
 {
+	SettingsLoader::loadSettings();
+
 	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer),
 											"button1", "Button", "Play");
 	Playbtn->setSize(new Vec2(300.0f, 150.0f));
@@ -78,10 +81,7 @@ MainMenuScene::MainMenuScene()
 	go_list.push_back(LevelEdbtn);
 	go_list.push_back(Optionsbtn);
 	go_list.push_back(txt);
-	//go_list.push_back(cam);
 
-	GameData::sound_manager->setMasterVolume(100);
-	GameData::sound_manager->setSFXVolume(100);
 	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
 
 	return;

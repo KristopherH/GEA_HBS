@@ -105,14 +105,6 @@ bool GameObject::Draw()
 void GameObject::setPosition(Vec2 * _position)
 {
 	position.x = _position->x; position.y = _position->y;
-	if (sprite != nullptr)
-	{
-		bottomCollider = Rect(Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
-		bottomCollider.maxCorner += sprite->getSize();
-		bottomCollider.minCorner += Vec2(0.0f, sprite->getSize().y);
-		bottomCollider.maxCorner *= scale;
-		bottomCollider.minCorner *= scale;
-	}
 }
 
 void GameObject::setSize(Vec2 * _size)
@@ -159,38 +151,24 @@ void GameObject::movePosition(Vec2* _translation)
 
 void GameObject::gravityUpdate()
 {
-	//Very messy Needs tidying up after alpha submission
 	bool new_grounded = false;
-	for (const auto& current_object : *GameData::go_list)
+	for (auto other : *GameData::go_list)
 	{
-		//This could be changed to solid now that's implemented (Post Alpha Task)
-		for (const auto& current_gravity_tag : this->gravity_trigger_tags)
+		if (this != other && other->getSolid())
 		{
-			if (this != current_object)
+			if (GameData::collsion_manager->boxCollision(
+				this->box, other->getBox()))
 			{
-				if (current_object->tag == current_gravity_tag)
+				if (velocity.y >= 0.0f)
 				{
-					if (GameData::collsion_manager->boxCollision(
-						this->sprite->getColliderBox(), current_object->getBox()))
+					if (!grounded) // If not previously grounded
 					{
-						Rect top_of_the_platform(current_object->getBox()/* + current_object->getPosition()*/);
-						top_of_the_platform.maxCorner.y = top_of_the_platform.minCorner.y + 60.0f;
-						if (GameData::collsion_manager->boxCollision(
-							bottomCollider + position , top_of_the_platform))
-						{
-							if (velocity.y >= 0.0f)
-							{
-								if (!grounded) // If not previously grounded
-								{
-									velocity.y = 0.0f;
-									acceleration.y = 0.0f;
-								}
-
-								new_grounded = true;
-								break;
-							}
-						}
+						velocity.y = 0.0f;
+						acceleration.y = 0.0f;
 					}
+
+					new_grounded = true;
+					break;
 				}
 			}
 		}

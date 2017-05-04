@@ -164,5 +164,25 @@
     <ImageContentTask Include="Characters\player_sprite_sheets.png">
       <Filter>Textures\Characters</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="BG\GameOverBackground.png">
+      <Filter>Textures\BG</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="BG\GO_BG.png">
+      <Filter>Textures\BG</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="BG\GO_BG2.png">
+      <Filter>Textures\BG</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="UI\Button3.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Platforms\StairsLeft.png">
+      <Filter>Textures\Platforms</Filter>
+    </Image>
+    <Image Include="Platforms\StairsRight.png">
+      <Filter>Textures\Platforms</Filter>
+    </Image>
   </ItemGroup>
 </Project>

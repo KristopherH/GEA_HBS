@@ -10,6 +10,7 @@
 #include "BaseCamera.h"
 #include "GameData.h"
 #include "Texture.h"
+
 Direction CollisionManager::col_direction = Direction::NONE;
 
 bool CollisionManager::boxCollision(std::string a_name, std::string b_name)
@@ -109,10 +110,8 @@ bool CollisionManager::boxCollision(Rect a, Rect b)
 		return true;
 	}
 
-	//No collision
 	return false;
 }
-
 
 
 bool CollisionManager::mouseCollision(std::string name)
@@ -151,43 +150,16 @@ bool CollisionManager::mouseCollision(Rect box)
 bool CollisionManager::bitMapCollision(GameObject& a, GameObject& b)
 {
 	Rect box;
-//	int y_min = 0;
-//	int x_min = 0;
-//	int y_max = 0;
-//	int x_max = 0;
-//
-//#pragma region Instantiating area of collision
-//
-//	/*if (a.getBox().minCorner.y > b.getBox().minCorner.y)
-//		y_min = a.getBox().minCorner.y;
-//	else
-//		y_min = b.getBox().minCorner.y;
-//
-//	if (a.getBox().minCorner.x > b.getBox().minCorner.x)
-//		x_min = a.getBox().minCorner.x;
-//	else
-//		x_min = b.getBox().minCorner.x;
-//
-//	if (a.getBox().maxCorner.y < b.getBox().maxCorner.y)
-//		y_max = a.getBox().maxCorner.y;
-//	else
-//		y_max = b.getBox().maxCorner.y;
-//
-//	if (a.getBox().maxCorner.x < b.getBox().maxCorner.x)
-//		x_max = a.getBox().maxCorner.x;
-//	else
-//		x_max = b.getBox().maxCorner.x;*/
-//#pragma endregion DONE LEAVE IT ALONE!
 
 	box.minCorner.x = max(a.getBox().minCorner.x, b.getBox().minCorner.x);
 	box.minCorner.y = max(a.getBox().minCorner.y, b.getBox().minCorner.y);
 	box.maxCorner.x = min(a.getBox().maxCorner.x, b.getBox().maxCorner.x);
 	box.maxCorner.y = min(a.getBox().maxCorner.y, b.getBox().maxCorner.y);
+
 	if ((box.maxCorner.x < box.minCorner.x && box.maxCorner.y < box.minCorner.y))
 	{
 		return false;
 	}
-#pragma region checking each pixel
 
 	for (int h = box.minCorner.y; h < box.maxCorner.y; h++)
 	{
@@ -201,18 +173,86 @@ bool CollisionManager::bitMapCollision(GameObject& a, GameObject& b)
 			}
 		}
 	}
-
 	return false;
-#pragma endregion
-
 }
+
+Vec2* CollisionManager::getClosestSideBitmap(GameObject& a, GameObject& b)
+{
+	Rect box;
+
+	box.minCorner.x = max(a.getBox().minCorner.x, b.getBox().minCorner.x);
+	box.minCorner.y = max(a.getBox().minCorner.y, b.getBox().minCorner.y);
+	box.maxCorner.x = min(a.getBox().maxCorner.x, b.getBox().maxCorner.x);
+	box.maxCorner.y = min(a.getBox().maxCorner.y, b.getBox().maxCorner.y);
+	if ((box.maxCorner.x < box.minCorner.x && box.maxCorner.y < box.minCorner.y))
+	{
+		return new Vec2(0.0f, 0.0f);
+	}
+	Rect blob(Vec2(MAXINT, MAXINT), Vec2(-MAXINT, -MAXINT));
+
+	Rect secondBlob(Vec2(MAXINT, MAXINT), Vec2(-MAXINT, -MAXINT));
+	for (int h = box.minCorner.y; h < box.maxCorner.y; h++)
+	{
+		for (int w = box.minCorner.x; w < box.maxCorner.x; w++)
+		{
+			Vec2 a_new = globalToLocalPos(&a, Vec2(w, h));
+			Vec2 b_new = globalToLocalPos(&b, Vec2(w, h));
+			if (!a.isTransparent(a_new) && !b.isTransparent(b_new))
+			{
+				blob.maxCorner.x = max(blob.maxCorner.x, w);
+				blob.maxCorner.y = max(blob.maxCorner.y, h);
+				blob.minCorner.x = min(blob.minCorner.x, w);
+				blob.minCorner.y = min(blob.minCorner.y, h);
+			}
+			if (!b.isTransparent(b_new))
+			{
+				secondBlob.maxCorner.x = max(secondBlob.maxCorner.x, w);
+				secondBlob.maxCorner.y = max(secondBlob.maxCorner.y, h);
+				secondBlob.minCorner.x = min(secondBlob.minCorner.x, w);
+				secondBlob.minCorner.y = min(secondBlob.minCorner.y, h);
+			}
+		}
+	}
+	//desired - current
+	//Vec2 direction(blob.Center() - Vec2(0.0f, 1.0f));
+	//Vec2 direction(blob.Center() - Vec2(0.0f, -1.0f));
+	//Vec2 direction(blob.Center() - Vec2(1.0f, 0.0f));
+	//Vec2 direction(blob.Center() - Vec2(-1.0f, 0.0f));
+	//
+	if (abs(blob.minCorner.x - blob.maxCorner.x) < abs(blob.minCorner.y - blob.maxCorner.y)
+		&& abs(blob.minCorner.x - blob.maxCorner.x) < abs(blob.maxCorner.y - blob.minCorner.y))
+	{
+		if (abs(blob.minCorner.x - blob.maxCorner.x) < abs(blob.maxCorner.x - blob.minCorner.x))
+		{
+			Vec2* sideDistance = new Vec2(blob.minCorner.x - blob.maxCorner.x, 0.0f);
+			return sideDistance;
+		}
+		else
+		{
+			Vec2* sideDistance = new Vec2(blob.maxCorner.x - blob.minCorner.x, 0.0f);
+			return sideDistance;
+		}
+	}
+	else
+	{
+		if (abs(blob.minCorner.y - blob.maxCorner.y) < abs(blob.maxCorner.y - blob.minCorner.y))
+		{
+			Vec2* sideDistance = new Vec2(0.0f, -(blob.minCorner.y - blob.maxCorner.y));
+			return sideDistance;
+		}
+		else
+		{
+			Vec2* sideDistance = new Vec2(0.0f, -(blob.maxCorner.y - blob.minCorner.y));
+			return sideDistance;
+		}
+	}
+}
+
 #pragma region in the way
 Direction CollisionManager::getCollisionDirection()
 {
 	return col_direction;
 }
-
-
 
 bool CollisionManager::oneWayPlatform(std::string a_name)
 {
@@ -362,6 +402,18 @@ Vec2 CollisionManager::globalToLocalPos(GameObject * obj, Vec2 global_pos)
 	Vec2 boxSize(obj->getBox().maxCorner - obj->getBox().minCorner);
 	pixelPos.x = (int)((local_pos.x * ((boxSize.x-1) / obj->getScale().x)) / boxSize.x);
 	pixelPos.y = (int)((local_pos.y * ((boxSize.y-1) / obj->getScale().y)) / boxSize.y);
+
+	//// translate point to origin
+	//float tempX = pixelPos.x - (boxSize.x / 2);
+	//float tempY = pixelPos.y - (boxSize.y / 2);
+
+	//// now apply rotation
+	//float rotatedX = tempX*cos(obj->getRotation()) - tempY*sin(obj->getRotation());
+	//float rotatedY = tempX*sin(obj->getRotation()) + tempY*cos(obj->getRotation());
+
+	//// translate back
+	//pixelPos.x = rotatedX + (boxSize.x / 2);
+	//pixelPos.y = rotatedY + (boxSize.y / 2);
 
 	return pixelPos;
 }

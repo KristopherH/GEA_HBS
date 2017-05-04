@@ -44,6 +44,7 @@ class SoundManager
 public:
 	SoundManager();
 	~SoundManager();
+	void stopSound();
 
 	void playSound(std::string name, bool BG = false, bool loop = false);
 

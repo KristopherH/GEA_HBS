@@ -71,11 +71,17 @@ Platform * Platform::create(PLATFORM_TYPE type)
 void Platform::init()
 {
 	Platform::platform_sprites["Standard"] = new Texture("StandardPlatform", GameData::renderer);
+	Platform::platform_sprites["Standard"]->LoadPixelMap();
 	Platform::platform_sprites["Speed"] = new Texture("SpeedPlatform", GameData::renderer);
+	Platform::platform_sprites["Speed"]->LoadPixelMap();
 	Platform::platform_sprites["Slow"] = new Texture("SlowPlatform", GameData::renderer);
+	Platform::platform_sprites["Slow"]->LoadPixelMap();
 	Platform::platform_sprites["Sticky"] = new Texture("StickyPlatform", GameData::renderer);
+	Platform::platform_sprites["Sticky"]->LoadPixelMap();
 	Platform::platform_sprites["Jump"] = new Texture("JumpPlatform", GameData::renderer);
+	Platform::platform_sprites["Jump"]->LoadPixelMap();
 	Platform::platform_sprites["Conveyor"] = new Texture("ConveyorPlatform", GameData::renderer);
+	Platform::platform_sprites["Conveyor"]->LoadPixelMap();
 }
 
 void Platform::toggleEditing()
@@ -116,6 +122,53 @@ void Platform::toggleEditing()
 		});
 		minusType->setScreenSpace(false);
 		ui_elements.push_back(minusType);
+
+		/*std::string openBottomString = passThuBottom ? "Open Bottom" : "Closed Bottom";
+
+		Button* openBottom = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
+			"NameChanger", "NULL", openBottomString);
+		openBottom->setSize(new Vec2(100, 50));
+		openBottom->setCallbackFunction([]()
+		{
+			return;
+		});
+		openBottom->setScreenSpace(false);
+		ui_elements.push_back(openBottom);
+
+		Button* plusOpenBottom = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_PLUS]),
+			"NameChanger", "NULL", "");
+		plusOpenBottom->setSize(new Vec2(50, 50));
+		plusOpenBottom->setCallbackFunction([this, openBottom]()
+		{
+			passThuBottom = !passThuBottom;
+			std::string openBottomString = passThuBottom ? "Open Bottom" : "Closed Bottom";
+			openBottom->setText(openBottomString);
+			return;
+		});
+		plusOpenBottom->setScreenSpace(false);
+		ui_elements.push_back(plusOpenBottom);
+
+		Button* minusOpenBottom = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_MINUS]),
+			"NameChanger", "NULL", "");
+		minusOpenBottom->setSize(new Vec2(50, 50));
+
+		minusOpenBottom->setCallbackFunction([this, openBottom]()
+		{
+			passThuBottom = !passThuBottom;
+			std::string openBottomString = passThuBottom ? "Open Bottom" : "Closed Bottom";
+			openBottom->setText(openBottomString);
+			return;
+		});
+		minusOpenBottom->setScreenSpace(false);
+		ui_elements.push_back(minusOpenBottom);
+
+
+		minusOpenBottom->setPosition(new Vec2(position.x + size.x,
+			position.y));
+		openBottom->setPosition(new Vec2(position.x + size.x + minusOpenBottom->getSize().x,
+			position.y));
+		plusOpenBottom->setPosition(new Vec2(position.x + size.x + minusOpenBottom->getSize().x + openBottom->getSize().x,
+			position.y));*/
 	}
 
 }

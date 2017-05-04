@@ -1,6 +1,6 @@
 #include "Application.h"
 #include <stdio.h>
-#include "GameData.h"
+#include "../Main_Engine/GameData.h"
 #include "../DXTK_Wrapper/Input_Manager.h"
 
 //=================================================================

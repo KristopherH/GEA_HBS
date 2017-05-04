@@ -13,8 +13,10 @@
 #include "CustomMath.h"
 #include "UI.h"
 #include "Text.h"
+#include <map>
 #include "Helper.h"
 #include "Object_Factory.h"
+#include "SettingsLoader.h"
 
 OptionsMenu::OptionsMenu()
 {
@@ -40,9 +42,8 @@ OptionsMenu::OptionsMenu()
 	Backbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Backbtn->setCallbackFunction([]() {
 		GameData::scene_manager->setCurrentScene("MainMenuScene", false);
+		SettingsLoader::saveSettings();
 	});
-
-	
 
 	go_list.push_back(bg);
 	go_list.push_back(Backbtn);
@@ -93,8 +94,6 @@ void OptionsMenu::keyBindings()
 		pos.y += size.y;
 		go_list.push_back(btn);
 		go_list.push_back(txt);
-
-
 	}
 }
 

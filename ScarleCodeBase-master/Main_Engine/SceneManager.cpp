@@ -7,8 +7,6 @@
 #include "Scene.h"
 #include "GameData.h"
 
-GameState _GS = GameState::GS_MAIN_MENU;
-
 SceneManager::SceneManager()
 {
 	currentScene = "NONE";

@@ -42,6 +42,7 @@ public:
 	std::string getTag();
 	Rect getBox();
 	std::string getType() { return type; }
+	bool getPassThruBottom() { return passThuBottom; }
 
 	//Setters
 	virtual void movePosition(Vec2* _translation);
@@ -59,6 +60,7 @@ public:
 	void setGravity(bool _gravity_on) { gravity_on = _gravity_on; }
 	bool setGravityTag(std::string _gravity_tag);
 	void setSpeed(float _speed) { max_speed = _speed; }
+	void setPassThruBottom(bool _passThuBottom) { passThuBottom = _passThuBottom; }
 
 	bool isTransparent(Vec2 _pixel_pos, Rect box);
 	bool isTransparent(Vec2 boxPos);
@@ -78,12 +80,12 @@ protected:
 	bool grounded = false;
 	bool gravity_on = false;
 	bool solid = true;
+	bool passThuBottom = true;
 	const float gravity_constant = 0.03f;
 	Vec2 size;
 	Vec2 scale;
 	Vec2 origin;
 	float rotation;
-	Rect bottomCollider;
 	Rect box = Rect(Vec2(0, 0), Vec2(0,0));
 	Direction move_direction = Direction::NONE;
 

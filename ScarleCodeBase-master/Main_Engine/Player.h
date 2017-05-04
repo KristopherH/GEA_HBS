@@ -20,12 +20,12 @@ public:
 	~Player();
 
 	bool Update(float dt) override;
-	bool Draw() override;
+	void gravityUpdate() override;
 
 	void ProcessInput();
 	//void processPauseInput();
 
-	void OnJump();
+	void OnJump(float dt);
 	void OnMove(Vec2);
 	void climb();
 	void conveyor(bool _left);
