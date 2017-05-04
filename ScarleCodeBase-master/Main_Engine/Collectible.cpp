@@ -30,7 +30,7 @@ bool Collectible::Update(float dt)
 	EditableGameObject::Update(dt);
 	if (GameData::collsion_manager->boxCollision(box, GameData::player->getBox()))
 	{
-		if (GameData::collsion_manager->bitMapCollision(*GameData::player, *this))
+if (GameData::collsion_manager->bitMapCollision(*GameData::player, *this))
 		{
 			alive = false;
 			GameData::player->setScore();

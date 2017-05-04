@@ -28,7 +28,7 @@ GameScene::GameScene()
 	std::vector<Texture*> textures;
 
 	timer = new Timer();
-	timer->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(255.0f, 290.0f)));
+	timer->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(265.0f, 290.0f)));
 	timer->setSize(new Vec2(280.0f, 100.0f));
 	timer->setColor(Vec4(1, 0, 0, 1));
 
@@ -85,6 +85,9 @@ void GameScene::Update(float dt)
 
 void GameScene::Draw()
 {
+	Livestxt->setText("Lives: " + std::to_string(GameData::player->getLives()));
+	Scoretxt->setText("Lives: " + std::to_string(GameData::player->getScore()));
+	
 	Scene::Draw();
 }
 
