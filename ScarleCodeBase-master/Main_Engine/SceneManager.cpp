@@ -46,11 +46,6 @@ void SceneManager::setCurrentScene(std::string sceneName, bool removeCurrent)
 	}
 }
 
-void SceneManager::removeScene(std::string sceneName)
-{
-	scenes[currentScene]->toBeDeleted = true;
-}
-
 Scene* SceneManager::getScene(const std::string sceneName)
 {
 	return scenes[sceneName];
