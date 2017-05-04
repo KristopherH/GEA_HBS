@@ -92,9 +92,6 @@
     <ImageContentTask Include="GameObjects\Ladder.png">
       <Filter>Textures\GameObjects</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="GameObjects\Rope.png">
-      <Filter>Textures\GameObjects</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Platforms\ConveyorPlatform.png">
       <Filter>Textures\Platforms</Filter>
     </ImageContentTask>
@@ -176,13 +173,11 @@
     <ImageContentTask Include="UI\Button3.png">
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Platforms\StairsLeft.png">
+    <ImageContentTask Include="GameObjects\Rope.png">
       <Filter>Textures\Platforms</Filter>
-    </Image>
-    <Image Include="Platforms\StairsRight.png">
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\StairsLeft.png">
       <Filter>Textures\Platforms</Filter>
-    </Image>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
