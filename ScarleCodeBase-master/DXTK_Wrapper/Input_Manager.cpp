@@ -361,15 +361,6 @@ bool InputManager::readKeyboard()
 
 bool InputManager::readMouse()
 {
-	//memcpy(previous_mouse_state, mouse_state, sizeof(DIMOUSESTATE));
-	/*
-		TODO: FORCE THE MOUSE TO STAY WITHIN WINDOW BOUNDS
-				CHECK FOR BUTTON CLICK AND NOT JUST POSITION
-				SOME OTHER SHIT PROBABLY 5:38 IT'S TIME TO SLEEP
-
-	*/
-	//ZeroMemory(&mouse_state, sizeof(mouse_state));
-
 	previous_mouse_state = mouse_state;
 
 	HRESULT result = user_mouse->GetDeviceState(sizeof(DIMOUSESTATE),

@@ -60,9 +60,15 @@ bool Renderer::BeginDraw(BaseCamera * mainCamera)
 
 bool Renderer::Draw(Sprite* _sprite)
 {
+	RECT source;
+	source.top = _sprite->getDrawBox().minCorner.y;
+	source.right = _sprite->getDrawBox().maxCorner.x;
+	source.left = _sprite->getDrawBox().minCorner.x;
+	source.bottom = _sprite->getDrawBox().maxCorner.y;
+
 	spriteBatch->Draw(_sprite->GetTexture()->getTexture(),
 		_sprite->getPosition(),
-		nullptr,
+		&source,
 		/*_go->GetSprite()->GetColour()*/ DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
 		_sprite->getRotation(),
 		_sprite->getOrigin(),

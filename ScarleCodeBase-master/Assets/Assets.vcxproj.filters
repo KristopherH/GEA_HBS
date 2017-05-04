@@ -161,5 +161,8 @@
     <ImageContentTask Include="Characters\Cannon.png">
       <Filter>Textures\Characters</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Characters\player_sprite_sheets.png">
+      <Filter>Textures\Characters</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
