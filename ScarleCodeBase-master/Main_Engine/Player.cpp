@@ -18,7 +18,7 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	setScale(new Vec2(0.5f, 1.5f));
 	jumpStrength = -0.04f;
 	speed = 0.02f;
-	lives = 0;
+	lives = 5;
 	score = 0;
 	jumpTime = 0.2f;
 	jumpTimeCounter = jumpTime;

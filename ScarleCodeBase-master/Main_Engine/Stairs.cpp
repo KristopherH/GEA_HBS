@@ -29,7 +29,6 @@ void Stairs::toggleEditing()
 	EditableGameObject::toggleEditing();
 	if (editing)
 	{
-		//chnage bullet speed
 		std::string side = left ? "Right Stair" : "Left Stair";
 		Button* falltimerbtn = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
 			"NameChanger", "NULL", side);
