@@ -161,10 +161,8 @@
     <ImageContentTask Include="Characters\Cannon.png">
       <Filter>Textures\Characters</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="BG\GameOverBackground.png">
+    <ImageContentTask Include="BG\GameOverBackground.png">
       <Filter>Textures\BG</Filter>
-    </Image>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

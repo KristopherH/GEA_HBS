@@ -261,7 +261,7 @@
     <ImageContentTask Include="Characters\Cannon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="BG\GameOverBackground.png" />
+    <ImageContentTask Include="BG\GameOverBackground.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
