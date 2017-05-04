@@ -27,7 +27,7 @@ GameScene::GameScene()
 	std::vector<Texture*> textures;
 
 	timer = new Timer();
-	timer->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(260.0f, 290.0f)));
+	timer->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(260.0f, 280.0f)));
 	timer->setSize(new Vec2(280.0f, 100.0f));
 	timer->setColor(Vec4(1, 0, 0, 1));
 
@@ -76,7 +76,7 @@ void GameScene::Draw()
 {
 	Scene::Draw();
 
-	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(620.0f, 230.0f),
+	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(620.0f, 240.0f),
 		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
 
 	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(620.0f, 270.0f),
@@ -131,7 +131,6 @@ void GameScene::changeLevel()
 
 	std::vector<Sprite*> UI_objects;
 	UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
-
 
 	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);
