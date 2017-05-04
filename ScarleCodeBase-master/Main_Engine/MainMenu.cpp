@@ -14,10 +14,13 @@
 #include "CustomMath.h"
 #include "GameFileCreation.h"
 #include "Text.h"
+#include "SettingsLoader.h"
 
 MainMenuScene::MainMenuScene()
 	:Scene()
 {
+	SettingsLoader::loadSettings();
+
 	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer),
 											"button1", "Button", "Play");
 	Playbtn->setSize(new Vec2(300.0f, 150.0f));

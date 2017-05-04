@@ -235,6 +235,7 @@
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Input_Manager.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="SettingsLoader.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
@@ -244,6 +245,7 @@
     <ClCompile Include="GameFileLoader.cpp" />
     <ClCompile Include="Input_Manager.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="SettingsLoader.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>

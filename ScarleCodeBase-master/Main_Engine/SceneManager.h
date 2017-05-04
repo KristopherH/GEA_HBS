@@ -22,7 +22,6 @@ public:
 
 	std::string getCurrentSceneName();
 
-	void removeScene(std::string sceneName);
 	void clearOldScenes();
 
 private:

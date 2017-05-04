@@ -37,10 +37,8 @@ bool BaseCamera::Update(float dt)
 
 	if (player)
 	{
-		setPosition(new Vec2(-player->getPosition().x, -player->getPosition().y));
-		
-		//setPlayerBoxPosX(player->GetPosition().x + player_box_width);
-		//setPlayerBoxPosY(player->GetPosition().y + player_box_height);
+		if (Vec2::Distance(player->getPosition() * -1, position) > 10.0f)
+		position += (Vec2(-player->getPosition().x, -player->getPosition().y) - position) * dt * 5;
 	}
 
 	/*Come back to this post alpha*/
@@ -69,7 +67,7 @@ bool BaseCamera::Update(float dt)
 	m_viewMat = OurMatrix::CreateLookAt(pos3d, m_target, m_up);
 
 	m_worldMat = OurMatrix::CreateTrasform(pos3d, rotation, zoom, width, height);
-	return false;
+	return GameObject::Update(dt);
 }
 
 bool BaseCamera::Draw()
