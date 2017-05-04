@@ -1,7 +1,5 @@
 #include "Application.h"
 #include <stdio.h>
-#include "GameData.h"
-#include "../DXTK_Wrapper/Input_Manager.h"
 
 //=================================================================
 // Main functions to link to the windows OS
@@ -89,21 +87,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 		// Note that this tutorial does not handle resizing (WM_SIZE) requests,
 		// so we created the window without the resize border.
-	case WM_CHAR:
-		switch (wParam)
-		{
-		case 0x08:  // backspace
-			GameData::inputManager->stringInputBackspace();
-			break;
-		case 0x0D:  // carriage return 
-			GameData::inputManager->stringInputReturn();
-			break;
-		default:
-			char ch;                  // current character 
-			ch = (char)wParam;
-			GameData::inputManager->stringInputAddKey(ch);
-			break;
-		}
+
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}

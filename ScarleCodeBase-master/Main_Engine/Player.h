@@ -50,7 +50,11 @@ protected:
 	GameObject* climbable_obj = nullptr;
 	bool climbing = false;
 	bool key_down = false;
-	bool pauseSetUp = false;
+	//bool one_way_plat_move = false;
+
+	//void oneWayPlatformMove(); 
+	Inputs input;
+	//Input component
 	std::map<int, std::function<void()>> KeyBindsHold;
 	std::map<int, std::function<void()>> KeyBindsPress;
 };

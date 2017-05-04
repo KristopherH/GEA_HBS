@@ -9,26 +9,16 @@
 #include "GameObject.h"
 #include "CustomMath.h"
 
-class GameFile;
-
 struct Level
 {
 	Vec2* playerStartingPosition;
 	std::vector<GameObject*> go_list;
-
-	GameFile* gameFile;
-
-	int findCollectibles();
 };
 
-static const std::vector<std::string> acceptedTypes = { "Platform",
-"Collectible", "Enemy", "Ladder", "Rope", "Checkpoint", "MovingPlatform", "LevelSwitcher",
-"Gun","FallingPlatform"};
+static const std::vector<std::string> acceptedTypes = { "Platform", "Collectible", "Enemy", "Ladder" };
 
 class LevelLoader
 {
-	friend class GameFileLoader;
-	friend class SettingsLoader;
 public:
 	static Level* loadLevel(std::string LevelPath);
 	static void saveLevel(Level* level, std::string LevelPath);

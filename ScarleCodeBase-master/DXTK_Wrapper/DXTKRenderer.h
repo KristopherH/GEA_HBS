@@ -20,7 +20,6 @@ using namespace DirectX;
 
 class Renderer
 {
-	friend class Texture;
 public:
 	Renderer(ID3D11Device* _pd3dDevice, HWND _hWnd);
 	~Renderer();
@@ -41,8 +40,8 @@ public:
 	float getWindowWidth();
 	float getWindowHeight();
 
-	Vec2 WorldToScreen(Vec2);
-	Vec2 ScreenToWorld(Vec2);
+	//void DrawString (wchar_t const * text, Vec2 const & position, Vec4 const & color, float rotation, Vec2 const & origin, Vec2 const & scale, float layerDepth) const;
+
 private:
 	ID3D11Device* pd3dDevice;
 	HWND hWnd;

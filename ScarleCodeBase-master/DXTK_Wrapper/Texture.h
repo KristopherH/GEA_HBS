@@ -1,7 +1,6 @@
 #pragma once
 //C++
 #include <string>
-#include <vector>
 
 //DXTK
 #include <d3d11_1.h>
@@ -18,25 +17,8 @@ public:
 	Texture(std::string _fileName, Renderer* _renderer);
 
 	Vec2 getSize();
-	void LoadPixelMap();
-	bool isTransparent(Vec2 _pixel_pos, Rect box);
-	bool isTransparent(Vec2 _pixel_pos);
 	ID3D11ShaderResourceView* getTexture() { return m_pTextureRV; }
 
 protected:
 	ID3D11ShaderResourceView* m_pTextureRV;
-};
-
-struct TextureData
-{
-	int frame_count_width = 1;
-	int frame_count_height = 1;
-	Texture* texture;
-
-	ID3D11Texture2D* captureTexture;
-
-	std::vector<byte> transparencyMap;
-	byte collision_opacity = 100;
-
-	D3D11_TEXTURE2D_DESC description;
 };

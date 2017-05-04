@@ -34,7 +34,7 @@ enum ObjectEdge
 class LevelEditorScene : public Scene
 {
 public:
-	LevelEditorScene(GameFile*, int lvlNumber);
+	LevelEditorScene();
 	virtual ~LevelEditorScene();
 
 	virtual void Update(float dt) override;
@@ -60,9 +60,4 @@ protected:
 	ObjectSelectType obj_select_type = ObjectSelectType::NONE;
 
 	std::map <ObjectEdge, bool> obj_edges_selected;
-	int UINum = 0;
-	std::string levelName;
-
-	GameFile* gameFile;
-	int levelNumber;
 };

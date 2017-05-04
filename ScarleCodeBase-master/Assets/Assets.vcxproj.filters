@@ -138,44 +138,7 @@
     <ImageContentTask Include="bullet.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
-<<<<<<< HEAD
     <ImageContentTask Include="sign-1.png">
-=======
-    <ImageContentTask Include="GameObjects\bullet.png">
-      <Filter>Textures\GameObjects</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="GameObjects\coin sprite shee.jpg">
-      <Filter>Textures\GameObjects</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="GameObjects\coin.png">
-      <Filter>Textures\GameObjects</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="GameObjects\Ladder.png">
-      <Filter>Textures\GameObjects</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="GameObjects\Rope.png">
-      <Filter>Textures\GameObjects</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\ConveyorPlatform.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\JumpPlatform.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\platform.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\SlowPlatform.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\SpeedPlatform.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\StickyPlatform.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="UI\logo_small.png">
->>>>>>> refs/remotes/origin/master
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
     <ImageContentTask Include="sign-2.png">
@@ -190,31 +153,10 @@
     <ImageContentTask Include="Idle.png">
       <Filter>Textures</Filter>
     </ImageContentTask>
-<<<<<<< HEAD
   </ItemGroup>
   <ItemGroup>
     <Image Include="Attack.png">
       <Filter>Textures</Filter>
     </Image>
-=======
-    <ImageContentTask Include="Platforms\StandardPlatform.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\StandardPlatformLong.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Platforms\PlatformWaypoint.png">
-      <Filter>Textures\Platforms</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="UI\Button.png">
-      <Filter>Textures\UI</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="GameObjects\Door.png">
-      <Filter>Textures\GameObjects</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Characters\Cannon.png">
-      <Filter>Textures\Characters</Filter>
-    </ImageContentTask>
->>>>>>> refs/remotes/origin/master
   </ItemGroup>
 </Project>

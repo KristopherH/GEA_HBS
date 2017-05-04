@@ -14,17 +14,24 @@
 #include "Scene.h"
 #include "Texture.h"
 #include "Player.h"
-#include "Object_Factory.h"
 
-Collectible::Collectible(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
-	:EditableGameObject(_sprite)
+Collectible::Collectible(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 {
-	setSize(_size);
+	setSprite(new Sprite(new Texture("coin", GameData::renderer)));
 	setPosition(_pos);
+	setSize(_size);
 	setRotation(_rotation);
 	setName(_name);
-	setType("Collectible");
 	setSolid(false);
+}
+
+Collectible::Collectible(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
+	:GameObject(_sprite)
+{
+	setPosition(_pos);
+	setSize(_size);
+	setRotation(_rotation);
+	setName(_name);
 }
 
 Collectible::~Collectible()
@@ -33,16 +40,11 @@ Collectible::~Collectible()
 
 bool Collectible::Update(float dt)
 {
-	EditableGameObject::Update(dt);
+	GameObject::Update(dt);
 	if (GameData::collsion_manager->boxCollision(box, GameData::player->getBox()))
 	{
-		if (GameData::collsion_manager->bitMapCollision(*GameData::player, *this))
-		{
-			alive = false;
-			GameData::player->setScore();
-			GameData::sound_manager->playSound("Collectible-SoundEffect.wav");
-		}
+		alive = false;
+		GameData::player->setScore();
 	}
-
 	return false;
 }

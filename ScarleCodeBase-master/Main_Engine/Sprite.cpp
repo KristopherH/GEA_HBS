@@ -6,10 +6,9 @@
 //OURS
 #include "Texture.h"
 
-Sprite::Sprite(Texture* _texture, AnimationStates _animation_state)
+Sprite::Sprite(Texture* _texture) 
+	:texture(_texture)
 {
-	texture_container[_animation_state]->texture = _texture;
-
 	//origin += texture->getSize();//around which rotation and scaing is done
 	//origin *= 0.5f;
 }
@@ -33,7 +32,7 @@ void Sprite::Update()
 
 Vec2 Sprite::getSize()
 {
-	return texture_container[animation_state]->texture->getSize();
+	return texture->getSize();
 }
 
 Vec2 Sprite::getScale()
@@ -71,25 +70,9 @@ int Sprite::getSpritesDown()
 	return sprites_down;
 }
 
-void Sprite::switchAnimationState(AnimationStates _new_state)
-{
-	animation_state = _new_state;
-	this->setSpritesAcross(texture_container[animation_state]->frame_count_width);
-	this->setSpritesDown(texture_container[animation_state]->frame_count_height);
-
-	int width = this->getSize().x / sprites_across;
-	int height = this->getSize().y / sprites_down;
-
-	this->setFrameWidth(width);
-	this->setFrameHeight(height);
-}
-
-void Sprite::setTexture(Texture* _texture, AnimationStates _state, int frames_width, int frames_height)
+void Sprite::setTexture(Texture * _texture)
 {
 	texture = _texture;
-	texture_container[_state]->texture = _texture;
-	texture_container[_state]->frame_count_width = frames_width;
-	texture_container[_state]->frame_count_height = frames_height;
 }
 
 void Sprite::setScale(Vec2 _scale)
@@ -145,8 +128,7 @@ int Sprite::getFrameWidth()
 	if (frame_width != 0)
 		return frame_width;
 
-	//return texture->getSize().x;
-	return texture_container[animation_state]->texture->getSize().x;
+	return texture->getSize().x;
 }
 
 void Sprite::setFrameHeight(int _frame_height)
@@ -159,6 +141,5 @@ int Sprite::getFrameHeight()
 	if (frame_height != 0)
 		return frame_height;
 
-	//return texture->getSize().x;
-	return texture_container[animation_state]->texture->getSize().y;
+	return texture->getSize().y;
 }

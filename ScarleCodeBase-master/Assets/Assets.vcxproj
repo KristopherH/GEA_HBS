@@ -264,7 +264,6 @@
     <ImageContentTask Include="BG\11_background.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ImageContentTask Include="Button.png" />
   </ItemGroup>
   <ItemGroup>
@@ -288,45 +287,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Attack.png" />
-=======
-    <ImageContentTask Include="Characters\enemy_sprite.png" />
-    <ImageContentTask Include="Characters\player_sprite.png" />
-    <ImageContentTask Include="GameObjects\bullet.png" />
-    <ImageContentTask Include="GameObjects\coin sprite shee.jpg" />
-    <ImageContentTask Include="GameObjects\coin.png" />
-    <ImageContentTask Include="GameObjects\Ladder.png" />
-    <ImageContentTask Include="GameObjects\Rope.png" />
-    <ImageContentTask Include="Platforms\ConveyorPlatform.png" />
-    <ImageContentTask Include="Platforms\JumpPlatform.png" />
-    <ImageContentTask Include="Platforms\platform.png" />
-    <ImageContentTask Include="Platforms\SlowPlatform.png" />
-    <ImageContentTask Include="Platforms\SpeedPlatform.png" />
-    <ImageContentTask Include="Platforms\StickyPlatform.png" />
-    <ImageContentTask Include="Characters\Waypoint.png" />
-    <ImageContentTask Include="Platforms\StandardPlatform.png" />
-    <ImageContentTask Include="Platforms\StandardPlatformLong.png" />
-    <ImageContentTask Include="UI\logo_small.png" />
-    <ImageContentTask Include="UI\minus-icon.png" />
-    <ImageContentTask Include="UI\mute-icon.png" />
-    <ImageContentTask Include="UI\plus-icon.png" />
-    <ImageContentTask Include="UI\sign-1.png" />
-    <ImageContentTask Include="UI\sign-2.png" />
-    <ImageContentTask Include="UI\sign-3.png" />
-    <ImageContentTask Include="UI\TrashCan.png" />
-    <ImageContentTask Include="UI\Unmute-icon.png" />
->>>>>>> refs/remotes/origin/master
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Platforms\PlatformWaypoint.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="UI\Button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="GameObjects\Door.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Characters\Cannon.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,17 +8,8 @@
 
 //OURS
 #include "Platform.h"
-#include "MovingPlatform.h"
-#include "ballistics.h"
-#include "Gun.h"
 #include "Enemy.h"
 #include "Collectible.h"
-#include "Checkpoint.h"
-#include "Rope.h"
-#include "Texture.h"
-#include "Object_Factory.h"
-#include "LevelSwitcher.h"
-#include "FallingPlatform.h"
 
 Level* LevelLoader::loadLevel(std::string LevelPath)
 {
@@ -97,75 +88,20 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 			pos = nullptr;
 			size = nullptr;
 		}
-		else if (type == "FallingPlatform")
-		{
-			std::string platformType = getStringFromFile(fileStream);
-			float timer = getFloatFromFile(fileStream);
-			if (getStringFromFile(fileStream) == "END")
-			{
-
-				FallingPlatform* platform = new FallingPlatform();
-				platform->setTimer(timer);
-				if (platformType == "SlowPlatform")
-				{
-					platform->changeType(SLOW);
-				}
-				else if (platformType == "ConveyorLeft")
-				{
-					platform->changeType(CONVEYOR_LEFT);
-				}
-				else if (platformType == "ConveyorRight")
-				{
-					platform->changeType(CONVEYOR_RIGHT);
-				}
-				else if (platformType == "JumpPlatform")
-				{
-					platform->changeType(JUMP);
-				}
-				else if (platformType == "SpeedPlatform")
-				{
-					platform->changeType(SPEED);
-				}
-				else if (platformType == "StandardPlatform")
-				{
-					platform->changeType(STANDARD);
-				}
-				else if (platformType == "StickyPlatform")
-				{
-					platform->changeType(STICKY);
-				}
-				else
-				{
-					platform->changeType(STANDARD);
-				}
-				platform->setPosition(pos);
-				platform->setSize(size);
-				go = platform;
-			}
-			else
-			{
-				//ERROR MESSAGE OUTPUT
-				return nullptr;
-			}
-			pos = nullptr;
-			size = nullptr;
-		}
 		else if (type == "Enemy")
 		{
 			//get positions and give them
-			float speed = getFloatFromFile(fileStream);
-			int wpNumber = getIntFromFile(fileStream);
-			std::vector<Vec2> waypoints;
-			for (int i = 0; i < wpNumber; i++)
-			{
-				waypoints.push_back(*getVectorFromFile(fileStream));
-			}
+			// PLACEHOLDER
+
+			std::vector<Vec2> foo;
+			foo.push_back(Vec2(0.0f, 10.0f));
+			foo.push_back(Vec2(100.0f, 10.0f));
+			foo.push_back(Vec2(200.0f, 300.0f));
 
 			// END PLACEHOLDER
 			if (getStringFromFile(fileStream) == "END")
 			{
-				go = new Enemy(pos, size, rotation, name, waypoints);
-				go->setSpeed(speed);
+				go = new Enemy(pos, size, rotation, name, foo);
 			}
 			else
 			{
@@ -173,54 +109,11 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 				return nullptr;
 			}
 		}
-		else if (type == "Checkpoint")
-		{
-			if (getStringFromFile(fileStream) == "END")
-			{
-				go = ObjectFactory::createCheckpoint();
-				go->setPosition(pos);
-				go->setSize(size);
-				go->setRotation(rotation);
-				go->setSolid(false);
-
-			}
-			else
-			{
-				return nullptr;
-			}
-		}
-		else if (type == "Gun")
-		{
-			float tempTime = getFloatFromFile(fileStream);
-			float tempSpeed = getFloatFromFile(fileStream);
-			int bulletType = getIntFromFile(fileStream);// BulletDirecton::BD_NONE;
-
-			if (getStringFromFile(fileStream) == "END")
-			{
-				Gun* gunOb = new Gun();
-
-				gunOb->setPosition(pos);
-				gunOb->setSize(size);
-				gunOb->setRotation(rotation);
-				gunOb->setSolid(false);
-
-				gunOb->setBulletSpeed(tempSpeed);				
-				gunOb->setShootTime(tempTime);
-				gunOb->setBD((BulletDirecton)bulletType);
-
-				go = gunOb;
-				
-			}
-			else
-			{
-				return nullptr;
-			}
-		}
 		else if (type == "Collectible")
 		{
 			if (getStringFromFile(fileStream) == "END")
 			{
-				go = new Collectible(new Sprite(ObjectFactory::texture_pool[COLLECTIBLE]), pos, size, rotation, name);
+				go = new Collectible(pos, size, rotation, name);
 			}
 			else
 			{
@@ -241,97 +134,6 @@ Level* LevelLoader::loadLevel(std::string LevelPath)
 			{
 				return nullptr;
 			}
-		}
-		else if (type == "Rope")
-		{
-			int numOfNodes = getIntFromFile(fileStream);
-			if (getStringFromFile(fileStream) == "END")
-			{
-				 Rope* rope = new Rope(*pos, new Texture("Rope", GameData::renderer), numOfNodes, 20.0f, size->y, 1.5f, *size, &tmpLevel->go_list);
-				 go = rope;
-			}
-			else
-			{
-				return nullptr;
-			}
-		}
-		else if (type == "LevelSwitcher")
-		{
-			int nextLevel = getIntFromFile(fileStream);
-			if (getStringFromFile(fileStream) == "END")
-			{
-				LevelSwitcher* lvlSwitcher = new LevelSwitcher(new Sprite(ObjectFactory::texture_pool[LEVEL_SWITCHER]), tmpLevel->gameFile);
-				lvlSwitcher->setNextLevel(nextLevel);
-				go = lvlSwitcher;
-
-				go->setPosition(pos);
-				go->setSize(size);
-				go->setSolid(false);
-			}
-			else
-			{
-				return nullptr;
-			}
-		}
-		else if (type == "MovingPlatform")
-		{
-			std::string platformType = getStringFromFile(fileStream);
-			//get positions and give them
-			float speed = getFloatFromFile(fileStream);
-			int wpNumber = getIntFromFile(fileStream);
-			std::vector<Vec2> waypoints;
-			for (int i = 0; i < wpNumber; i++)
-			{
-				waypoints.push_back(*getVectorFromFile(fileStream));
-			}
-
-			if (getStringFromFile(fileStream) == "END")
-			{
-				MovingPlatform* platform;
-				if (platformType == "SlowPlatform")
-				{
-					platform = MovingPlatform::create(SLOW, waypoints);
-				}
-				else if (platformType == "ConveyorLeft")
-				{
-					platform = MovingPlatform::create(CONVEYOR_LEFT, waypoints);
-				}
-				else if (platformType == "ConveyorRight")
-				{
-					platform = MovingPlatform::create(CONVEYOR_RIGHT, waypoints);
-				}
-				else if (platformType == "JumpPlatform")
-				{
-					platform = MovingPlatform::create(JUMP, waypoints);
-				}
-				else if (platformType == "SpeedPlatform")
-				{
-					platform = MovingPlatform::create(SPEED, waypoints);
-				}
-				else if (platformType == "StandardPlatform")
-				{
-					platform = MovingPlatform::create(STANDARD, waypoints);
-				}
-				else if (platformType == "StickyPlatform")
-				{
-					platform = MovingPlatform::create(STICKY, waypoints);
-				}
-				else
-				{
-					platform = MovingPlatform::create(STANDARD, waypoints);
-				}
-				platform->setPosition(pos);
-				platform->setSize(size);
-				platform->max_speed = speed;
-				go = platform;
-			}
-			else
-			{
-				//ERROR MESSAGE OUTPUT
-				return nullptr;
-			}
-			pos = nullptr;
-			size = nullptr;
 		}
 		else
 		{
@@ -391,55 +193,6 @@ void LevelLoader::saveLevel(Level * level, std::string LevelPath)
 				tag.erase(remove_if(tag.begin(), tag.end(), isspace), tag.end());
 				saveStringToFile(fileStream, "PlatformType: ", tag);
 			}
-			if (type == "FallingPlatform")
-			{
-				FallingPlatform* fallingPlat = static_cast<FallingPlatform*>(level->go_list[i]);
-				std::string tag = level->go_list[i]->getTag();
-				float timer = fallingPlat->getTimer();
-				tag.erase(remove_if(tag.begin(), tag.end(), isspace), tag.end());
-				saveStringToFile(fileStream, "PlatformType: ", tag);
-				saveFloatToFile(fileStream, "TimeToFall: ", timer);
-			}
-			if (type == "Rope")
-			{
-				Rope* rope = static_cast<Rope*>(level->go_list[i]);
-				saveIntToFile(fileStream, "Length:", rope->getLength());
-			}
-			if (type == "Enemy")
-			{
-				Enemy* enemy = static_cast<Enemy*>(level->go_list[i]);
-				saveFloatToFile(fileStream, "Speed: ", enemy->max_speed);
-				saveIntToFile(fileStream, "Waypoints", enemy->waypoints.size());
-				for (int i = 0; i < enemy->waypoints.size(); i++)
-				{
-					saveVectorToFile(fileStream, to_string(i), &enemy->waypoints[i]);
-				}
-			}
-			if (type == "MovingPlatform")
-			{
-				MovingPlatform* movPlat = static_cast<MovingPlatform*>(level->go_list[i]);
-				std::string tag = level->go_list[i]->getTag();
-				tag.erase(remove_if(tag.begin(), tag.end(), isspace), tag.end());
-				saveStringToFile(fileStream, "PlatformType: ", tag);
-				saveFloatToFile(fileStream, "Speed: ", movPlat->max_speed);
-				saveIntToFile(fileStream, "Waypoints", movPlat->waypoints.size());
-				for (int i = 0; i < movPlat->waypoints.size(); i++)
-				{
-					saveVectorToFile(fileStream, to_string(i), &movPlat->waypoints[i]);
-				}
-			}
-			if (type == "LevelSwitcher")
-			{
-				LevelSwitcher* lvlSwitch = static_cast<LevelSwitcher*>(level->go_list[i]);
-				saveIntToFile(fileStream, "PointingTo: ", lvlSwitch->nextLevel);
-			}
-			if (type == "Gun")
-			{
-				Gun* gun = static_cast<Gun*>(level->go_list[i]);
-				saveFloatToFile(fileStream, "TimeBetweenBullets: ", gun->ShootTime);
-				saveFloatToFile(fileStream, "RateOfFire: ", gun->bulletSpeed);
-				saveIntToFile(fileStream, "Direction", (int)gun->wanted_BD);
-			}
 			saveStringToFile(fileStream, "", "END");
 		}
 	}
@@ -451,13 +204,11 @@ Level * LevelLoader::createLevel(std::vector<GameObject*> level, Vec2* playerPos
 {
 	Level* tmp = new Level();
 	tmp->playerStartingPosition = playerPos;
-	tmp->backgroundStartingPos = backgoundPos;
-	tmp->name = name;
-
 	for (auto go : level)
 	{
 		tmp->go_list.push_back(go);
 	}
+
 	return tmp;
 }
 
@@ -467,7 +218,7 @@ std::string LevelLoader::getStringFromFile(std::fstream& _file)
 	getline(_file, tmp);
 	std::string start = "(";
 	std::string end = ")";
-	std::string token = tmp.substr(tmp.find(start) + 1, tmp.find(end) - tmp.find(start) - 1);
+	std::string token = tmp.substr(tmp.find(start) + 1, tmp.find(end) - tmp.find(start) - 1); // token is whatever is inbetween ()
 	return token;
 }
 
@@ -527,17 +278,4 @@ void LevelLoader::saveFloatToFile(std::fstream & _file, std::string label, float
 void LevelLoader::saveIntToFile(std::fstream & _file, std::string label, int data)
 {
 	_file << label << "(" << data << ")\n";
-}
-
-int Level::findCollectibles()
-{
-	int collectibles = 0;
-	for (auto& go : go_list)
-	{
-		if (go->getType() == "Collectible")
-		{
-			collectibles++;
-		}
-	}
-	return collectibles;
 }

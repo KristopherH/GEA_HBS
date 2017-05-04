@@ -9,15 +9,15 @@
 #include "CustomMath.h"
 #include "Sprite.h"
 #include "Enum_container.h"
-//
-//enum Animation
-//{
-//	IDLE,
-//	WALK,
-//	RUN,
-//	JUMPING,
-//	FALLING
-//};
+
+enum Animation
+{
+	IDLE,
+	WALK,
+	RUN,
+	JUMPING,
+	FALLING
+};
 
 class InputManager;
 class Renderer;
@@ -35,64 +35,65 @@ public:
 	//Updates
 	virtual bool Update(float dt);
 	virtual bool Draw();
-	virtual void gravityUpdate();
+	void gravityUpdate();
+	void movePosition(Vec2* _translation);
 
 	//Getters
 	virtual Direction getMovementDirection();
-	virtual Vec2 getPosition();
-	virtual Vec2 getSize();
-	virtual Vec2 getScale();
-	virtual Vec2 getOrigin();
-	virtual Sprite* getSprite();
-	virtual float getRotation();
 	bool getSolid();
 	bool getAlive() { return alive; }
+	Vec2 getPosition();
+	Vec2 getSize();
+	Vec2 getScale();
+	Vec2 getOrigin();
+	Sprite* getSprite();
+	float getRotation();
 	std::string getName();
 	std::string getTag();
 	Rect getBox();
 	std::string getType() { return type; }
 
 	//Setters
-	virtual void movePosition(Vec2* _translation);
 	virtual void setMovementDirection(Direction _movement_direction) { move_direction = _movement_direction; }
-	virtual void setPosition(Vec2* _position);
-	virtual void setSize(Vec2* _size);
-	virtual void setScale(Vec2* _scale) { scale.x = _scale->x; scale.y = _scale->y; }
-	virtual void setOrigin(Vec2* _origin) { origin.x = _origin->x; origin.y = _origin->y; }
-	void setSprite(Sprite* _sprite) { sprite = _sprite; }
 	void setSolid(bool _solid);
+	
+	void setPosition(Vec2* _position);
+	void setSize(Vec2* _size);
+	void setScale(Vec2* _scale) { scale.x = _scale->x; scale.y = _scale->y; }
+	void setOrigin(Vec2* _origin) { origin.x = _origin->x; origin.y = _origin->y; }
+	void setSprite(Sprite* _sprite) { sprite = _sprite; }
 	void setRotation(float _rot) { rotation = _rot; }
 	void setName(std::string _name) { name = _name; }
 	void setTag(std::string _tag) { tag = _tag; }
 	void setType(std::string _type) { type = _type; }
+
 	void setGravity(bool _gravity_on) { gravity_on = _gravity_on; }
 	bool setGravityTag(std::string _gravity_tag);
-	void setSpeed(float _speed) { max_speed = _speed; }
-
-	bool isTransparent(Vec2 _pixel_pos, Rect box);
-	bool isTransparent(Vec2 boxPos);
-
-	//TODO: add getters/setters
-	Vec2 velocity;
-	Vec2 acceleration;
+	bool playerrr = false;
 
 protected:
 	bool alive = true;
-	bool physics = true;
+
 	Vec2 position;
+	Vec2 acceleration;
+	Vec2 velocity;
 	Vec2 drag;
 	float speed = 400;
-	float max_speed = 0.1f;
+	float max_speed = 1.0f;
 	bool grounded = false;
 	bool gravity_on = false;
 	bool solid = true;
-	const float gravity_constant = 0.03f;
+	const float gravity_constant = 0.01f;
+
+
 	Vec2 size;
 	Vec2 scale = Vec2(1.0f, 1.0f);
 	Vec2 origin;
 	float rotation;
 	Rect bottomCollider;
+
 	Rect box = Rect(Vec2(0, 0), Vec2(0,0));
+
 	Direction move_direction = Direction::NONE;
 
 	std::string tag = "GameObject";
@@ -107,4 +108,7 @@ protected:
 	int frame_tick = 0;
 
 	void animation(float _dt);
+
+	Animation animation_state = Animation::IDLE;
+	std::map<Animation, std::vector<Rect>> animations;
 };

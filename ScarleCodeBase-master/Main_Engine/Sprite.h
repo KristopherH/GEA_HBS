@@ -1,6 +1,5 @@
 #pragma once
 //C++
-#include <map>
 
 //DXTK
 
@@ -8,19 +7,9 @@
 #include "..\DXTK_Wrapper\CustomMath.h"
 #include "..\DXTK_Wrapper\DXTKRenderer.h"
 #include "../Main_Engine/GameData.h"
-#include "../DXTK_Wrapper/Texture.h"
 
+class Texture;
 class Renderer;
-
-enum AnimationStates
-{
-	IDLE,
-	WALKING,
-	RUNNING,
-	JUMPING,
-	ATTACKING,
-	DYING
-};
 
 //=================================================================
 // Sprite is a Texture with position scale and rotation,
@@ -30,7 +19,7 @@ enum AnimationStates
 class Sprite
 {
 public:
-	Sprite(Texture* _texture, AnimationStates _animation_state = AnimationStates::IDLE);
+	Sprite(Texture*);
 	Sprite(std::string _fileName, Renderer* _renderer = GameData::renderer);
 	virtual ~Sprite();
 
@@ -48,8 +37,7 @@ public:
 	int getSpritesAcross();
 	int getSpritesDown();
 	
-	void switchAnimationState(AnimationStates _new_state);
-	void setTexture(Texture*, AnimationStates = AnimationStates::IDLE, int frames_width = 1, int frames_height = 1);
+	void setTexture(Texture*);
 	void setScale(Vec2);
 	void setRotation(float);
 	void setPosition(Vec2);
@@ -78,8 +66,4 @@ protected:
 	Texture* texture;
 	Rect source = Rect(Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
 	Rect destination = Rect(Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
-
-	AnimationStates animation_state = AnimationStates::IDLE;
-
-	std::map<AnimationStates, TextureData*> texture_container;
 };

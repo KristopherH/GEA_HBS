@@ -1,7 +1,6 @@
 #include "Input_Manager.h"
 //C++
 #include <string>
-#include <sstream>
 #ifdef DEBUG
 #include <iostream>
 #endif
@@ -11,7 +10,6 @@
 //OURS
 #include <GameData.h>
 #include <BaseCamera.h>
-#include "Button.h"
 
 
 unsigned char InputManager::keyboard_state[256];
@@ -30,38 +28,19 @@ float InputManager::mouse_world_x = 0.0f;
 float InputManager::mouse_world_y = 0.0f;
 
 #ifdef ARCADE
-std::map<InputLabel, Input> InputManager::key_inputs =
-{
-	{ InputLabel::UP, (Input)DIK_R },
-	{ InputLabel::DOWN, (Input)DIK_F },
-	{ InputLabel::LEFT, (Input)DIK_D },
-	{ InputLabel::RIGHT, (Input)DIK_G },
-	{ InputLabel::JUMP, (Input)DIK_LSHIFT },
-	{ InputLabel::USE, (Input)DIK_1 },
-	{ InputLabel::PAUSE, (Input)DIK_LCONTROL }
-};
+Input Inputs::UP = DIK_R;
+Input Inputs::DOWN = DIK_F;
+Input Inputs::LEFT = DIK_D;
+Input Inputs::RIGHT = DIK_G;
+Input Inputs::JUMP = DIK_LSHIFT;
+Input Inputs::USE = DIK_1;
 #else
-std::map<InputLabel, Input> InputManager::key_inputs =
-{
-	{ InputLabel::UP, (Input)DIK_W },
-	{ InputLabel::DOWN, (Input)DIK_S },
-	{ InputLabel::LEFT, (Input)DIK_A },
-	{ InputLabel::RIGHT, (Input)DIK_D },
-	{ InputLabel::JUMP, (Input)DIK_SPACE },
-	{ InputLabel::USE, (Input)DIK_RETURN },
-	{ InputLabel::PAUSE, (Input)DIK_ESCAPE }
-};
-
-std::map<InputLabel, std::string> InputManager::key_effect_names =
-{
-	{ InputLabel::UP, "Up" },
-	{ InputLabel::DOWN, "Down" },
-	{ InputLabel::LEFT, "Left" },
-	{ InputLabel::RIGHT,"Right" },
-	{ InputLabel::JUMP, "Jump" },
-	{ InputLabel::USE, "Use" },
-	{ InputLabel::PAUSE, "Pause" }
-};
+Input Inputs::UP = DIK_W;
+Input Inputs::DOWN = DIK_S;
+Input Inputs::LEFT = DIK_A;
+Input Inputs::RIGHT = DIK_D;
+Input Inputs::JUMP = DIK_SPACE;
+Input Inputs::USE = DIK_RETURN;
 #endif
 
 InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
@@ -69,7 +48,7 @@ InputManager::InputManager(HWND _window, HINSTANCE _h_instance)
 	window = _window;
 	h_instance = _h_instance;
 	
-	SetCursorPos((int)GameData::screen.minCorner.x, (int)GameData::screen.minCorner.y);
+	SetCursorPos((int)GameData::screen.min.x, (int)GameData::screen.min.y);
 }
 
 
@@ -79,49 +58,13 @@ InputManager::~InputManager()
 	if (user_direct_input)	user_direct_input->Release();
 	if (user_keyboard)		user_keyboard->Release();
 	if (user_mouse)         user_mouse->Release();
-
-	if (change_key.joinable())
-		change_key.join();
-}
-
-std::string InputManager::ConvertToASCII(DWORD _key)
-{
-	static HKL layout = GetKeyboardLayout(0);
-	static unsigned char State[256];
-
-	if (GetKeyboardState(State) == FALSE)
-		return 0;
-	UINT vk = MapVirtualKeyEx(_key, 1, layout);
-	char character = (vk);
-	if (isalnum(character))
-	{
-		stringstream ss;
-		string s;
-		ss << character;
-		ss >> s;
-		return s;
-	}
-	if (character == ' ')
-	{
-		return "SPACE";
-	}
-	if (character == '\r')
-	{
-		return "ENTER";
-	}
-	if (character == '\x1b')
-	{
-		return "ESC";
-	}
-
-	return "Unknown";
 }
 
 #pragma region Mouse
 
 bool InputManager::getMouseRight()
 {
-	if (mouse_state.rgbButtons[1])
+	if (mouse_state.rgbButtons[1] & 0x80)
 		return true;
 
 	return false;
@@ -131,7 +74,7 @@ bool InputManager::getMouseRight()
 
 bool InputManager::getMouseLeft()
 {
-	if (mouse_state.rgbButtons[0])
+	if (mouse_state.rgbButtons[0] & 0x80)
 		return true;
 
 	return false;
@@ -141,7 +84,7 @@ bool InputManager::getMouseLeft()
 
 bool InputManager::getMouseMiddle()
 {
-		if (mouse_state.rgbButtons[2])
+		if (mouse_state.rgbButtons[2] & 0x80)
 			return true;
 
 	return false;
@@ -149,8 +92,8 @@ bool InputManager::getMouseMiddle()
 
 bool InputManager::getMouseRightPress()
 {
-	if (mouse_state.rgbButtons[1]
-		&& !(previous_mouse_state.rgbButtons[1]))
+	if (mouse_state.rgbButtons[1] & 0x80
+		&& !(previous_mouse_state.rgbButtons[1] & 0x80))
 		return true;
 
 	return false;
@@ -158,8 +101,8 @@ bool InputManager::getMouseRightPress()
 
 bool InputManager::getMouseLeftPress()
 {
-	if (mouse_state.rgbButtons[0]
-		&& !(previous_mouse_state.rgbButtons[0]))
+	if (mouse_state.rgbButtons[0] & 0x80
+		&& !(previous_mouse_state.rgbButtons[0] & 0x80))
 		return true;
 
 	return false;
@@ -167,8 +110,8 @@ bool InputManager::getMouseLeftPress()
 
 bool InputManager::getMouseMiddlePress()
 {
-	if (mouse_state.rgbButtons[2]
-		&& !(previous_mouse_state.rgbButtons[2]))
+	if (mouse_state.rgbButtons[2] & 0x80
+		&& !(previous_mouse_state.rgbButtons[2] & 0x80))
 		return true;
 
 	return false;
@@ -224,42 +167,6 @@ bool InputManager::getKeyHeld(Input _key)
 	return false;
 }
 
-
-
-void InputManager::inputChangeHandler(InputLabel _input, Button* btn)
-{
-	if (change_key.joinable())
-		change_key.join();
-
-	//change_key = std::thread(&InputManager::changeInput, _input);
-	change_key = (std::thread(&InputManager::changeInput, this, _input, btn));
-}
-
-
-
-void InputManager::changeInput(InputLabel _input, Button* btn)
-{
-	while (true)
-	{
-		for (int key = 0; key < sizeof(keyboard_state); key++)
-		{
-			if (getKeyDown(key))
-			{
-				key_inputs[_input] = key;
-				if (btn)
-				{
-					btn->setText(GameData::inputManager->ConvertToASCII(key));
-				}
-				return;
-			}
-		}
-		readMouse();
-		if (getMouseMiddlePress() || getMouseLeftPress() || getMouseRightPress())
-		{
-			return;
-		}
-	}
-}
 #pragma endregion
 
 
@@ -378,6 +285,15 @@ bool InputManager::readKeyboard()
 
 bool InputManager::readMouse()
 {
+	//memcpy(previous_mouse_state, mouse_state, sizeof(DIMOUSESTATE));
+	/*
+		TODO: FORCE THE MOUSE TO STAY WITHIN WINDOW BOUNDS
+				CHECK FOR BUTTON CLICK AND NOT JUST POSITION
+				SOME OTHER SHIT PROBABLY 5:38 IT'S TIME TO SLEEP
+
+	*/
+	//ZeroMemory(&mouse_state, sizeof(mouse_state));
+
 	previous_mouse_state = mouse_state;
 
 	HRESULT result = user_mouse->GetDeviceState(sizeof(DIMOUSESTATE),
@@ -410,7 +326,7 @@ void InputManager::update()
 	#pragma region Mouse Position
 	POINT mouse_pos;
 	GetPhysicalCursorPos(&mouse_pos);
-	ScreenToClient(window, &mouse_pos);
+	ScreenToClient(window, &mouse_pos); // This function doeas hat you were trying to do and excludes the borders
 
 	mouse_x_translation = mouse_x - mouse_pos.x;
 	mouse_y_translation = mouse_y - mouse_pos.y;
@@ -430,15 +346,15 @@ void InputManager::update()
 		mouse_y_translation = 0;
 	}
 
-	if (mouse_x > (int)(GameData::screen.maxCorner.x))
+	if (mouse_x > (int)(GameData::screen.max.x))
 	{
-		mouse_x = (int)GameData::screen.maxCorner.x;
+		mouse_x = (int)GameData::screen.max.x;
 		mouse_x_translation = 0;
 	}
 
-	if (mouse_y > (int)(GameData::screen.maxCorner.y))
+	if (mouse_y > (int)(GameData::screen.max.y))
 	{
-		mouse_y = (int)GameData::screen.maxCorner.y;
+		mouse_y = (int)GameData::screen.max.y;
 		mouse_y_translation = 0;
 	}
 
@@ -455,78 +371,6 @@ void InputManager::update()
 	std::cout << "Mouse Y Change: " << mouse_y_translation << std::endl;
 	#endif
 	#pragma endregion
-}
-
-#pragma endregion
-
-#pragma region Gual
-
-void InputManager::stringInputBackspace()
-{
-	if (readingInputStream)
-	{
-		backspace = true;
-	}
-}
-
-void InputManager::stringInputReturn()
-{
-	if (readingInputStream)
-	{
-		enter = true;
-	}
-}
-
-void InputManager::stringInputAddKey(char ch)
-{
-	if (readingInputStream)
-	{
-		mtx.lock();
-		inputStream.push(ch);
-		mtx.unlock();
-	}
-}
-
-void InputManager::startReading()
-{
-	readingInputStream = true;
-
-}
-
-char InputManager::getLatestInput()
-{
-	if (readingInputStream)
-	{
-		if (backspace)
-		{
-			backspace = false;
-			return -1;
-		}
-		if (enter)
-		{
-			enter = false;
-			return -2;
-		}
-		mtx.lock();
-		char ch;
-		if (inputStream.size() > 0)
-		{
-			ch = inputStream.front();
-			inputStream.pop();
-		}
-		else
-		{
-			ch = -3;
-		}
-		mtx.unlock();
-		return ch;
-
-	}
-}
-
-void InputManager::stopReading()
-{
-	readingInputStream = false;
 }
 
 #pragma endregion

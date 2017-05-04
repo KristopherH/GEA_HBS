@@ -11,40 +11,31 @@
 #include "DXTKRenderer.h"
 #include "Sprite.h"
 #include "CustomMath.h"
-#include "GameFileCreation.h"
-#include "Text.h"
->>>>>>> refs/remotes/origin/master
 
 MainMenuScene::MainMenuScene()
-	:Scene()
 {
-	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer),
-											"button1", "Button", "Play");
+	Scene::Scene();
+	Button* Playbtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Play");
 	Playbtn->setSize(new Vec2(300.0f, 150.0f));
-	Playbtn->setPosition(new Vec2(GameData::currentCamera->getViewSize().x / 2 - 
-						(Playbtn->getSize().x/2) - (Playbtn->getSize().x * 1.5), 700.0f));
+	Playbtn->setPosition(new Vec2(GameData::screen.Center().x - 800.0f, 700.0f));
 	Playbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Playbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("GameScene", new GameScene());
 		GameData::scene_manager->setCurrentScene("GameScene");
 	});
-
-	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer),
-											   "button2", "Button", "Level Editor");
+	
+	Button* LevelEdbtn = new Button(new Sprite("Button", GameData::renderer), "button2", "Button", "Level Editor");
 	LevelEdbtn->setSize(new Vec2(300.0f, 150.0f));
-	LevelEdbtn->setPosition(new Vec2(GameData::currentCamera->getViewSize().x / 2 -
-							(LevelEdbtn->getSize().x / 2), 700.0f));
+	LevelEdbtn->setPosition(new Vec2(GameData::screen.Center().x + 200.0f, 700.0f));/*&GameData::screen.Center());*/	
 	LevelEdbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	LevelEdbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("LevelEditorScene", new LevelEditorScene());
 		GameData::scene_manager->setCurrentScene("LevelEditorScene");
 	});
 
-	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), 
-											   "button3", "Button", "Options");
+	Button* Optionsbtn = new Button(new Sprite("Button", GameData::renderer), "button3", "Button", "Options");
 	Optionsbtn->setSize(new Vec2(300.0f, 150.0f));
-	Optionsbtn->setPosition(new Vec2(GameData::currentCamera->getViewSize().x/2 - 
-							(Optionsbtn->getSize().x / 2) + (Playbtn->getSize().x * 1.5), 700.0f));
+	Optionsbtn->setPosition(new Vec2(GameData::screen.Center().x - 300.0f, 700.0f)/*&GameData::screen.Center()*/);
 	Optionsbtn->setOrigin(new Vec2(0.0f, 0.0f));
 	Optionsbtn->setCallbackFunction([]() {
 		GameData::scene_manager->addScene("OptionsMenuScene", new OptionsMenu());
@@ -67,22 +58,10 @@ MainMenuScene::MainMenuScene()
 
 	Background* bg = new Background(BGs, cam);
 
-	Text* txt = new Text(nullptr, "txt", "NULL", "Generic Platformer \n          Engine");
-	txt->setSize(new Vec2(GameData::currentCamera->getViewSize().x, 400));
-	txt->setPosition(&((GameData::currentCamera->getViewSize() / 2) - (txt->getSize()/2)));
-
 	go_list.push_back(bg);
 	go_list.push_back(Playbtn);
 	go_list.push_back(LevelEdbtn);
 	go_list.push_back(Optionsbtn);
-	go_list.push_back(txt);
-	//go_list.push_back(cam);
-
-	GameData::sound_manager->setMasterVolume(100);
-	GameData::sound_manager->setSFXVolume(100);
-	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
-
-	return;
 }
 
 void MainMenuScene::Update(float dt)
@@ -104,4 +83,6 @@ void MainMenuScene::Update(float dt)
 void MainMenuScene::Draw()
 {
 	Scene::Draw();
+	GameData::renderer->renderText("Generic Platformer \n          Engine", GameData::screen.Center() * -1 + Vec2(400.0f, 200.0f),
+		Vec4(0.0f, 1.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 2.5f);
 }

@@ -175,21 +175,3 @@ float Renderer::getWindowHeight()
 	GetClientRect(hWnd, &rc);
 	return (float)(rc.bottom - rc.top);
 }
-
-Vec2 Renderer::WorldToScreen(Vec2 _pos)
-{
-	Vec2 newPos = Vec2(0.0f, 0.0f);
-	newPos -= (GameData::currentCamera->getCameraSize() / 2) / GameData::currentCamera->getZoom();
-	newPos -= GameData::currentCamera->getPosition();
-	newPos += _pos / GameData::currentCamera->getZoom(); 
-	return newPos;
-}
-
-Vec2 Renderer::ScreenToWorld(Vec2 _pos)
-{
-	Vec2 newPos = Vec2(0.0f, 0.0f);
-	newPos += (GameData::currentCamera->getCameraSize() / 2) / GameData::currentCamera->getZoom();
-	newPos += GameData::currentCamera->getPosition();
-	newPos -= _pos / GameData::currentCamera->getZoom();
-	return newPos;
-}

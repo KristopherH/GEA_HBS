@@ -17,18 +17,15 @@ public:
 
 	void Update();
 
-	void setMasterVolume(unsigned short _volume);
-	void setSFXVolume(unsigned short _volume);
-
-	unsigned short getMasterVolume();
-	unsigned short getSFXVolume();
+	void setMasterVoume(unsigned short _volume);
+	void setSFXVoume(unsigned short _volume);
 
 private:
 	
 	DirectX::AudioEngine* audioEngine;
 	std::map<std::string, std::unique_ptr<DirectX::SoundEffect>> sounds;
 	std::vector<std::unique_ptr<DirectX::SoundEffectInstance>> playingSounds;
-	unsigned short Master_Volume = 50;
+	unsigned short Volume = 50;
 	unsigned short SFX_Volume = 50;
 };
 

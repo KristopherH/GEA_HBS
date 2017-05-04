@@ -72,10 +72,10 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		windowed_pos_x, windowed_pos_y, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, _hInstance,
 		nullptr);
 
-	GameData::screen.maxCorner.x = (float)windowed_width;
-	GameData::screen.maxCorner.y = (float)windowed_height;
-	GameData::screen.minCorner.x = (float)windowed_pos_x;
-	GameData::screen.minCorner.y = (float)windowed_pos_y;
+	GameData::screen.max.x = (float)windowed_width;
+	GameData::screen.max.y = (float)windowed_height;
+	GameData::screen.min.x = (float)windowed_pos_x;
+	GameData::screen.min.y = (float)windowed_pos_y;
 #else
 	//Go to Fullscreen in Release
 	m_hWnd = CreateWindowEx(NULL,
@@ -89,10 +89,10 @@ HRESULT Application::InitWindow( HINSTANCE _hInstance, int _nCmdShow )
 		_hInstance,
 		NULL);
 
-	GameData::screen.maxCorner.x = (float)window_width;
-	GameData::screen.maxCorner.y = (float)window_height;
-	GameData::screen.minCorner.x = (float)0;
-	GameData::screen.minCorner.y = (float)0;
+	GameData::screen.max.x = (float)window_width;
+	GameData::screen.max.y = (float)window_height;
+	GameData::screen.min.x = (float)0;
+	GameData::screen.min.y = (float)0;
 #endif
 
 	if (!m_hWnd)
