@@ -14,6 +14,8 @@
 #include "UI.h"
 #include "Text.h"
 #include <map>
+#include "Helper.h"
+#include "Object_Factory.h"
 
 OptionsMenu::OptionsMenu()
 {
@@ -99,35 +101,80 @@ void OptionsMenu::keyBindings()
 
 void OptionsMenu::volumeButtons()
 {
-	Button* MasterPlus = new Button(new Sprite("minus-icon", GameData::renderer), "button1", "Button", "NULL");
-	MasterPlus->setSize(new Vec2(50.0f, 50.0f));
-	MasterPlus->setPosition(new Vec2(GameData::screen.Center().x - 330.0f, 520.0f));
-	MasterPlus->setOrigin(new Vec2(0.0f, 0.0f));
-	MasterPlus->setCallbackFunction([]() {
-		//GameData::inputManager->newPauseKey();
-	});
-	Button* MasterMinus = new Button(new Sprite("plus-icon", GameData::renderer), "button1", "Button", "NULL");
-	MasterMinus->setSize(new Vec2(50.0f, 50.0f));
-	MasterMinus->setPosition(new Vec2(GameData::screen.Center().x - 330.0f, 520.0f));
-	MasterMinus->setOrigin(new Vec2(0.0f, 0.0f));
-	MasterMinus->setCallbackFunction([]() {
-		//GameData::inputManager->newPauseKey();
-	});
 
-	Button* SFXPlus = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "NULL");
-	SFXPlus->setSize(new Vec2(50.0f, 50.0f));
-	SFXPlus->setPosition(new Vec2(GameData::screen.Center().x - 330.0f, 520.0f));
-	SFXPlus->setOrigin(new Vec2(0.0f, 0.0f));
-	SFXPlus->setCallbackFunction([]() {
-		//GameData::inputManager->newPauseKey();
-	});
-	Button* SFXMinus = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "NULL");
-	SFXMinus->setSize(new Vec2(50.0f, 50.0f));
-	SFXMinus->setPosition(new Vec2(GameData::screen.Center().x - 330.0f, 520.0f));
-	SFXMinus->setOrigin(new Vec2(0.0f, 0.0f));
-	SFXMinus->setCallbackFunction([]() {
-		//GameData::inputManager->newPauseKey();
-	});
+	Vec2 pos(GameData::currentCamera->getCameraSize().x / 100 * 60,
+			 GameData::currentCamera->getCameraSize().y / 100 * 30);
+	Vec2 size((GameData::currentCamera->getCameraSize().x / 100 * 60) / InputManager::key_inputs.size(),
+			  (GameData::currentCamera->getCameraSize().y / 100 * 60) / InputManager::key_inputs.size());
 
-	//go_list.pushback();
+	Button* VolumeBtn = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
+		"NameChanger", "NULL", "Volume:" + Helper::to_string_with_precision(GameData::sound_manager->getMasterVolume()));
+	VolumeBtn->setSize(&size);
+	VolumeBtn->setPosition(&pos);
+	VolumeBtn->setCallbackFunction([this, VolumeBtn]()
+	{
+		return;
+	});
+	go_list.push_back(VolumeBtn);
+
+	Button* plusVolume = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_PLUS]),
+		"NameChanger", "NULL", "", false);
+	plusVolume->setSize(new Vec2(size.y, size.y));
+	plusVolume->setPosition(new Vec2(pos.x + VolumeBtn->getSize().x, pos.y));
+	plusVolume->setCallbackFunction([this, VolumeBtn]()
+	{
+		GameData::sound_manager->setMasterVolume(GameData::sound_manager->getMasterVolume() + 1);
+		VolumeBtn->setText("Volume:" + Helper::to_string_with_precision(GameData::sound_manager->getMasterVolume()));
+		return;
+	});
+	go_list.push_back(plusVolume);
+
+	Button* minusVolume = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_MINUS]),
+		"NameChanger", "NULL", "", false);
+	minusVolume->setSize(new Vec2(size.y, size.y));
+	minusVolume->setPosition(new Vec2(pos.x - minusVolume->getSize().x, pos.y));
+	minusVolume->setCallbackFunction([this, VolumeBtn]()
+	{
+		GameData::sound_manager->setMasterVolume(max(0, GameData::sound_manager->getMasterVolume() - 1));
+		VolumeBtn->setText("Volume:" + Helper::to_string_with_precision(GameData::sound_manager->getMasterVolume()));
+		return;
+	});
+	go_list.push_back(minusVolume);
+
+	pos.y += size.y;
+
+	Button* SFXBtn = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON]),
+		"NameChanger", "NULL", "SFX:" + Helper::to_string_with_precision(GameData::sound_manager->getSFXVolume()));
+	SFXBtn->setSize(&size);
+	SFXBtn->setPosition(&pos);
+	SFXBtn->setCallbackFunction([this, SFXBtn]()
+	{
+		return;
+	});
+	go_list.push_back(SFXBtn);
+
+	Button* plusSFX = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_PLUS]),
+		"NameChanger", "NULL", "", false);
+	plusSFX->setSize(new Vec2(size.y, size.y));
+	plusSFX->setPosition(new Vec2(pos.x + VolumeBtn->getSize().x, pos.y));
+	plusSFX->setCallbackFunction([this, SFXBtn]()
+	{
+		GameData::sound_manager->setSFXVolume(GameData::sound_manager->getSFXVolume() + 1);
+		SFXBtn->setText("SFX:" + Helper::to_string_with_precision(GameData::sound_manager->getSFXVolume()));
+		return;
+	});
+	go_list.push_back(plusSFX);
+
+	Button* minusSFX = new Button(new Sprite(ObjectFactory::texture_pool[BUTTON_MINUS]),
+		"NameChanger", "NULL", "", false);
+	minusSFX->setSize(new Vec2(size.y, size.y));
+	minusSFX->setPosition(new Vec2(pos.x - minusSFX->getSize().x, pos.y));
+	minusSFX->setCallbackFunction([this, SFXBtn]()
+	{
+		GameData::sound_manager->setSFXVolume(max(0, GameData::sound_manager->getSFXVolume() - 1));
+		SFXBtn->setText("SFX:" + Helper::to_string_with_precision(GameData::sound_manager->getSFXVolume()));
+		return;
+	});
+	go_list.push_back(minusSFX);
+	
 }

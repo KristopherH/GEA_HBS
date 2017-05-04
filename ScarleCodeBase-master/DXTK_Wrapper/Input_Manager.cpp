@@ -444,8 +444,6 @@ void InputManager::update()
 	InputManager::mouse_world_x = (GameData::inputManager->mouse_x / GameData::currentCamera->getZoom()) - CameraXScaled;
 	InputManager::mouse_world_y = (GameData::inputManager->mouse_y / GameData::currentCamera->getZoom()) - CameraYScaled;
 
-	
-
 	#ifdef DEBUG
 	std::cout << "Mouse world X: " << InputManager::mouse_world_x <<  "    Mouse world Y: " << InputManager::mouse_world_y << std::endl;
 	#endif

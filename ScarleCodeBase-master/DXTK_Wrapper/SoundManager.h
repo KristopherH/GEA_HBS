@@ -18,8 +18,11 @@ public:
 
 	void Update();
 
-	void setMasterVoume(unsigned short _volume);
-	void setSFXVoume(unsigned short _volume);
+	void setMasterVolume(unsigned short _volume);
+	void setSFXVolume(unsigned short _volume);
+
+	unsigned short getMasterVolume();
+	unsigned short getSFXVolume();
 
 private:
 	
