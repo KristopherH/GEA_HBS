@@ -22,15 +22,15 @@ AnimatedSprite::~AnimatedSprite()
 	textureArray.clear();
 }
 
-void AnimatedSprite::Update()
-{
-	std::chrono::duration<float> elapsed_seconds = std::chrono::system_clock::now() - start;
-	if (elapsed_seconds.count() > animationTimer)
-	{
-		nextAnimation();
-		start = std::chrono::system_clock::now();
-	}
-}
+//void AnimatedSprite::Update()
+//{
+//	std::chrono::duration<float> elapsed_seconds = std::chrono::system_clock::now() - start;
+//	if (elapsed_seconds.count() > animationTimer)
+//	{
+//		nextAnimation();
+//		start = std::chrono::system_clock::now();
+//	}
+//}
 
 void AnimatedSprite::nextAnimation()
 {

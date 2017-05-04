@@ -261,6 +261,7 @@
     <ImageContentTask Include="Characters\Cannon.png" />
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="Characters\player_sprite_sheets.png" />
     <ImageContentTask Include="BG\GameOverBackground.png" />
   </ItemGroup>
   <ItemGroup>

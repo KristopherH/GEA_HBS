@@ -15,6 +15,8 @@
 Player::Player(Sprite* _sprite, std::string _name, std::string _tag)
 	:GameObject(_sprite, _name, _tag)
 {
+	playerr = true;
+	animated = true;
 	setScale(new Vec2(0.5f, 1.5f));
 	jumpStrength = -0.04f;
 	speed = 0.02f;
@@ -91,6 +93,19 @@ bool Player::Update(float dt)
 	{
 		stoppedJumping = true;
 		gravity_on = true;
+	}
+
+	if (velocity.y >= 0.1f || velocity.y <= -0.01f && !climbing && sprite->getAnimationState() == AnimationState::IDLE)
+	{
+		sprite->setAnimationState(AnimationState::JUMP);
+	}
+	else if (velocity.x >= 0.1f || velocity.x <= -0.01f && sprite->getAnimationState() == AnimationState::IDLE)
+	{
+		sprite->setAnimationState(AnimationState::WALK);
+	}
+	else if(sprite->getAnimationState() != AnimationState::IDLE && velocity.y <= 0.1f && velocity.y >= -0.01f && velocity.x <= 0.1f && velocity.x >= -0.01f)
+	{
+		sprite->setAnimationState(AnimationState::IDLE);
 	}
 	GameObject::Update(dt);
 	climb();
@@ -207,11 +222,11 @@ void Player::OnJump(float dt)
 }
 
 void Player::OnMove(Vec2 _direction)
-{
+{	
 	bool moved = false;
 	if (climbing)
 	{
-		position += _direction *100;
+		position += _direction * 100;
 		return;
 	}
 	if (_direction.y != 0.0f)

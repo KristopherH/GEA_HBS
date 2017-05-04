@@ -26,6 +26,7 @@ public:
 	virtual bool Update(float dt);
 	virtual bool Draw();
 	virtual void gravityUpdate();
+	void animation(float _dt);
 
 	//Getters
 	virtual Direction getMovementDirection();
@@ -67,6 +68,7 @@ public:
 	//TODO: add getters/setters
 	Vec2 velocity;
 	Vec2 acceleration;
+	bool playerr = false;
 
 protected:
 	bool alive = true;
@@ -94,4 +96,6 @@ protected:
 
 	Sprite* sprite = nullptr;
 	std::vector<Sprite*> vectorSprites;
+
+	bool animated = false;
 };
