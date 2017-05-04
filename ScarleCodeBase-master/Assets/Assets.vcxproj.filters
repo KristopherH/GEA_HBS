@@ -162,4 +162,9 @@
       <Filter>Textures\Characters</Filter>
     </ImageContentTask>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="BG\GameOverBackground.png">
+      <Filter>Textures\BG</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

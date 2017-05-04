@@ -22,12 +22,10 @@
 #include "GameFileCreation.h"
 #include "Object_Factory.h"
 
-
-
 GameOver::GameOver()
 	:Scene()
 {		
-		GameObject* go = new GameObject(new Sprite("GameOverBackGround", GameData::renderer));
+		GameObject* go = new GameObject(new Sprite("GameOverBackground", GameData::renderer));
 		go->setSize(&GameData::currentCamera->getCameraSize());
 		go->setPosition(&((GameData::currentCamera->getCameraSize()/2)*-1));
 		go_list.push_back(go);
