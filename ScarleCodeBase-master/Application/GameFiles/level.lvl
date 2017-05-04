@@ -1,5 +1,5 @@
 Name: (Level 1)
-PlayerPos: (-865.698 556.943)
+PlayerPos: (-865.698 550.693)
 BackgroundPos: (0 0)
 Objects: (27)
 0:
@@ -19,8 +19,8 @@ Rotation: (0)
 2:
 Type: (Ladder)
 Name: (Ladder)
-Position: (359.314 103.917)
-Size: (100 574.424)
+Position: (356.814 -16.0831)
+Size: (100 714.424)
 Rotation: (0)
 (END)
 3:
@@ -92,8 +92,8 @@ Length:(10)
 11:
 Type: (Ladder)
 Name: (Ladder)
-Position: (-1310.33 -695.534)
-Size: (103.077 731.732)
+Position: (-1307.83 -783.034)
+Size: (103.077 819.232)
 Rotation: (0)
 (END)
 12:
