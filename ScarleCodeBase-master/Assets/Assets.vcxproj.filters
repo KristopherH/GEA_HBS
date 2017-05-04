@@ -173,13 +173,11 @@
     <ImageContentTask Include="UI\Button3.png">
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Platforms\StairsLeft.png">
+    <ImageContentTask Include="Platforms\StairsLeft.png">
       <Filter>Textures\Platforms</Filter>
-    </Image>
-    <Image Include="Platforms\StairsRight.png">
+    </ImageContentTask>
+    <ImageContentTask Include="Platforms\StairsRight.png">
       <Filter>Textures\Platforms</Filter>
-    </Image>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
