@@ -8,11 +8,13 @@
 #include "Input_Manager.h"
 #include "Collision_Manager.h"
 #include "Game_Controller.h"
+#include "SceneManager.h"
+#include "PauseMenu.h"
+#include "GameOver.h"
 
 Player::Player(Sprite* _sprite, std::string _name, std::string _tag, int _sprites_across, int _sprites_down)
 	:GameObject(_sprite, _name, _tag, _sprites_across, _sprites_down)
 {
-	playerrr = true;
 	setScale(new Vec2(0.5f, 1.5f));
 	jumpStrength = -0.02f;
 	speed = 0.01f;
@@ -21,12 +23,16 @@ Player::Player(Sprite* _sprite, std::string _name, std::string _tag, int _sprite
 	jumpTime = 0.8f;
 	jumpTimeCounter = jumpTime;
 	//Load keybinds from file into list
+	#ifndef ARCADE
+	std::cout << "Arcade not defined" << std::endl;
+	#endif
 
-	KeyBindsHold[Inputs::JUMP] = std::bind(&Player::OnJump, this);
-	KeyBindsHold[Inputs::LEFT] = std::bind(&Player::OnMove, this, Vec2(-speed, 0.0f));
-	KeyBindsHold[Inputs::RIGHT] = std::bind(&Player::OnMove, this, Vec2(speed, 0.0f));
-	KeyBindsHold[Inputs::UP] = std::bind(&Player::OnMove, this, Vec2(0.0f, -speed));
-	KeyBindsHold[Inputs::DOWN] = std::bind(&Player::OnMove, this, Vec2(0.0f, speed));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::JUMP]] = std::bind(&Player::OnJump, this);
+	KeyBindsHold[InputManager::key_inputs[InputLabel::LEFT]] = std::bind(&Player::OnMove, this, Vec2(-speed, 0.0f));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::RIGHT]] = std::bind(&Player::OnMove, this, Vec2(speed, 0.0f));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::UP]] = std::bind(&Player::OnMove, this, Vec2(0.0f, -speed));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::DOWN]] = std::bind(&Player::OnMove, this, Vec2(0.0f, speed));
+	KeyBindsHold[InputManager::key_inputs[InputLabel::PAUSE]] = std::bind(&Player::PauseGame, this);
 }
 
 Player::~Player()
@@ -262,6 +268,18 @@ float Player::getSpeed()
 	return speed;
 }
 
+void Player::PauseGame()
+{
+	if (pauseSetUp == false)
+	{
+		GameData::scene_manager->addScene("PauseMenuScene", new PauseMenu());
+		pauseSetUp = true;
+	}
+	GameData::scene_manager->setCurrentScene("PauseMenuScene", false);
+	GameData::sound_manager->stopSound();
+	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
+}
+
 //void Player::oneWayPlatformMove()
 //{
 //	for (auto go : GameData::go_list)
@@ -301,6 +319,12 @@ void Player::conveyor(bool _left)
 void Player::setLives()
 {
 	lives -= 1;
+	setPosition(lastCheckpoint);
+	if (lives <= 0)
+	{
+		GameData::scene_manager->addScene("GameOver", new GameOver());
+		GameData::scene_manager->setCurrentScene("GameOver");
+	}
 }
 
 void Player::setScore()

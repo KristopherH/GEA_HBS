@@ -240,33 +240,33 @@ Vec4 Vec4::operator=(DirectX::SimpleMath::Color oth)
 
 Rect::Rect(Vec2 V1, Vec2 V2) 
 {
-	min.x = V1.x;  min.y = V1.y;
-	max.x = V2.x;  max.y = V2.y;
+	minCorner.x = V1.x;  minCorner.y = V1.y;
+	maxCorner.x = V2.x;  maxCorner.y = V2.y;
 }
 
 Rect operator+(const Rect& original, const Vec2 displacement)
 {
-	Vec2 a = original.min + displacement;
-	Vec2 b = original.max + displacement;
+	Vec2 a = original.minCorner + displacement;
+	Vec2 b = original.maxCorner + displacement;
 	return Rect(a,b);
 }
 
 Rect Rect::operator=(Rect other)
 {
-	this->min.x = other.min.x;
-	this->min.y = other.min.y;
-	this->max.x = other.max.x;
-	this->max.y = other.max.y;
+	this->minCorner.x = other.minCorner.x;
+	this->minCorner.y = other.minCorner.y;
+	this->maxCorner.x = other.maxCorner.x;
+	this->maxCorner.y = other.maxCorner.y;
 
 	return *this;
 }
 
 bool Rect::Contains(Vec2 oth)
 {
-	if (oth.x < max.x &&
-		oth.x > min.x &&
-		oth.y < max.y &&
-		oth.y > min.y)
+	if (oth.x < maxCorner.x &&
+		oth.x > minCorner.x &&
+		oth.y < maxCorner.y &&
+		oth.y > minCorner.y)
 	{
 		return true;
 	}
@@ -275,7 +275,7 @@ bool Rect::Contains(Vec2 oth)
 
 Vec2 Rect::Center()
 {
-	return Vec2(min.x + (max.x/2), min.y + (max.y / 2));
+	return Vec2(minCorner.x + ((maxCorner.x - minCorner.x )/2), minCorner.y + ((maxCorner.y - minCorner.y) / 2));
 }
 
 #pragma endregion

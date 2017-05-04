@@ -53,6 +53,7 @@ void SoundManager::Update()
 		// No audio device is active
 		if (audioEngine->IsCriticalError())
 		{
+
 		}
 	}
 }

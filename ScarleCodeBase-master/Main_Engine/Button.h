@@ -18,11 +18,14 @@ public:
 
 	void setColor(Vec4 colour);
 
+	void setScreenSpace(bool _screenSpace) { screenSpace = _screenSpace; }
+
+	void setText(std::string _text) { buttonText = _text; }
+
 protected:
 	std::function<void()> onClick;
 
+	bool screenSpace = true;
 	bool hovering = false;
-	float x;
-	float y;
 	std::string buttonText;
 };

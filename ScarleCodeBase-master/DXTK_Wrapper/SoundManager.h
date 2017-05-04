@@ -25,7 +25,7 @@ private:
 	DirectX::AudioEngine* audioEngine;
 	std::map<std::string, std::unique_ptr<DirectX::SoundEffect>> sounds;
 	std::vector<std::unique_ptr<DirectX::SoundEffectInstance>> playingSounds;
-	unsigned short Volume = 50;
+	unsigned short Master_Volume = 50;
 	unsigned short SFX_Volume = 50;
 };
 

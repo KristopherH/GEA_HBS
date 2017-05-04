@@ -42,8 +42,8 @@ struct Vec2
 
 struct Rect
 {
-	Vec2 min;
-	Vec2 max;
+	Vec2 minCorner;
+	Vec2 maxCorner;
 
 	Rect(Vec2 = Vec2(0.0f, 0.0f), Vec2 = Vec2(0.0f, 0.0f));
 

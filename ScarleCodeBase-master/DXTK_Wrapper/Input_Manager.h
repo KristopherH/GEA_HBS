@@ -3,20 +3,26 @@
 
 //DXTK
 #include <dinput.h>
+#include <queue>
+#include <mutex>
+#include <map>
 
 //OURS
-
+class Button;
 
 using Input = int;
 
-struct Inputs
+enum class InputLabel
 {
-	static Input UP;
-	static Input DOWN;
-	static Input LEFT;
-	static Input RIGHT;
-	static Input JUMP;
-	static Input USE;
+	NONE,
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	JUMP,
+	USE,
+	PAUSE,
+	CTRL
 };
 
 class InputManager
@@ -26,6 +32,10 @@ public:
 	InputManager(HWND _window, HINSTANCE _h_instance);
 	~InputManager();
 
+	static std::map<InputLabel, Input> key_inputs;
+	static std::map<InputLabel, std::string> key_effect_names;
+
+	std::string ConvertToASCII(DWORD _key);
 
 #pragma region Mouse Input
 	bool getMouseRight();
@@ -41,13 +51,18 @@ public:
 	bool getKeyDown(Input _key);
 	bool getKeyUp(Input _key);
 	bool getKeyHeld(Input _key);
+
+	std::thread change_key;
+
+	void inputChangeHandler(InputLabel _input, Button* btn = nullptr);
+	void changeInput(InputLabel _input, Button* btn = nullptr);
 #pragma endregion
 
 #pragma region GamePad Input
 	bool gamePadButtonDown(unsigned int button);
 	bool gamePadButtonUp(unsigned int button);
 	bool gamePadButtonHeld(unsigned int button);
-#pragma endregion going to have to look more into this (pre-processor shit)
+#pragma endregion Not implementing this
 
 #pragma region Couple of checkers (need to double check what these would be)
 	bool init();
@@ -55,6 +70,23 @@ public:
 	bool readMouse();
 	void update();
 #pragma endregion
+
+#pragma region String getting from VM
+
+	std::mutex mtx;
+	void stringInputBackspace();
+	void stringInputReturn();
+	void stringInputAddKey(char ch);
+	void startReading();
+	char getLatestInput();
+	void stopReading();
+
+	bool readingInputStream;
+	std::queue<char> inputStream;
+	bool enter = false;
+	bool backspace = false;
+#pragma endregion
+
 
 	static int mouse_x;
 	static int mouse_y;

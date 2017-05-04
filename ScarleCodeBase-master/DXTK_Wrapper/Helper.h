@@ -1,6 +1,8 @@
 #pragma once
 //C++
 #include <string>
+#include <sstream>
+#include <iomanip>
 
 //DXTK
 
@@ -24,5 +26,13 @@ struct Helper
 		wa = new wchar_t[size];
 		mbstowcs_s(nullptr, wa, size, _text, size);
 		return wa;
+	}
+
+	template <typename T>
+	static std::string to_string_with_precision(const T a_value, const int n = 6)
+	{
+		std::ostringstream out;
+		out << std::setprecision(n) << a_value;
+		return out.str();
 	}
 };

@@ -7,12 +7,13 @@ Scene::Scene()
 {
 	//create a base camera
 	//cam = new BaseCamera(GameData::renderer->getWindowWidth(), GameData::renderer->getWindowHeight(), -1.0f, 10000.0f);
-	cam = new BaseCamera(GameData::screen.max.x, GameData::screen.max.y, -1.0f, 10000.0f);
+	cam = new BaseCamera(GameData::screen.maxCorner.x, GameData::screen.maxCorner.y, -1.0f, 10000.0f);
 	//mainCamera->SetPosition(new Vec2(player->GetPosition().x + player->GetSize().x, player->GetPosition().y - player->GetSize().y));
 	cam->setName("Camera");
 	cam->setTag("Camera");
 	cam->setSolid(false);
 	go_list.push_back(cam);
+	GameData::currentCamera = cam;
 }
 
 Scene::~Scene()
@@ -27,21 +28,12 @@ Scene::~Scene()
 
 void Scene::Update(float dt)
 {
-	for (auto go : go_list)
+	for (int i = 0; i < go_list.size(); i++)
 	{
-		if (go->getAlive())
+		if (go_list[i]->getAlive())
 		{
-			go->gravityUpdate();
-			go->Update(dt);
-			if (go->getName() == "Player")
-			{
-				Vec2 pos = GameData::player->getPosition();
-				Vec2 min = GameData::player->getBox().min;
-				Vec2 max = GameData::player->getBox().max;
-				float width = GameData::player->getSprite()->getFrameWidth();
-				float height = GameData::player->getSprite()->getFrameHeight();
-				int i = 0;
-			}
+			go_list[i]->gravityUpdate();
+			go_list[i]->Update(dt);
 		}
 	}
 }

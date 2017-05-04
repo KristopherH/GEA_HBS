@@ -69,10 +69,17 @@ bool GameObject::Update(float dt)
 		int width = this->size.x / this->getSprite()->getSpritesAcross();
 		int height = this->size.y / this->getSprite()->getSpritesDown();
 
+//<<<<<<< HEAD
  		box.min.x = position.x;
 		box.min.y = position.y;
  		box.max.x = position.x + width;
 		box.max.y = position.y + height;
+//=======
+		//box.minCorner.x = position.x;
+		//box.minCorner.y = position.y;
+		//box.maxCorner.x = position.x + this->getSize().x;
+		//box.maxCorner.y = position.y + this->getSize().y;
+//>>>>>>> refs/remotes/origin/master
 
 		sprite->setPosition(position);
 		sprite->setRotation(rotation);
@@ -92,8 +99,12 @@ bool GameObject::Update(float dt)
 }
 
 bool GameObject::Draw()
-{
-	return GameData::renderer->Draw(sprite, frame_tick);
+
+	if (sprite)
+	{
+		return GameData::renderer->Draw(sprite);
+	}
+	return false;
 }
 
 void GameObject::setPosition(Vec2 * _position)
@@ -102,10 +113,10 @@ void GameObject::setPosition(Vec2 * _position)
 	if (sprite != nullptr)
 	{
 		bottomCollider = Rect(Vec2(0.0f, 0.0f), Vec2(0.0f, 0.0f));
-		bottomCollider.max += sprite->getSize();
-		bottomCollider.min += Vec2(0.0f, sprite->getSize().y);
-		bottomCollider.max *= scale;
-		bottomCollider.min *= scale;
+		bottomCollider.maxCorner += sprite->getSize();
+		bottomCollider.minCorner += Vec2(0.0f, sprite->getSize().y);
+		bottomCollider.maxCorner *= scale;
+		bottomCollider.minCorner *= scale;
 	}
 }
 
@@ -113,9 +124,12 @@ void GameObject::setSize(Vec2 * _size)
 {
 	size.x = _size->x;
 	size.y = _size->y;
-	Vec2 textureSize = sprite->getSize();
-	scale.x = _size->x / textureSize.x;
-	scale.y = _size->y / textureSize.y;
+	if (sprite)
+	{
+		Vec2 textureSize = sprite->getSize();
+		scale.x = _size->x / textureSize.x;
+		scale.y = _size->y / textureSize.y;
+	}
 	return;
 }
 
@@ -146,6 +160,16 @@ void GameObject::animation(float _dt)
 	}
 }
 
+bool GameObject::isTransparent(Vec2 _pixel_pos, Rect box)
+{
+	return this->getSprite()->GetTexture()->isTransparent(_pixel_pos, box);
+}
+
+bool GameObject::isTransparent(Vec2 boxPos)
+{
+	return this->getSprite()->GetTexture()->isTransparent(boxPos);
+}
+
 void GameObject::movePosition(Vec2* _translation)
 {
 	position.x += _translation->x;
@@ -154,10 +178,6 @@ void GameObject::movePosition(Vec2* _translation)
 
 void GameObject::gravityUpdate()
 {
-	/*if (!gravity_on)
-	{
-		return;
-	}*/
 	//Very messy Needs tidying up after alpha submission
 	bool new_grounded = false;
 	for (const auto& current_object : *GameData::go_list)
@@ -173,7 +193,7 @@ void GameObject::gravityUpdate()
 						this->box, current_object->getBox()))
 					{
 						Rect top_of_the_platform(current_object->getBox()/* + current_object->getPosition()*/);
-						top_of_the_platform.max.y = top_of_the_platform.min.y + 60.0f;
+						top_of_the_platform.maxCorner.y = top_of_the_platform.minCorner.y + 60.0f;
 						if (GameData::collsion_manager->boxCollision(
 							bottomCollider + position , top_of_the_platform))
 						{
@@ -225,7 +245,15 @@ Vec2 GameObject::getPosition()
 
 Vec2 GameObject::getSize()
 {
-	return Vec2(size.x, size.y);
+	if (sprite)
+	{
+		return Vec2(size.x, size.y);
+		//return Vec2(sprite->getSize().x * scale.x, sprite->getSize().y * scale.y);
+	}
+	else
+	{
+		return size;
+	}
 }
 
 Vec2 GameObject::getScale()

@@ -14,10 +14,90 @@
 #include "AnimatedSprite.h"
 #include "Texture.h"
 #include "Object_Factory.h"
-
+#include "Checkpoint.h"
+#include "Rope.h"
+#include "Timer.h"
+#include "LevelSwitcher.h"
+#include "WinScene.h"
 
 GameScene::GameScene()
 {
+	std::vector<Texture*> textures;
+
+	timer = new Timer();
+	timer->setPosition(&(GameData::currentCamera->getCameraSize() - Vec2(260.0f, 290.0f)));
+	timer->setSize(new Vec2(280.0f, 100.0f));
+	timer->setColor(Vec4(1, 0, 0, 1));
+
+	player = static_cast<Player*>(ObjectFactory::createPlayer());
+
+	player->setSize(new Vec2(100.0f, 120.0f));
+	player->setPosition(new Vec2(-475.0f, 350.0f));
+	player->setGravity(true);
+
+	go_list.push_back(player);
+
+	gameFile = GameFileLoader::loadGame();
+	changeLevel();
+}
+
+void GameScene::Update(float dt)
+{
+	for (auto& go : go_list)
+	{
+		if (go->getType() == "LevelSwitcher")
+		{
+			LevelSwitcher* lvlSwitch = static_cast<LevelSwitcher*>(go);
+			int newLevel = lvlSwitch->switchToNextLevel();
+			if (newLevel != -1)
+			{
+				if (newLevel == -2)
+				{
+					GameData::scene_manager->addScene("WinScene", new WinScene(timer->getTime()));
+					GameData::scene_manager->setCurrentScene("WinScene");
+				}
+				else
+				{
+					new_level_number = newLevel;
+				}
+			}
+		}
+	}
+	if (new_level_number != level_number)
+	{
+		changeLevel();
+	}
+	Scene::Update(dt);
+}
+
+void GameScene::Draw()
+{
+	Scene::Draw();
+
+	GameData::renderer->renderText("Lives: " + std::to_string(GameData::player->getLives()), GameData::player->getPosition() + Vec2(620.0f, 230.0f),
+		Vec4(0.0f, 250.0f, 0.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
+
+	GameData::renderer->renderText("Score: " + std::to_string(GameData::player->getScore()), GameData::player->getPosition() + Vec2(620.0f, 270.0f),
+		Vec4(0.0f, 0.0f, 250.0f, 1.0f), 0.0f, Vec2(0.0f, 0.0f), 0.7f);
+}
+
+GameScene::GameScene()
+{
+	level_number = new_level_number;
+	//for (auto& go : go_list)
+	//{
+	//	if (go->getTag() != "Player" &&
+	//		go->getTag() != "Camera")
+	//	{
+	//		//delete go;
+	//	}
+	//}
+	go_list.clear();
+	
+	if (gameFile->levels.size() <= level_number) //Level doesn't exist
+		return;
+
+	Level* level1 = &gameFile->levels[level_number];
 	std::vector<Sprite*> BGs;
 	BGs.push_back(new Sprite("11_background", GameData::renderer));
 	BGs.push_back(new Sprite("10_distant_clouds", GameData::renderer));
@@ -55,17 +135,14 @@ GameScene::GameScene()
 	delete level1;
 
 	cam->setPlayerTracker(player);
-
+	
 	go_list.push_back(player);
 
 	std::vector<Sprite*> UI_objects;
-	//UI_objects.push_back(new Sprite("sign-1", GameData::renderer));
-	UI_objects.push_back(new Sprite("sign-2", GameData::renderer));
-	//UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
-
+	UI_objects.push_back(new Sprite("sign-3", GameData::renderer));
 	UI* ui_scene = new UI(UI_objects, cam);
 	go_list.push_back(ui_scene);
-
+	go_list.push_back(timer);
 	return;
 }
 

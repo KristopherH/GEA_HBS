@@ -5,10 +5,10 @@
 //DXTK
 
 //OURS
-#include "GameObject.h"
+#include "EditableGameObject.h"
 #include "CustomMath.h"
 
-class Enemy : public GameObject
+class Enemy : public EditableGameObject
 {
 public:
 	Enemy(Vec2* _pos, Vec2* _size, float _rotation, std::string _name);
@@ -18,8 +18,14 @@ public:
 	~Enemy();
 
 	bool Update(float dt) override;
+	bool Draw() override;
+
+	virtual void toggleEditing() override;
+
+	void addWaypoint();
+	void removeWaypoint();
 
 private:
 	std::vector<Vec2> waypoints;
-	std::vector<Vec2>::iterator current_waypoint;
+	int current_waypoint;
 };

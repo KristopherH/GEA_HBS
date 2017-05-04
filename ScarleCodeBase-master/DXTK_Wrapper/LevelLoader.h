@@ -9,13 +9,21 @@
 #include "GameObject.h"
 #include "CustomMath.h"
 
+class GameFile;
+
 struct Level
 {
 	Vec2* playerStartingPosition;
 	std::vector<GameObject*> go_list;
+
+	GameFile* gameFile;
+
+	int findCollectibles();
 };
 
-static const std::vector<std::string> acceptedTypes = { "Platform", "Collectible", "Enemy", "Ladder" };
+static const std::vector<std::string> acceptedTypes = { "Platform",
+"Collectible", "Enemy", "Ladder", "Rope", "Checkpoint", "MovingPlatform", "LevelSwitcher",
+"Gun","FallingPlatform"};
 
 class LevelLoader
 {
