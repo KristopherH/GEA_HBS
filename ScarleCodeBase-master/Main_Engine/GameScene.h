@@ -6,6 +6,7 @@
 //OURS
 #include "Scene.h"
 #include "GameFileLoader.h"
+#include "Text.h"
 
 class Timer;
 class Player;
@@ -25,6 +26,8 @@ protected:
 	Player* player;
 	GameFile* gameFile;
 	Timer* timer;
+	Text* Scoretxt;
+	Text* Livestxt;
 	int level_number = 0;
 	int new_level_number = 0;
 };
