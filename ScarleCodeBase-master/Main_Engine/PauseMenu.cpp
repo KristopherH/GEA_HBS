@@ -1,5 +1,5 @@
 #include "PauseMenu.h"
-#include "PauseOptions.h"
+#include "OptionsMenu.h"
 
 #include "SceneManager.h"
 #include "SoundManager.h"
@@ -30,8 +30,8 @@ PauseMenu::PauseMenu()
 	OptnsBtn->setPosition(new Vec2(GameData::screen.Center().x - 220, ResumeBtn->getPosition().y + 150.0f));
 	OptnsBtn->setOrigin(new Vec2(0.0f, 0.0f));
 	OptnsBtn->setCallbackFunction([]() {
-		GameData::scene_manager->addScene("PauseOptionsScene", new PauseOptions());
-		GameData::scene_manager->setCurrentScene("PauseOptionsScene", false);
+		GameData::scene_manager->addScene("OptionsMenuScene", new OptionsMenu());
+		GameData::scene_manager->setCurrentScene("OptionsMenuScene", false);
 	});
 
 	ExitBtn = new Button(new Sprite("Button", GameData::renderer), "button1", "Button", "Exit");
