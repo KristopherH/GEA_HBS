@@ -63,6 +63,11 @@ std::string SceneManager::getCurrentSceneName()
 	return currentScene;
 }
 
+void SceneManager::removeScene(std::string sceneName)
+{
+	scenes[sceneName]->toBeDeleted = true;
+}
+
 void SceneManager::clearOldScenes()
 {
 	auto iter = scenes.begin();

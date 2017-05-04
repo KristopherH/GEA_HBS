@@ -20,15 +20,14 @@ Checkpoint::Checkpoint(Sprite * _sprite, Vec2 _pos, Vec2 _size, float _rotation,
 bool Checkpoint::Update(float dt)
 {
 	EditableGameObject::Update(dt);
-
 	if (active == true)
 	{
 		if (GameData::collsion_manager->boxCollision(box, GameData::player->getBox()))
 		{
-			//newCheckpoint = true;
 			GameData::player->setLastCheckpoint(new Vec2(getPosition()));
+			
 			GameData::sound_manager->playSound("Checkpoint-SoundEffect.wav");
-			//active = false;
+			active = false;
 		}
 	}
 	return false;

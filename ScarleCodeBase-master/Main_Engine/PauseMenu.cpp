@@ -39,6 +39,7 @@ PauseMenu::PauseMenu()
 	ExitBtn->setPosition(new Vec2(GameData::screen.Center().x - 220, OptnsBtn->getPosition().y + 150.0f));
 	ExitBtn->setOrigin(new Vec2(0.0f, 0.0f));
 	ExitBtn->setCallbackFunction([]() {
+		GameData::scene_manager->removeScene("GameScene");
 		GameData::scene_manager->setCurrentScene("MainMenuScene", false);
 	});
 
