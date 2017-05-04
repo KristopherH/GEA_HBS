@@ -1,3 +1,5 @@
+#include "SoundManager.h"
+#include "SoundManager.h"
 #ifndef ARCADE
 
 #include "SoundManager.h"
@@ -33,7 +35,7 @@ void SoundManager::playSound(std::string name, bool BG, bool loop)
 	if (!BG)
 	{
 		playingSounds.push_back(sounds[filename]->CreateInstance());
-		playingSounds[playingSounds.size()-1]->SetVolume(SFX_Volume);
+		playingSounds[playingSounds.size()-1]->SetVolume(SFX_Volume/100.0f);
 		playingSounds[playingSounds.size() - 1]->Play(loop);
 	}
 	else
@@ -58,14 +60,38 @@ void SoundManager::Update()
 	}
 }
 
-void SoundManager::setMasterVoume(unsigned short _volume)
+void SoundManager::setMasterVolume(unsigned short _volume)
 {
-	audioEngine->SetMasterVolume(_volume / 100);
+	if (_volume > 100)
+	{
+		_volume = 100;
+	}
+	float volume = _volume * 0.01f;
+	volume = roundf(volume * 100) / 100;
+	audioEngine->SetMasterVolume(volume);
 }
 
-void SoundManager::setSFXVoume(unsigned short _volume)
+void SoundManager::setSFXVolume(unsigned short _volume)
 {
+	if (_volume > 100)
+	{
+		_volume = 100;
+	}
 	SFX_Volume = _volume;
+	for (auto& sound : playingSounds)
+	{
+		sound->SetVolume(SFX_Volume / 100.0f);
+	}
+}
+
+unsigned short SoundManager::getMasterVolume()
+{
+	return (round(audioEngine->GetMasterVolume() * 100.0f));
+}
+
+unsigned short SoundManager::getSFXVolume()
+{
+	return SFX_Volume;
 }
 
 #else
@@ -101,14 +127,31 @@ void SoundManager::Update()
 {
 }
 
-void SoundManager::setMasterVoume(unsigned short _volume)
+void SoundManager::setMasterVolume(unsigned short _volume)
 {
+	if (_volume > 100)
+	{
+		_volume = 100;
+	}
 	Volume = _volume;
 }
 
-void SoundManager::setSFXVoume(unsigned short _volume)
+void SoundManager::setSFXVolume(unsigned short _volume)
 {
+	if (_volume > 100)
+	{
+		_volume = 100;
+	}
 	SFX_Volume = _volume;
 }
 
+unsigned short SoundManager::getMasterVolume()
+{
+	return Volume;
+}
+
+unsigned short SoundManager::getSFXVolume()
+{
+	return SFX_Volume;
+}
 #endif

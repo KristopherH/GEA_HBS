@@ -78,8 +78,8 @@ MainMenuScene::MainMenuScene()
 	go_list.push_back(txt);
 	//go_list.push_back(cam);
 
-	GameData::sound_manager->setMasterVoume(100.0f);
-	GameData::sound_manager->setSFXVoume(1.0f);
+	GameData::sound_manager->setMasterVolume(100);
+	GameData::sound_manager->setSFXVolume(100);
 	GameData::sound_manager->playSound("MainMenu-Music.wav", false, true);
 
 	return;
