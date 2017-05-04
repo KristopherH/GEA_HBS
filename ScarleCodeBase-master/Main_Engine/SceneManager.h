@@ -16,7 +16,6 @@ public:
 
 	void addScene(std::string sceneName, Scene* newScene);
 	void setCurrentScene(std::string sceneName, bool deleteCurrent = true);
-	void removeScene(std::string sceneName);
 
 	Scene* getScene(std::string sceneName);
 	Scene* getCurrentScene();

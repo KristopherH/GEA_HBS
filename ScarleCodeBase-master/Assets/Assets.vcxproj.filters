@@ -161,6 +161,18 @@
     <ImageContentTask Include="Characters\Cannon.png">
       <Filter>Textures\Characters</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="BG\GameOverBackground.png">
+      <Filter>Textures\BG</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="BG\GO_BG.png">
+      <Filter>Textures\BG</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="BG\GO_BG2.png">
+      <Filter>Textures\BG</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="UI\Button3.png">
+      <Filter>Textures\UI</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Platforms\StairsLeft.png">

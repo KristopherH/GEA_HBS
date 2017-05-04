@@ -1,6 +1,12 @@
 Lives:(3)
-Collectibles:(5)
-Levels:(1)
+Collectibles:(51)
+Levels:(3)
 1:
-Name:(Intro)
+Name:(Level 1)
 Path:(.\GameFiles\level.lvl)
+2:
+Name:(Level 2)
+Path:(.\GameFiles\level2.lvl)
+3:
+Name:(Level 3)
+Path:(.\GameFiles\level3.lvl)
