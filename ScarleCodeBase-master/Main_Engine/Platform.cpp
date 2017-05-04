@@ -71,11 +71,17 @@ Platform * Platform::create(PLATFORM_TYPE type)
 void Platform::init()
 {
 	Platform::platform_sprites["Standard"] = new Texture("StandardPlatform", GameData::renderer);
+	Platform::platform_sprites["Standard"]->LoadPixelMap();
 	Platform::platform_sprites["Speed"] = new Texture("SpeedPlatform", GameData::renderer);
+	Platform::platform_sprites["Speed"]->LoadPixelMap();
 	Platform::platform_sprites["Slow"] = new Texture("SlowPlatform", GameData::renderer);
+	Platform::platform_sprites["Slow"]->LoadPixelMap();
 	Platform::platform_sprites["Sticky"] = new Texture("StickyPlatform", GameData::renderer);
+	Platform::platform_sprites["Sticky"]->LoadPixelMap();
 	Platform::platform_sprites["Jump"] = new Texture("JumpPlatform", GameData::renderer);
+	Platform::platform_sprites["Jump"]->LoadPixelMap();
 	Platform::platform_sprites["Conveyor"] = new Texture("ConveyorPlatform", GameData::renderer);
+	Platform::platform_sprites["Conveyor"]->LoadPixelMap();
 }
 
 void Platform::toggleEditing()

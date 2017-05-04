@@ -15,20 +15,7 @@
 #include "Button.h"
 #include "Object_Factory.h"
 #include "Helper.h"
-
-Enemy::Enemy(Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
-{
-	setSprite(new Sprite("enemy_sprite", GameData::renderer));
-	setPosition(_pos);
-	setSize(_size);
-	setRotation(_rotation);
-	setName(_name);
-	setSolid(false);
-	if (waypoints.size() == 0)
-	{
-		waypoints.push_back(position);
-	}
-}
+#include "Texture.h"
 
 Enemy::Enemy(Sprite * _sprite, Vec2* _pos, Vec2* _size, float _rotation, std::string _name)
 	:EditableGameObject(_sprite)
@@ -55,17 +42,6 @@ Enemy::Enemy(Sprite * _sprite, Vec2 * _pos, Vec2 * _size, float _rotation, std::
 	current_waypoint = 0;
 }
 
-Enemy::Enemy(Vec2 * _pos, Vec2 * _size, float _rotation, std::string _name, std::vector<Vec2> _waypoints)
-	:Enemy(_pos, _size, _rotation, _name)
-{
-	waypoints.clear();
-	for (int i = 0; i < _waypoints.size(); i++)
-	{
-		waypoints.push_back(_waypoints[i]);
-	}
-	current_waypoint = 0;
-}
-
 Enemy::~Enemy()
 {
 }
@@ -74,8 +50,11 @@ bool Enemy::Update(float dt)
 {	
 	if (GameData::collsion_manager->boxCollision(box, GameData::player->getBox()))
 	{
- 		GameData::player->killPlayer();
-		//alive = false; //Enemies don't die in the original game;
+		if (GameData::collsion_manager->bitMapCollision(*this, *GameData::player))
+		{
+			GameData::player->killPlayer();
+			//alive = false; //Enemies don't die in the original game;
+		}
 	}
 	if (waypoints.size() > 0)
 	{

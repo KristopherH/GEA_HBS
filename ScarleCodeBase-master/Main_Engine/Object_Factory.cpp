@@ -13,6 +13,7 @@
 #include "LevelSwitcher.h"
 #include "Gun.h"
 #include "FallingPlatform.h"
+#include "Stairs.h"
 
 //#ifdef _DXTK_
 #include "Texture.h"
@@ -48,7 +49,7 @@ GameObject* ObjectFactory::createPlayer()
 
 GameObject* ObjectFactory::createEnemy()
 {
-	Enemy* enemy = new Enemy(new Vec2(0.0f, 0.0f), new Vec2(100.0f, 100.0f), 0.0f, "Enemy");
+	Enemy* enemy = new Enemy(new Sprite(texture_pool[ENEMY]), new Vec2(0.0f, 0.0f), new Vec2(100.0f, 100.0f), 0.0f, "Enemy");
 	enemy->setType("Enemy");
 	return enemy;
 }
@@ -146,6 +147,11 @@ GameObject * ObjectFactory::createFallingPlatform()
 	return new FallingPlatform();
 }
 
+GameObject * ObjectFactory::createStairs()
+{
+	return new Stairs(new Sprite(texture_pool[STAIRS_LEFT]));
+}
+
 GameObject * ObjectFactory::createLevelSwitcher()
 {
 	return new LevelSwitcher(new Sprite(texture_pool[LEVEL_SWITCHER]), nullptr);
@@ -164,7 +170,7 @@ void ObjectFactory::init()
 	ObjectFactory::create_object[LEVEL_SWITCHER] = createLevelSwitcher;
 	ObjectFactory::create_object[GUN] = createGun;
 	ObjectFactory::create_object[FALLING_PLATFORM] = createFallingPlatform;
-
+	ObjectFactory::create_object[STAIRS_LEFT] = createStairs;
 
 	ObjectFactory::texture_pool[PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
 	ObjectFactory::texture_pool[MOVING_PLATFORM] = new Texture("SpeedPlatform", GameData::renderer);
@@ -178,9 +184,14 @@ void ObjectFactory::init()
 	ObjectFactory::texture_pool[BUTTON_PLUS] = new Texture("plus-icon", GameData::renderer);
 	ObjectFactory::texture_pool[LEVEL_SWITCHER] = new Texture("Door", GameData::renderer);
 	ObjectFactory::texture_pool[GUN] = new Texture("Cannon", GameData::renderer);
-	ObjectFactory::texture_pool[FALLING_PLATFORM] = new Texture("StandardPlatform", GameData::renderer);
+	ObjectFactory::texture_pool[FALLING_PLATFORM] = new Texture("SlowPlatform", GameData::renderer);
+	ObjectFactory::texture_pool[STAIRS_LEFT] = new Texture("StairsLeft", GameData::renderer);
+	ObjectFactory::texture_pool[STAIRS_RIGHT] = new Texture("StairsRight", GameData::renderer);
 
 	ObjectFactory::texture_pool[COLLECTIBLE]->LoadPixelMap();
+	ObjectFactory::texture_pool[ENEMY]->LoadPixelMap();
+	ObjectFactory::texture_pool[STAIRS_LEFT]->LoadPixelMap();
+	ObjectFactory::texture_pool[STAIRS_RIGHT]->LoadPixelMap();
 
 	ObjectFactory::names[PLATFORM] = "Platform";
 	ObjectFactory::names[MOVING_PLATFORM] = "Moving\nPlatform";
@@ -191,5 +202,6 @@ void ObjectFactory::init()
 	ObjectFactory::names[CHECKPOINT] = "Checkpoint";
 	ObjectFactory::names[LEVEL_SWITCHER] = "Level\nSwitcher";
 	ObjectFactory::names[GUN] = "Cannon";
-	ObjectFactory::names[FALLING_PLATFORM] = "StandardPlatform";
+	ObjectFactory::names[FALLING_PLATFORM] = "Falling\nPlatform";
+	ObjectFactory::names[STAIRS_LEFT] = "Stair";
 }
