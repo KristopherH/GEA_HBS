@@ -42,20 +42,8 @@ struct Vec2
 
 	static float dot(const Vec2& V1, const Vec2& V2);
 	float dot(const Vec2& V2);
-};
+	float dot(Vec2 * V2);
 
-struct Rect
-{
-	Vec2 minCorner;
-	Vec2 maxCorner;
-
-	Rect(Vec2 = Vec2(0.0f, 0.0f), Vec2 = Vec2(0.0f, 0.0f));
-
-	friend Rect operator+(const Rect& original, const Vec2 displacement);
-	Rect operator=(Rect& other);
-
-	bool Contains(Vec2 oth);
-	Vec2 Center();
 };
 
 struct Vec3
@@ -140,4 +128,18 @@ struct OurMatrix
 	static OurMatrix CreateOrthographic(float _width, float _height, float _nearPlane, float _farPlane);
 	static OurMatrix CreateLookAt(Vec3 position, Vec3 m_target, Vec3 m_up);
 	static OurMatrix CreateTrasform(Vec3 _pos, float _rot, float _zoom = 1.0f, float _viewportWidth = 0.0f, float _viewportHeight = 0.0f);
+};
+
+struct Rect
+{
+	Vec2 minCorner;
+	Vec2 maxCorner;
+
+	Rect(Vec2 = Vec2(0.0f, 0.0f), Vec2 = Vec2(0.0f, 0.0f));
+
+	friend Rect operator+(const Rect& original, const Vec2 displacement);
+	Rect operator=(Rect& other);
+
+	bool Contains(Vec2 oth);
+	Vec2 Center();
 };

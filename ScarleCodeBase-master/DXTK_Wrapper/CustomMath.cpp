@@ -32,6 +32,11 @@ Vec2 Vec2::operator*=(const float & other)
 	return *this;
 }
 
+Vec2 Vec2::operator/=(const float & other)
+{
+	return Vec2(x/other, y/other);
+}
+
 void Vec2::Limit(float _length)
 {
 	if (LengthSqrd() > _length*_length)
@@ -77,6 +82,11 @@ float Vec2::dot(const Vec2 & V1, const Vec2 & V2)
 float Vec2::dot(const Vec2 & V2)
 {
 	return ((x * V2.x) + (y * V2.y));
+}
+
+float Vec2::dot(Vec2* V2)
+{
+	return ((x * V2->x) + (y * V2->y));
 }
 
 #pragma endregion

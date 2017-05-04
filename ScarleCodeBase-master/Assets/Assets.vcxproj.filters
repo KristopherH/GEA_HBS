@@ -174,4 +174,12 @@
       <Filter>Textures\UI</Filter>
     </ImageContentTask>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Platforms\StairsLeft.png">
+      <Filter>Textures\Platforms</Filter>
+    </Image>
+    <Image Include="Platforms\StairsRight.png">
+      <Filter>Textures\Platforms</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

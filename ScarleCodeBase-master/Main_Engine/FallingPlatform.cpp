@@ -12,8 +12,6 @@ FallingPlatform::FallingPlatform()
 {
 	setSize(new Vec2(100, 100));
 	setType("FallingPlatform");
-
-
 }
 
 FallingPlatform::~FallingPlatform()

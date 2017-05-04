@@ -7,8 +7,6 @@
 #include "Scene.h"
 #include "GameData.h"
 
-GameState _GS = GameState::GS_MAIN_MENU;
-
 SceneManager::SceneManager()
 {
 	currentScene = "NONE";
@@ -46,6 +44,11 @@ void SceneManager::setCurrentScene(std::string sceneName, bool removeCurrent)
 		GameData::go_list = &scenes[sceneName]->go_list;
 		GameData::currentCamera = scenes[sceneName]->cam;
 	}
+}
+
+void SceneManager::removeScene(std::string sceneName)
+{
+	scenes[currentScene]->toBeDeleted = true;
 }
 
 Scene* SceneManager::getScene(const std::string sceneName)
